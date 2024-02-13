@@ -1,5 +1,5 @@
 import React from "react";
-import { Paper, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { Time } from "../../nonview/base";
 import { NoteView } from "../molecules";
 import { Link, TimeDeltaView } from "../atoms";
@@ -10,7 +10,7 @@ export default function ElectionView({ election }) {
   const timeNow = Time.now();
   const timeDelta = Time.minus(deadline, timeNow);
   return (
-    <Paper sx={{ m: 1, p: 1, width: 500 }}>
+    <Box sx={{ m: 1, p: 1, width: 500 }}>
       <Link href={url}>
         <Typography variant="h5" color="#084">
           #{hashtag}
@@ -32,6 +32,6 @@ export default function ElectionView({ election }) {
         const key = `note-${iNote}`;
         return <NoteView key={key} note={note} />;
       })}
-    </Paper>
+    </Box>
   );
 }

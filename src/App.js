@@ -1,12 +1,52 @@
+import React, { Component } from "react";
 
-import './App.css';
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-function App() {
+import "./App.css";
+import { Box, Typography } from "@mui/material";
+import HomePage from "./view/pages/HomePage";
+
+// localStorage.clear();
+
+export function ElectionInfoView({ hashtag, formalName, url }) {
   return (
-    <div className="App">
-      Election
-    </div>
+    <Box sx={{ m: 1, p: 1 }}>
+      <Typography variant="h5">#{hashtag}</Typography>
+      <Typography variant="h6">{formalName}</Typography>
+    </Box>
   );
 }
 
-export default App;
+const THEME = createTheme({
+  palette: {
+    primary: {
+      main: "#444",
+    },
+    secondary: {
+      main: "#f80",
+    },
+    info: {
+      main: "#084",
+    },
+    warning: {
+      main: "#f80",
+    },
+    error: {
+      main: "#800",
+    },
+  },
+  typography: {
+    fontFamily: "Akshar",
+    fontSize: 16,
+  },
+});
+
+export default class App extends Component {
+  render() {
+    return (
+      <ThemeProvider theme={THEME}>
+        <HomePage />
+      </ThemeProvider>
+    );
+  }
+}

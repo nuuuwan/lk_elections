@@ -10,7 +10,7 @@ export default function ElectionView({ election }) {
   const timeNow = Time.now();
   const delta = Time.minus(deadline, timeNow);
   return (
-    <Paper sx={{ m: 1, p: 1 }}>
+    <Paper sx={{ m: 1, p: 1, width: 500 }}>
       <Link href={url}>
         <Typography variant="h5" color="#084">
           #{hashtag}

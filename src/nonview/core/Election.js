@@ -13,7 +13,7 @@ export default class Election {
   static listAll() {
     return [
       new Election(
-        "PresPollLK2024",
+        "PresPollSL",
         "2024 Sri Lankan Presidential Election",
         "https://en.wikipedia.org/wiki/2024_Sri_Lankan_presidential_election",
         Time.fromString("2024-10-18 23:59:59"),
@@ -36,7 +36,7 @@ export default class Election {
         ]
       ),
       new Election(
-        "GenElecLK2025",
+        "GenElecSL",
         "2025 Sri Lankan Parliamentary Election",
         "https://en.wikipedia.org/wiki/Next_Sri_Lankan_parliamentary_election",
         Time.fromString("2025-08-20 23:59:59"),

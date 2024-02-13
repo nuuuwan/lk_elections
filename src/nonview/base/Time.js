@@ -12,7 +12,7 @@ export default class Time {
   }
 
   toString() {
-    return new Date(this.ut).toLocaleString();
+    return new Date(this.ut).toDateString();
   }
 
   get days() {

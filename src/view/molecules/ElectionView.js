@@ -2,13 +2,13 @@ import React from "react";
 import { Paper, Typography } from "@mui/material";
 import { Time } from "../../nonview/base";
 import { NoteView } from "../molecules";
-import { Link } from "../atoms";
+import { Link, TimeDeltaView } from "../atoms";
 
 export default function ElectionView({ election }) {
   const { hashtag, formalName, url, deadline, deadlineNotes } = election;
 
   const timeNow = Time.now();
-  const delta = Time.minus(deadline, timeNow);
+  const timeDelta = Time.minus(deadline, timeNow);
   return (
     <Paper sx={{ m: 1, p: 1, width: 500 }}>
       <Link href={url}>
@@ -25,7 +25,7 @@ export default function ElectionView({ election }) {
         or in
       </Typography>
       <Typography variant="h1" color="#800">
-        {delta.days}
+        <TimeDeltaView timeDelta={timeDelta} />
       </Typography>
 
       {deadlineNotes.map(function (note, iNote) {

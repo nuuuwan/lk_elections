@@ -37,7 +37,7 @@ const THEME = createTheme({
   },
   typography: {
     fontFamily: "Akshar",
-    fontSize: 16,
+    fontSize: 12,
   },
 });
 

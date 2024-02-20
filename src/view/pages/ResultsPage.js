@@ -26,7 +26,7 @@ export default class ResultPage extends Component {
   }
 
   async componentDidMount() {
-    let { resultEntityID } = this.state;
+    let { resultEntityID, electionYear } = this.state;
     const election = new ElectionPresidential(this.state.electionYear);
     const resultsIdx = await election.getResultsIdx();
 
@@ -48,6 +48,12 @@ export default class ResultPage extends Component {
     const resultLK = resultsIdx["LK"];
 
     const pageID = "results";
+    const context = {
+      pageID,
+      electionYear,
+      resultEntityID,
+    };
+    URLContext.set(context);
 
     this.setState({
       resultEntityID,

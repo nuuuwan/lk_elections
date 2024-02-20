@@ -23,11 +23,11 @@ export default class URLContext {
   static contextToURL(context) {
     const origin = window.location.origin;
     let urlBase = origin + process.env.PUBLIC_URL; // TODO: Is origin needed?
-    return urlBase + "/?" + URLContext.contextToStr(context);
+    return urlBase + "?" + URLContext.contextToStr(context);
   }
 
   static urlToContext(url) {
-    const urlTokens = url.split("/?");
+    const urlTokens = url.split("?");
     if (urlTokens.length !== 2) {
       return {};
     }
@@ -40,6 +40,7 @@ export default class URLContext {
   static getURL() {
     return window.location.href;
   }
+
   static setURL(url) {
     window.history.pushState("", "", url);
   }

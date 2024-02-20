@@ -9,12 +9,14 @@ export default class HomePage extends Component {
   constructor(props) {
     super(props);
     const context = URLContext.get();
-    this.state = { context };
+    console.debug(context);
+    const pageID = context.pageID;
+    this.state = { pageID };
   }
 
   render() {
-    const { context } = this.state;
-    const pageID = context.pageID;
+    const { pageID } = this.state;
+    console.debug({pageID});
 
     switch (pageID) {
       case "countdown":

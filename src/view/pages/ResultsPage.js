@@ -58,7 +58,7 @@ export default class ResultPage extends Component {
       return <Typography>Loading...</Typography>;
     }
     return (
-      <Stack direction="row" sx={{m: 1, p:1}}>
+      <Stack direction="row" sx={{ m: 1, p: 1 }}>
         <PartyToVotesView partyToVotes={result.partyToVotes} />
         <SummaryView summary={result.summary} />
       </Stack>
@@ -91,14 +91,35 @@ export default class ResultPage extends Component {
     const colorLK = POLITICAL_PARTY_TO_COLOR[winningPartyLK];
 
     return (
-      <Stack direction="row" sx={{fontSize: 32,m: 2, p:1}}>
-        <Typography  sx={{ color: colorLK, fontSize: "49%",transform: 'rotate(180deg)', writingMode: 'vertical-rl' }}>
-          {this.title} 
+      <Stack direction="row" sx={{ fontSize: 32, m: 2, p: 1 }}>
+        <Typography
+          sx={{
+            color: colorLK,
+            fontSize: "49%",
+            transform: "rotate(180deg)",
+            writingMode: "vertical-rl",
+          }}
+        >
+          {this.title}
         </Typography>
-        <Typography sx={{ color: colorED, fontSize: "70%",transform: 'rotate(180deg)', writingMode: 'vertical-rl' }}>
+        <Typography
+          sx={{
+            color: colorED,
+            fontSize: "70%",
+            transform: "rotate(180deg)",
+            writingMode: "vertical-rl",
+          }}
+        >
           {edEnt.name}
         </Typography>
-        <Typography sx={{ color,transform: 'rotate(180deg)', writingMode: 'vertical-rl',fontSize:"100%" }}>
+        <Typography
+          sx={{
+            color,
+            transform: "rotate(180deg)",
+            writingMode: "vertical-rl",
+            fontSize: "100%",
+          }}
+        >
           {pdEnt.name}
         </Typography>
       </Stack>
@@ -108,11 +129,10 @@ export default class ResultPage extends Component {
   render() {
     return (
       <Box sx={{ maxWidth: 500, p: 5 }}>
+        <Stack direction="row" sx={{ fontSize: 20 }}>
+          {this.renderSubTitle()}
 
-        <Stack direction="row" sx={{fontSize: 20}}>
-        {this.renderSubTitle()}
-
-        {this.renderResults()}
+          {this.renderResults()}
         </Stack>
       </Box>
     );

@@ -16,7 +16,7 @@ export default class HomePage extends Component {
 
   render() {
     const { pageID } = this.state;
-    console.debug({pageID});
+    console.debug({ pageID });
 
     switch (pageID) {
       case "countdown":

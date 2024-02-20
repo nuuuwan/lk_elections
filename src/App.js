@@ -4,7 +4,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import "./App.css";
 import { Box, Typography } from "@mui/material";
-import HomePage from "./view/pages/HomePage";
+import { HomePage } from "./view/pages";
 
 // localStorage.clear();
 

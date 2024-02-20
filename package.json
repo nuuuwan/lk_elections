@@ -1,6 +1,6 @@
 {
-  "name": "election",
-  "homepage": "https://nuuuwan.github.io/election",
+  "name": "lanka_elections",
+  "homepage": "https://nuuuwan.github.io/lanka_elections",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

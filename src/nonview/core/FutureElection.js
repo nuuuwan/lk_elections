@@ -1,7 +1,7 @@
 import { Time } from "../base";
-import { Note } from "../core";
+import { Note } from ".";
 
-export default class Election {
+export default class FutureElection {
   constructor(hashtag, formalName, url, deadline, deadlineNotes) {
     this.hashtag = hashtag;
     this.formalName = formalName;
@@ -12,7 +12,7 @@ export default class Election {
 
   static listAll() {
     return [
-      new Election(
+      new FutureElection(
         "PresPollSL",
         "2024 Sri Lankan Presidential Election",
         "https://en.wikipedia.org/wiki/2024_Sri_Lankan_presidential_election",
@@ -35,7 +35,7 @@ export default class Election {
           ),
         ]
       ),
-      new Election(
+      new FutureElection(
         "GenElecSL",
         "2025 Sri Lankan Parliamentary Election",
         "https://en.wikipedia.org/wiki/Next_Sri_Lankan_parliamentary_election",

@@ -26,7 +26,7 @@ export default function ResultView({ ent, result }) {
   }
 
   return (
-    <Box sx={{ m: "auto" }}>
+    <Box sx={{ m: "auto" , p: 2}}>
       <Stack direction="row" sx={{ m: "auto", p: 1 }}>
         <Typography
           variant="h5"

@@ -73,9 +73,17 @@ export default class ResultPage extends Component {
     );
   }
 
+  
   render() {
     const { result, entPD, resultED, entED, resultLK, entLK, electionYear } =
       this.state;
+
+    const screenshotText = JSON.stringify({
+      result,
+      entPD,
+      entED,
+    });
+    
     return (
       <div>
         <div id="div-screenshot">
@@ -87,7 +95,7 @@ export default class ResultPage extends Component {
               direction="row"
               justifyContent="center"
               alignItems="center"
-              spacing={3}
+              spacing={4}
             >
               <Grid item>
                 <ResultView ent={entPD} result={result} />
@@ -101,8 +109,8 @@ export default class ResultPage extends Component {
             </Grid>
           </Box>
         </div>
-        <div id="div-screenshot-text" style={{ color: "white" }}>
-          Test
+        <div id="div-screenshot-text" style={{ fontSize: 0, color: "white" }}>
+          {screenshotText}
         </div>
       </div>
     );

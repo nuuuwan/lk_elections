@@ -1,7 +1,7 @@
 import Summary from "./Summary.js";
 import { MathX } from "../base";
 export default class PartyToVotes {
-  static P_MAJOR = 0.05;
+  static N_MAJOR_PARTIES = 3;
   static NON_PARTY_KEYS = [].concat(Summary.KEYS, "entity_id");
   constructor(partyToVotes) {
     this.partyToVotes = partyToVotes;
@@ -27,8 +27,9 @@ export default class PartyToVotes {
       (a, b) => b[1] - a[1]
     );
     const totalVotes = this.totalVotes;
-    let sortedMajorEntries = sortedEntries.filter(
-      (entry) => entry[1] > PartyToVotes.P_MAJOR * totalVotes
+    let sortedMajorEntries = sortedEntries.slice(
+      0,
+      PartyToVotes.N_MAJOR_PARTIES
     );
 
     const totalMajorVotes = MathX.sum(

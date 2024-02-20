@@ -8,7 +8,9 @@ const COLOR_TO_POLITICAL_PARTIES = {
   red: ["JVP", "LSSP", "EPDP", "NMPP", "JJB", "TMVP", "TULF", "DPLF"],
   yellow: ["ITAK", "AITC"],
   darkgreen: ["MNA", "SLMC", "NUA"],
+  purple: ["SLMP"],
   lightgray: ["Other"],
+  "#042": ["DUNF"],
 };
 
 const POLITICAL_PARTY_TO_COLOR = Object.entries(

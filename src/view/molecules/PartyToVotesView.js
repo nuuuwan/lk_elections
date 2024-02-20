@@ -3,6 +3,8 @@ import { StringX } from "../../nonview/base";
 import { POLITICAL_PARTY_TO_COLOR } from "../../nonview/constants";
 
 export default function PartyToVotesView({ partyToVotes }) {
+  const totalVotes = partyToVotes.totalVotes;
+
   return (
     <Box sx={{ m: 1 }}>
       {Object.entries(partyToVotes.sortedMajor).map(function (
@@ -14,7 +16,9 @@ export default function PartyToVotesView({ partyToVotes }) {
         return (
           <Box key={key} sx={{ color }}>
             <Typography variant="body2">{party}</Typography>
-            <Typography variant="h5">{StringX.formatInt(votes)}</Typography>
+            <Typography variant="h5">
+              {StringX.formatPercent(votes, totalVotes)}
+            </Typography>
           </Box>
         );
       })}

@@ -96,13 +96,14 @@ export default class ResultPage extends Component {
 
     return (
       <div>
-        <div id="div-screenshot">
+        <div id="div-screenshot" style={{ width: 800,
+              height: 450, padding: 10, margin: 10}}>
           <Box
             sx={{
               m: "auto",
-              border: "1px solid #eee",
-              width: 800,
-              height: 450,
+              p: 2,
+
+             
             }}
           >
             <Typography variant="h4">{electionYear}</Typography>

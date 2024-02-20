@@ -86,6 +86,7 @@ export default class ResultPage extends Component {
       this.state;
 
     const screenshotText = JSON.stringify({
+      electionYear,
       result,
       entPD,
       entED,

@@ -82,7 +82,13 @@ export default class ResultPage extends Component {
           <Box sx={{ m: "auto" }}>
             <Typography variant="h5">{electionYear}</Typography>
             <Typography variant="body1">{this.title}</Typography>
-            <Grid container direction="row">
+            <Grid
+              container
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+              spacing={3}
+            >
               <Grid item>
                 <ResultView ent={entPD} result={result} />
               </Grid>

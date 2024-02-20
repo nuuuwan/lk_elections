@@ -47,6 +47,8 @@ export default class ResultPage extends Component {
     const resultED = resultsIdx[edID];
     const resultLK = resultsIdx["LK"];
 
+    const pageID = "results";
+
     this.setState({
       resultEntityID,
       result,
@@ -73,7 +75,6 @@ export default class ResultPage extends Component {
     );
   }
 
-  
   render() {
     const { result, entPD, resultED, entED, resultLK, entLK, electionYear } =
       this.state;
@@ -83,7 +84,7 @@ export default class ResultPage extends Component {
       entPD,
       entED,
     });
-    
+
     return (
       <div>
         <div id="div-screenshot">

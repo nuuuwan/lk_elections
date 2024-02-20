@@ -75,7 +75,9 @@ export default class ResultPage extends Component {
     const { electionYear } = this.state;
     return (
       <Box>
-        <Typography variant="h4">{electionYear}</Typography>
+        <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+          {electionYear}
+        </Typography>
         <Typography variant="caption">{this.title}</Typography>
       </Box>
     );
@@ -95,8 +97,15 @@ export default class ResultPage extends Component {
     return (
       <div>
         <div id="div-screenshot">
-          <Box sx={{ m: "auto" }}>
-            <Typography variant="h5">{electionYear}</Typography>
+          <Box
+            sx={{
+              m: "auto",
+              border: "1px solid #eee",
+              width: 800,
+              height: 450,
+            }}
+          >
+            <Typography variant="h4">{electionYear}</Typography>
             <Typography variant="body1">{this.title}</Typography>
             <Grid
               container

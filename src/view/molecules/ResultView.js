@@ -26,14 +26,16 @@ export default function ResultView({ ent, result }) {
   }
 
   return (
-    <Box sx={{ m: "auto", p: 2 }}>
-      <Stack direction="row" sx={{ m: "auto", p: 1 }}>
+    <Box sx={{ m: 1, border: "1px solid black" }}>
+      <Stack direction="row" sx={{ m: 0, p: 0, minWidth: 200 }}>
         <Typography
           variant="h5"
           sx={{
             transform: "rotate(180deg)",
             writingMode: "vertical-rl",
-            color,
+            color: "white",
+            fontWeight: "bold",
+            background: color,
           }}
         >
           {title}

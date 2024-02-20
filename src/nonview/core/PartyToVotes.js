@@ -1,7 +1,7 @@
 import Summary from "./Summary.js";
 import { MathX } from "../base";
 export default class PartyToVotes {
-  static P_MAJOR = 0.005;
+  static P_MAJOR = 0.05;
   static NON_PARTY_KEYS = [].concat(Summary.KEYS, "entity_id");
   constructor(partyToVotes) {
     this.partyToVotes = partyToVotes;
@@ -40,5 +40,9 @@ export default class PartyToVotes {
     sortedMajorEntries.push(["Other", otherVotes]);
 
     return Object.fromEntries(sortedMajorEntries);
+  }
+
+  get winningParty() {
+    return Object.keys(this.sortedMajor)[0];
   }
 }

@@ -3,7 +3,11 @@ import Result from "./Result.js";
 const URL_BASE =
   "https://raw.githubusercontent.com/nuuuwan/gig-data/master/gig2";
 export default class Election {
-  getTypeName() {
+  static getTypeName() {
+    throw new Error("Not implemented");
+  }
+
+  static getYears() {
     throw new Error("Not implemented");
   }
 
@@ -15,7 +19,7 @@ export default class Election {
     return (
       URL_BASE +
       "/government-elections-" +
-      this.getTypeName().toLowerCase() +
+      this.constructor.getTypeName().toLowerCase() +
       ".regions-ec." +
       this.year +
       ".tsv"
@@ -29,7 +33,7 @@ export default class Election {
   async getResultsIdx() {
     const rawData = await this.getRawData();
     const filteredData = rawData.filter(function (d) {
-      return d.entity_id.startsWith("EC-");
+      return d.entity_id.startsWith("EC-") || d.entity_id === "LK";
     });
     const results = filteredData.map(function (d) {
       return Result.fromDict(d);

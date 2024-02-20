@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/lanka_elections/static/css/main.242c8e46.css",
-    "main.js": "/lanka_elections/static/js/main.9b34cd96.js",
+    "main.css": "/lanka_elections/static/css/main.0594ecc6.css",
+    "main.js": "/lanka_elections/static/js/main.fe65d1b4.js",
     "static/js/592.d93211df.chunk.js": "/lanka_elections/static/js/592.d93211df.chunk.js",
     "index.html": "/lanka_elections/index.html",
-    "main.242c8e46.css.map": "/lanka_elections/static/css/main.242c8e46.css.map",
-    "main.9b34cd96.js.map": "/lanka_elections/static/js/main.9b34cd96.js.map",
+    "main.0594ecc6.css.map": "/lanka_elections/static/css/main.0594ecc6.css.map",
+    "main.fe65d1b4.js.map": "/lanka_elections/static/js/main.fe65d1b4.js.map",
     "592.d93211df.chunk.js.map": "/lanka_elections/static/js/592.d93211df.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.242c8e46.css",
-    "static/js/main.9b34cd96.js"
+    "static/css/main.0594ecc6.css",
+    "static/js/main.fe65d1b4.js"
   ]
 }

@@ -17,10 +17,10 @@ export default class HomePage extends Component {
     const pageID = context.pageID;
 
     switch (pageID) {
-      case "results":
-        return <ResultsPage />;
-      default:
+      case "countdown":
         return <CountdownPage />;
+      default:
+        return <ResultsPage />;
     }
   }
 }

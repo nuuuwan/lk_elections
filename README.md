@@ -1,5 +1,5 @@
 # 🇱🇰 Lanka Elections (App)
 
-*An App for Elections in Sri Lanka.*
+*The Sri Lankan Elections App.*
 
-[https://nuuuwan.github.io/lanka_elections](https://nuuuwan.github.io/lanka_elections?pageID=results)
+[https://nuuuwan.github.io/lk_elections](https://nuuuwan.github.io/lk_elections?pageID=results)

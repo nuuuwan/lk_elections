@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import { Ents, Random, URLContext } from "../../nonview/base";
 import { ElectionPresidential } from "../../nonview/core";
 
@@ -82,11 +82,17 @@ export default class ResultPage extends Component {
           <Box sx={{ m: "auto" }}>
             <Typography variant="h5">{electionYear}</Typography>
             <Typography variant="body1">{this.title}</Typography>
-            <Stack direction="row">
-              <ResultView ent={entPD} result={result} />
-              <ResultView ent={entED} result={resultED} />
-              <ResultView ent={entLK} result={resultLK} />
-            </Stack>
+            <Grid container direction="row">
+              <Grid item>
+                <ResultView ent={entPD} result={result} />
+              </Grid>
+              <Grid item>
+                <ResultView ent={entED} result={resultED} />
+              </Grid>
+              <Grid item>
+                <ResultView ent={entLK} result={resultLK} />
+              </Grid>
+            </Grid>
           </Box>
         </div>
         <div id="div-screenshot-text" style={{ color: "white" }}>

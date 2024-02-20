@@ -77,15 +77,22 @@ export default class ResultPage extends Component {
     const { result, entPD, resultED, entED, resultLK, entLK, electionYear } =
       this.state;
     return (
-      <Box sx={{ m: "auto" }}>
-        <Typography variant="h5">{electionYear}</Typography>
-        <Typography variant="body1">{this.title}</Typography>
-        <Stack direction="row">
-          <ResultView ent={entPD} result={result} />
-          <ResultView ent={entED} result={resultED} />
-          <ResultView ent={entLK} result={resultLK} />
-        </Stack>
-      </Box>
+      <div>
+        <div id="div-screenshot">
+          <Box sx={{ m: "auto" }}>
+            <Typography variant="h5">{electionYear}</Typography>
+            <Typography variant="body1">{this.title}</Typography>
+            <Stack direction="row">
+              <ResultView ent={entPD} result={result} />
+              <ResultView ent={entED} result={resultED} />
+              <ResultView ent={entLK} result={resultLK} />
+            </Stack>
+          </Box>
+        </div>
+        <div id="div-screenshot-text" style={{ color: "white" }}>
+          Test
+        </div>
+      </div>
     );
   }
 }

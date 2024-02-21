@@ -99,7 +99,7 @@ export default class ResultPage extends Component {
       <div>
         <div
           id="div-screenshot"
-          style={{ width: 800, height: 450, padding: 10, margin: 10 }}
+         
         >
           <Box
             sx={{

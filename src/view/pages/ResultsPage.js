@@ -81,24 +81,19 @@ export default class ResultPage extends Component {
   }
 
   renderHiddenData() {
-    const { result, entPD, entED, electionYear } =
-    this.state;
+    const { result, entPD, entED, electionYear } = this.state;
 
-
-    const data = { electionYear,
-      result,
-      entPD,
-      entED,}
+    const data = { electionYear, result, entPD, entED };
     const dataJSON = JSON.stringify(data);
-      return (<div id="div-screenshot-text" style={{ fontSize: 0, color: "white" }}>
-      {dataJSON}
-    </div>)
+    return (
+      <div id="div-screenshot-text" style={{ fontSize: 0, color: "white" }}>
+        {dataJSON}
+      </div>
+    );
   }
 
   render() {
-    const { result, entPD, resultED, entED, resultLK, entLK } =
-      this.state;
-
+    const { result, entPD, resultED, entED, resultLK, entLK } = this.state;
 
     return (
       <div>

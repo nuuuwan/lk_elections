@@ -1,16 +1,17 @@
 import { Box, Grid, Typography } from "@mui/material";
 import { ResultView } from "../molecules";
 
-export default function ElectionView({
-  result,
-  entPD,
-  resultED,
-  entED,
-  resultLK,
-  entLK,
-  electionYear,
-  electionTypeID,
-}) {
+export default function ElectionView({ election }) {
+  const electionYear = election.year;
+  const electionTypeID = election.constructor.getTypeName();
+
+  const result = election.currentResult;
+  const entPD = election.currentEntPD;
+  const entED = election.currentEntED;
+  const resultED = election.currentResultED;
+  const resultLK = election.resultLK;
+  const entLK = election.entLK;
+
   return (
     <Box>
       <Box>

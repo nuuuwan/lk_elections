@@ -15,4 +15,11 @@ export default class Result {
 
     return new Result(entityID, summary, partyToVotes);
   }
+
+  static fromList(entityID, results) {
+    const summary = Summary.fromList(results);
+    const partyToVotes = PartyToVotes.fromList(results);
+
+    return new Result(entityID, summary, partyToVotes);
+  }
 }

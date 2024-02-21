@@ -14,8 +14,6 @@ const TSV_HEADERS = {
   },
 };
 
-
-
 export default class WWW {
   static pathJoin(pathFragmentList) {
     return pathFragmentList.join("/");
@@ -51,7 +49,6 @@ export default class WWW {
     return dataList;
   }
 
-  
   static async tsv(url) {
     return Cache.get(`WWW.tsv.${CACHE_VERSION}.${url}`, async function () {
       return WWW.tsvNonCache(url);

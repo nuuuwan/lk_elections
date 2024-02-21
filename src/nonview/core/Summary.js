@@ -21,6 +21,25 @@ export default class Summary {
     );
   }
 
+  static fromList(resultList) {
+    let summary = {};
+    for (const key of Summary.KEYS) {
+      summary[key] = 0;
+    }
+
+    for (const result of resultList) {
+      for (const key of Summary.KEYS) {
+        summary[key] += parseInt(result.summary[key]);
+      }
+    }
+    return new Summary(
+      summary["valid"],
+      summary["rejected"],
+      summary["polled"],
+      summary["electors"]
+    );
+  }
+
   get pTurnout() {
     return this.polled / this.electors;
   }

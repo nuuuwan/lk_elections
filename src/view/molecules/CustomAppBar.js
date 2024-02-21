@@ -4,10 +4,18 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 
 export default function CustomAppBar() {
+  const onClick = function () {
+    window.location.href = "/";
+  };
   return (
     <AppBar position="static">
       <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        <Typography
+          variant="h6"
+          component="div"
+          sx={{ flexGrow: 1 }}
+          onClick={onClick}
+        >
           LK Elections
         </Typography>
       </Toolbar>

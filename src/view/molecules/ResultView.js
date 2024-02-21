@@ -3,8 +3,8 @@ import { POLITICAL_PARTY_TO_COLOR } from "../../nonview/constants";
 
 import { PartyToVotesView, SummaryView } from "../molecules";
 
-export default function ResultView({ ent, result }) {
-  if (!result) {
+export default function ResultView({ result, ent }) {
+  if (!result || !ent) {
     return <CircularProgress />;
   }
 

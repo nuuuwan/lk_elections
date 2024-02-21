@@ -1,77 +1,50 @@
 import { Component } from "react";
 
-import { Ents, Random, URLContext } from "../../nonview/base";
+import { URLContext } from "../../nonview/base";
 import { ElectionPresidential } from "../../nonview/core";
 
 import { ElectionView } from "../molecules";
+import { CircularProgress } from "@mui/material";
 
 export default class ElectionPage extends Component {
   constructor(props) {
     super(props);
     const context = URLContext.get();
-    let electionYear = context.electionYear;
-    if (!electionYear) {
-      electionYear = Random.randomChoice(ElectionPresidential.getYears());
-    }
-    let resultEntityID = context.resultEntityID;
 
     this.state = {
       electionTypeID: "Presidential",
-      electionYear,
-      resultEntityID,
-      data: null,
-      entPD: null,
-      entED: null,
+      electionYear: context.electionYear,
+      pdID: context.pdID,
+      election: null,
     };
   }
 
   async componentDidMount() {
-    let { resultEntityID, electionYear } = this.state;
-    const election = new ElectionPresidential(this.state.electionYear);
+    let { pdID, electionYear } = this.state;
+    const election = new ElectionPresidential(electionYear, pdID);
     await election.loadData();
 
-    const resultsIdx = election.resultsIdx;
+    electionYear = election.year;
+    pdID = election.currentPDID;
 
-    if (!resultEntityID) {
-      const resultEntityIDs = Object.keys(resultsIdx).filter(
-        (entID) => entID.length === 6
-      );
-      resultEntityID = Random.randomChoice(resultEntityIDs);
-    }
-
-    const result = resultsIdx[resultEntityID];
-    const entPD = await Ents.getEnt(result.entityID);
-
-    const edID = result.entityID.substring(0, 5);
-    const entED = await Ents.getEnt(edID);
-    const entLK = await Ents.getEnt("LK");
-
-    const resultED = resultsIdx[edID];
-    const resultLK = resultsIdx["LK"];
-
-    const pageID = "results";
     const context = {
-      pageID,
+      pageID: "results",
       electionYear,
-      resultEntityID,
+      pdID,
     };
     URLContext.set(context);
 
     this.setState({
-      resultEntityID,
-      result,
-      resultED,
-      resultLK,
-      entPD,
-      entED,
-      entLK,
+      electionYear,
+      pdID,
+      election,
     });
   }
 
   renderHiddenData() {
-    const { result, entPD, entED, electionYear } = this.state;
+    const { election } = this.state;
 
-    const data = { electionYear, result, entPD, entED };
+    const data = election.getHiddenData();
     const dataJSON = JSON.stringify(data);
     return (
       <div id="div-screenshot-text" style={{ fontSize: 0, color: "white" }}>
@@ -81,21 +54,15 @@ export default class ElectionPage extends Component {
   }
 
   render() {
-    const { result, entPD, resultED, entED, resultLK, entLK } = this.state;
+    const { election } = this.state;
+    if (!election) {
+      return <CircularProgress />;
+    }
 
     return (
       <div>
         <div id="div-screenshot">
-          <ElectionView
-            entPD={entPD}
-            result={result}
-            entED={entED}
-            resultED={resultED}
-            entLK={entLK}
-            resultLK={resultLK}
-            electionYear={this.state.electionYear}
-            electionTypeID={this.state.electionTypeID}
-          />
+          <ElectionView election={election} />
         </div>
         {this.renderHiddenData()}
       </div>

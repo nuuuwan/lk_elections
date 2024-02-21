@@ -1,9 +1,10 @@
 import React from "react";
-
+import { Box } from "@mui/material";
 import { Component } from "react";
 
 import { URLContext } from "../../nonview/base";
 import { CountdownPage, ResultsPage } from "../pages";
+import { CustomAppBar, CustomBottomNavigator } from "../molecules";
 
 export default class HomePage extends Component {
   constructor(props) {
@@ -14,9 +15,9 @@ export default class HomePage extends Component {
     this.state = { pageID };
   }
 
-  render() {
+  renderBody() {
     const { pageID } = this.state;
-    console.debug({ pageID });
+
 
     switch (pageID) {
       case "countdown":
@@ -25,4 +26,55 @@ export default class HomePage extends Component {
         return <ResultsPage />;
     }
   }
+
+  renderHeader() {
+    return <CustomAppBar/>;
+  }
+
+  renderFooter() {
+    return <CustomBottomNavigator />;
+  }
+
+  render() {
+    return (
+      <Box>
+        <Box sx={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 64,
+          zIndex: 1000,
+        
+        }}>
+        {this.renderHeader()}
+        </Box>
+        <Box sx={{
+          position: "fixed",
+          top: 64,
+          bottom: 64,
+          left: 0,
+          right: 0,
+          zIndex: 1000,
+        
+        }}>
+        {this.renderBody()}
+        </Box>
+        <Box sx={{
+          position: "fixed",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          zIndex: 1000,
+          height: 64,
+        
+        }}>
+       
+        {this.renderFooter()}
+        </Box>
+       
+      </Box>
+    );
+  }
+
 }

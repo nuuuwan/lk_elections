@@ -59,13 +59,13 @@ export default function ResultView({ election, entType }) {
 
   return (
     <Grid item sx={{ opacity }}>
-      <Box sx={{ m: 1, border: "1px solid black" }}>
+      <Box sx={{ m: 1, border: "1px solid black", textAlign: "right" }}>
         <Stack
           direction="row"
-          sx={{ m: 0, p: 0, minWidth: 210, minHeight: 280 }}
+          sx={{ m: 0, p: 0, minWidth: 240, minHeight: 300 }}
         >
           <Typography
-            variant="h6"
+            variant="h5"
             sx={{
               transform: "rotate(180deg)",
               writingMode: "vertical-rl",

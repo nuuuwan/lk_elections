@@ -15,10 +15,10 @@ export default function PartyToVotesView({ partyToVotes }) {
         const color = POLITICAL_PARTY_TO_COLOR[party];
         return (
           <Box key={key} sx={{ color }}>
-            <Typography variant="body2">{party}</Typography>
-            <Typography variant="h5">
+            <Typography variant="h4">
               {StringX.formatPercent(votes, totalVotes)}
             </Typography>
+            <Typography variant="caption">{party}</Typography>
           </Box>
         );
       })}

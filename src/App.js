@@ -6,8 +6,6 @@ import "./App.css";
 import { Box, Typography } from "@mui/material";
 import { HomePage } from "./view/pages";
 
-// localStorage.clear();
-
 export function ElectionInfoView({ hashtag, formalName, url }) {
   return (
     <Box sx={{ m: 1, p: 1 }}>

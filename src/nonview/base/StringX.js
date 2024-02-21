@@ -31,6 +31,9 @@ export default class StringX {
   }
 
   static formatInt(x) {
+    if (x === 0) {
+      return '-'
+    }
     let logBase1000 = Math.log(x) / Math.log(1000);
 
     let numPart, multPart;
@@ -74,6 +77,9 @@ export default class StringX {
   }
 
   static formatPercent(numerator, denominator) {
+    if (!numerator || !denominator || denominator === 0) {
+      return '-'
+    }
     const p = numerator / denominator;
     let logBase = Math.log(p * 100) / Math.log(2);
 

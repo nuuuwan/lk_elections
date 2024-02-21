@@ -126,10 +126,6 @@ export default class ElectionPage extends Component {
     );
   }
 
-  renderHeader() {
-    return <CustomAppBar />;
-  }
-
   renderFooter() {
     return (
       <CustomBottomNavigator
@@ -144,22 +140,11 @@ export default class ElectionPage extends Component {
   render() {
     return (
       <Box>
+
         <Box
           sx={{
             position: "fixed",
             top: 0,
-            left: 0,
-            right: 0,
-            height: 64,
-            zIndex: 1000,
-          }}
-        >
-          {this.renderHeader()}
-        </Box>
-        <Box
-          sx={{
-            position: "fixed",
-            top: 64,
             bottom: 64,
             left: 0,
             right: 0,

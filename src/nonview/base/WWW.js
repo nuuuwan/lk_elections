@@ -37,9 +37,13 @@ export default class WWW {
     const lines = content.split("\n");
     const keys = lines[0].split("\t").map((key) => key.replace("\r", ""));
     const dataList = lines
-      .slice(1, -1)
-      .map(function (line) {
+      .slice(1)
+      .map(function (line, i_line) {
         const values = line.split("\t");
+        if (values.length !== keys.length) {
+          return null;
+        }
+
         return keys.reduce(function (data, key, i) {
           data[key] = values[i].replace("\r", "");
           return data;

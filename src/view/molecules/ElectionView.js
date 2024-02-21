@@ -1,16 +1,10 @@
 import { Box, Grid, Typography } from "@mui/material";
 import { ResultView } from "../molecules";
+import { ENT_TYPES } from "../../nonview/base/EntTypes.js";
 
 export default function ElectionView({ election }) {
   const electionYear = election.year;
   const electionTypeID = election.constructor.getTypeName();
-
-  const result = election.currentResult;
-  const entPD = election.currentEntPD;
-  const entED = election.currentEntED;
-  const resultED = election.currentResultED;
-  const resultLK = election.resultLK;
-  const entLK = election.entLK;
 
   return (
     <Box>
@@ -24,12 +18,12 @@ export default function ElectionView({ election }) {
         container
         direction="row"
         justifyContent="center"
-        alignItems="center"
+        alignItems="top"
         spacing={1}
       >
-        <ResultView ent={entPD} result={result} />
-        <ResultView ent={entED} result={resultED} />
-        <ResultView ent={entLK} result={resultLK} />
+        <ResultView election={election} entType={ENT_TYPES.PD} />
+        <ResultView election={election} entType={ENT_TYPES.ED} />
+        <ResultView election={election} entType={ENT_TYPES.COUNTRY} />
       </Grid>
     </Box>
   );

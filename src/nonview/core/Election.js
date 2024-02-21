@@ -28,6 +28,7 @@ export default class Election {
     this.pdIdx = null;
     this.edIdx = null;
     this.countryIdx = null;
+    this.nDisplayResults = undefined;
   }
 
   get urlData() {
@@ -55,12 +56,16 @@ export default class Election {
 
   // PD
 
-  get currentResult() {
+  get currentPDResult() {
     return this.resultsIdx[this.currentPDID];
   }
 
-  get currentEntPD() {
+  get currentPDEnt() {
     return this.pdIdx[this.currentPDID];
+  }
+
+  get pdIDList() {
+    return Object.keys(this.pdIdx);
   }
 
   // ED
@@ -69,40 +74,72 @@ export default class Election {
     return this.currentPDID.substring(0, 5);
   }
 
-  get currentEntED() {
+  get currentEDEnt() {
     return this.edIdx[this.currentEDID];
   }
 
-  get currentResultED() {
-    const edResults = Object.values(this.resultsIdx).filter(
+  get currentEDPDResults() {
+    return Object.values(this.resultsIdx).filter(
       function (result) {
         return result.entityID.startsWith(this.currentEDID);
       }.bind(this)
     );
-    return Result.fromList(this.currentEDID, edResults);
+  }
+
+  get currentEDResult() {
+    return Result.fromList(this.currentEDID, this.currentEDPDResults);
+  }
+
+  get currentEDPDResultCount() {
+    return this.currentEDPDResults.length;
+  }
+
+  get currentEDPDIDList() {
+    return this.pdIDList.filter(
+      function (pdID) {
+        return pdID.startsWith(this.currentEDID);
+      }.bind(this)
+    );
+  }
+
+  get totalEDPDResultCount() {
+    return this.currentEDPDIDList.length;
   }
 
   // LK
-
-  get resultLK() {
-    return this.resultsIdx["LK"];
-  }
 
   get entLK() {
     return this.countryIdx["LK"];
   }
 
-  get resultLK() {
-    const results = Object.values(this.resultsIdx);
-    return Result.fromList("LK", results);
+  get results() {
+    return Object.values(this.resultsIdx);
   }
 
-  async getRawData() {
-    return await WWW.tsv(this.urlData);
+  get resultsCount() {
+    return this.results.length;
+  }
+
+  get totalResultsCount() {
+    return this.pdIDList.length;
+  }
+
+  get resultLK() {
+    return Result.fromList("LK", this.results);
+  }
+
+  // Loaders
+
+  async getRawDataList() {
+    let rawDataList = await WWW.tsv(this.urlData);
+    if (this.nDisplayResults) {
+      rawDataList = rawDataList.slice(0, this.nDisplayResults);
+    }
+    return rawDataList;
   }
 
   async getResultsIdx() {
-    const rawData = await this.getRawData();
+    const rawData = await this.getRawDataList();
     const filteredData = rawData.filter(function (d) {
       return d.entity_id.startsWith("EC-") || d.entity_id === "LK";
     });
@@ -114,12 +151,14 @@ export default class Election {
     );
   }
 
+  // Hidden Data
+
   getHiddenData() {
     return {
       electionYear: this.year,
-      result: this.currentResult,
-      entPD: this.currentEntPD,
-      entED: this.currentEntED,
+      result: this.currentPDResult,
+      entPD: this.currentPDEnt,
+      entED: this.currentEDEnt,
     };
   }
 }

@@ -8,7 +8,6 @@ export default function CustomBottomNavigator() {
       elevation={3}
     >
       {"@nuuuwan"}
-
     </Paper>
   );
 }

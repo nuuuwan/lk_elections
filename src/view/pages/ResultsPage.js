@@ -73,9 +73,7 @@ export default class ResultPage extends Component {
         <Typography variant="h4" sx={{ fontWeight: "bold" }}>
           {electionYear}
         </Typography>
-        <Typography variant="h6">
-          {electionTypeID}
-        </Typography>
+        <Typography variant="h6">{electionTypeID}</Typography>
       </Box>
     );
   }

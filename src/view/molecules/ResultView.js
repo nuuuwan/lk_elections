@@ -48,7 +48,8 @@ export default function ResultView({ ent, result }) {
             sx={{
               transform: "rotate(180deg)",
               writingMode: "vertical-rl",
-              color,textAlign: "center",
+              color,
+              textAlign: "center",
             }}
           >
             {subtitle}

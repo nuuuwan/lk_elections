@@ -18,7 +18,6 @@ export default class HomePage extends Component {
   renderBody() {
     const { pageID } = this.state;
 
-
     switch (pageID) {
       case "countdown":
         return <CountdownPage />;
@@ -28,7 +27,7 @@ export default class HomePage extends Component {
   }
 
   renderHeader() {
-    return <CustomAppBar/>;
+    return <CustomAppBar />;
   }
 
   renderFooter() {
@@ -38,44 +37,44 @@ export default class HomePage extends Component {
   render() {
     return (
       <Box>
-        <Box sx={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          height: 64,
-          zIndex: 1000,
-        
-        }}>
-        {this.renderHeader()}
+        <Box
+          sx={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            height: 64,
+            zIndex: 1000,
+          }}
+        >
+          {this.renderHeader()}
         </Box>
-        <Box sx={{
-          position: "fixed",
-          top: 64,
-          bottom: 64,
-          left: 0,
-          right: 0,
-          zIndex: 1000,
-          padding: 5,
-        
-        }}>
-        {this.renderBody()}
+        <Box
+          sx={{
+            position: "fixed",
+            top: 64,
+            bottom: 64,
+            left: 0,
+            right: 0,
+            zIndex: 1000,
+            padding: 5,
+          }}
+        >
+          {this.renderBody()}
         </Box>
-        <Box sx={{
-          position: "fixed",
-          bottom: 0,
-          left: 0,
-          right: 0,
-          zIndex: 1000,
-          height: 64,
-        
-        }}>
-       
-        {this.renderFooter()}
+        <Box
+          sx={{
+            position: "fixed",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            zIndex: 1000,
+            height: 64,
+          }}
+        >
+          {this.renderFooter()}
         </Box>
-       
       </Box>
     );
   }
-
 }

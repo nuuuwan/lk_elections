@@ -36,7 +36,6 @@ export default class ElectionPage extends Component {
   }
 
   async updateStateWithElection(election, pdID) {
-
     if (pdID) {
       election.currentPDID = pdID;
     }
@@ -62,7 +61,6 @@ export default class ElectionPage extends Component {
     });
   }
 
-
   async onClickPreviousElection() {
     let { election, pdID } = this.state;
     election = ElectionFactory.previous(election);
@@ -70,19 +68,19 @@ export default class ElectionPage extends Component {
   }
 
   async onClickNextElection() {
-    let { election,pdID } = this.state;
+    let { election, pdID } = this.state;
     election = ElectionFactory.next(election);
     this.updateStateWithElection(election, pdID);
   }
 
   async onClickPreviousResult() {
-    let { election ,pdID} = this.state;
+    let { election, pdID } = this.state;
     pdID = election.previous();
-    this.updateStateWithElection(election,  pdID);
+    this.updateStateWithElection(election, pdID);
   }
 
   async onClickNextResult() {
-    let { election,pdID } = this.state;
+    let { election, pdID } = this.state;
     pdID = election.next();
     this.updateStateWithElection(election, pdID);
   }

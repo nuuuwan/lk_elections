@@ -4,11 +4,11 @@ import { ENT_TYPES } from "../../nonview/base/EntTypes.js";
 
 export default function ElectionView({ election }) {
   if (election.isNoData) {
-   return (
-    <Alert severity="error">
- Sorry - we have <strong>no data</strong> for this election.
-</Alert>
-   )
+    return (
+      <Alert severity="error">
+        Sorry - we have <strong>no data</strong> for this election.
+      </Alert>
+    );
   }
   return (
     <Grid

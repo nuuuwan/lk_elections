@@ -26,7 +26,7 @@ export default class ElectionFactory {
   static listElections() {
     let electionList = [];
     for (let election_class of this.list()) {
-      for (let year of election_class.getYears()) {
+      for (let year of election_class.getAllYears()) {
         const election = new election_class(year);
         electionList.push(election);
       }

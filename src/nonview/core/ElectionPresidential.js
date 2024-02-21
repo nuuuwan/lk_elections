@@ -12,4 +12,8 @@ export default class ElectionPresidential extends Election {
       2015, 2019,
     ];
   }
+
+  static getFutureYears() {
+    return [2024];
+  }
 }

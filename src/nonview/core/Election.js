@@ -13,6 +13,14 @@ export default class Election {
     throw new Error("Not implemented");
   }
 
+  static getFutureYears() {
+    throw new Error("Not implemented");
+  }
+
+  static getAllYears() {
+    return [].concat(this.getYears(), this.getFutureYears());
+  }
+
   static getRandomYear() {
     const years = this.getYears();
     return Random.randomChoice(years);
@@ -44,6 +52,10 @@ export default class Election {
 
   get isFutureElection() {
     return !this.constructor.getYears().includes(this.year);
+  }
+
+  get isNoData() {
+    return !this.resultsList || this.resultsList.length === 0;
   }
 
   localCompare(other) {

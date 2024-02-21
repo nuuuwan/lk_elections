@@ -6,7 +6,7 @@ import { ElectionFactory, FutureElection } from "../../nonview/core";
 import {
   ElectionView,
   FutureElectionView,
-  CustomAppBar,
+
   CustomBottomNavigator,
 } from "../molecules";
 

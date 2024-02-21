@@ -115,15 +115,9 @@ export default class ResultPage extends Component {
               alignItems="center"
               spacing={4}
             >
-              <Grid item>
-                <ResultView ent={entPD} result={result} />
-              </Grid>
-              <Grid item>
-                <ResultView ent={entED} result={resultED} />
-              </Grid>
-              <Grid item>
-                <ResultView ent={entLK} result={resultLK} />
-              </Grid>
+              <ResultView ent={entPD} result={result} />
+              <ResultView ent={entED} result={resultED} />
+              <ResultView ent={entLK} result={resultLK} />
             </Grid>
           </Box>
         </div>

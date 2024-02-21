@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Stack, Typography } from "@mui/material";
+import { Grid, Box, CircularProgress, Stack, Typography } from "@mui/material";
 import { POLITICAL_PARTY_TO_COLOR } from "../../nonview/constants";
 
 import { PartyToVotesView, SummaryView } from "../molecules";
@@ -26,35 +26,37 @@ export default function ResultView({ ent, result }) {
   }
 
   return (
-    <Box sx={{ m: 1, border: "1px solid black" }}>
-      <Stack direction="row" sx={{ m: 0, p: 0, minWidth: 200 }}>
-        <Typography
-          variant="h5"
-          sx={{
-            transform: "rotate(180deg)",
-            writingMode: "vertical-rl",
-            color: "white",
-            fontWeight: "bold",
-            background: color,
-          }}
-        >
-          {title}
-        </Typography>
+    <Grid item>
+      <Box sx={{ m: 1, border: "1px solid black" }}>
+        <Stack direction="row" sx={{ m: 0, p: 0, minWidth: 200 }}>
+          <Typography
+            variant="h5"
+            sx={{
+              transform: "rotate(180deg)",
+              writingMode: "vertical-rl",
+              color: "white",
+              fontWeight: "bold",
+              background: color,
+            }}
+          >
+            {title}
+          </Typography>
 
-        <Typography
-          variant="body2"
-          sx={{
-            transform: "rotate(180deg)",
-            writingMode: "vertical-rl",
-            color,
-          }}
-        >
-          {subtitle}
-        </Typography>
+          <Typography
+            variant="body2"
+            sx={{
+              transform: "rotate(180deg)",
+              writingMode: "vertical-rl",
+              color,
+            }}
+          >
+            {subtitle}
+          </Typography>
 
-        <PartyToVotesView partyToVotes={result.partyToVotes} />
-        <SummaryView summary={result.summary} />
-      </Stack>
-    </Box>
+          <PartyToVotesView partyToVotes={result.partyToVotes} />
+          <SummaryView summary={result.summary} />
+        </Stack>
+      </Box>
+    </Grid>
   );
 }

@@ -11,6 +11,7 @@ const COLOR_TO_POLITICAL_PARTIES = {
   purple: ["SLMP"],
   lightgray: ["Other"],
   "#042": ["DUNF"],
+  "#eee": ["INDI"],
 };
 
 const POLITICAL_PARTY_TO_COLOR = Object.entries(
@@ -23,3 +24,15 @@ const POLITICAL_PARTY_TO_COLOR = Object.entries(
 }, {});
 
 export default POLITICAL_PARTY_TO_COLOR;
+
+const LIGHT_COLORS = [
+  "lightgreen",
+  "lightgray",
+  "pink",
+  "orange",
+  "yellow",
+  "lightgray",
+  "#eee",
+];
+
+export { LIGHT_COLORS };

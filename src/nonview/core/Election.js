@@ -52,6 +52,7 @@ export default class Election {
       const pdIDList = Object.keys(this.resultsIdx);
       this.currentPDID = Random.randomChoice(pdIDList);
     }
+    console.debug(this.currentPDID);
   }
 
   // PD

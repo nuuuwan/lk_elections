@@ -29,15 +29,18 @@ export default class ElectionPage extends Component {
 
     year = election.year;
     pdID = election.currentPDID;
+    electionTypeID = election.constructor.getTypeName();
 
     const context = {
       pageID: "results",
+      electionTypeID,
       year,
       pdID,
     };
     URLContext.set(context);
 
     this.setState({
+      electionTypeID,
       year,
       pdID,
       election,

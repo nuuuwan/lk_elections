@@ -3,6 +3,7 @@ import { POLITICAL_PARTY_TO_COLOR } from "../../nonview/constants";
 
 import { PartyToVotesView, SummaryView } from "../molecules";
 import { ENT_TYPES } from "../../nonview/base/EntTypes";
+import { LIGHT_COLORS } from "../../nonview/constants/POLITICAL_PARTY_TO_COLOR";
 
 export default function ResultView({ election, entType }) {
   if (!election) {
@@ -44,8 +45,20 @@ export default function ResultView({ election, entType }) {
       throw new Error("Invalid entType: " + entType);
   }
 
+  if (!result) {
+    return "No result";
+  }
+
+  if (!ent) {
+    return "No ent";
+  }
+
   const winningParty = result.partyToVotes.winningParty;
   const color = POLITICAL_PARTY_TO_COLOR[winningParty];
+  let foreColor = "white";
+  if (LIGHT_COLORS.includes(color)) {
+    foreColor = "gray";
+  }
 
   let title = ent.name;
   if (title.includes("Postal Votes")) {
@@ -69,7 +82,7 @@ export default function ResultView({ election, entType }) {
             sx={{
               transform: "rotate(180deg)",
               writingMode: "vertical-rl",
-              color: "white",
+              color: foreColor,
               fontWeight: "bold",
               background: color,
               textAlign: "center",
@@ -83,7 +96,7 @@ export default function ResultView({ election, entType }) {
             sx={{
               transform: "rotate(180deg)",
               writingMode: "vertical-rl",
-              color,
+
               textAlign: "center",
             }}
           >

@@ -2,6 +2,7 @@ export default class URLContext {
   // convertors (context <-> string)
 
   static contextToStr(context) {
+    console.debug({ context });
     return Object.entries(context)
       .map(function ([key, value]) {
         return key + "=" + value.toString();

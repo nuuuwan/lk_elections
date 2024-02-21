@@ -110,7 +110,7 @@ export default class ResultPage extends Component {
               direction="row"
               justifyContent="center"
               alignItems="center"
-              spacing={4}
+              spacing={1}
             >
               <ResultView ent={entPD} result={result} />
               <ResultView ent={entED} result={resultED} />

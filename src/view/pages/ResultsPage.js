@@ -80,16 +80,25 @@ export default class ResultPage extends Component {
     );
   }
 
-  render() {
-    const { result, entPD, resultED, entED, resultLK, entLK, electionYear } =
-      this.state;
+  renderHiddenData() {
+    const { result, entPD, entED, electionYear } =
+    this.state;
 
-    const screenshotText = JSON.stringify({
-      electionYear,
+
+    const data = { electionYear,
       result,
       entPD,
-      entED,
-    });
+      entED,}
+    const dataJSON = JSON.stringify(data);
+      return (<div id="div-screenshot-text" style={{ fontSize: 0, color: "white" }}>
+      {dataJSON}
+    </div>)
+  }
+
+  render() {
+    const { result, entPD, resultED, entED, resultLK, entLK } =
+      this.state;
+
 
     return (
       <div>
@@ -117,9 +126,7 @@ export default class ResultPage extends Component {
             </Grid>
           </Box>
         </div>
-        <div id="div-screenshot-text" style={{ fontSize: 0, color: "white" }}>
-          {screenshotText}
-        </div>
+        {this.renderHiddenData()}
       </div>
     );
   }

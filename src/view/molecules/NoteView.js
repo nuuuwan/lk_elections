@@ -4,7 +4,7 @@ import { Link } from "../atoms";
 export default function NoteView({ note }) {
   const { text, source, sourceURL } = note;
   return (
-    <Box sx={{p: 1, m: 1}}>
+    <Box sx={{ p: 1, m: 1 }}>
       <Typography variant="body1" sx={{ fontSize: "80%", fontStyle: "italic" }}>
         {text}
       </Typography>

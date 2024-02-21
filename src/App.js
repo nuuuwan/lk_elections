@@ -3,17 +3,8 @@ import React, { Component } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import "./App.css";
-import { Box, Typography } from "@mui/material";
-import { HomePage } from "./view/pages";
 
-export function ElectionInfoView({ hashtag, formalName, url }) {
-  return (
-    <Box sx={{ m: 1, p: 1 }}>
-      <Typography variant="h5">#{hashtag}</Typography>
-      <Typography variant="h6">{formalName}</Typography>
-    </Box>
-  );
-}
+import { ElectionPage } from "./view/pages";
 
 const THEME = createTheme({
   palette: {
@@ -43,7 +34,7 @@ export default class App extends Component {
   render() {
     return (
       <ThemeProvider theme={THEME}>
-        <HomePage />
+        <ElectionPage />
       </ThemeProvider>
     );
   }

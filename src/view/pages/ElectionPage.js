@@ -7,7 +7,10 @@ import {
   ElectionView,
   FutureElectionView,
   ElectionSelector,
+  CustomAppBar,
+  CustomBottomNavigator,
 } from "../molecules";
+
 import { CircularProgress, Box } from "@mui/material";
 
 export default class ElectionPage extends Component {
@@ -27,8 +30,6 @@ export default class ElectionPage extends Component {
     let { electionTypeID, year, pdID } = this.state;
 
     const election_class = ElectionFactory.fromElectionTypeID(electionTypeID);
-
-    console.debug(ElectionFactory.listElections());
 
     const election = new election_class(year, pdID);
     await this.updateStateWithElection(election);
@@ -61,6 +62,18 @@ export default class ElectionPage extends Component {
     await this.updateStateWithElection(election);
   }
 
+  async onClickNext() {
+    let { election } = this.state;
+    election.next();
+    this.updateStateWithElection(election);
+  }
+
+  async onClickPrevious() {
+    let { election } = this.state;
+    election.previous();
+    this.updateStateWithElection(election);
+  }
+
   renderHiddenData() {
     const { election } = this.state;
 
@@ -83,7 +96,7 @@ export default class ElectionPage extends Component {
     return <ElectionView election={election} />;
   }
 
-  render() {
+  renderBody() {
     const { election } = this.state;
     if (!election) {
       return <CircularProgress />;
@@ -102,6 +115,63 @@ export default class ElectionPage extends Component {
         </div>
         {this.renderHiddenData()}
       </div>
+    );
+  }
+
+  renderHeader() {
+    return <CustomAppBar />;
+  }
+
+  renderFooter() {
+    return (
+      <CustomBottomNavigator
+        onClickPrevious={this.onClickPrevious.bind(this)}
+        onClickNext={this.onClickNext.bind(this)}
+      />
+    );
+  }
+
+  render() {
+    return (
+      <Box>
+        <Box
+          sx={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            height: 64,
+            zIndex: 1000,
+          }}
+        >
+          {this.renderHeader()}
+        </Box>
+        <Box
+          sx={{
+            position: "fixed",
+            top: 64,
+            bottom: 64,
+            left: 0,
+            right: 0,
+            zIndex: 1000,
+            overflow: "scroll",
+          }}
+        >
+          {this.renderBody()}
+        </Box>
+        <Box
+          sx={{
+            position: "fixed",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            zIndex: 1000,
+            height: 64,
+          }}
+        >
+          {this.renderFooter()}
+        </Box>
+      </Box>
     );
   }
 }

@@ -66,6 +66,7 @@ export default class Election {
     if (this.isFutureElection) {
       return;
     }
+    this.resultsList = await this.getResultsList();
     this.resultsIdx = await this.getResultsIdx();
     this.pdIdx = await Ents.getEntIndexByType(ENT_TYPES.PD);
     this.edIdx = await Ents.getEntIndexByType(ENT_TYPES.ED);
@@ -89,6 +90,12 @@ export default class Election {
 
   get pdIDList() {
     return Object.keys(this.pdIdx);
+  }
+
+  get pdIDListReleased() {
+    return this.resultsList.map(function (result) {
+      return result.entityID;
+    });
   }
 
   // ED
@@ -135,12 +142,8 @@ export default class Election {
     return this.countryIdx["LK"];
   }
 
-  get results() {
-    return Object.values(this.resultsIdx);
-  }
-
   get resultsCount() {
-    return this.results.length;
+    return this.resultsList.length;
   }
 
   get totalResultsCount() {
@@ -148,7 +151,7 @@ export default class Election {
   }
 
   get resultLK() {
-    return Result.fromList("LK", this.results);
+    return Result.fromList("LK", this.resultsList);
   }
 
   // Loaders
@@ -161,14 +164,23 @@ export default class Election {
     return rawDataList;
   }
 
-  async getResultsIdx() {
+  async getResultsList() {
     const rawData = await this.getRawDataList();
-    const filteredData = rawData.filter(function (d) {
+    const filteredRawData = rawData.filter(function (d) {
       return d.entity_id.startsWith("EC-") || d.entity_id === "LK";
     });
-    const results = filteredData.map(function (d) {
+    const resultsList = filteredRawData.map(function (d) {
       return Result.fromDict(d);
     });
+    const sortedResultsList = resultsList.sort(function (a, b) {
+      return a.summary.valid - b.summary.valid;
+    });
+
+    return sortedResultsList;
+  }
+
+  async getResultsIdx() {
+    const results = await this.getResultsList();
     return Object.fromEntries(
       results.map((result) => [result.entityID, result])
     );
@@ -190,5 +202,23 @@ export default class Election {
       entPD: this.currentPDEnt,
       entED: this.currentEDEnt,
     };
+  }
+
+  // Navigation
+
+  next() {
+    const pdIDList = this.pdIDListReleased;
+    const idx = pdIDList.indexOf(this.currentPDID);
+    if (idx < pdIDList.length - 1) {
+      this.currentPDID = pdIDList[idx + 1];
+    }
+  }
+
+  previous() {
+    const pdIDList = this.pdIDListReleased;
+    const idx = pdIDList.indexOf(this.currentPDID);
+    if (idx > 0) {
+      this.currentPDID = pdIDList[idx - 1];
+    }
   }
 }

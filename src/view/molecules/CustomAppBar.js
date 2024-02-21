@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 
 export default function CustomAppBar() {
   const onClick = function () {
-    window.location.href = "/";
+    window.location.reload();
   };
   return (
     <AppBar position="static">

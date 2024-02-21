@@ -13,7 +13,6 @@ export default function ResultView({ election, entType }) {
   let result;
   let ent;
   let subtitle;
-  let opacity;
   let nResultsReleased;
   let nResultsTotal;
   switch (entType) {
@@ -21,7 +20,6 @@ export default function ResultView({ election, entType }) {
       result = election.currentPDResult;
       ent = election.currentPDEnt;
       subtitle = "Polling Division";
-      opacity = 1.0;
       nResultsReleased = 1;
       nResultsTotal = 1;
       break;
@@ -29,7 +27,6 @@ export default function ResultView({ election, entType }) {
       result = election.currentEDResult;
       ent = election.currentEDEnt;
       subtitle = "Electoral District";
-      opacity = 0.7;
       nResultsReleased = election.currentEDPDResultCount;
       nResultsTotal = election.totalEDPDResultCount;
       break;
@@ -37,7 +34,6 @@ export default function ResultView({ election, entType }) {
       result = election.resultLK;
       ent = election.entLK;
       subtitle = "Nationwide";
-      opacity = 0.49;
       nResultsReleased = election.resultsCount;
       nResultsTotal = election.totalResultsCount;
       break;
@@ -71,7 +67,7 @@ export default function ResultView({ election, entType }) {
   }
 
   return (
-    <Grid item sx={{ opacity }}>
+    <Grid item>
       <Box sx={{ m: 1, border: "1px solid black", textAlign: "right" }}>
         <Stack
           direction="row"

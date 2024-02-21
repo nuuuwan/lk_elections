@@ -2,9 +2,11 @@ export default class URLContext {
   // convertors (context <-> string)
 
   static contextToStr(context) {
-    console.debug({ context });
     return Object.entries(context)
       .map(function ([key, value]) {
+        if (!value) {
+          value = "null";
+        }
         return key + "=" + value.toString();
       })
       .join("&");

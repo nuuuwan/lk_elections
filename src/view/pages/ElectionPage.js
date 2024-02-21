@@ -1,10 +1,10 @@
 import { Component } from "react";
 
 import { URLContext } from "../../nonview/base";
-import { ElectionFactory } from "../../nonview/core";
+import { ElectionFactory, FutureElection } from "../../nonview/core";
 
-import { ElectionView } from "../molecules";
-import { CircularProgress } from "@mui/material";
+import { ElectionView, FutureElectionView } from "../molecules";
+import { CircularProgress, Typography, Box } from "@mui/material";
 
 export default class ElectionPage extends Component {
   constructor(props) {
@@ -59,8 +59,18 @@ export default class ElectionPage extends Component {
     );
   }
 
-  render() {
+  renderElection() {
     const { election } = this.state;
+    if (election.isFutureElection) {
+      const futureElection =
+        FutureElection.idx()[election.constructor.getTypeName()][election.year];
+      return <FutureElectionView election={futureElection} />;
+    }
+    return <ElectionView election={election} />;
+  }
+
+  render() {
+    const { election, electionTypeID, year } = this.state;
     if (!election) {
       return <CircularProgress />;
     }
@@ -68,7 +78,15 @@ export default class ElectionPage extends Component {
     return (
       <div>
         <div id="div-screenshot">
-          <ElectionView election={election} />
+          <Box sx={{ p: 2, minHeight: 450 }}>
+            <Box>
+              <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+                {year}
+              </Typography>
+              <Typography variant="h6">{electionTypeID}</Typography>
+            </Box>
+            {this.renderElection()}
+          </Box>
         </div>
         {this.renderHiddenData()}
       </div>

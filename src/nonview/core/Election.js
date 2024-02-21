@@ -22,7 +22,7 @@ export default class Election {
     if (!year) {
       year = this.constructor.getRandomYear();
     }
-    this.year = year;
+    this.year = parseInt(year);
     this.currentPDID = pdID;
     this.resultsIdx = null;
     this.pdIdx = null;
@@ -42,17 +42,23 @@ export default class Election {
     );
   }
 
+  get isFutureElection() {
+    return !this.constructor.getYears().includes(this.year);
+  }
+
   async loadData() {
+    if (this.isFutureElection) {
+      return;
+    }
     this.resultsIdx = await this.getResultsIdx();
     this.pdIdx = await Ents.getEntIndexByType(ENT_TYPES.PD);
     this.edIdx = await Ents.getEntIndexByType(ENT_TYPES.ED);
     this.countryIdx = await Ents.getEntIndexByType(ENT_TYPES.COUNTRY);
 
-    if (!this.currentPDID) {
+    if (!this.currentPDID || this.currentPDID === "null") {
       const pdIDList = Object.keys(this.resultsIdx);
       this.currentPDID = Random.randomChoice(pdIDList);
     }
-    console.debug(this.currentPDID);
   }
 
   // PD
@@ -155,8 +161,12 @@ export default class Election {
   // Hidden Data
 
   getHiddenData() {
+    if (this.isFutureElection) {
+      return { year: this.year, electionTypeID: this.constructor.getTypeName() };
+    }
     return {
       year: this.year,
+      electionTypeID: this.constructor.getTypeName(),
       result: this.currentPDResult,
       entPD: this.currentPDEnt,
       entED: this.currentEDEnt,

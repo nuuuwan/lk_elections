@@ -1,7 +1,7 @@
 import { WWW, Ents, EntTypes } from "../base";
 import Result from "./Result.js";
 const URL_BASE =
-  "https://raw.githubusercontent.com/nuuuwan/gig-data/master/gig2";
+  "https://raw.githubusercontent.com/nuuuwan/gig-data/master/gig2_custom_ec_only";
 export default class Election {
   static getTypeName() {
     throw new Error("Not implemented");

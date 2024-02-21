@@ -13,7 +13,7 @@ export default class Cache {
       localStorage.setItem(cacheKey, coldItemJSON);
     } catch (QuotaExceededError) {
       localStorage.clear();
-      console.warn('localStorage cleared!');
+      console.warn('⚠️ localStorage cleared!');
     }
     return coldItem;
   }

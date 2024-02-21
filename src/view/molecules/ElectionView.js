@@ -1,37 +1,35 @@
-import React from "react";
-import { Box, Typography } from "@mui/material";
-import { Time } from "../../nonview/base";
-import { NoteView } from "../molecules";
-import { Link, TimeDeltaView } from "../atoms";
+import { Box, Grid, Typography } from "@mui/material";
+import { ResultView } from "../molecules";
 
-export default function ElectionView({ election }) {
-  const { hashtag, formalName, url, deadline, deadlineNotes } = election;
-
-  const timeNow = Time.now();
-  const timeDelta = Time.minus(deadline, timeNow);
+export default function ElectionView({
+  result,
+  entPD,
+  resultED,
+  entED,
+  resultLK,
+  entLK,
+  electionYear,
+  electionTypeID,
+}) {
   return (
-    <Box sx={{ m: 1, p: 1, width: 500 }}>
-      <Link href={url}>
-        <Typography variant="h5" color="#084">
-          #{hashtag}
+    <Box>
+      <Box>
+        <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+          {electionYear}
         </Typography>
-      </Link>
-      <Typography variant="h6" color="#f80">
-        {formalName}
-      </Typography>
-      <Typography variant="body2">must be held by</Typography>
-      <Typography variant="h6">{deadline.toString()}</Typography>
-      <Typography variant="body2" color="#800">
-        or in
-      </Typography>
-      <Typography variant="h1" color="#800">
-        <TimeDeltaView timeDelta={timeDelta} />
-      </Typography>
-
-      {deadlineNotes.map(function (note, iNote) {
-        const key = `note-${iNote}`;
-        return <NoteView key={key} note={note} />;
-      })}
+        <Typography variant="h6">{electionTypeID}</Typography>
+      </Box>
+      <Grid
+        container
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+        spacing={1}
+      >
+        <ResultView ent={entPD} result={result} />
+        <ResultView ent={entED} result={resultED} />
+        <ResultView ent={entLK} result={resultLK} />
+      </Grid>
     </Box>
   );
 }

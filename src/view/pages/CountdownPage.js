@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Stack, Typography } from "@mui/material";
-import { ElectionView } from "../molecules";
+import { FutureElectionView } from "../molecules";
 import { Time } from "../../nonview/base";
 import { FutureElection } from "../../nonview/core";
 
@@ -10,7 +10,7 @@ export default function CountdownPage() {
       <Stack direction="row">
         {FutureElection.listAll().map(function (election, iElection) {
           const key = `election-${iElection}`;
-          return <ElectionView key={key} election={election} />;
+          return <FutureElectionView key={key} election={election} />;
         })}
       </Stack>
       <Typography variant="body2">{Time.now().toString()}</Typography>

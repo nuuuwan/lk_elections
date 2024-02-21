@@ -1,9 +1,9 @@
 import { Component } from "react";
-import { Box, Grid, Typography } from "@mui/material";
+
 import { Ents, Random, URLContext } from "../../nonview/base";
 import { ElectionPresidential } from "../../nonview/core";
 
-import { ResultView } from "../molecules";
+import { ElectionView } from "../molecules";
 
 export default class ElectionPage extends Component {
   constructor(props) {
@@ -68,18 +68,6 @@ export default class ElectionPage extends Component {
     });
   }
 
-  renderTitle() {
-    const { electionYear, electionTypeID } = this.state;
-    return (
-      <Box>
-        <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-          {electionYear}
-        </Typography>
-        <Typography variant="h6">{electionTypeID}</Typography>
-      </Box>
-    );
-  }
-
   renderHiddenData() {
     const { result, entPD, entED, electionYear } = this.state;
 
@@ -98,20 +86,16 @@ export default class ElectionPage extends Component {
     return (
       <div>
         <div id="div-screenshot">
-          <Box>
-            {this.renderTitle()}
-            <Grid
-              container
-              direction="row"
-              justifyContent="center"
-              alignItems="center"
-              spacing={1}
-            >
-              <ResultView ent={entPD} result={result} />
-              <ResultView ent={entED} result={resultED} />
-              <ResultView ent={entLK} result={resultLK} />
-            </Grid>
-          </Box>
+          <ElectionView
+            entPD={entPD}
+            result={result}
+            entED={entED}
+            resultED={resultED}
+            entLK={entLK}
+            resultLK={resultLK}
+            electionYear={this.state.electionYear}
+            electionTypeID={this.state.electionTypeID}
+          />
         </div>
         {this.renderHiddenData()}
       </div>

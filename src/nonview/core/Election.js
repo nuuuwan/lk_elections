@@ -27,11 +27,9 @@ export default class Election {
     );
   }
 
-
   async loadData() {
     this.resultsIdx = await this.getResultsIdx();
   }
-
 
   async getRawData() {
     return await WWW.tsv(this.urlData);

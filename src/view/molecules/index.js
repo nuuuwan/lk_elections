@@ -2,6 +2,7 @@
 import CustomAppBar from "./CustomAppBar";
 import CustomBottomNavigator from "./CustomBottomNavigator";
 import ElectionView from "./ElectionView";
+import FutureElectionView from "./FutureElectionView";
 import NoteView from "./NoteView";
 import PartyToVotesView from "./PartyToVotesView";
 import ResultView from "./ResultView";
@@ -11,6 +12,7 @@ export {
   CustomAppBar,
   CustomBottomNavigator,
   ElectionView,
+  FutureElectionView,
   NoteView,
   PartyToVotesView,
   ResultView,

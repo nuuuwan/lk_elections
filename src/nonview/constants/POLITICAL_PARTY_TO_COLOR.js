@@ -5,7 +5,7 @@ const COLOR_TO_POLITICAL_PARTIES = {
   maroon: ["SLPP"],
   orange: ["ACTC"],
   pink: ["NPP"],
-  red: ["JVP", "LSSP", "EPDP", "NMPP", "JJB", "TMVP", "TULF", "DPLF"],
+  red: ["JVP", "LSSP", "EPDP", "NMPP", "JJB", "TMVP", "TULF", "DPLF", "MEP"],
   yellow: ["ITAK", "AITC"],
   darkgreen: ["MNA", "SLMC", "NUA"],
   purple: ["SLMP"],

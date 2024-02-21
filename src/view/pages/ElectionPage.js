@@ -1,7 +1,10 @@
 import { Component } from "react";
 
 import { URLContext } from "../../nonview/base";
-import { ElectionPresidential } from "../../nonview/core";
+import {
+  ElectionPresidential,
+  ElectionParliamentary,
+} from "../../nonview/core";
 
 import { ElectionView } from "../molecules";
 import { CircularProgress } from "@mui/material";
@@ -12,7 +15,7 @@ export default class ElectionPage extends Component {
     const context = URLContext.get();
 
     this.state = {
-      electionTypeID: "Presidential",
+      electionTypeID: "Parliamentary",
       electionYear: context.electionYear,
       pdID: context.pdID,
       election: null,
@@ -21,7 +24,7 @@ export default class ElectionPage extends Component {
 
   async componentDidMount() {
     let { pdID, electionYear } = this.state;
-    const election = new ElectionPresidential(electionYear, pdID);
+    const election = new ElectionParliamentary(electionYear, pdID);
     await election.loadData();
 
     electionYear = election.year;

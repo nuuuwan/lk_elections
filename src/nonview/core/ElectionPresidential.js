@@ -7,7 +7,8 @@ export default class ElectionPresidential extends Election {
 
   static getYears() {
     return [
-      // 1982, 1988, 1994, 1999, 2005, 2010,
+      1982, 1988, 1994, 1999, 2005, 2010,
+      // Recent
       2015, 2019,
     ];
   }

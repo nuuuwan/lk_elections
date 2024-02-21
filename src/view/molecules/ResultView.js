@@ -53,10 +53,17 @@ export default function ResultView({ election, entType }) {
     subtitle = "";
   }
 
+  if (nResultsReleased > nResultsTotal) {
+    nResultsTotal = nResultsReleased;
+  }
+
   return (
     <Grid item sx={{ opacity }}>
       <Box sx={{ m: 1, border: "1px solid black" }}>
-        <Stack direction="row" sx={{ m: 0, p: 0, minWidth: 210 }}>
+        <Stack
+          direction="row"
+          sx={{ m: 0, p: 0, minWidth: 210, minHeight: 280 }}
+        >
           <Typography
             variant="h6"
             sx={{

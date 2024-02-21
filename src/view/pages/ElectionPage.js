@@ -5,7 +5,7 @@ import { ElectionPresidential } from "../../nonview/core";
 
 import { ResultView } from "../molecules";
 
-export default class ResultPage extends Component {
+export default class ElectionPage extends Component {
   constructor(props) {
     super(props);
     const context = URLContext.get();

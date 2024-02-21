@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 import { Component } from "react";
 
 import { URLContext } from "../../nonview/base";
-import { CountdownPage, ResultsPage } from "../pages";
+import { CountdownPage, ElectionPage } from "../pages";
 import { CustomAppBar, CustomBottomNavigator } from "../molecules";
 
 export default class HomePage extends Component {
@@ -22,7 +22,7 @@ export default class HomePage extends Component {
       case "countdown":
         return <CountdownPage />;
       default:
-        return <ResultsPage />;
+        return <ElectionPage />;
     }
   }
 

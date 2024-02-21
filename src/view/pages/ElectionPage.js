@@ -28,7 +28,9 @@ export default class ElectionPage extends Component {
   async componentDidMount() {
     let { resultEntityID, electionYear } = this.state;
     const election = new ElectionPresidential(this.state.electionYear);
-    const resultsIdx = await election.getResultsIdx();
+    await election.loadData();
+
+    const resultsIdx = election.resultsIdx;
 
     if (!resultEntityID) {
       const resultEntityIDs = Object.keys(resultsIdx).filter(

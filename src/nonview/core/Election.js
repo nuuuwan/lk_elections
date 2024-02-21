@@ -13,6 +13,7 @@ export default class Election {
 
   constructor(year) {
     this.year = year;
+    this.resultsIdx = null;
   }
 
   get urlData() {
@@ -25,6 +26,12 @@ export default class Election {
       ".tsv"
     );
   }
+
+
+  async loadData() {
+    this.resultsIdx = await this.getResultsIdx();
+  }
+
 
   async getRawData() {
     return await WWW.tsv(this.urlData);

@@ -162,7 +162,10 @@ export default class Election {
 
   getHiddenData() {
     if (this.isFutureElection) {
-      return { year: this.year, electionTypeID: this.constructor.getTypeName() };
+      return {
+        year: this.year,
+        electionTypeID: this.constructor.getTypeName(),
+      };
     }
     return {
       year: this.year,

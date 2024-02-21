@@ -3,8 +3,12 @@ import { Component } from "react";
 import { URLContext } from "../../nonview/base";
 import { ElectionFactory, FutureElection } from "../../nonview/core";
 
-import { ElectionView, FutureElectionView } from "../molecules";
-import { CircularProgress, Typography, Box } from "@mui/material";
+import {
+  ElectionView,
+  FutureElectionView,
+  ElectionSelector,
+} from "../molecules";
+import { CircularProgress, Box } from "@mui/material";
 
 export default class ElectionPage extends Component {
   constructor(props) {
@@ -27,11 +31,15 @@ export default class ElectionPage extends Component {
     console.debug(ElectionFactory.listElections());
 
     const election = new election_class(year, pdID);
+    await this.updateStateWithElection(election);
+  }
+
+  async updateStateWithElection(election) {
     await election.loadData();
 
-    year = election.year;
-    pdID = election.currentPDID;
-    electionTypeID = election.constructor.getTypeName();
+    const year = election.year;
+    const pdID = election.currentPDID;
+    const electionTypeID = election.constructor.getTypeName();
 
     const context = {
       pageID: "results",
@@ -47,6 +55,10 @@ export default class ElectionPage extends Component {
       pdID,
       election,
     });
+  }
+
+  async onUpdateElection(election) {
+    await this.updateStateWithElection(election);
   }
 
   renderHiddenData() {
@@ -72,7 +84,7 @@ export default class ElectionPage extends Component {
   }
 
   render() {
-    const { election, electionTypeID, year } = this.state;
+    const { election } = this.state;
     if (!election) {
       return <CircularProgress />;
     }
@@ -81,12 +93,10 @@ export default class ElectionPage extends Component {
       <div>
         <div id="div-screenshot">
           <Box sx={{ p: 2, minHeight: 550 }}>
-            <Box sx={{textAlign: "center" }}>
-              <Typography variant="h4" sx={{ fontWeight: "bold"}}>
-                {year}
-              </Typography>
-              <Typography variant="h6">{electionTypeID}</Typography>
-            </Box>
+            <ElectionSelector
+              selectedElection={election}
+              onUpdateElection={this.onUpdateElection.bind(this)}
+            />
             {this.renderElection()}
           </Box>
         </div>

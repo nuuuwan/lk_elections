@@ -50,7 +50,16 @@ export default class Election {
     if (this.year !== other.year) {
       return this.year - other.year;
     }
-    return this.constructor.getTypeName().localeCompare(other.constructor.getTypeName());
+    return other.constructor
+      .getTypeName()
+      .localeCompare(this.constructor.getTypeName());
+  }
+
+  isEqual(other) {
+    return (
+      this.year === other.year &&
+      this.constructor.getTypeName() === other.constructor.getTypeName()
+    );
   }
 
   async loadData() {

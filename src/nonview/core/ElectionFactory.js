@@ -31,8 +31,11 @@ export default class ElectionFactory {
         electionList.push(election);
       }
     }
-    return electionList.sort(
-      (a, b) => a.localCompare(b) 
-    );
+    return electionList.sort((a, b) => a.localCompare(b));
+  }
+
+  static getIndex(election) {
+    const electionList = this.listElections();
+    return electionList.findIndex((e) => e.isEqual(election));
   }
 }

@@ -12,11 +12,14 @@ export default function ResultView({ ent, result }) {
   const color = POLITICAL_PARTY_TO_COLOR[winningParty];
 
   let subtitle = "Polling Division";
+  let opacity = 1.0;
   if (ent.id.length === 5) {
     subtitle = "Electoral District";
+    opacity = 0.7;
   }
   if (ent.id === "LK") {
     subtitle = "Nationwide";
+    opacity = 0.49;
   }
 
   let title = ent.name;
@@ -26,8 +29,8 @@ export default function ResultView({ ent, result }) {
   }
 
   return (
-    <Grid item>
-      <Box sx={{ m: 1, border: "1px solid black" }}>
+    <Grid item >
+      <Box sx={{ opacity, m: 1, border: "1px solid black" }}>
         <Stack direction="row" sx={{ m: 0, p: 0, minWidth: 200 }}>
           <Typography
             variant="h5"

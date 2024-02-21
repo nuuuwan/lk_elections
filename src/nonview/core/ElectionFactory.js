@@ -38,4 +38,22 @@ export default class ElectionFactory {
     const electionList = this.listElections();
     return electionList.findIndex((e) => e.isEqual(election));
   }
+
+  static previous(election) {
+    const electionList = this.listElections();
+    let idx = this.getIndex(election);
+    if (idx > 0) {
+      return electionList[idx - 1];
+    }
+    return election;
+  }
+
+  static next(election) {
+    const electionList = this.listElections();
+    let idx = this.getIndex(election);
+    if (idx < electionList.length - 1) {
+      return electionList[idx + 1];
+    }
+    return election;
+  }
 }

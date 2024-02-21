@@ -6,12 +6,12 @@ import { ElectionFactory, FutureElection } from "../../nonview/core";
 import {
   ElectionView,
   FutureElectionView,
-  ElectionSelector,
   CustomAppBar,
   CustomBottomNavigator,
 } from "../molecules";
 
 import { CircularProgress, Box } from "@mui/material";
+import { ElectionTitleView } from "../atoms";
 
 export default class ElectionPage extends Component {
   constructor(props) {
@@ -62,15 +62,27 @@ export default class ElectionPage extends Component {
     await this.updateStateWithElection(election);
   }
 
-  async onClickNext() {
+  async onClickPreviousElection() {
     let { election } = this.state;
-    election.next();
+    election = ElectionFactory.previous(election);
     this.updateStateWithElection(election);
   }
 
-  async onClickPrevious() {
+  async onClickNextElection() {
+    let { election } = this.state;
+    election = ElectionFactory.next(election);
+    this.updateStateWithElection(election);
+  }
+
+  async onClickPreviousResult() {
     let { election } = this.state;
     election.previous();
+    this.updateStateWithElection(election);
+  }
+
+  async onClickNextResult() {
+    let { election } = this.state;
+    election.next();
     this.updateStateWithElection(election);
   }
 
@@ -106,10 +118,7 @@ export default class ElectionPage extends Component {
       <div>
         <div id="div-screenshot">
           <Box sx={{ p: 2, minHeight: 550 }}>
-            <ElectionSelector
-              selectedElection={election}
-              onUpdateElection={this.onUpdateElection.bind(this)}
-            />
+            <ElectionTitleView election={election} />
             {this.renderElection()}
           </Box>
         </div>
@@ -125,8 +134,10 @@ export default class ElectionPage extends Component {
   renderFooter() {
     return (
       <CustomBottomNavigator
-        onClickPrevious={this.onClickPrevious.bind(this)}
-        onClickNext={this.onClickNext.bind(this)}
+        onClickPreviousElection={this.onClickPreviousElection.bind(this)}
+        onClickNextElection={this.onClickNextElection.bind(this)}
+        onClickPreviousResult={this.onClickPreviousResult.bind(this)}
+        onClickNextResult={this.onClickNextResult.bind(this)}
       />
     );
   }

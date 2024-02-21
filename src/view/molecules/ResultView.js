@@ -108,7 +108,9 @@ export default function ResultView({ election, entType }) {
           <Typography variant="caption">
             <strong>{nResultsReleased}</strong>/{nResultsTotal} Results
           </Typography>
-        ) : null}
+        ) : (
+          "Result " + (election.currentPDIndex + 1)
+        )}
       </Box>
     </Grid>
   );

@@ -2,12 +2,20 @@ import * as React from "react";
 import Paper from "@mui/material/Paper";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
+import SkipNextIcon from "@mui/icons-material/SkipNext";
+
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 
 export default function CustomBottomNavigator({
-  onClickPrevious,
-  onClickNext,
+  // Elections
+  onClickPreviousElection,
+  onClickNextElection,
+  showPreviousElection,
+  // Results
+  onClickPreviousResult,
+  onClickNextResult,
 }) {
   return (
     <Paper
@@ -16,12 +24,20 @@ export default function CustomBottomNavigator({
     >
       <BottomNavigation>
         <BottomNavigationAction
+          icon={<SkipPreviousIcon />}
+          onClick={onClickPreviousElection}
+        />
+        <BottomNavigationAction
           icon={<ArrowLeftIcon />}
-          onClick={onClickPrevious}
+          onClick={onClickPreviousResult}
         />
         <BottomNavigationAction
           icon={<ArrowRightIcon />}
-          onClick={onClickNext}
+          onClick={onClickNextResult}
+        />
+        <BottomNavigationAction
+          icon={<SkipNextIcon />}
+          onClick={onClickNextElection}
         />
       </BottomNavigation>
     </Paper>

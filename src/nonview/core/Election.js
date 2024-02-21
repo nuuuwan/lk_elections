@@ -98,6 +98,10 @@ export default class Election {
     });
   }
 
+  get currentPDIndex() {
+    return this.pdIDListReleased.indexOf(this.currentPDID);
+  }
+
   // ED
 
   get currentEDID() {
@@ -208,7 +212,7 @@ export default class Election {
 
   next() {
     const pdIDList = this.pdIDListReleased;
-    const idx = pdIDList.indexOf(this.currentPDID);
+    const idx = this.currentPDIndex;
     if (idx < pdIDList.length - 1) {
       this.currentPDID = pdIDList[idx + 1];
     }
@@ -216,7 +220,7 @@ export default class Election {
 
   previous() {
     const pdIDList = this.pdIDListReleased;
-    const idx = pdIDList.indexOf(this.currentPDID);
+    const idx = this.currentPDIndex;
     if (idx > 0) {
       this.currentPDID = pdIDList[idx - 1];
     }

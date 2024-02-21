@@ -25,7 +25,7 @@ const THEME = createTheme({
     },
   },
   typography: {
-    fontFamily: "Gabarito",
+    fontFamily: "Akshar",
     fontSize: 16,
   },
 });

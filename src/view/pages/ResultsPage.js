@@ -97,13 +97,8 @@ export default class ResultPage extends Component {
 
     return (
       <div>
-        <div
-          id="div-screenshot"
-         
-        >
-          <Box
-
-          >
+        <div id="div-screenshot">
+          <Box>
             {this.renderTitle()}
             <Grid
               container

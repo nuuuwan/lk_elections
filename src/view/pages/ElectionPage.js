@@ -24,6 +24,8 @@ export default class ElectionPage extends Component {
 
     const election_class = ElectionFactory.fromElectionTypeID(electionTypeID);
 
+    console.debug(ElectionFactory.listElections());
+
     const election = new election_class(year, pdID);
     await election.loadData();
 

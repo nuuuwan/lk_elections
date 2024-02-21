@@ -23,21 +23,16 @@ export default class ElectionFactory {
     return Random.randomChoice(ElectionFactory.list());
   }
 
-  static electionAndYearList() {
-    let pairs = [];
+  static listElections() {
+    let electionList = [];
     for (let election_class of this.list()) {
       for (let year of election_class.getYears()) {
-        const pair = [year, election_class];
-        pairs.push(pair);
+        const election = new election_class(year);
+        electionList.push(election);
       }
     }
-    const sortedPairs = pairs.sort((pairA, pairB) => {
-      const dYears = pairA[0] - pairB[0];
-      if (dYears !== 0) {
-        return dYears;
-      }
-      return pairA[1].localeCompare(pairB[1]);
-    });
-    return sortedPairs;
+    return electionList.sort(
+      (a, b) => a.localCompare(b) 
+    );
   }
 }

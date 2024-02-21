@@ -46,6 +46,13 @@ export default class Election {
     return !this.constructor.getYears().includes(this.year);
   }
 
+  localCompare(other) {
+    if (this.year !== other.year) {
+      return this.year - other.year;
+    }
+    return this.constructor.getTypeName().localeCompare(other.constructor.getTypeName());
+  }
+
   async loadData() {
     if (this.isFutureElection) {
       return;

@@ -35,11 +35,15 @@ export default class ElectionPage extends Component {
     await this.updateStateWithElection(election);
   }
 
-  async updateStateWithElection(election) {
+  async updateStateWithElection(election, pdID) {
+
+    if (pdID) {
+      election.currentPDID = pdID;
+    }
     await election.loadData();
 
     const year = election.year;
-    const pdID = election.currentPDID;
+    pdID = election.currentPDID;
     const electionTypeID = election.constructor.getTypeName();
 
     const context = {
@@ -58,32 +62,29 @@ export default class ElectionPage extends Component {
     });
   }
 
-  async onUpdateElection(election) {
-    await this.updateStateWithElection(election);
-  }
 
   async onClickPreviousElection() {
-    let { election } = this.state;
+    let { election, pdID } = this.state;
     election = ElectionFactory.previous(election);
-    this.updateStateWithElection(election);
+    this.updateStateWithElection(election, pdID);
   }
 
   async onClickNextElection() {
-    let { election } = this.state;
+    let { election,pdID } = this.state;
     election = ElectionFactory.next(election);
-    this.updateStateWithElection(election);
+    this.updateStateWithElection(election, pdID);
   }
 
   async onClickPreviousResult() {
-    let { election } = this.state;
-    election.previous();
-    this.updateStateWithElection(election);
+    let { election ,pdID} = this.state;
+    pdID = election.previous();
+    this.updateStateWithElection(election,  pdID);
   }
 
   async onClickNextResult() {
-    let { election } = this.state;
-    election.next();
-    this.updateStateWithElection(election);
+    let { election,pdID } = this.state;
+    pdID = election.next();
+    this.updateStateWithElection(election, pdID);
   }
 
   renderHiddenData() {

@@ -216,6 +216,7 @@ export default class Election {
     if (idx < pdIDList.length - 1) {
       this.currentPDID = pdIDList[idx + 1];
     }
+    return this.currentPDID;
   }
 
   previous() {
@@ -224,5 +225,6 @@ export default class Election {
     if (idx > 0) {
       this.currentPDID = pdIDList[idx - 1];
     }
+    return this.currentPDID;
   }
 }

@@ -1,8 +1,8 @@
 import Summary from "./Summary.js";
 import { MathX } from "../base";
 export default class PartyToVotes {
-  static N_MAJOR_PARTIES = 3;
-  static P_MAJOR_PARTY = 0.0099;
+  static N_MAJOR_PARTIES = 4;
+  static P_MAJOR_PARTY = 0.005;
   static NON_PARTY_KEYS = [].concat(Summary.KEYS, "entity_id");
   constructor(partyToVotes) {
     this.partyToVotes = partyToVotes;

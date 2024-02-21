@@ -25,7 +25,7 @@ const THEME = createTheme({
     },
   },
   typography: {
-    fontFamily: "Akshar",
+    fontFamily: "Archivo",
     fontSize: 16,
   },
 });

@@ -59,7 +59,7 @@ export default function ResultView({ election, entType }) {
   let title = ent.name;
   if (title.includes("Postal Votes")) {
     title = "Postal Votes";
-    subtitle = "";
+    subtitle = "Districtwide";
   }
 
   if (nResultsReleased > nResultsTotal) {
@@ -71,7 +71,7 @@ export default function ResultView({ election, entType }) {
       <Box sx={{ m: 1, border: "1px solid black", textAlign: "right" }}>
         <Stack
           direction="row"
-          sx={{ m: 0, p: 0, minWidth: 240, minHeight: 300 }}
+          sx={{ m: 0, p: 0, minWidth: 240, minHeight: 380 }}
         >
           <Typography
             variant="h5"
@@ -109,7 +109,7 @@ export default function ResultView({ election, entType }) {
             <strong>{nResultsReleased}</strong>/{nResultsTotal} Results
           </Typography>
         ) : (
-          "Result " + (election.currentPDIndex + 1)
+          "#" + (election.currentPDIndex + 1)
         )}
       </Box>
     </Grid>

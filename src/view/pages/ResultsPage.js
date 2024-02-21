@@ -66,19 +66,16 @@ export default class ResultPage extends Component {
     });
   }
 
-  get title() {
-    const { electionTypeID } = this.state;
-    return `Sri Lankan ${electionTypeID} Election`;
-  }
-
   renderTitle() {
-    const { electionYear } = this.state;
+    const { electionYear, electionTypeID } = this.state;
     return (
       <Box>
         <Typography variant="h4" sx={{ fontWeight: "bold" }}>
           {electionYear}
         </Typography>
-        <Typography variant="caption">{this.title}</Typography>
+        <Typography variant="body2">
+          Sri Lankan <strong>{electionTypeID}</strong> Election
+        </Typography>
       </Box>
     );
   }
@@ -106,8 +103,7 @@ export default class ResultPage extends Component {
               p: 2,
             }}
           >
-            <Typography variant="h4">{electionYear}</Typography>
-            <Typography variant="body1">{this.title}</Typography>
+            {this.renderTitle()}
             <Grid
               container
               direction="row"

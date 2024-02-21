@@ -1,6 +1,6 @@
 import Cache from "./Cache.js";
 
-const CACHE_VERSION = "v20210823";
+const CACHE_VERSION = "v20240221";
 
 const JSON_HEADERS = {
   headers: {
@@ -14,24 +14,26 @@ const TSV_HEADERS = {
   },
 };
 
-async function jsonNonCache(url) {
-  const response = await fetch(url, JSON_HEADERS);
-  const dataJson = await response.json();
-  return dataJson;
-}
+
 
 export default class WWW {
   static pathJoin(pathFragmentList) {
     return pathFragmentList.join("/");
   }
 
+  static async jsonNonCache(url) {
+    const response = await fetch(url, JSON_HEADERS);
+    const dataJson = await response.json();
+    return dataJson;
+  }
+
   static async json(url) {
     return Cache.get(`WWW.json.${CACHE_VERSION}.${url}`, async function () {
-      return jsonNonCache(url);
+      return WWW.jsonNonCache(url);
     });
   }
 
-  static async tsv(url) {
+  static async tsvNonCache(url) {
     const response = await fetch(url, TSV_HEADERS);
     const content = await response.text();
     const lines = content.split("\n");
@@ -47,5 +49,12 @@ export default class WWW {
       })
       .filter((data) => data);
     return dataList;
+  }
+
+  
+  static async tsv(url) {
+    return Cache.get(`WWW.tsv.${CACHE_VERSION}.${url}`, async function () {
+      return WWW.tsvNonCache(url);
+    });
   }
 }

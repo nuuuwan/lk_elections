@@ -1,4 +1,4 @@
-import { WWW } from "../base";
+import { WWW, Ents, EntTypes } from "../base";
 import Result from "./Result.js";
 const URL_BASE =
   "https://raw.githubusercontent.com/nuuuwan/gig-data/master/gig2";
@@ -14,6 +14,9 @@ export default class Election {
   constructor(year) {
     this.year = year;
     this.resultsIdx = null;
+    this.pdIdx = null;
+    this.edIdx = null;
+    this.countryIdx = null;
   }
 
   get urlData() {
@@ -29,6 +32,9 @@ export default class Election {
 
   async loadData() {
     this.resultsIdx = await this.getResultsIdx();
+    this.pdIdx = await Ents.getEntIndexByType(EntTypes.PD);
+    this.edIdx = await Ents.getEntIndexByType(EntTypes.ED);
+    this.countryIdx =  await Ents.getEntIndexByType(EntTypes.COUNTRY);
   }
 
   async getRawData() {

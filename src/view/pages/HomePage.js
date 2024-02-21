@@ -10,7 +10,6 @@ export default class HomePage extends Component {
   constructor(props) {
     super(props);
     const context = URLContext.get();
-    console.debug(context);
     const pageID = context.pageID;
     this.state = { pageID };
   }

@@ -29,8 +29,8 @@ export default function ResultView({ ent, result }) {
   }
 
   return (
-    <Grid item sx={{opacity}}>
-      <Box sx={{  m: 1, border: "1px solid black" }}>
+    <Grid item sx={{ opacity }}>
+      <Box sx={{ m: 1, border: "1px solid black" }}>
         <Stack direction="row" sx={{ m: 0, p: 0, minWidth: 200 }}>
           <Typography
             variant="h5"
@@ -62,10 +62,8 @@ export default function ResultView({ ent, result }) {
           <SummaryView summary={result.summary} />
         </Stack>
       </Box>
-      <Box sx={{textAlign: "center", color: "#888"}}>
-            <Typography variant="caption">  
-              Final
-            </Typography>
+      <Box sx={{ textAlign: "center", color: "#888" }}>
+        <Typography variant="caption">Final</Typography>
       </Box>
     </Grid>
   );

@@ -7,7 +7,7 @@ export default function ElectionView({ election }) {
   const electionTypeID = election.constructor.getTypeName();
 
   return (
-    <Box sx={{  p: 2 }}>
+    <Box sx={{  p: 2, minHeight: 450 }}>
       <Box>
         <Typography variant="h4" sx={{ fontWeight: "bold" }}>
           {electionYear}

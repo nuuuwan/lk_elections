@@ -155,7 +155,7 @@ export default class Election {
 
   getHiddenData() {
     return {
-      electionYear: this.year,
+      year: this.year,
       result: this.currentPDResult,
       entPD: this.currentPDEnt,
       entED: this.currentEDEnt,

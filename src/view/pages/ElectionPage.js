@@ -16,29 +16,29 @@ export default class ElectionPage extends Component {
 
     this.state = {
       electionTypeID: "Parliamentary",
-      electionYear: context.electionYear,
+      year: context.year,
       pdID: context.pdID,
       election: null,
     };
   }
 
   async componentDidMount() {
-    let { pdID, electionYear } = this.state;
-    const election = new ElectionParliamentary(electionYear, pdID);
+    let { pdID, year } = this.state;
+    const election = new ElectionParliamentary(year, pdID);
     await election.loadData();
 
-    electionYear = election.year;
+    year = election.year;
     pdID = election.currentPDID;
 
     const context = {
       pageID: "results",
-      electionYear,
+      year,
       pdID,
     };
     URLContext.set(context);
 
     this.setState({
-      electionYear,
+      year,
       pdID,
       election,
     });

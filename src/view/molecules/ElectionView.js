@@ -3,14 +3,14 @@ import { ResultView } from "../molecules";
 import { ENT_TYPES } from "../../nonview/base/EntTypes.js";
 
 export default function ElectionView({ election }) {
-  const electionYear = election.year;
+  const year = election.year;
   const electionTypeID = election.constructor.getTypeName();
 
   return (
     <Box sx={{ p: 2, minHeight: 450 }}>
       <Box>
         <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-          {electionYear}
+          {year}
         </Typography>
         <Typography variant="h6">{electionTypeID}</Typography>
       </Box>

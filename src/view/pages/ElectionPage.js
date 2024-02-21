@@ -81,8 +81,8 @@ export default class ElectionPage extends Component {
       <div>
         <div id="div-screenshot">
           <Box sx={{ p: 2, minHeight: 550 }}>
-            <Box>
-              <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+            <Box sx={{textAlign: "center" }}>
+              <Typography variant="h4" sx={{ fontWeight: "bold"}}>
                 {year}
               </Typography>
               <Typography variant="h6">{electionTypeID}</Typography>

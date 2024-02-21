@@ -140,7 +140,6 @@ export default class ElectionPage extends Component {
   render() {
     return (
       <Box>
-
         <Box
           sx={{
             position: "fixed",

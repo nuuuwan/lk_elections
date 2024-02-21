@@ -37,6 +37,7 @@ export default function ResultView({ ent, result }) {
               color: "white",
               fontWeight: "bold",
               background: color,
+              textAlign: "center",
             }}
           >
             {title}
@@ -47,7 +48,7 @@ export default function ResultView({ ent, result }) {
             sx={{
               transform: "rotate(180deg)",
               writingMode: "vertical-rl",
-              color,
+              color,textAlign: "center",
             }}
           >
             {subtitle}

@@ -56,6 +56,7 @@ export default class HomePage extends Component {
           left: 0,
           right: 0,
           zIndex: 1000,
+          padding: 5,
         
         }}>
         {this.renderBody()}

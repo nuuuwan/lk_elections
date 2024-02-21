@@ -102,10 +102,7 @@ export default class ResultPage extends Component {
          
         >
           <Box
-            sx={{
-              m: "auto",
-              p: 2,
-            }}
+
           >
             {this.renderTitle()}
             <Grid

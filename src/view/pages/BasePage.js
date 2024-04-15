@@ -1,7 +1,7 @@
 import { Component } from "react";
 
 import { URLContext } from "../../nonview/base";
-import { ElectionPage } from "../pages";
+import { ElectionPage, ElectionResultPage, PollingDivisionPage } from "../pages";
 
 export default class BasePage extends Component {
   constructor(props) {
@@ -14,9 +14,14 @@ export default class BasePage extends Component {
   render() {
     const pageID = this.state.contextItems[0];
     switch (pageID) {
-      case "Elections":
-      default:
+      case "PollingDivision":
+        return <PollingDivisionPage />;
+      case "Election":
         return <ElectionPage />;
+      
+      case "ElectionResult":
+      default:
+        return <ElectionResultPage />;
     }
   }
 }

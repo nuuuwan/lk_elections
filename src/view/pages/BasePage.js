@@ -11,26 +11,27 @@ import {
 export default class BasePage extends Component {
   constructor(props) {
     super(props);
-    const contextItems = URLContext.getItems();
-
-    this.state = { contextItems };
+    const contextValues = URLContext.getValues();
+    this.state = { contextValues };
   }
 
+  get pageList() {
+    return [
+      ElectionPage,
+      ElectionResultPage,
+      ElectoralDistrictPage,
+      PollingDivisionPage,
+    ];
+  }
   render() {
-    const pageID = this.state.contextItems[0];
-    switch (pageID) {
-      case "Election":
-        return <ElectionPage />;
-
-      case "ElectoralDistrict":
-        return <ElectoralDistrictPage />;
-
-      case "PollingDivision":
-        return <PollingDivisionPage />;
-
-      case "ElectionResult":
-      default:
-        return <ElectionResultPage />;
+    const activePageID = this.state.contextValues[0];
+    let ActivePage = ElectionResultPage;
+    for (let Page of this.pageList) {
+      if (activePageID === Page.getPageID()) {
+        ActivePage = Page;
+        break;
+      }
     }
+    return <ActivePage />;
   }
 }

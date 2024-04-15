@@ -1,22 +1,19 @@
-import { Component } from "react";
-import { Box, Typography } from "@mui/material";
-import { URLContext } from "../../nonview/base";
+import AbstractCustomPage from "./AbstractCustomPage";
 
-export default class PollingDivisionPage extends Component {
+export default class PollingDivisionPage extends AbstractCustomPage {
+  static getPageID() {
+    return "PollingDivision";
+  }
+
   constructor(props) {
     super(props);
-    const contextItems = URLContext.getItems();
-    const [pageID, pdID] = contextItems;
-
+    const { contextValues } = this.state;
+    const [pageID, pdID] = contextValues;
     this.state = { pageID, pdID };
   }
 
-  render() {
+  get title() {
     const { pdID } = this.state;
-    return (
-      <Box>
-        <Typography variant="h1">{pdID} Polling Division</Typography>
-      </Box>
-    );
+    return `${pdID} PollingDivision`;
   }
 }

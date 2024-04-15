@@ -9,30 +9,29 @@ export default class URLContext {
     window.history.pushState("", "", url);
   }
 
-  // convertors (context <-> URL)
+  // convertors (contextValues <-> URL)
 
-  static contextToURL(contextItems) {
+  static contextValuesToURL(contextValues) {
     const origin = window.location.origin;
     let urlBase = origin + process.env.PUBLIC_URL; // TODO: Is origin needed?
-    return urlBase + "/" + contextItems.join("/");
+    return urlBase + "/" + contextValues.join("/");
   }
 
-  static urlToContext(url) {
+  static urlToContextValues(url) {
     const urlTokens = url.split("/");
     const index = urlTokens.indexOf("lk_elections");
-    const contextItems = urlTokens.splice(index + 1);
-    return contextItems;
+    const contextValues = urlTokens.splice(index + 1);
+    return contextValues;
   }
 
   // context (default)
 
-  static setItems(contextItems) {
-    const url = URLContext.contextToURL(contextItems);
+  static setValues(contextValues) {
+    const url = URLContext.contextValuesToURL(contextValues);
     URLContext.setURL(url);
   }
 
-  static getItems() {
-    const url = URLContext.getURL();
-    return URLContext.urlToContext(url);
+  static getValues() {
+    return URLContext.urlToContextValues(URLContext.getURL());
   }
 }

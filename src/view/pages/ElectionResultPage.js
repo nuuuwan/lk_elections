@@ -1,25 +1,24 @@
-import { Component } from "react";
-
 import { URLContext } from "../../nonview/base";
 import { ElectionFactory, FutureElection } from "../../nonview/core";
 
-import {
-  ElectionView,
-  FutureElectionView,
-  CustomBottomNavigator,
-} from "../molecules";
+import { ElectionView, FutureElectionView } from "../molecules";
 
 import { CircularProgress, Box } from "@mui/material";
 import { ElectionTitleView } from "../atoms";
+import AbstractCustomPage from "./AbstractCustomPage";
 
-export default class ElectionPage extends Component {
+export default class ElectionResultPage extends AbstractCustomPage {
+  static getPageID() {
+    return "ElectionResult";
+  }
+
   constructor(props) {
     super(props);
-    const contextItems = URLContext.getItems();
+    const { contextValues } = this.state;
 
     let pageID, electionTypeID, year, pdID;
-    if (contextItems.length === 4) {
-      [pageID, electionTypeID, year, pdID] = contextItems;
+    if (contextValues.length === 4) {
+      [pageID, electionTypeID, year, pdID] = contextValues;
     }
 
     this.state = {
@@ -47,7 +46,7 @@ export default class ElectionPage extends Component {
     const year = election.year;
     pdID = election.currentPDID;
     const electionTypeID = election.constructor.getTypeName();
-    URLContext.setItems(["Election", electionTypeID, year, pdID]);
+    URLContext.setValues(["Election", electionTypeID, year, pdID]);
 
     this.setState({
       electionTypeID,
@@ -55,30 +54,6 @@ export default class ElectionPage extends Component {
       pdID,
       election,
     });
-  }
-
-  async onClickPreviousElection() {
-    let { election, pdID } = this.state;
-    election = ElectionFactory.previous(election);
-    this.updateStateWithElection(election, pdID);
-  }
-
-  async onClickNextElection() {
-    let { election, pdID } = this.state;
-    election = ElectionFactory.next(election);
-    this.updateStateWithElection(election, pdID);
-  }
-
-  async onClickPreviousResult() {
-    let { election, pdID } = this.state;
-    pdID = election.previous();
-    this.updateStateWithElection(election, pdID);
-  }
-
-  async onClickNextResult() {
-    let { election, pdID } = this.state;
-    pdID = election.next();
-    this.updateStateWithElection(election, pdID);
   }
 
   renderHiddenData() {
@@ -103,6 +78,18 @@ export default class ElectionPage extends Component {
     return <ElectionView election={election} />;
   }
 
+  get title() {
+    const { election } = this.state;
+    if (!election) {
+      return "Loading...";
+    }
+    const pdEnt = election.currentPDEnt;
+    const edEnt = election.currentEDEnt;
+    return `${election.year} ${election.constructor.getTypeName()} - ${
+      pdEnt.name
+    }, ${edEnt.name}`;
+  }
+
   renderBody() {
     const { election } = this.state;
     if (!election) {
@@ -119,49 +106,6 @@ export default class ElectionPage extends Component {
         </div>
         {this.renderHiddenData()}
       </div>
-    );
-  }
-
-  renderFooter() {
-    return (
-      <CustomBottomNavigator
-        onClickPreviousElection={this.onClickPreviousElection.bind(this)}
-        onClickNextElection={this.onClickNextElection.bind(this)}
-        onClickPreviousResult={this.onClickPreviousResult.bind(this)}
-        onClickNextResult={this.onClickNextResult.bind(this)}
-      />
-    );
-  }
-
-  render() {
-    return (
-      <Box>
-        <Box
-          sx={{
-            position: "fixed",
-            top: 0,
-            bottom: 64,
-            left: 0,
-            right: 0,
-            zIndex: 1000,
-            overflow: "scroll",
-          }}
-        >
-          {this.renderBody()}
-        </Box>
-        <Box
-          sx={{
-            position: "fixed",
-            bottom: 0,
-            left: 0,
-            right: 0,
-            zIndex: 1000,
-            height: 64,
-          }}
-        >
-          {this.renderFooter()}
-        </Box>
-      </Box>
     );
   }
 }

@@ -15,7 +15,7 @@ export default function ResultView({ election, entType }) {
   let subtitle;
   let nResultsReleased;
   let nResultsTotal;
-  let contextItems;
+  let contextValues;
   switch (entType) {
     case ENT_TYPES.PD:
       result = election.currentPDResult;
@@ -23,7 +23,7 @@ export default function ResultView({ election, entType }) {
       subtitle = "Polling Division";
       nResultsReleased = 1;
       nResultsTotal = 1;
-      contextItems = ["PollingDivision", ent.id];
+      contextValues = ["PollingDivision", ent.id];
       break;
     case ENT_TYPES.ED:
       result = election.currentEDResult;
@@ -31,7 +31,7 @@ export default function ResultView({ election, entType }) {
       subtitle = "Electoral District";
       nResultsReleased = election.currentEDPDResultCount;
       nResultsTotal = election.totalEDPDResultCount;
-      contextItems = ["ElectoralDistrict", ent.id];
+      contextValues = ["ElectoralDistrict", ent.id];
       break;
     case ENT_TYPES.COUNTRY:
       result = election.resultLK;
@@ -39,7 +39,7 @@ export default function ResultView({ election, entType }) {
       subtitle = "Nationwide";
       nResultsReleased = election.resultsCount;
       nResultsTotal = election.totalResultsCount;
-      contextItems = [
+      contextValues = [
         "Election",
         election.constructor.getTypeName(),
         election.year,
@@ -75,10 +75,10 @@ export default function ResultView({ election, entType }) {
   }
 
   const onClick = function () {
-    if (!contextItems) {
+    if (!contextValues) {
       return;
     }
-    URLContext.setItems(contextItems);
+    URLContext.setValues(contextValues);
     window.location.reload();
   };
 

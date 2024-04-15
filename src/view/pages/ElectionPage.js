@@ -1,15 +1,17 @@
-import { Component } from "react";
-import { Box, Typography } from "@mui/material";
-import { URLContext } from "../../nonview/base";
+import AbstractCustomPage from "./AbstractCustomPage";
 
-export default class ElectionPage extends Component {
+export default class ElectionPage extends AbstractCustomPage {
+  static getPageID() {
+    return "Election";
+  }
+
   constructor(props) {
     super(props);
-    const contextItems = URLContext.getItems();
+    const { contextValues } = this.state;
 
     let pageID, electionTypeID, year;
-    if (contextItems.length === 3) {
-      [pageID, electionTypeID, year] = contextItems;
+    if (contextValues.length === 3) {
+      [pageID, electionTypeID, year] = contextValues;
     }
 
     this.state = {
@@ -20,14 +22,8 @@ export default class ElectionPage extends Component {
     };
   }
 
-  render() {
+  get title() {
     const { electionTypeID, year } = this.state;
-    return (
-      <Box>
-        <Typography variant="h1">
-          {year} Sri Lankan {electionTypeID} Election
-        </Typography>
-      </Box>
-    );
+    return `${year} Sri Lankan ${electionTypeID} Election`;
   }
 }

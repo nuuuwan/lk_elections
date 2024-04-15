@@ -1,22 +1,18 @@
-import { Component } from "react";
-import { Box, Typography } from "@mui/material";
-import { URLContext } from "../../nonview/base";
+import AbstractCustomPage from "./AbstractCustomPage";
 
-export default class ElectoralDistrictPage extends Component {
+export default class ElectoralDistrictPage extends AbstractCustomPage {
+  static getPageID() {
+    return "ElectoralDistrict";
+  }
   constructor(props) {
     super(props);
-    const contextItems = URLContext.getItems();
-    const [pageID, edID] = contextItems;
-
+    const { contextValues } = this.state;
+    const [pageID, edID] = contextValues;
     this.state = { pageID, edID };
   }
 
-  render() {
+  get title() {
     const { edID } = this.state;
-    return (
-      <Box>
-        <Typography variant="h1">{edID} ElectoralDistrict</Typography>
-      </Box>
-    );
+    return `${edID} ElectoralDistrict`;
   }
 }

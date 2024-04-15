@@ -12,7 +12,7 @@ import {
 import { CircularProgress, Box } from "@mui/material";
 import { ElectionTitleView } from "../atoms";
 
-export default class ElectionResultPage extends Component {
+export default class ElectionPage extends Component {
   constructor(props) {
     super(props);
     const contextItems = URLContext.getItems();
@@ -47,7 +47,7 @@ export default class ElectionResultPage extends Component {
     const year = election.year;
     pdID = election.currentPDID;
     const electionTypeID = election.constructor.getTypeName();
-    URLContext.setItems(["ElectionResult", electionTypeID, year, pdID]);
+    URLContext.setItems(["Election", electionTypeID, year, pdID]);
 
     this.setState({
       electionTypeID,

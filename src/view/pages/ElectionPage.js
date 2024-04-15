@@ -1,5 +1,5 @@
 import { Component } from "react";
-
+import { Box, Typography } from "@mui/material";
 import { URLContext } from "../../nonview/base";
 
 export default class ElectionPage extends Component {
@@ -22,6 +22,12 @@ export default class ElectionPage extends Component {
 
   render() {
     const { electionTypeID, year } = this.state;
-    return `${electionTypeID} ${year}`;
+    return (
+      <Box>
+        <Typography variant="h1">
+          {year} Sri Lankan {electionTypeID} Election
+        </Typography>
+      </Box>
+    );
   }
 }

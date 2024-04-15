@@ -1,6 +1,6 @@
 import { Grid, Box, CircularProgress, Stack, Typography } from "@mui/material";
 import { POLITICAL_PARTY_TO_COLOR } from "../../nonview/constants";
-
+import { URLContext } from "../../nonview/base";
 import { PartyToVotesView, SummaryView } from "../molecules";
 import { ENT_TYPES } from "../../nonview/base/EntTypes";
 import { LIGHT_COLORS } from "../../nonview/constants/POLITICAL_PARTY_TO_COLOR";
@@ -15,6 +15,7 @@ export default function ResultView({ election, entType }) {
   let subtitle;
   let nResultsReleased;
   let nResultsTotal;
+  let contextItems;
   switch (entType) {
     case ENT_TYPES.PD:
       result = election.currentPDResult;
@@ -22,6 +23,7 @@ export default function ResultView({ election, entType }) {
       subtitle = "Polling Division";
       nResultsReleased = 1;
       nResultsTotal = 1;
+      contextItems = ["PollingDivision", ent.id];
       break;
     case ENT_TYPES.ED:
       result = election.currentEDResult;
@@ -29,6 +31,7 @@ export default function ResultView({ election, entType }) {
       subtitle = "Electoral District";
       nResultsReleased = election.currentEDPDResultCount;
       nResultsTotal = election.totalEDPDResultCount;
+      contextItems = ["ElectoralDistrict", ent.id];
       break;
     case ENT_TYPES.COUNTRY:
       result = election.resultLK;
@@ -36,6 +39,11 @@ export default function ResultView({ election, entType }) {
       subtitle = "Nationwide";
       nResultsReleased = election.resultsCount;
       nResultsTotal = election.totalResultsCount;
+      contextItems = [
+        "Election",
+        election.constructor.getTypeName(),
+        election.year,
+      ];
       break;
     default:
       throw new Error("Invalid entType: " + entType);
@@ -66,6 +74,14 @@ export default function ResultView({ election, entType }) {
     nResultsTotal = nResultsReleased;
   }
 
+  const onClick = function () {
+    if (!contextItems) {
+      return;
+    }
+    URLContext.setItems(contextItems);
+    window.location.reload();
+  };
+
   return (
     <Grid item>
       <Box sx={{ m: 1, border: "1px solid black", textAlign: "right" }}>
@@ -82,7 +98,9 @@ export default function ResultView({ election, entType }) {
               fontWeight: "bold",
               background: color,
               textAlign: "center",
+              cursor: "pointer",
             }}
+            onClick={onClick}
           >
             {title}
           </Typography>

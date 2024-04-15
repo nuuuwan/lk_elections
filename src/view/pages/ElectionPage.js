@@ -15,21 +15,25 @@ import { ElectionTitleView } from "../atoms";
 export default class ElectionPage extends Component {
   constructor(props) {
     super(props);
-    const context = URLContext.get();
+    const contextItems = URLContext.getItems();
+
+    let pageID, electionTypeID, year, pdID;
+    if (contextItems.length === 4) {
+      [pageID, electionTypeID, year, pdID] = contextItems;
+    }
 
     this.state = {
-      electionTypeID: context.electionTypeID,
-      year: context.year,
-      pdID: context.pdID,
+      pageID: pageID,
+      electionTypeID: electionTypeID,
+      year: year,
+      pdID: pdID,
       election: null,
     };
   }
 
   async componentDidMount() {
     let { electionTypeID, year, pdID } = this.state;
-
     const election_class = ElectionFactory.fromElectionTypeID(electionTypeID);
-
     const election = new election_class(year, pdID);
     await this.updateStateWithElection(election);
   }
@@ -43,14 +47,7 @@ export default class ElectionPage extends Component {
     const year = election.year;
     pdID = election.currentPDID;
     const electionTypeID = election.constructor.getTypeName();
-
-    const context = {
-      pageID: "results",
-      electionTypeID,
-      year,
-      pdID,
-    };
-    URLContext.set(context);
+    URLContext.setItems(["Elections", electionTypeID, year, pdID]);
 
     this.setState({
       electionTypeID,

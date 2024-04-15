@@ -1,43 +1,4 @@
 export default class URLContext {
-  // convertors (context <-> string)
-
-  static contextToStr(context) {
-    return Object.entries(context)
-      .map(function ([key, value]) {
-        if (!value) {
-          value = "null";
-        }
-        return key + "=" + value.toString();
-      })
-      .join("&");
-  }
-
-  static strToContext(contextStr) {
-    return Object.fromEntries(
-      contextStr.split("&").map(function (part) {
-        const [key, value] = part.split("=");
-        return [key, value];
-      })
-    );
-  }
-
-  // convertors (context <-> URL)
-
-  static contextToURL(context) {
-    const origin = window.location.origin;
-    let urlBase = origin + process.env.PUBLIC_URL; // TODO: Is origin needed?
-    return urlBase + "?" + URLContext.contextToStr(context);
-  }
-
-  static urlToContext(url) {
-    const urlTokens = url.split("?");
-    if (urlTokens.length !== 2) {
-      return {};
-    }
-    const contextPart = urlTokens[1];
-    return URLContext.strToContext(contextPart);
-  }
-
   // URL
 
   static getURL() {
@@ -48,14 +9,29 @@ export default class URLContext {
     window.history.pushState("", "", url);
   }
 
+  // convertors (context <-> URL)
+
+  static contextToURL(contextItems) {
+    const origin = window.location.origin;
+    let urlBase = origin + process.env.PUBLIC_URL; // TODO: Is origin needed?
+    return urlBase + "/" + contextItems.join("/");
+  }
+
+  static urlToContext(url) {
+    const urlTokens = url.split("/");
+    const index = urlTokens.indexOf("lk_elections");
+    const contextItems = urlTokens.splice(index + 1);
+    return contextItems;
+  }
+
   // context (default)
 
-  static set(context) {
-    const url = URLContext.contextToURL(context);
+  static setItems(contextItems) {
+    const url = URLContext.contextToURL(contextItems);
     URLContext.setURL(url);
   }
 
-  static get() {
+  static getItems() {
     const url = URLContext.getURL();
     return URLContext.urlToContext(url);
   }

@@ -4,7 +4,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import "./App.css";
 
-import { ElectionPage } from "./view/pages";
+import { BasePage } from "./view/pages";
 
 const THEME = createTheme({
   palette: {
@@ -34,7 +34,7 @@ export default class App extends Component {
   render() {
     return (
       <ThemeProvider theme={THEME}>
-        <ElectionPage />
+        <BasePage />
       </ThemeProvider>
     );
   }

@@ -1,4 +1,4 @@
-import { Grid, Box, CircularProgress, Stack, Typography } from "@mui/material";
+import { Grid, Box, Stack, Typography } from "@mui/material";
 import { POLITICAL_PARTY_TO_COLOR } from "../../nonview/constants";
 import { URLContext } from "../../nonview/base";
 import { PartyToVotesView, SummaryView } from "../molecules";
@@ -7,7 +7,10 @@ import { LIGHT_COLORS } from "../../nonview/constants/POLITICAL_PARTY_TO_COLOR";
 
 export default function ResultView({ election, entType }) {
   if (!election) {
-    return <CircularProgress />;
+    return null;
+  }
+  if (!election.resultsIdx) {
+    return null;
   }
 
   let result;

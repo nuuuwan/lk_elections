@@ -40,6 +40,7 @@ export default class AbstractCustomPage extends Component {
             right: 0,
             zIndex: 1000,
             overflow: "scroll",
+            paddingLeft: 10,
           }}
         >
           {this.renderBody()}

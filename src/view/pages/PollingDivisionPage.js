@@ -1,5 +1,9 @@
+import { Box } from "@mui/material";
 import { Ents } from "../../nonview/base";
-import { PollingDivisionView } from "../molecules";
+
+import { ElectionFactory } from "../../nonview/core";
+import { ElectionTitleView } from "../atoms";
+import { PollingDivisionView, ElectionView } from "../molecules";
 import AbstractCustomPage from "./AbstractCustomPage";
 
 export default class PollingDivisionPage extends AbstractCustomPage {
@@ -17,7 +21,15 @@ export default class PollingDivisionPage extends AbstractCustomPage {
   async componentDidMount() {
     const { pdID } = this.state;
     const pdEnt = await Ents.getEnt(pdID);
-    this.setState({ pdEnt });
+    const edID = pdID.substring(0, 5);
+    const edEnt = await Ents.getEnt(edID);
+
+    const elections = ElectionFactory.listElections();
+    for (let election of elections) {
+      election.currentPDID = pdID;
+      await election.loadData();
+    }
+    this.setState({ pdEnt, edEnt, elections });
   }
 
   get title() {
@@ -29,7 +41,23 @@ export default class PollingDivisionPage extends AbstractCustomPage {
   }
 
   renderBody() {
-    const { pdEnt } = this.state;
-    return <PollingDivisionView pdEnt={pdEnt} />;
+    const { pdEnt, edEnt, elections } = this.state;
+    if (!pdEnt) {
+      return "Loading...";
+    }
+    return (
+      <Box>
+        <PollingDivisionView pdEnt={pdEnt} edEnt={edEnt} />
+        {elections.reverse().map(function (election, iElection) {
+          const key = "election-" + iElection;
+          return (
+            <Box key={key}>
+              <ElectionTitleView election={election} />
+              <ElectionView election={election} />
+            </Box>
+          );
+        })}
+      </Box>
+    );
   }
 }

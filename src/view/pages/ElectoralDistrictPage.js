@@ -1,4 +1,5 @@
 import { Ents } from "../../nonview/base";
+
 import { ElectoralDistrictView } from "../molecules";
 import AbstractCustomPage from "./AbstractCustomPage";
 
@@ -17,6 +18,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
   async componentDidMount() {
     const { edID } = this.state;
     const edEnt = await Ents.getEnt(edID);
+
     this.setState({ edEnt });
   }
 

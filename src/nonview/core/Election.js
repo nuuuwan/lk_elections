@@ -1,4 +1,5 @@
-import { WWW, Random, Time } from "../base";
+import { WWW, Random, Time, StringX } from "../base";
+import WIKIPEDIA_SUMMRY_IDX from "../constants/WIKIPEDIA_SUMMRY_IDX.js";
 
 import Result from "./Result.js";
 const URL_BASE =
@@ -129,6 +130,24 @@ export default class Election {
 
   get titleShort() {
     return this.year + " " + this.electionType;
+  }
+
+  // Wikipedia
+  get wikipediaPageName() {
+    return (
+      this.year +
+      " Sri Lankan " +
+      StringX.toTitleCase(this.electionType) +
+      " Election"
+    );
+  }
+
+  get wikipediaSummary() {
+    const summary = WIKIPEDIA_SUMMRY_IDX[this.wikipediaPageName];
+    if (summary) {
+      return summary + " [Wikipedia]";
+    }
+    return "";
   }
 
   // Data

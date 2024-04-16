@@ -5,9 +5,7 @@ export default function ElectionTitleView({ election, distance }) {
 
   return (
     <Box sx={{ opacity }}>
-      <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-        {election.titleShort}
-      </Typography>
+      <Typography variant="h6">{election.titleShort}</Typography>
     </Box>
   );
 }

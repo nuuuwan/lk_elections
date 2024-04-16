@@ -1,4 +1,4 @@
-import { Box, CircularProgress } from "@mui/material";
+import { Box, Typography, CircularProgress } from "@mui/material";
 import { URLContext, Ent, EntType } from "../../nonview/base";
 import { Election } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
@@ -51,6 +51,16 @@ export default class ElectionPage extends AbstractCustomPage {
     }
     return (
       <Box>
+        <Box sx={{ maxWidth: 640 }}>
+          {election.wikipediaSummary.split("\n").map(function (paragraph, i) {
+            return (
+              <Typography key={i} variant="body1" sx={{ p: 1 }}>
+                {paragraph}
+              </Typography>
+            );
+          })}
+        </Box>
+
         <ElectionView
           election={election}
           entType={EntType.COUNTRY}

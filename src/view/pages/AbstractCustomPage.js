@@ -41,7 +41,7 @@ export default class AbstractCustomPage extends Component {
             {this.supertitle}
           </Typography>
           <Typography variant="h4">{this.title}</Typography>
-          {this.renderBody()}
+          <Box sx={{ paddingTop: 2 }}>{this.renderBody()}</Box>
           <Box sx={{ marginTop: 10, color: "#eee" }}>
             v{VERSION.DATETIME_STR}
           </Box>

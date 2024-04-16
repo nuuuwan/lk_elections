@@ -56,7 +56,6 @@ export default function ElectionView({
 
   return (
     <Box>
-      <Typography variant="body1">Held on {election.date}</Typography>
       <Grid container direction="row" alignItems="top" spacing={1}>
         {children}
       </Grid>

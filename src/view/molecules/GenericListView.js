@@ -10,7 +10,7 @@ export default function GenericListView({
 }) {
   let prevLabel = undefined;
   return (
-    <Box>
+    <Box sx={{ marginTop: 2 }}>
       <Typography variant="h6" sx={{ color: "#888" }}>
         {title}
       </Typography>

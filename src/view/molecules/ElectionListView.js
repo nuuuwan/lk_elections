@@ -10,7 +10,7 @@ export default function ElectionListView({
   countryEnt,
 }) {
   return (
-    <Box>
+    <Box sx={{ marginTop: 2 }}>
       <Typography variant="h6" sx={{ color: "#888" }}>
         Election History
       </Typography>

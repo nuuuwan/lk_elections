@@ -24,6 +24,12 @@ ELECTION_LIST = [
       ("Parliamentary", "1989-02-15"),
 ]
 
+def clean(x):
+      x = x.replace('.', '. ')
+      x = x.replace('  ', '\n')
+      return x 
+
+
 def main():
     var_name = 'WIKIPEDIA_SUMMRY_IDX'
     time_id = TimeFormat.TIME_ID.formatNow
@@ -41,7 +47,7 @@ def main():
         try:
             wiki = wikipediaapi.Wikipedia("lk_elections", "en")
             page = wiki.page(wiki_page_name)
-            summary = page.summary
+            summary = clean(page.summary)
             lines.extend([
                 '',
                 '  // ' + wiki_page_name,

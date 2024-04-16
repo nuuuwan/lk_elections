@@ -25,7 +25,7 @@ const THEME = createTheme({
     },
   },
   typography: {
-    fontFamily: "ABeeZee",
+    fontFamily: "Figtree",
     fontSize: 14,
   },
 });

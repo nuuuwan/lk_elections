@@ -1,0 +1,9 @@
+.leaflet-container {
+  z-index: 0;
+  width: 67%;
+  height: 67vh;
+}
+
+.leaflet-tile-pane {
+  filter: grayscale(100%);
+}

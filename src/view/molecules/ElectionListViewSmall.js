@@ -1,6 +1,6 @@
 import { GenericListView } from "../molecules";
-import PersonIcon from '@mui/icons-material/Person';
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import PersonIcon from "@mui/icons-material/Person";
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 export default function ElectionListViewSmall({ elections }) {
   return (
     <GenericListView
@@ -13,7 +13,11 @@ export default function ElectionListViewSmall({ elections }) {
         };
       }}
       getLabel={(election) => election.titleShort}
-      getIcon={(election) => election.electionType === 'Presidential' ? PersonIcon : AccountBalanceIcon }
+      getIcon={(election) =>
+        election.electionType === "Presidential"
+          ? PersonIcon
+          : AccountBalanceIcon
+      }
     />
   );
 }

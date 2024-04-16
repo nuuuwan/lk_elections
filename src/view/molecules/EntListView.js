@@ -2,7 +2,6 @@ import { EntType } from "../../nonview/base";
 
 import { GenericListView } from "../molecules";
 
-
 export default function EntListView({ ents }) {
   if (!ents) {
     return null;

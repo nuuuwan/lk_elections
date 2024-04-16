@@ -36,13 +36,14 @@ export default function GenericListView({
               sx={{ m: 0, p: 0, paddingLeft: 1, paddingTop }}
             >
               <LinkContext context={context}>
-                
-                
                 <Box display="flex" alignItems="center">
-                {Icon ? (<Icon small sx={{color: "#ccc", marginRight: 1}}/>) : null}
-                <Typography variant="body2">
-                  {label}</Typography>
-                  </Box>
+                  {Icon ? (
+                    <Icon
+                      sx={{ color: "#ccc", marginRight: 1, fontSize: "80%" }}
+                    />
+                  ) : null}
+                  <Typography variant="body2">{label}</Typography>
+                </Box>
               </LinkContext>
             </Box>
           );

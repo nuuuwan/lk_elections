@@ -2,6 +2,7 @@
 import Cache from "./Cache";
 import Ent from "./Ent";
 import EntType from "./EntType";
+import Geo from "./Geo";
 import MathX from "./MathX";
 import Random from "./Random";
 import StringX from "./StringX";
@@ -9,4 +10,15 @@ import Time from "./Time";
 import URLContext from "./URLContext";
 import WWW from "./WWW";
 
-export { Cache, Ent, EntType, MathX, Random, StringX, Time, URLContext, WWW };
+export {
+  Cache,
+  Ent,
+  EntType,
+  Geo,
+  MathX,
+  Random,
+  StringX,
+  Time,
+  URLContext,
+  WWW,
+};

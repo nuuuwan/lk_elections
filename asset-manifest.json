@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/lk_elections/static/css/main.e05aef97.css",
-    "main.js": "/lk_elections/static/js/main.8e175830.js",
+    "main.css": "/lk_elections/static/css/main.33d16bf9.css",
+    "main.js": "/lk_elections/static/js/main.534e01ff.js",
     "static/js/592.e6a82455.chunk.js": "/lk_elections/static/js/592.e6a82455.chunk.js",
     "index.html": "/lk_elections/index.html",
-    "main.e05aef97.css.map": "/lk_elections/static/css/main.e05aef97.css.map",
-    "main.8e175830.js.map": "/lk_elections/static/js/main.8e175830.js.map",
+    "main.33d16bf9.css.map": "/lk_elections/static/css/main.33d16bf9.css.map",
+    "main.534e01ff.js.map": "/lk_elections/static/js/main.534e01ff.js.map",
     "592.e6a82455.chunk.js.map": "/lk_elections/static/js/592.e6a82455.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e05aef97.css",
-    "static/js/main.8e175830.js"
+    "static/css/main.33d16bf9.css",
+    "static/js/main.534e01ff.js"
   ]
 }

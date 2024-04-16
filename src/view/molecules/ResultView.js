@@ -26,7 +26,7 @@ export default function ResultView({ election, entType }) {
       subtitle = "Polling Division";
       nResultsReleased = 1;
       nResultsTotal = 1;
-      context = {pageID: "PollingDivision", pdID: ent.id};
+      context = { pageID: "PollingDivision", pdID: ent.id };
       break;
     case ENT_TYPES.ED:
       result = election.currentEDResult;
@@ -34,7 +34,7 @@ export default function ResultView({ election, entType }) {
       subtitle = "Electoral District";
       nResultsReleased = election.currentEDPDResultCount;
       nResultsTotal = election.totalEDPDResultCount;
-      context = {pageID: "ElectoralDistrict", edID: ent.id};
+      context = { pageID: "ElectoralDistrict", edID: ent.id };
       break;
     case ENT_TYPES.COUNTRY:
       result = election.resultLK;

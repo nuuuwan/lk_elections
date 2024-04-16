@@ -1,10 +1,8 @@
 import { Component } from "react";
 import { Box, Toolbar, AppBar, Typography } from "@mui/material";
-
+import { VERSION } from "../../nonview/constants";
 
 export default class AbstractCustomPage extends Component {
-
-
   static getPageID() {
     throw new Error("Not implemented");
   }
@@ -38,6 +36,9 @@ export default class AbstractCustomPage extends Component {
           }}
         >
           {this.renderBody()}
+          <Box sx={{ marginTop: 10, color: "#eee" }}>
+            v{VERSION.DATETIME_STR}
+          </Box>
         </Box>
       </Box>
     );

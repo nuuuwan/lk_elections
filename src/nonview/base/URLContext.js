@@ -23,7 +23,7 @@ export default class URLContext {
 
   static urlToContext(url) {
     const urlTokens = url.split("?");
-    const parameterStr = urlTokens.length > 1 ? urlTokens[1] : ""; 
+    const parameterStr = urlTokens.length > 1 ? urlTokens[1] : "";
 
     return Object.fromEntries(
       parameterStr.split("&").map(function (token) {

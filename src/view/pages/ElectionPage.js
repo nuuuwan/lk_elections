@@ -30,8 +30,11 @@ export default class ElectionPage extends AbstractCustomPage {
   }
 
   get title() {
-    const { electionTypeID, year } = this.state;
-    return `${year} Sri Lankan ${electionTypeID} Election`;
+    const { election } = this.state;
+    if (!election) {
+      return "Loading...";
+    }
+    return `${election.year} Sri Lankan ${election.electionType} Election`;
   }
 
   renderBody() {

@@ -16,7 +16,7 @@ export default function ElectionView({
 }) {
   if (election.isFuture) {
     return (
-      <Alert severity="info" sx={{ maxWidth: 300 }}>
+      <Alert severity="info" sx={{ maxWidth: 500, fontSize: "90%" }}>
         The election results will be available after the election, which must be
         held before <strong>{election.dateStr}</strong>.
       </Alert>

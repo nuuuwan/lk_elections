@@ -14,21 +14,21 @@ export default class ElectionResultPage extends AbstractCustomPage {
 
   constructor(props) {
     super(props);
-    const { pageID, dateStr, pdID } = URLContext.get();
+    const { pageID, date, pdID } = URLContext.get();
 
     this.state = {
       pageID,
 
-      dateStr,
+      date,
       pdID,
       election: null,
     };
   }
 
   async componentDidMount() {
-    let { dateStr, pdID } = this.state;
+    let { date, pdID } = this.state;
 
-    const election = Election.fromDate(dateStr) || Election.random();
+    const election = Election.fromDate(date) || Election.random();
     await election.loadData();
 
     if (!pdID) {
@@ -41,7 +41,7 @@ export default class ElectionResultPage extends AbstractCustomPage {
 
     URLContext.set({
       pageID: "ElectionResult",
-      dateStr: election.dateStr,
+      date: election.date,
       pdID,
     });
 

@@ -4,16 +4,16 @@ import Result from "./Result.js";
 const URL_BASE =
   "https://raw.githubusercontent.com/nuuuwan/gig-data/master/gig2_custom_ec_only";
 export default class Election {
-  constructor(electionType, dateStr) {
+  constructor(electionType, date) {
     this.electionType = electionType;
-    this.dateStr = dateStr;
+    this.date = date;
     this.resultsList = null;
     this.resultsIdx = null;
     this.isLoaded = false;
   }
 
   get year() {
-    return this.dateStr.substring(0, 4);
+    return this.date.substring(0, 4);
   }
 
   get urlData() {
@@ -32,11 +32,11 @@ export default class Election {
   }
 
   localCompare(other) {
-    return this.dateStr.localCompare(other.dateStr);
+    return this.date.localCompare(other.date);
   }
 
   isEqual(other) {
-    return this.dateStr === other.dateStr;
+    return this.date === other.date;
   }
 
   async loadData() {
@@ -61,7 +61,7 @@ export default class Election {
   }
 
   get isFuture() {
-    return this.dateStr.localeCompare(Time.now().dateStr) > 0;
+    return this.date.localeCompare(Time.now().date) > 0;
   }
 
   // Loaders
@@ -155,9 +155,9 @@ export default class Election {
     ];
   }
 
-  static fromDate(dateStr) {
+  static fromDate(date) {
     return Election.listAll().find(function (election) {
-      return election.dateStr === dateStr;
+      return election.date === date;
     });
   }
 

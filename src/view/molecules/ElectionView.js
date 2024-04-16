@@ -18,7 +18,7 @@ export default function ElectionView({
     return (
       <Alert severity="info" sx={{ maxWidth: 500, fontSize: "90%" }}>
         The election results will be available after the election, which must be
-        held before <strong>{election.dateStr}</strong>.
+        held before <strong>{election.date}</strong>.
       </Alert>
     );
   }
@@ -54,7 +54,7 @@ export default function ElectionView({
 
   return (
     <Box>
-      <Typography variant="body1">Held on {election.dateStr}</Typography>
+      <Typography variant="body1">Held on {election.date}</Typography>
       <Grid container direction="row" alignItems="top" spacing={1}>
         {children}
       </Grid>

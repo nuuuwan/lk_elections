@@ -11,16 +11,16 @@ export default class Time {
     return new Time(Date.parse(s));
   }
 
-  toDate() {
+  toString() {
+    return this.getDate().toDateString();
+  }
+
+  getDate() {
     return new Date(this.ut);
   }
 
-  toString() {
-    return this.toDate().toDateString();
-  }
-
-  get dateStr() {
-    const date = this.toDate();
+  get date() {
+    const date = this.getDate();
     const year = date.getFullYear();
     const month = ("0" + (date.getMonth() + 1)).slice(-2);
     const day = ("0" + date.getDate()).slice(-2);

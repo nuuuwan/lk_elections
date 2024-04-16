@@ -11,18 +11,18 @@ export default class ElectionPage extends AbstractCustomPage {
 
   constructor(props) {
     super(props);
-    const { pageID, dateStr } = URLContext.get();
+    const { pageID, date } = URLContext.get();
 
     this.state = {
       pageID: pageID,
-      dateStr: dateStr,
+      date: date,
       election: null,
     };
   }
 
   async componentDidMount() {
-    let { dateStr } = this.state;
-    const election = Election.fromDate(dateStr);
+    let { date } = this.state;
+    const election = Election.fromDate(date);
     await election.loadData();
     const edEnts = await Ent.listFromType(EntType.ED);
     const countryEnt = await Ent.fromID("LK");

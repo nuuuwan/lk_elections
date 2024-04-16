@@ -90,7 +90,7 @@ export function CountryResultView({ election, ent }) {
 
   const context = {
     pageID: "Election",
-    dateStr: election.dateStr,
+    date: election.date,
   };
   const result = election.getResults(ent.id);
   return (

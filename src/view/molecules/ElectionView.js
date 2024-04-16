@@ -1,4 +1,4 @@
-import { Box, Grid, Alert, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import { EntType } from "../../nonview/base";
 
 import {
@@ -16,9 +16,9 @@ export default function ElectionView({
 }) {
   if (election.isFuture) {
     return (
-      <Alert severity="info" sx={{ maxWidth: 500, fontSize: "90%" }}>
-        To be held before <strong>{election.date}</strong>.
-      </Alert>
+      <Typography  variant="caption" sx={{ maxWidth: 500, fontSize: "90%", fontStyle:"italic" }}>
+        To be held before {election.date}.
+      </Typography>
     );
   }
   let children = [];

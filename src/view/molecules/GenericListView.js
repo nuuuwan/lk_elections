@@ -7,6 +7,7 @@ export default function GenericListView({
   title,
   getContext,
   getLabel,
+  getIcon,
 }) {
   let prevLabel = undefined;
   return (
@@ -18,6 +19,7 @@ export default function GenericListView({
         {items.map(function (item, i) {
           const context = getContext(item);
           const label = getLabel(item);
+          const Icon = getIcon(item);
           let addGap = false;
           if (
             prevLabel &&
@@ -34,7 +36,13 @@ export default function GenericListView({
               sx={{ m: 0, p: 0, paddingLeft: 1, paddingTop }}
             >
               <LinkContext context={context}>
-                <Typography variant="body2">{label}</Typography>
+                
+                
+                <Box display="flex" alignItems="center">
+                {Icon ? (<Icon small sx={{color: "#ccc", marginRight: 1}}/>) : null}
+                <Typography variant="body2">
+                  {label}</Typography>
+                  </Box>
               </LinkContext>
             </Box>
           );

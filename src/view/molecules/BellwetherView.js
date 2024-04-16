@@ -33,7 +33,9 @@ function BellwetherViewForElection({ election, ent }) {
   }
   return (
     <tr>
-      <td><ElectionLink election={election}/></td>
+      <td>
+        <ElectionLink election={election} />
+      </td>
       <td style={{ color: colorEnt }}>{winningPartyEnt}</td>
       <td style={{ color: colorLK }}>{winningPartyLK}</td>
       <td style={{ color: colorLK }}>{isMatch ? "✓" : ""}</td>

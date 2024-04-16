@@ -1,39 +1,30 @@
-import { WWW, Random } from "../base";
+import { WWW, Random, Time } from "../base";
 
 import Result from "./Result.js";
 const URL_BASE =
   "https://raw.githubusercontent.com/nuuuwan/gig-data/master/gig2_custom_ec_only";
 export default class Election {
-  static getAllYears() {
-    return [].concat(this.getYears(), this.getFutureYears());
-  }
-
-  static getRandomYear() {
-    const years = this.getYears();
-    return Random.choice(years);
-  }
-
-  constructor(year) {
-    if (!year) {
-      year = this.constructor.getRandomYear();
-    }
-    this.year = parseInt(year);
+  constructor(electionType, dateStr) {
+    this.electionType = electionType;
+    this.dateStr = dateStr;
+    this.resultsList = null;
     this.resultsIdx = null;
+    this.isLoaded = false;
+  }
+
+  get year() {
+    return this.dateStr.substring(0, 4);
   }
 
   get urlData() {
     return (
       URL_BASE +
       "/government-elections-" +
-      this.constructor.getTypeName().toLowerCase() +
+      this.electionType.toLowerCase() +
       ".regions-ec." +
       this.year +
       ".tsv"
     );
-  }
-
-  get isFutureElection() {
-    return !this.constructor.getYears().includes(this.year);
   }
 
   get isNoData() {
@@ -41,19 +32,11 @@ export default class Election {
   }
 
   localCompare(other) {
-    if (this.year !== other.year) {
-      return this.year - other.year;
-    }
-    return other.constructor
-      .getTypeName()
-      .localeCompare(this.constructor.getTypeName());
+    return this.dateStr.localCompare(other.dateStr);
   }
 
   isEqual(other) {
-    return (
-      this.year === other.year &&
-      this.constructor.getTypeName() === other.constructor.getTypeName()
-    );
+    return this.dateStr === other.dateStr;
   }
 
   async loadData() {
@@ -61,11 +44,24 @@ export default class Election {
       return;
     }
     this.resultsList = await this.getResultsList();
-    this.resultsIdx = await this.getResultsIdx();
+    this.resultsIdx = Election.buildResultsIdx(this.resultsList);
+    this.isLoaded = true;
   }
 
   getResults(id) {
+    if (!this.isLoaded) {
+      throw new Error("Data not loaded.");
+    }
+    if (!this.resultsIdx[id]) {
+      console.error("No results for: ", id);
+
+      return null;
+    }
     return this.resultsIdx[id];
+  }
+
+  get isFuture() {
+    return this.dateStr.localeCompare(Time.now().dateStr) > 0;
   }
 
   // Loaders
@@ -106,6 +102,7 @@ export default class Election {
 
   async getResultsList() {
     const rawData = await this.getRawDataList();
+
     const filteredRawData = rawData.filter(function (d) {
       return d.entity_id.startsWith("EC-") || d.entity_id === "LK";
     });
@@ -122,28 +119,49 @@ export default class Election {
     return sortedResultsList;
   }
 
-  async getResultsIdx() {
-    const results = await this.getResultsList();
-    return Object.fromEntries(
-      results.map((result) => [result.entityID, result])
+  static buildResultsIdx(resultsList) {
+    const resultsIdx = Object.fromEntries(
+      resultsList.map((result) => [result.entityID, result])
     );
+
+    return resultsIdx;
   }
 
-  // Hidden Data
+  // Data
 
-  getHiddenData() {
-    if (this.isFutureElection) {
-      return {
-        year: this.year,
-        electionTypeID: this.constructor.getTypeName(),
-      };
-    }
-    return {
-      year: this.year,
-      electionTypeID: this.constructor.getTypeName(),
-      result: this.currentPDResult,
-      entPD: this.currentPDEnt,
-      entED: this.currentEDEnt,
-    };
+  static listAll() {
+    return [
+      // Presidential
+      new Election("Presidential", "2024-10-24"),
+      new Election("Presidential", "2019-11-16"),
+      new Election("Presidential", "2015-01-08"),
+      new Election("Presidential", "2010-01-26"),
+      new Election("Presidential", "2005-11-17"),
+      new Election("Presidential", "1999-12-21"),
+      new Election("Presidential", "1994-11-09"),
+      new Election("Presidential", "1988-12-19"),
+      new Election("Presidential", "1982-10-20"),
+
+      // Parliamentary
+      new Election("Parliamentary", "2025-08-05"),
+      new Election("Parliamentary", "2020-08-05"),
+      new Election("Parliamentary", "2015-08-17"),
+      new Election("Parliamentary", "2010-04-08"),
+      new Election("Parliamentary", "2004-04-02"),
+      new Election("Parliamentary", "2001-12-05"),
+      new Election("Parliamentary", "2000-10-10"),
+      new Election("Parliamentary", "1994-08-16"),
+      new Election("Parliamentary", "1989-02-15"),
+    ];
+  }
+
+  static fromDate(dateStr) {
+    return Election.listAll().find(function (election) {
+      return election.dateStr === dateStr;
+    });
+  }
+
+  static random() {
+    return Random.choice(Election.listAll());
   }
 }

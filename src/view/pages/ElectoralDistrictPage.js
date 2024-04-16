@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { Ent, EntType, URLContext } from "../../nonview/base";
-import { ElectionFactory } from "../../nonview/core";
+import { Election } from "../../nonview/core";
 import { ElectoralDistrictView, ElectionListView } from "../molecules";
 import AbstractCustomPage from "./AbstractCustomPage";
 
@@ -21,7 +21,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     const pdEntsAll = await Ent.listFromType(EntType.PD);
     const pdEnts = pdEntsAll.filter((pdEnt) => pdEnt.id.startsWith(edID));
     const countryEnt = await Ent.fromID("LK");
-    const elections = ElectionFactory.listElections();
+    const elections = Election.listAll();
     for (let election of elections) {
       await election.loadData();
     }

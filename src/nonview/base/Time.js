@@ -11,19 +11,19 @@ export default class Time {
     return new Time(Date.parse(s));
   }
 
+  toDate() {
+    return new Date(this.ut);
+  }
+
   toString() {
-    return new Date(this.ut).toDateString();
+    return this.toDate().toDateString();
   }
 
-  get parts() {
-    const days = Math.floor(this.ut / 86_400_000);
-    const hours = Math.floor((this.ut % 86_400_000) / 3_600_000);
-    const minutes = Math.floor((this.ut % 3_600_000) / 60_000);
-    const seconds = Math.floor((this.ut % 60_000) / 1_000);
-    return { days, hours, minutes, seconds };
-  }
-
-  static minus(a, b) {
-    return new Time(a.ut - b.ut);
+  get dateStr() {
+    const date = this.toDate();
+    const year = date.getFullYear();
+    const month = ("0" + (date.getMonth() + 1)).slice(-2);
+    const day = ("0" + date.getDate()).slice(-2);
+    return `${year}-${month}-${day}`;
   }
 }

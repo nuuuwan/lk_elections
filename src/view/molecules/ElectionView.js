@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Box, Grid, Alert, Typography } from "@mui/material";
 import { EntType } from "../../nonview/base";
 
 import {
@@ -14,10 +14,14 @@ export default function ElectionView({
   edEnt,
   countryEnt,
 }) {
-  if (election.isNoData) {
-    return null;
+  if (election.isFuture) {
+    return (
+      <Alert severity="info" sx={{ maxWidth: 300 }}>
+        The election results will be available after the election, which must be
+        held before <strong>{election.dateStr}</strong>.
+      </Alert>
+    );
   }
-
   let children = [];
 
   if (entType === EntType.PD) {
@@ -49,8 +53,11 @@ export default function ElectionView({
   );
 
   return (
-    <Grid container direction="row" alignItems="top" spacing={1}>
-      {children}
-    </Grid>
+    <Box>
+      <Typography variant="body1">Held on {election.dateStr}</Typography>
+      <Grid container direction="row" alignItems="top" spacing={1}>
+        {children}
+      </Grid>
+    </Box>
   );
 }

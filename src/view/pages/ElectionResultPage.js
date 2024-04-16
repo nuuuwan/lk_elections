@@ -1,7 +1,7 @@
 import { URLContext, EntType, Ent } from "../../nonview/base";
-import { ElectionFactory, FutureElection } from "../../nonview/core";
+import { Election } from "../../nonview/core";
 
-import { ElectionView, FutureElectionView } from "../molecules";
+import { ElectionView } from "../molecules";
 
 import { CircularProgress, Box } from "@mui/material";
 import { ElectionTitleView } from "../atoms";
@@ -14,21 +14,21 @@ export default class ElectionResultPage extends AbstractCustomPage {
 
   constructor(props) {
     super(props);
-    const { pageID, electionTypeID, year, pdID } = URLContext.get();
+    const { pageID, dateStr, pdID } = URLContext.get();
 
     this.state = {
-      pageID: pageID,
-      electionTypeID: electionTypeID,
-      year: year,
-      pdID: pdID,
+      pageID,
+
+      dateStr,
+      pdID,
       election: null,
     };
   }
 
   async componentDidMount() {
-    let { electionTypeID, year, pdID } = this.state;
-    const election_class = ElectionFactory.fromElectionTypeID(electionTypeID);
-    const election = new election_class(year, pdID);
+    let { dateStr, pdID } = this.state;
+
+    const election = Election.fromDate(dateStr) || Election.random();
     await election.loadData();
 
     if (!pdID) {
@@ -41,14 +41,11 @@ export default class ElectionResultPage extends AbstractCustomPage {
 
     URLContext.set({
       pageID: "ElectionResult",
-      electionTypeID: election.constructor.getTypeName(),
-      year: election.year,
+      dateStr: election.dateStr,
       pdID,
     });
 
     this.setState({
-      electionTypeID,
-      year,
       pdID,
       election,
       pdEnt,
@@ -57,10 +54,22 @@ export default class ElectionResultPage extends AbstractCustomPage {
     });
   }
 
-  renderHiddenData() {
-    const { election } = this.state;
+  // Hidden Data
 
-    const data = election.getHiddenData();
+  getHiddenData() {
+    const { election, pdEnt, edEnt } = this.state;
+
+    return {
+      year: election.year,
+      electionTypeID: election.electionType,
+      result: election.getResults(pdEnt.id),
+      entPD: pdEnt,
+      entED: edEnt,
+    };
+  }
+
+  renderHiddenData() {
+    const data = this.getHiddenData();
     const dataJSON = JSON.stringify(data);
     return (
       <div id="div-screenshot-text" style={{ fontSize: 0, color: "white" }}>
@@ -71,11 +80,7 @@ export default class ElectionResultPage extends AbstractCustomPage {
 
   renderElection() {
     const { election, pdEnt, edEnt, countryEnt } = this.state;
-    if (election.isFutureElection) {
-      const futureElection =
-        FutureElection.idx()[election.constructor.getTypeName()][election.year];
-      return <FutureElectionView election={futureElection} />;
-    }
+
     return (
       <ElectionView
         election={election}
@@ -93,9 +98,7 @@ export default class ElectionResultPage extends AbstractCustomPage {
       return "Loading...";
     }
 
-    return `${election.year} ${election.constructor.getTypeName()} - ${
-      pdEnt.name
-    }, ${edEnt.name}`;
+    return `${election.year} ${election.electionType} - ${pdEnt.name}, ${edEnt.name}`;
   }
 
   renderBody() {

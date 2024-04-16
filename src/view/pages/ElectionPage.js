@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { URLContext, Ent, EntType } from "../../nonview/base";
-import { ElectionFactory } from "../../nonview/core";
+import { Election } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
 import { EntListView, ElectionView } from "../molecules";
 
@@ -11,20 +11,18 @@ export default class ElectionPage extends AbstractCustomPage {
 
   constructor(props) {
     super(props);
-    const { pageID, electionTypeID, year } = URLContext.get();
+    const { pageID, dateStr } = URLContext.get();
 
     this.state = {
       pageID: pageID,
-      electionTypeID: electionTypeID,
-      year: year,
+      dateStr: dateStr,
       election: null,
     };
   }
 
   async componentDidMount() {
-    let { electionTypeID, year } = this.state;
-    const election_class = ElectionFactory.fromElectionTypeID(electionTypeID);
-    const election = new election_class(year);
+    let { dateStr } = this.state;
+    const election = Election.fromDate(dateStr);
     await election.loadData();
     const edEnts = await Ent.listFromType(EntType.ED);
     const countryEnt = await Ent.fromID("LK");

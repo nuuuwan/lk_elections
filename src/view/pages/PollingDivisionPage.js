@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { Ent, URLContext, EntType } from "../../nonview/base";
 
-import { ElectionFactory } from "../../nonview/core";
+import { Election } from "../../nonview/core";
 
 import { PollingDivisionView, ElectionListView } from "../molecules";
 import AbstractCustomPage from "./AbstractCustomPage";
@@ -24,10 +24,11 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     const edEnt = await Ent.fromID(edID);
     const countryEnt = await Ent.fromID("LK");
 
-    const elections = ElectionFactory.listElections();
+    const elections = Election.listAll();
     for (let election of elections) {
       await election.loadData();
     }
+
     this.setState({ pdEnt, edEnt, countryEnt, elections });
   }
 
@@ -44,6 +45,7 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     if (!pdEnt) {
       return "Loading...";
     }
+
     return (
       <Box>
         <PollingDivisionView pdEnt={pdEnt} edEnt={edEnt} />

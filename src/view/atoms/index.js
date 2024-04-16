@@ -2,6 +2,5 @@
 import ElectionTitleView from "./ElectionTitleView";
 import Link from "./Link";
 import LinkContext from "./LinkContext";
-import TimeDeltaView from "./TimeDeltaView";
 
-export { ElectionTitleView, Link, LinkContext, TimeDeltaView };
+export { ElectionTitleView, Link, LinkContext };

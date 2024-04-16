@@ -12,23 +12,21 @@ export default function ElectionListView({
   return (
     <Box sx={{ marginTop: 2 }}>
       <Header level={2}>Election History</Header>
-      {elections
-
-        .map(function (election, iElection) {
-          const key = "election-" + iElection;
-          return (
-            <Box key={key} sx={{ p: 1 }}>
-              <Header level={3}>{election.titleShort}</Header>
-              <ElectionView
-                election={election}
-                entType={entType}
-                pdEnt={pdEnt}
-                edEnt={edEnt}
-                countryEnt={countryEnt}
-              />
-            </Box>
-          );
-        })}
+      {elections.map(function (election, iElection) {
+        const key = "election-" + iElection;
+        return (
+          <Box key={key} sx={{ p: 1 }}>
+            <Header level={3}>{election.titleShort}</Header>
+            <ElectionView
+              election={election}
+              entType={entType}
+              pdEnt={pdEnt}
+              edEnt={edEnt}
+              countryEnt={countryEnt}
+            />
+          </Box>
+        );
+      })}
     </Box>
   );
 }

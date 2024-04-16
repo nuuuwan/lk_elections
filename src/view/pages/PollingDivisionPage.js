@@ -3,7 +3,11 @@ import { Ent, URLContext, EntType, Geo } from "../../nonview/base";
 
 import { Election } from "../../nonview/core";
 
-import { PollingDivisionView, ElectionListView, BellwetherView } from "../molecules";
+import {
+  PollingDivisionView,
+  ElectionListView,
+  BellwetherView,
+} from "../molecules";
 import { GeoMap } from "../organisms";
 import AbstractCustomPage from "./AbstractCustomPage";
 

@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 
 export default function Header({ level, children }) {
-  let variant, color, marginBottom
+  let variant, color, marginBottom;
   switch (level) {
     case 1:
       variant = "h4";

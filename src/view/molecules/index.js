@@ -2,6 +2,7 @@
 import CustomAppBar from "./CustomAppBar";
 import CustomBottomNavigator from "./CustomBottomNavigator";
 import ElectionListView from "./ElectionListView";
+import ElectionListViewSmall from "./ElectionListViewSmall";
 import ElectionView from "./ElectionView";
 import ElectoralDistrictView from "./ElectoralDistrictView";
 import EntListView from "./EntListView";
@@ -15,6 +16,7 @@ export {
   CustomAppBar,
   CustomBottomNavigator,
   ElectionListView,
+  ElectionListViewSmall,
   ElectionView,
   ElectoralDistrictView,
   EntListView,

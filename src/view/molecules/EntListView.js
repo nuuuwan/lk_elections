@@ -1,4 +1,4 @@
-import { Box, Typography, List, ListItem, ListItemText } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { EntType } from "../../nonview/base";
 import { LinkContext } from "../atoms";
 
@@ -11,8 +11,10 @@ export default function EntListView({ ents }) {
 
   return (
     <Box>
-      <Typography variant="h5">{title}</Typography>
-      <List>
+      <Typography variant="h6" sx={{ color: "#888" }}>
+        {title}
+      </Typography>
+      <Box>
         {ents
           .sort(function (a, b) {
             return a.name.localeCompare(b.name);
@@ -24,14 +26,14 @@ export default function EntListView({ ents }) {
             };
 
             return (
-              <ListItem key={pdEnt.id} sx={{ m: 0, p: 0 }}>
+              <Box key={pdEnt.id} sx={{ m: 0, p: 0 }}>
                 <LinkContext context={context}>
-                  <ListItemText primary={pdEnt.name} />
+                  <Typography variant="body2">{pdEnt.name}</Typography>
                 </LinkContext>
-              </ListItem>
+              </Box>
             );
           })}
-      </List>
+      </Box>
     </Box>
   );
 }

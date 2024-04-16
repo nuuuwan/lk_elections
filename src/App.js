@@ -26,7 +26,7 @@ const THEME = createTheme({
   },
   typography: {
     fontFamily: "Archivo",
-    fontSize: 16,
+    fontSize: 14,
   },
 });
 

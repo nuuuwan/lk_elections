@@ -1,6 +1,7 @@
 import { Component } from "react";
 import { Box, Toolbar, AppBar, Typography } from "@mui/material";
 import { VERSION } from "../../nonview/constants";
+import { MainMenu } from "../organisms";
 
 export default class AbstractCustomPage extends Component {
   static getPageID() {
@@ -16,6 +17,7 @@ export default class AbstractCustomPage extends Component {
   }
 
   render() {
+    const menuWidth = 320;
     return (
       <Box>
         <AppBar position="static">
@@ -23,12 +25,28 @@ export default class AbstractCustomPage extends Component {
             <Typography variant="h6">{this.title}</Typography>
           </Toolbar>
         </AppBar>
+
         <Box
           sx={{
             position: "fixed",
             top: 100,
-            bottom: 64,
+            bottom: 0,
             left: 0,
+            width: menuWidth,
+            zIndex: 1000,
+            overflow: "scroll",
+            paddingLeft: 10,
+          }}
+        >
+          <MainMenu />
+        </Box>
+
+        <Box
+          sx={{
+            position: "fixed",
+            top: 100,
+            bottom: 0,
+            left: menuWidth,
             right: 0,
             zIndex: 1000,
             overflow: "scroll",

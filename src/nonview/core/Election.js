@@ -31,8 +31,8 @@ export default class Election {
     return !this.resultsList || this.resultsList.length === 0;
   }
 
-  localCompare(other) {
-    return this.date.localCompare(other.date);
+  localeCompare(other) {
+    return this.date.localeCompare(other.date);
   }
 
   isEqual(other) {
@@ -125,6 +125,10 @@ export default class Election {
     );
 
     return resultsIdx;
+  }
+
+  get titleShort() {
+    return this.year + " " + this.electionType;
   }
 
   // Data

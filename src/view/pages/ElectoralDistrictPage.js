@@ -1,6 +1,7 @@
+import { Box } from "@mui/material";
 import { Ent, EntType, URLContext } from "../../nonview/base";
-
-import { ElectoralDistrictView } from "../molecules";
+import { ElectionFactory } from "../../nonview/core";
+import { ElectoralDistrictView, ElectionListView } from "../molecules";
 import AbstractCustomPage from "./AbstractCustomPage";
 
 export default class ElectoralDistrictPage extends AbstractCustomPage {
@@ -19,8 +20,12 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     const edEnt = await Ent.fromID(edID);
     const pdEntsAll = await Ent.listFromType(EntType.PD);
     const pdEnts = pdEntsAll.filter((pdEnt) => pdEnt.id.startsWith(edID));
-
-    this.setState({ edEnt, pdEnts });
+    const countryEnt = await Ent.fromID("LK");
+    const elections = ElectionFactory.listElections();
+    for (let election of elections) {
+      await election.loadData();
+    }
+    this.setState({ edEnt, pdEnts, countryEnt, elections });
   }
 
   get title() {
@@ -32,7 +37,20 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
   }
 
   renderBody() {
-    const { edEnt, pdEnts } = this.state;
-    return <ElectoralDistrictView edEnt={edEnt} pdEnts={pdEnts} />;
+    const { edEnt, pdEnts, countryEnt, elections } = this.state;
+    if (!edEnt) {
+      return "Loading...";
+    }
+    return (
+      <Box>
+        <ElectoralDistrictView edEnt={edEnt} pdEnts={pdEnts} />
+        <ElectionListView
+          elections={elections}
+          entType={EntType.ED}
+          edEnt={edEnt}
+          countryEnt={countryEnt}
+        />
+      </Box>
+    );
   }
 }

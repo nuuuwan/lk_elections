@@ -26,10 +26,9 @@ export default class PollingDivisionPage extends AbstractCustomPage {
 
     const elections = ElectionFactory.listElections();
     for (let election of elections) {
-      election.currentPDID = pdID;
       await election.loadData();
     }
-    this.setState({ pdEnt, edEnt,countryEnt, elections });
+    this.setState({ pdEnt, edEnt, countryEnt, elections });
   }
 
   get title() {
@@ -48,7 +47,13 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     return (
       <Box>
         <PollingDivisionView pdEnt={pdEnt} edEnt={edEnt} />
-        <ElectionListView elections={elections} entType={EntType.PD} pdEnt={pdEnt} edEnt={edEnt} countryEnt={countryEnt} />
+        <ElectionListView
+          elections={elections}
+          entType={EntType.PD}
+          pdEnt={pdEnt}
+          edEnt={edEnt}
+          countryEnt={countryEnt}
+        />
       </Box>
     );
   }

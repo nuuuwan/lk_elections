@@ -11,7 +11,7 @@ export default function EntListView({ ents }) {
 
   return (
     <Box>
-      <Typography variant="h6">{title}</Typography>
+      <Typography variant="h5">{title}</Typography>
       <List>
         {ents
           .sort(function (a, b) {

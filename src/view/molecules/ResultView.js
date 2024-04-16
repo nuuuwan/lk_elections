@@ -7,7 +7,6 @@ import { EntType } from "../../nonview/base";
 import { LIGHT_COLORS } from "../../nonview/constants/POLITICAL_PARTY_TO_COLOR";
 
 export default function ResultView({ entType, result, ent, context }) {
-
   if (!result) {
     console.error("No results!");
     return null;

@@ -1,7 +1,8 @@
+import { Box } from "@mui/material";
 import { URLContext, Ent, EntType } from "../../nonview/base";
 import { ElectionFactory } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
-import { EntListView } from "../molecules";
+import { EntListView, ElectionView } from "../molecules";
 
 export default class ElectionPage extends AbstractCustomPage {
   static getPageID() {
@@ -24,8 +25,10 @@ export default class ElectionPage extends AbstractCustomPage {
     let { electionTypeID, year } = this.state;
     const election_class = ElectionFactory.fromElectionTypeID(electionTypeID);
     const election = new election_class(year);
+    await election.loadData();
     const edEnts = await Ent.listFromType(EntType.ED);
-    this.setState({ election, edEnts });
+    const countryEnt = await Ent.fromID("LK");
+    this.setState({ election, edEnts, countryEnt });
   }
 
   get title() {
@@ -34,7 +37,19 @@ export default class ElectionPage extends AbstractCustomPage {
   }
 
   renderBody() {
-    const { edEnts } = this.state;
-    return <EntListView ents={edEnts} />;
+    const { edEnts, countryEnt, election } = this.state;
+    if (!countryEnt) {
+      return "Loading...";
+    }
+    return (
+      <Box>
+        <ElectionView
+          election={election}
+          entType={EntType.COUNTRY}
+          countryEnt={countryEnt}
+        />
+        <EntListView ents={edEnts} />
+      </Box>
+    );
   }
 }

@@ -65,7 +65,6 @@ export default class Election {
   }
 
   getResults(id) {
-
     return this.resultsIdx[id];
   }
 
@@ -98,7 +97,9 @@ export default class Election {
 
     // Country
     const countryResult = Result.fromList("LK", pdResultsList);
-    const expandedResultsList =  [].concat(pdResultsList, edResultsList, [countryResult]);
+    const expandedResultsList = [].concat(pdResultsList, edResultsList, [
+      countryResult,
+    ]);
 
     return expandedResultsList;
   }

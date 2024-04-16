@@ -1,7 +1,7 @@
 import { URLContext, Ent, EntType } from "../../nonview/base";
-import {ElectionFactory} from "../../nonview/core";
+import { ElectionFactory } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
-import {EntListView} from "../molecules";
+import { EntListView } from "../molecules";
 
 export default class ElectionPage extends AbstractCustomPage {
   static getPageID() {
@@ -25,7 +25,7 @@ export default class ElectionPage extends AbstractCustomPage {
     const election_class = ElectionFactory.fromElectionTypeID(electionTypeID);
     const election = new election_class(year);
     const edEnts = await Ent.listFromType(EntType.ED);
-    this.setState({election, edEnts});
+    this.setState({ election, edEnts });
   }
 
   get title() {
@@ -34,7 +34,7 @@ export default class ElectionPage extends AbstractCustomPage {
   }
 
   renderBody() {
-    const {edEnts} = this.state;
+    const { edEnts } = this.state;
     return <EntListView ents={edEnts} />;
   }
 }

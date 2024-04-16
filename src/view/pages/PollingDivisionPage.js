@@ -1,9 +1,9 @@
 import { Box } from "@mui/material";
-import { Ent, URLContext } from "../../nonview/base";
+import { Ent, URLContext, EntType } from "../../nonview/base";
 
 import { ElectionFactory } from "../../nonview/core";
-import { ElectionTitleView } from "../atoms";
-import { PollingDivisionView, ElectionView } from "../molecules";
+
+import { PollingDivisionView, ElectionListView } from "../molecules";
 import AbstractCustomPage from "./AbstractCustomPage";
 
 export default class PollingDivisionPage extends AbstractCustomPage {
@@ -47,15 +47,7 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     return (
       <Box>
         <PollingDivisionView pdEnt={pdEnt} edEnt={edEnt} />
-        {elections.reverse().map(function (election, iElection) {
-          const key = "election-" + iElection;
-          return (
-            <Box key={key}>
-              <ElectionTitleView election={election} />
-              <ElectionView election={election} />
-            </Box>
-          );
-        })}
+        <ElectionListView elections={elections} entType={EntType.PD} />
       </Box>
     );
   }

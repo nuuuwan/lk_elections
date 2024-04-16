@@ -20,7 +20,7 @@ export default class Ent {
   }
 
   static async fromID(entID) {
-    console.debug({ entID });
+
     const entType = EntType.fromID(entID);
     const entIndex = await Ent.idxFromType(entType);
     let ent = entIndex[entID];

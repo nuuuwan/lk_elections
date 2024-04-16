@@ -6,59 +6,9 @@ import { PartyToVotesView, SummaryView } from "../molecules";
 import { EntType } from "../../nonview/base";
 import { LIGHT_COLORS } from "../../nonview/constants/POLITICAL_PARTY_TO_COLOR";
 
-export default function ResultView({ election, entType }) {
-  if (!election) {
-    return null;
-  }
-  if (!election.resultsIdx) {
-    return null;
-  }
-
-  let result;
-  let ent;
-  let subtitle;
-  let nResultsReleased;
-  let nResultsTotal;
-  let context;
-  switch (entType) {
-    case EntType.PD:
-      result = election.currentPDResult;
-      ent = election.currentPDEnt;
-      subtitle = "Polling Division";
-      nResultsReleased = 1;
-      nResultsTotal = 1;
-      context = { pageID: "PollingDivision", pdID: ent.id };
-      break;
-    case EntType.ED:
-      result = election.currentEDResult;
-      ent = election.currentEDEnt;
-      subtitle = "Electoral District";
-      nResultsReleased = election.currentEDPDResultCount;
-      nResultsTotal = election.totalEDPDResultCount;
-      context = { pageID: "ElectoralDistrict", edID: ent.id };
-      break;
-    case EntType.COUNTRY:
-      result = election.resultLK;
-      ent = election.entLK;
-      subtitle = "Nationwide";
-      nResultsReleased = election.resultsCount;
-      nResultsTotal = election.totalResultsCount;
-      context = {
-        pageID: "Election",
-        electionTypeID: election.constructor.getTypeName(),
-        year: election.year,
-      };
-      break;
-    default:
-      throw new Error("Invalid entType: " + entType);
-  }
-
-  if (!result) {
-    return "No result";
-  }
-
+export default function ResultView({ entType, result, ent, context }) {
   if (!ent) {
-    return "No ent";
+    return null;
   }
 
   const winningParty = result.partyToVotes.winningParty;
@@ -69,14 +19,7 @@ export default function ResultView({ election, entType }) {
   }
 
   let title = ent.name;
-  if (title.includes("Postal Votes")) {
-    title = "Postal Votes";
-    subtitle = "Districtwide";
-  }
-
-  if (nResultsReleased > nResultsTotal) {
-    nResultsTotal = nResultsReleased;
-  }
+  const subtitle = entType.longName;
 
   return (
     <LinkContext context={context}>
@@ -117,16 +60,41 @@ export default function ResultView({ election, entType }) {
             <SummaryView summary={result.summary} />
           </Stack>
         </Box>
-        <Box sx={{ textAlign: "center", color: "#888" }}>
-          {nResultsTotal > 1 ? (
-            <Typography variant="caption">
-              <strong>{nResultsReleased}</strong>/{nResultsTotal} PDs
-            </Typography>
-          ) : (
-            "#" + (election.currentPDIndex + 1)
-          )}
-        </Box>
       </Grid>
     </LinkContext>
+  );
+}
+
+export function PollingDivisionResultView({ election }) {
+  const entType = EntType.PD;
+  const result = election.currentPDResult;
+  const ent = election.currentPDEnt;
+  const context = { pageID: "PollingDivision", pdID: ent.id };
+  return (
+    <ResultView entType={entType} result={result} ent={ent} context={context} />
+  );
+}
+
+export function ElectoralDistrictResultView({ election }) {
+  const entType = EntType.ED;
+  const result = election.currentEDResult;
+  const ent = election.currentEDEnt;
+  const context = { pageID: "ElectoralDistrict", edID: ent.id };
+  return (
+    <ResultView entType={entType} result={result} ent={ent} context={context} />
+  );
+}
+
+export function CountryResultView({ election }) {
+  const entType = EntType.COUNTRY;
+  const result = election.currentPDResult;
+  const ent = election.currentPDEnt;
+  const context = {
+    pageID: "Election",
+    electionTypeID: election.constructor.getTypeName(),
+    year: election.year,
+  };
+  return (
+    <ResultView entType={entType} result={result} ent={ent} context={context} />
   );
 }

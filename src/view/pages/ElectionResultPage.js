@@ -14,12 +14,7 @@ export default class ElectionResultPage extends AbstractCustomPage {
 
   constructor(props) {
     super(props);
-    const { contextValues } = this.state;
-
-    let pageID, electionTypeID, year, pdID;
-    if (contextValues.length === 4) {
-      [pageID, electionTypeID, year, pdID] = contextValues;
-    }
+    const { pageID, electionTypeID, year, pdID } = URLContext.get();
 
     this.state = {
       pageID: pageID,
@@ -46,7 +41,12 @@ export default class ElectionResultPage extends AbstractCustomPage {
     const year = election.year;
     pdID = election.currentPDID;
     const electionTypeID = election.constructor.getTypeName();
-    URLContext.setValues(["Election", electionTypeID, year, pdID]);
+    URLContext.set({
+      pageID: "Election",
+      electionTypeID,
+      year,
+      pdID,
+    });
 
     this.setState({
       electionTypeID,

@@ -9,29 +9,37 @@ export default class URLContext {
     window.history.pushState("", "", url);
   }
 
-  // convertors (contextValues <-> URL)
+  // convertors (context <-> URL)
 
-  static contextValuesToURL(contextValues) {
-    const origin = window.location.origin;
-    let urlBase = origin + process.env.PUBLIC_URL; // TODO: Is origin needed?
-    return urlBase + "/" + contextValues.join("/");
+  static contextToURL(context) {
+    const parameterStr = Object.entries(context)
+      .map(function (token) {
+        return token.join("=");
+      })
+      .join("&");
+    const urlBase = window.location.origin + process.env.PUBLIC_URL; // TODO: Is origin needed?
+    return urlBase + "?" + parameterStr;
   }
 
-  static urlToContextValues(url) {
-    const urlTokens = url.split("/");
-    const index = urlTokens.indexOf("lk_elections");
-    const contextValues = urlTokens.splice(index + 1);
-    return contextValues;
+  static urlToContext(url) {
+    const urlTokens = url.split("?");
+    const parameterStr = urlTokens.length > 1 ? urlTokens[1] : ""; 
+
+    return Object.fromEntries(
+      parameterStr.split("&").map(function (token) {
+        return token.split("=");
+      })
+    );
   }
 
   // context (default)
 
-  static setValues(contextValues) {
-    const url = URLContext.contextValuesToURL(contextValues);
+  static set(context) {
+    const url = URLContext.contextToURL(context);
     URLContext.setURL(url);
   }
 
-  static getValues() {
-    return URLContext.urlToContextValues(URLContext.getURL());
+  static get() {
+    return URLContext.urlToContext(URLContext.getURL());
   }
 }

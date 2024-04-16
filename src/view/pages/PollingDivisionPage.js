@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { Ents } from "../../nonview/base";
+import { Ents, URLContext } from "../../nonview/base";
 
 import { ElectionFactory } from "../../nonview/core";
 import { ElectionTitleView } from "../atoms";
@@ -13,8 +13,7 @@ export default class PollingDivisionPage extends AbstractCustomPage {
 
   constructor(props) {
     super(props);
-    const { contextValues } = this.state;
-    const [pageID, pdID] = contextValues;
+    const { pageID, pdID } = URLContext.get();
     this.state = { pageID, pdID, pdEnt: null };
   }
 

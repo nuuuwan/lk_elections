@@ -11,8 +11,8 @@ import {
 export default class BasePage extends Component {
   constructor(props) {
     super(props);
-    const contextValues = URLContext.getValues();
-    this.state = { contextValues };
+    const { pageID } = URLContext.get();
+    this.state = { pageID };
   }
 
   get pageList() {
@@ -24,7 +24,8 @@ export default class BasePage extends Component {
     ];
   }
   render() {
-    const activePageID = this.state.contextValues[0];
+    const { pageID } = this.state;
+    const activePageID = pageID;
     let ActivePage = ElectionResultPage;
     for (let Page of this.pageList) {
       if (activePageID === Page.getPageID()) {

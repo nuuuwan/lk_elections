@@ -1,3 +1,4 @@
+import { URLContext } from "../../nonview/base";
 import AbstractCustomPage from "./AbstractCustomPage";
 
 export default class ElectionPage extends AbstractCustomPage {
@@ -7,12 +8,7 @@ export default class ElectionPage extends AbstractCustomPage {
 
   constructor(props) {
     super(props);
-    const { contextValues } = this.state;
-
-    let pageID, electionTypeID, year;
-    if (contextValues.length === 3) {
-      [pageID, electionTypeID, year] = contextValues;
-    }
+    const { pageID, electionTypeID, year } = URLContext.get();
 
     this.state = {
       pageID: pageID,

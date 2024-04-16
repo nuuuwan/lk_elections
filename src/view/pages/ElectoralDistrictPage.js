@@ -1,4 +1,4 @@
-import { Ents } from "../../nonview/base";
+import { Ents, URLContext } from "../../nonview/base";
 
 import { ElectoralDistrictView } from "../molecules";
 import AbstractCustomPage from "./AbstractCustomPage";
@@ -10,8 +10,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
 
   constructor(props) {
     super(props);
-    const { contextValues } = this.state;
-    const [pageID, edID] = contextValues;
+    const { pageID, edID } = URLContext.get();
     this.state = { pageID, edID, edEnt: null };
   }
 

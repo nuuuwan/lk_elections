@@ -1,15 +1,9 @@
 import { Component } from "react";
 import { Box, Toolbar, AppBar, Typography } from "@mui/material";
-import { URLContext } from "../../nonview/base";
+
 
 export default class AbstractCustomPage extends Component {
-  constructor(props) {
-    super(props);
-    const contextValues = URLContext.getValues();
-    this.state = {
-      contextValues,
-    };
-  }
+
 
   static getPageID() {
     throw new Error("Not implemented");

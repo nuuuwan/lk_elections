@@ -1,4 +1,4 @@
-import { URLContext } from "../../nonview/base";
+import { URLContext, EntType } from "../../nonview/base";
 import { ElectionFactory, FutureElection } from "../../nonview/core";
 
 import { ElectionView, FutureElectionView } from "../molecules";
@@ -75,7 +75,7 @@ export default class ElectionResultPage extends AbstractCustomPage {
         FutureElection.idx()[election.constructor.getTypeName()][election.year];
       return <FutureElectionView election={futureElection} />;
     }
-    return <ElectionView election={election} />;
+    return <ElectionView election={election} entType={EntType.PD} />;
   }
 
   get title() {

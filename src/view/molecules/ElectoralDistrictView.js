@@ -12,6 +12,7 @@ export default function ElectoralDistrictView({ pdEnts, edEnt }) {
         The {edEnt.name} Polling Division is located in the {edEnt.name}{" "}
         Electoral District.
       </Typography>
+
       <EntListView ents={pdEnts} />
     </Box>
   );

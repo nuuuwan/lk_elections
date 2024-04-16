@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { POLITICAL_PARTY_TO_COLOR } from "../../nonview/constants";
-import { Header } from "../atoms";
+import { Header, ElectionLink } from "../atoms";
 
 import "./BellwetherView.css";
 
@@ -33,7 +33,7 @@ function BellwetherViewForElection({ election, ent }) {
   }
   return (
     <tr>
-      <td>{election.titleShort}</td>
+      <td><ElectionLink election={election}/></td>
       <td style={{ color: colorEnt }}>{winningPartyEnt}</td>
       <td style={{ color: colorLK }}>{winningPartyLK}</td>
       <td style={{ color: colorLK }}>{isMatch ? "✓" : ""}</td>

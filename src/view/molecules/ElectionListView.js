@@ -11,7 +11,9 @@ export default function ElectionListView({
 }) {
   return (
     <Box>
-      <Typography variant="h5">Election History</Typography>
+      <Typography variant="h6" sx={{ color: "#888" }}>
+        Election History
+      </Typography>
       {elections
         .sort(function (a, b) {
           return b.year - a.year;

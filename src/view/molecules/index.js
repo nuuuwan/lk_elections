@@ -6,6 +6,7 @@ import ElectionListViewSmall from "./ElectionListViewSmall";
 import ElectionView from "./ElectionView";
 import ElectoralDistrictView from "./ElectoralDistrictView";
 import EntListView from "./EntListView";
+import GenericListView from "./GenericListView";
 import NoteView from "./NoteView";
 import PartyToVotesView from "./PartyToVotesView";
 import PollingDivisionView from "./PollingDivisionView";
@@ -20,6 +21,7 @@ export {
   ElectionView,
   ElectoralDistrictView,
   EntListView,
+  GenericListView,
   NoteView,
   PartyToVotesView,
   PollingDivisionView,

@@ -13,9 +13,7 @@ export default function ElectionListView({
     <Box sx={{ marginTop: 2 }}>
       <Header level={2}>Election History</Header>
       {elections
-        .sort(function (a, b) {
-          return b.localeCompare(a);
-        })
+
         .map(function (election, iElection) {
           const key = "election-" + iElection;
           return (

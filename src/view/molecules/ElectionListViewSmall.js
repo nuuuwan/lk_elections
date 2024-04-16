@@ -4,7 +4,7 @@ import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 export default function ElectionListViewSmall({ elections }) {
   return (
     <GenericListView
-      items={elections.sort((a, b) => -a.localeCompare(b))}
+      items={elections}
       title="Elections"
       getContext={function (election) {
         return {

@@ -172,7 +172,9 @@ export default class Election {
       new Election("Parliamentary", "2000-10-10"),
       new Election("Parliamentary", "1994-08-16"),
       new Election("Parliamentary", "1989-02-15"),
-    ];
+    ].sort(
+      (a, b) => b.localeCompare(a)
+    );
   }
 
   static fromDate(date) {

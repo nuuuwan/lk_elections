@@ -75,7 +75,7 @@ export default class StringX {
       </span>
     );
   }
-
+  
   static formatPercent(numerator, denominator) {
     if (!numerator || !denominator || denominator === 0) {
       return "-";

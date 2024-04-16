@@ -59,4 +59,27 @@ export default class PartyToVotes {
   get winningParty() {
     return Object.keys(this.sortedMajor)[0];
   }
+
+  get partyToPVotes() {
+    const totalVotes = this.totalVotes;
+    return Object.fromEntries(
+      Object.entries(this.partyToVotes).map(([party, votes]) => [
+        party,
+        votes / totalVotes,
+      ])
+    );
+  }
+
+  getL1Error(otherPartyToVotes) {
+    const partyToPVotesThis = this.partyToPVotes;
+    const partyToPVotesOther = otherPartyToVotes.partyToPVotes;
+    return Object.entries(partyToPVotesThis).reduce(
+      function(error, [party, pVote]) {
+        const pVoteOther = partyToPVotesOther[party] || 0;
+        return error + Math.abs(pVote - pVoteOther) * pVote;
+      },
+      0,
+    );
+  }
+
 }

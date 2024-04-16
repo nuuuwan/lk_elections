@@ -21,7 +21,7 @@ export default function ElectionListView({
         .map(function (election, iElection) {
           const key = "election-" + iElection;
           return (
-            <Box key={key} sx={{p:1}}>
+            <Box key={key} sx={{ p: 1 }}>
               <ElectionTitleView election={election} />
               <ElectionView
                 election={election}

@@ -16,7 +16,10 @@ export default function ElectionView({
 }) {
   if (election.isFuture) {
     return (
-      <Typography  variant="caption" sx={{ maxWidth: 500, fontSize: "90%", fontStyle:"italic" }}>
+      <Typography
+        variant="caption"
+        sx={{ maxWidth: 500, fontSize: "90%", fontStyle: "italic" }}
+      >
         To be held before {election.date}.
       </Typography>
     );

@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import { Ent, URLContext, EntType } from "../../nonview/base";
 
 import { Election } from "../../nonview/core";
@@ -32,18 +32,22 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     this.setState({ pdEnt, edEnt, countryEnt, elections });
   }
 
+  get supertitle() {
+    return "Polling Division";
+  }
+
   get title() {
     const { pdEnt } = this.state;
     if (!pdEnt) {
-      return "Loading...";
+      return <CircularProgress />;
     }
-    return `${pdEnt.name} Polling Division`;
+    return pdEnt.name;
   }
 
   renderBody() {
     const { pdEnt, edEnt, countryEnt, elections } = this.state;
     if (!pdEnt) {
-      return "Loading...";
+      return <CircularProgress />;
     }
 
     return (

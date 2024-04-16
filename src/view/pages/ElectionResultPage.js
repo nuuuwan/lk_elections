@@ -92,13 +92,21 @@ export default class ElectionResultPage extends AbstractCustomPage {
     );
   }
 
-  get title() {
-    const { election, pdEnt, edEnt } = this.state;
+  get supertitle() {
+    const { election } = this.state;
     if (!election) {
-      return "Loading...";
+      return <CircularProgress />;
     }
 
-    return `${election.year} ${election.electionType} - ${pdEnt.name}, ${edEnt.name}`;
+    return election.titleShort;
+  }
+  get title() {
+    const { pdEnt, edEnt } = this.state;
+    if (!pdEnt) {
+      return <CircularProgress />;
+    }
+
+    return `${pdEnt.name}, ${edEnt.name}`;
   }
 
   renderBody() {

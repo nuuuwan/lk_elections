@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import { Ent, EntType, URLContext } from "../../nonview/base";
 import { Election } from "../../nonview/core";
 import { ElectoralDistrictView, ElectionListView } from "../molecules";
@@ -28,18 +28,22 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     this.setState({ edEnt, pdEnts, countryEnt, elections });
   }
 
+  get supertitle() {
+    return "Electoral District";
+  }
+
   get title() {
     const { edEnt } = this.state;
     if (!edEnt) {
-      return "Loading...";
+      return <CircularProgress />;
     }
-    return `${edEnt.name} Electoral District`;
+    return `${edEnt.name}`;
   }
 
   renderBody() {
     const { edEnt, pdEnts, countryEnt, elections } = this.state;
     if (!edEnt) {
-      return "Loading...";
+      return <CircularProgress />;
     }
     return (
       <Box>

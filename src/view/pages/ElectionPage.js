@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import { URLContext, Ent, EntType } from "../../nonview/base";
 import { Election } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
@@ -28,19 +28,26 @@ export default class ElectionPage extends AbstractCustomPage {
     const countryEnt = await Ent.fromID("LK");
     this.setState({ election, edEnts, countryEnt });
   }
+  get supertitle() {
+    const { election } = this.state;
+    if (!election) {
+      return <CircularProgress />;
+    }
+    return election.electionType;
+  }
 
   get title() {
     const { election } = this.state;
     if (!election) {
-      return "Loading...";
+      return <CircularProgress />;
     }
-    return `${election.year} Sri Lankan ${election.electionType} Election`;
+    return election.year;
   }
 
   renderBody() {
     const { edEnts, countryEnt, election } = this.state;
     if (!countryEnt) {
-      return "Loading...";
+      return <CircularProgress />;
     }
     return (
       <Box>

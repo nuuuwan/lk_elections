@@ -4,18 +4,6 @@ import { VERSION } from "../../nonview/constants";
 import { MainMenu } from "../organisms";
 
 export default class AbstractCustomPage extends Component {
-  static getPageID() {
-    throw new Error("Not implemented");
-  }
-
-  get title() {
-    return "title: Not implemented";
-  }
-
-  renderBody() {
-    return "renderBody: Not implemented";
-  }
-
   render() {
     const menuWidth = 240;
     return (
@@ -49,6 +37,9 @@ export default class AbstractCustomPage extends Component {
           }}
         >
           {" "}
+          <Typography variant="h6" sx={{ color: "#888" }}>
+            {this.supertitle}
+          </Typography>
           <Typography variant="h4">{this.title}</Typography>
           {this.renderBody()}
           <Box sx={{ marginTop: 10, color: "#eee" }}>

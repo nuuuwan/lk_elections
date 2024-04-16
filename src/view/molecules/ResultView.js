@@ -127,7 +127,7 @@ export default function ResultView({ election, entType }) {
       <Box sx={{ textAlign: "center", color: "#888" }}>
         {nResultsTotal > 1 ? (
           <Typography variant="caption">
-            <strong>{nResultsReleased}</strong>/{nResultsTotal} Results
+            <strong>{nResultsReleased}</strong>/{nResultsTotal} PDs
           </Typography>
         ) : (
           "#" + (election.currentPDIndex + 1)

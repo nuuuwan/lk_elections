@@ -16,7 +16,7 @@ export default function ElectionListView({
       </Typography>
       {elections
         .sort(function (a, b) {
-          return b.year - a.year;
+          return b.localeCompare(a);
         })
         .map(function (election, iElection) {
           const key = "election-" + iElection;

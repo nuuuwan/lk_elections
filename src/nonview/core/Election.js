@@ -1,4 +1,4 @@
-import { WWW, Random, Time, StringX } from "../base";
+import { WWW, Random, Time } from "../base";
 import WIKIPEDIA_SUMMRY_IDX from "../constants/WIKIPEDIA_SUMMRY_IDX.js";
 
 import Result from "./Result.js";
@@ -135,10 +135,7 @@ export default class Election {
   // Wikipedia
   get wikipediaPageName() {
     return (
-      this.year +
-      " Sri Lankan " +
-      StringX.toTitleCase(this.electionType) +
-      " Election"
+      this.year + "_Sri_Lankan_" + this.electionType.toLowerCase() + "_election"
     );
   }
 

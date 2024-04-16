@@ -3,7 +3,7 @@ import { Ent, URLContext, EntType, Geo } from "../../nonview/base";
 
 import { Election } from "../../nonview/core";
 
-import { PollingDivisionView, ElectionListView } from "../molecules";
+import { PollingDivisionView, ElectionListView, BellwetherView } from "../molecules";
 import { GeoMap } from "../organisms";
 import AbstractCustomPage from "./AbstractCustomPage";
 
@@ -57,6 +57,7 @@ export default class PollingDivisionPage extends AbstractCustomPage {
       <Box>
         <GeoMap zoom={11} center={center} geo={pdGeo} />
         <PollingDivisionView pdEnt={pdEnt} edEnt={edEnt} />
+        <BellwetherView ent={pdEnt} elections={elections} />
         <ElectionListView
           elections={elections}
           entType={EntType.PD}

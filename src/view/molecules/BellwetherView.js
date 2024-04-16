@@ -1,9 +1,10 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
+import { Header } from "../atoms";
 
-export default function BellweatherView({ elections, ent }) {
+export default function BellwetherView({ elections, ent }) {
   return (
     <Box>
-      <Typography variant="h6">Bellweather Analysis</Typography>
+      <Header level={2}>Bellwether Analysis</Header>
     </Box>
   );
 }

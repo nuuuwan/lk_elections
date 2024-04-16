@@ -1,6 +1,7 @@
 import { Component } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { VERSION } from "../../nonview/constants";
+import { Header } from "../atoms";
 import { MainMenu } from "../organisms";
 
 export default class AbstractCustomPage extends Component {
@@ -37,10 +38,8 @@ export default class AbstractCustomPage extends Component {
           }}
         >
           {" "}
-          <Typography variant="h6" sx={{ color: "#888" }}>
-            {this.supertitle}
-          </Typography>
-          <Typography variant="h4">{this.title}</Typography>
+          <Header level={3}>{this.supertitle}</Header>
+          <Header level={1}>{this.title}</Header>
           <Box sx={{ paddingTop: 2 }}>{this.renderBody()}</Box>
           <Box sx={{ marginTop: 10, color: "#eee" }}>
             v{VERSION.DATETIME_STR}

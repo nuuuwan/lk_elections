@@ -1,5 +1,5 @@
-import { Box, Typography } from "@mui/material";
-import { ElectionTitleView } from "../atoms";
+import { Box } from "@mui/material";
+import { Header } from "../atoms";
 import ElectionView from "./ElectionView";
 
 export default function ElectionListView({
@@ -11,9 +11,7 @@ export default function ElectionListView({
 }) {
   return (
     <Box sx={{ marginTop: 2 }}>
-      <Typography variant="h6" sx={{ color: "#888" }}>
-        Election History
-      </Typography>
+      <Header level={2}>Election History</Header>
       {elections
         .sort(function (a, b) {
           return b.localeCompare(a);
@@ -22,7 +20,7 @@ export default function ElectionListView({
           const key = "election-" + iElection;
           return (
             <Box key={key} sx={{ p: 1 }}>
-              <ElectionTitleView election={election} />
+              <Header level={3}>{election.titleShort}</Header>
               <ElectionView
                 election={election}
                 entType={entType}

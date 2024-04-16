@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 
-import { LinkContext } from "../atoms";
+import { LinkContext, Header } from "../atoms";
 
 export default function GenericListView({
   items,
@@ -12,9 +12,7 @@ export default function GenericListView({
   let prevLabel = undefined;
   return (
     <Box sx={{ marginTop: 2 }}>
-      <Typography variant="h6" sx={{ color: "#888" }}>
-        {title}
-      </Typography>
+      <Header level={2}>{title}</Header>
       <Box>
         {items.map(function (item, i) {
           const context = getContext(item);

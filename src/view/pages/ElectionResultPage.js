@@ -1,10 +1,11 @@
 import { URLContext, EntType, Ent } from "../../nonview/base";
 import { Election } from "../../nonview/core";
 
+import { Header } from "../atoms";
 import { ElectionView } from "../molecules";
 
 import { CircularProgress, Box } from "@mui/material";
-import { ElectionTitleView } from "../atoms";
+
 import AbstractCustomPage from "./AbstractCustomPage";
 
 export default class ElectionResultPage extends AbstractCustomPage {
@@ -119,7 +120,7 @@ export default class ElectionResultPage extends AbstractCustomPage {
       <div>
         <div id="div-screenshot">
           <Box sx={{ p: 2, minHeight: 550 }}>
-            <ElectionTitleView election={election} />
+            <Header level={3}>{election.titleShort}</Header>
             {this.renderElection()}
           </Box>
         </div>

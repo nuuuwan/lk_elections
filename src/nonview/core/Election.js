@@ -1,5 +1,4 @@
-import { WWW, Ents, Random } from "../base";
-import { ENT_TYPES } from "../base/EntTypes.js";
+import { WWW, Ent, EntType, Random } from "../base";
 
 import Result from "./Result.js";
 const URL_BASE =
@@ -80,9 +79,9 @@ export default class Election {
     }
     this.resultsList = await this.getResultsList();
     this.resultsIdx = await this.getResultsIdx();
-    this.pdIdx = await Ents.getEntIndexByType(ENT_TYPES.PD);
-    this.edIdx = await Ents.getEntIndexByType(ENT_TYPES.ED);
-    this.countryIdx = await Ents.getEntIndexByType(ENT_TYPES.COUNTRY);
+    this.pdIdx = await Ent.idxFromType(EntType.PD);
+    this.edIdx = await Ent.idxFromType(EntType.ED);
+    this.countryIdx = await Ent.idxFromType(EntType.COUNTRY);
 
     if (!this.currentPDID || this.currentPDID === "null") {
       const pdIDList = Object.keys(this.resultsIdx);

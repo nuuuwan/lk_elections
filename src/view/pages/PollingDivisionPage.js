@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { Ents, URLContext } from "../../nonview/base";
+import { Ent, URLContext } from "../../nonview/base";
 
 import { ElectionFactory } from "../../nonview/core";
 import { ElectionTitleView } from "../atoms";
@@ -19,9 +19,9 @@ export default class PollingDivisionPage extends AbstractCustomPage {
 
   async componentDidMount() {
     const { pdID } = this.state;
-    const pdEnt = await Ents.getEnt(pdID);
+    const pdEnt = await Ent.fromID(pdID);
     const edID = pdID.substring(0, 5);
-    const edEnt = await Ents.getEnt(edID);
+    const edEnt = await Ent.fromID(edID);
 
     const elections = ElectionFactory.listElections();
     for (let election of elections) {

@@ -42,4 +42,9 @@ export default class URLContext {
   static get() {
     return URLContext.urlToContext(URLContext.getURL());
   }
+
+  // refresh
+  static refresh() {
+    window.location.reload();
+  }
 }

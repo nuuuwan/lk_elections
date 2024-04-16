@@ -1,4 +1,4 @@
-import { Ents, URLContext } from "../../nonview/base";
+import { Ent, EntType, URLContext } from "../../nonview/base";
 
 import { ElectoralDistrictView } from "../molecules";
 import AbstractCustomPage from "./AbstractCustomPage";
@@ -16,9 +16,11 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
 
   async componentDidMount() {
     const { edID } = this.state;
-    const edEnt = await Ents.getEnt(edID);
+    const edEnt = await Ent.fromID(edID);
+    const pdEntsAll = await Ent.listFromType(EntType.PD);
+    const pdEnts = pdEntsAll.filter((pdEnt) => pdEnt.id.startsWith(edID));
 
-    this.setState({ edEnt });
+    this.setState({ edEnt, pdEnts });
   }
 
   get title() {
@@ -30,7 +32,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
   }
 
   renderBody() {
-    const { edEnt } = this.state;
-    return <ElectoralDistrictView edEnt={edEnt} />;
+    const { edEnt, pdEnts } = this.state;
+    return <ElectoralDistrictView edEnt={edEnt} pdEnts={pdEnts} />;
   }
 }

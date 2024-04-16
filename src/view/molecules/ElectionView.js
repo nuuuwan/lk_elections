@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 import { ResultView } from "../molecules";
-import { ENT_TYPES } from "../../nonview/base/EntTypes.js";
+import { EntType } from "../../nonview/base";
 
 export default function ElectionView({ election }) {
   if (election.isNoData) {
@@ -8,9 +8,9 @@ export default function ElectionView({ election }) {
   }
   return (
     <Grid container direction="row" alignItems="top" spacing={1}>
-      <ResultView election={election} entType={ENT_TYPES.PD} />
-      <ResultView election={election} entType={ENT_TYPES.ED} />
-      <ResultView election={election} entType={ENT_TYPES.COUNTRY} />
+      <ResultView election={election} entType={EntType.PD} />
+      <ResultView election={election} entType={EntType.ED} />
+      <ResultView election={election} entType={EntType.COUNTRY} />
     </Grid>
   );
 }

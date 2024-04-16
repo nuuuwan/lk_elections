@@ -1,8 +1,9 @@
 import { Grid, Box, Stack, Typography } from "@mui/material";
 import { POLITICAL_PARTY_TO_COLOR } from "../../nonview/constants";
-import { URLContext } from "../../nonview/base";
+
+import { LinkContext } from "../atoms";
 import { PartyToVotesView, SummaryView } from "../molecules";
-import { ENT_TYPES } from "../../nonview/base/EntTypes";
+import { EntType } from "../../nonview/base";
 import { LIGHT_COLORS } from "../../nonview/constants/POLITICAL_PARTY_TO_COLOR";
 
 export default function ResultView({ election, entType }) {
@@ -20,7 +21,7 @@ export default function ResultView({ election, entType }) {
   let nResultsTotal;
   let context;
   switch (entType) {
-    case ENT_TYPES.PD:
+    case EntType.PD:
       result = election.currentPDResult;
       ent = election.currentPDEnt;
       subtitle = "Polling Division";
@@ -28,7 +29,7 @@ export default function ResultView({ election, entType }) {
       nResultsTotal = 1;
       context = { pageID: "PollingDivision", pdID: ent.id };
       break;
-    case ENT_TYPES.ED:
+    case EntType.ED:
       result = election.currentEDResult;
       ent = election.currentEDEnt;
       subtitle = "Electoral District";
@@ -36,7 +37,7 @@ export default function ResultView({ election, entType }) {
       nResultsTotal = election.totalEDPDResultCount;
       context = { pageID: "ElectoralDistrict", edID: ent.id };
       break;
-    case ENT_TYPES.COUNTRY:
+    case EntType.COUNTRY:
       result = election.resultLK;
       ent = election.entLK;
       subtitle = "Nationwide";
@@ -77,62 +78,55 @@ export default function ResultView({ election, entType }) {
     nResultsTotal = nResultsReleased;
   }
 
-  const onClick = function () {
-    if (!context) {
-      return;
-    }
-    URLContext.set(context);
-    window.location.reload();
-  };
-
   return (
-    <Grid item>
-      <Box sx={{ m: 1, border: "1px solid black", textAlign: "right" }}>
-        <Stack
-          direction="row"
-          sx={{ m: 0, p: 0, minWidth: 240, minHeight: 380 }}
-        >
-          <Typography
-            variant="h5"
-            sx={{
-              transform: "rotate(180deg)",
-              writingMode: "vertical-rl",
-              color: foreColor,
-              fontWeight: "bold",
-              background: color,
-              textAlign: "center",
-              cursor: "pointer",
-            }}
-            onClick={onClick}
+    <LinkContext context={context}>
+      <Grid item>
+        <Box sx={{ m: 1, border: "1px solid black", textAlign: "right" }}>
+          <Stack
+            direction="row"
+            sx={{ m: 0, p: 0, minWidth: 240, minHeight: 380 }}
           >
-            {title}
-          </Typography>
+            <Typography
+              variant="h5"
+              sx={{
+                transform: "rotate(180deg)",
+                writingMode: "vertical-rl",
+                color: foreColor,
+                fontWeight: "bold",
+                background: color,
+                textAlign: "center",
+                cursor: "pointer",
+              }}
+            >
+              {title}
+            </Typography>
 
-          <Typography
-            variant="body2"
-            sx={{
-              transform: "rotate(180deg)",
-              writingMode: "vertical-rl",
+            <Typography
+              variant="body2"
+              sx={{
+                transform: "rotate(180deg)",
+                writingMode: "vertical-rl",
 
-              textAlign: "center",
-            }}
-          >
-            {subtitle}
-          </Typography>
+                textAlign: "center",
+              }}
+            >
+              {subtitle}
+            </Typography>
 
-          <PartyToVotesView partyToVotes={result.partyToVotes} />
-          <SummaryView summary={result.summary} />
-        </Stack>
-      </Box>
-      <Box sx={{ textAlign: "center", color: "#888" }}>
-        {nResultsTotal > 1 ? (
-          <Typography variant="caption">
-            <strong>{nResultsReleased}</strong>/{nResultsTotal} PDs
-          </Typography>
-        ) : (
-          "#" + (election.currentPDIndex + 1)
-        )}
-      </Box>
-    </Grid>
+            <PartyToVotesView partyToVotes={result.partyToVotes} />
+            <SummaryView summary={result.summary} />
+          </Stack>
+        </Box>
+        <Box sx={{ textAlign: "center", color: "#888" }}>
+          {nResultsTotal > 1 ? (
+            <Typography variant="caption">
+              <strong>{nResultsReleased}</strong>/{nResultsTotal} PDs
+            </Typography>
+          ) : (
+            "#" + (election.currentPDIndex + 1)
+          )}
+        </Box>
+      </Grid>
+    </LinkContext>
   );
 }

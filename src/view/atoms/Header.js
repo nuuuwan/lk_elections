@@ -6,7 +6,7 @@ export default function Header({ level, children }) {
     case 1:
       variant = "h4";
       color = "#444";
-      marginBottom = 2;
+      marginBottom = 1;
       break;
     case 2:
       variant = "h5";
@@ -16,7 +16,7 @@ export default function Header({ level, children }) {
     default:
       variant = "h6";
       color = "#888";
-      marginBottom = 0;
+      marginBottom = 1;
   }
 
   return (

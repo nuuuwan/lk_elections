@@ -7,6 +7,7 @@ import {
   PollingDivisionView,
   ElectionListView,
   BellwetherView,
+  SimilarPollingDivisionsView,
 } from "../molecules";
 import { GeoMap } from "../organisms";
 import AbstractCustomPage from "./AbstractCustomPage";
@@ -29,13 +30,14 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     const edEnt = await Ent.fromID(edID);
     const countryEnt = await Ent.fromID("LK");
     const pdGeo = await new Geo(pdID).load();
+    const pdEnts = await Ent.listFromType(EntType.PD);
 
     const elections = Election.listAll();
     for (let election of elections) {
       await election.loadData();
     }
 
-    this.setState({ pdEnt, edEnt, countryEnt, elections, pdGeo });
+    this.setState({ pdEnt, edEnt, countryEnt, elections, pdGeo, pdEnts });
   }
 
   get supertitle() {
@@ -51,7 +53,7 @@ export default class PollingDivisionPage extends AbstractCustomPage {
   }
 
   renderBody() {
-    const { pdEnt, edEnt, countryEnt, elections, pdGeo } = this.state;
+    const { pdEnt, edEnt, countryEnt, elections, pdGeo, pdEnts } = this.state;
     if (!pdEnt) {
       return <CircularProgress />;
     }
@@ -59,9 +61,14 @@ export default class PollingDivisionPage extends AbstractCustomPage {
 
     return (
       <Box>
-        <GeoMap zoom={11} center={center} geo={pdGeo} />
+        <GeoMap zoom={12} center={center} geo={pdGeo} />
         <PollingDivisionView pdEnt={pdEnt} edEnt={edEnt} />
         <BellwetherView ent={pdEnt} elections={elections} />
+        <SimilarPollingDivisionsView
+          ent={pdEnt}
+          elections={elections}
+          pdEnts={pdEnts}
+        />
         <ElectionListView
           elections={elections}
           entType={EntType.PD}

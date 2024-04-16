@@ -12,6 +12,7 @@ import NoteView from "./NoteView";
 import PartyToVotesView from "./PartyToVotesView";
 import PollingDivisionView from "./PollingDivisionView";
 import ResultView from "./ResultView";
+import SimilarPollingDivisionsView from "./SimilarPollingDivisionsView";
 import SummaryView from "./SummaryView";
 
 export {
@@ -28,5 +29,6 @@ export {
   PartyToVotesView,
   PollingDivisionView,
   ResultView,
+  SimilarPollingDivisionsView,
   SummaryView,
 };

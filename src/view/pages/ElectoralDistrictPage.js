@@ -48,6 +48,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     return (
       <Box>
         <ElectoralDistrictView edEnt={edEnt} pdEnts={pdEnts} />
+        <BellwetherView ent={pdEnt} elections={elections} />
         <ElectionListView
           elections={elections}
           entType={EntType.ED}

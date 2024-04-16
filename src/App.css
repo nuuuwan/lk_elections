@@ -5,3 +5,29 @@ body {
 a {
   text-decoration: none;
 }
+
+table {
+  border-collapse: collapse;
+}
+
+th {
+  background-color: #f2f2f2;
+  text-align: left;
+  padding-right: 12px;
+}
+
+td {
+  padding-right: 12px;
+  border-bottom: 1px solid #f2f2f2;
+  text-align: left;
+}
+
+.td-number {
+  text-align: right;
+  font-family: monospace;
+}
+
+tfoot td {
+  font-weight: bold;
+  font-size: 1.5em;
+}

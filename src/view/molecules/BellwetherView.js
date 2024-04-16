@@ -1,10 +1,7 @@
-import { Box } from "@mui/material";
 import { POLITICAL_PARTY_TO_COLOR } from "../../nonview/constants";
-import { Header, ElectionLink } from "../atoms";
+import { Header, ElectionLink, SectionBox } from "../atoms";
 
-import "./BellwetherView.css";
-
-function BellwetherViewForElection({ election, ent }) {
+function getBellwetherStats(election, ent) {
   const resultsForEnt = election.getResults(ent.id);
   if (!resultsForEnt) {
     return null;
@@ -12,25 +9,43 @@ function BellwetherViewForElection({ election, ent }) {
   const resultsForLK = election.getResults("LK");
   const winningPartyEnt = resultsForEnt.partyToVotes.winningParty;
   const winningPartyLK = resultsForLK.partyToVotes.winningParty;
-  const colorEnt = POLITICAL_PARTY_TO_COLOR[winningPartyEnt];
-  const colorLK = POLITICAL_PARTY_TO_COLOR[winningPartyLK];
+
   const isMatch = winningPartyEnt === winningPartyLK;
   const l1Error = resultsForLK.partyToVotes.getL1Error(
     resultsForEnt.partyToVotes
   );
+  return { winningPartyEnt, winningPartyLK, l1Error, isMatch };
+}
 
+function renderPercent(l1Error) {
   let l1ErrorStr = Number(l1Error).toLocaleString(undefined, {
     style: "percent",
     minimumFractionDigits: 1,
     maximumFractionDigits: 1,
   });
-
   let l1ErrorColor = "red";
   if (l1Error < 0.02) {
     l1ErrorColor = "green";
   } else if (l1Error < 0.1) {
     l1ErrorColor = "orange";
   }
+  return (
+    <td className="td-number" style={{ color: l1ErrorColor }}>
+      {l1ErrorStr}
+    </td>
+  );
+}
+
+function BellwetherViewForElection({
+  election,
+  winningPartyEnt,
+  winningPartyLK,
+  l1Error,
+  isMatch,
+}) {
+  const colorEnt = POLITICAL_PARTY_TO_COLOR[winningPartyEnt];
+  const colorLK = POLITICAL_PARTY_TO_COLOR[winningPartyLK];
+
   return (
     <tr>
       <td>
@@ -39,16 +54,18 @@ function BellwetherViewForElection({ election, ent }) {
       <td style={{ color: colorEnt }}>{winningPartyEnt}</td>
       <td style={{ color: colorLK }}>{winningPartyLK}</td>
       <td style={{ color: colorLK }}>{isMatch ? "✓" : ""}</td>
-      <td className="td-number" style={{ color: l1ErrorColor }}>
-        {l1ErrorStr}
-      </td>
+      {renderPercent(l1Error)}
     </tr>
   );
 }
 
 export default function BellwetherView({ elections, ent }) {
+  let n = 0,
+    nMatch = 0;
+  let errorSum = 0;
+
   return (
-    <Box>
+    <SectionBox>
       <Header level={2}>Bellwether Analysis</Header>
       <table>
         <thead>
@@ -57,21 +74,45 @@ export default function BellwetherView({ elections, ent }) {
             <th>{ent.name}</th>
             <th>Sri Lanka</th>
             <th></th>
-            <th>Error (L1)</th>
+            <th>Mean Diff.</th>
           </tr>
         </thead>
         <tbody>
           {elections.map(function (election, iElection) {
+            const stats = getBellwetherStats(election, ent);
+            if (!stats) {
+              return null;
+            }
+            const { winningPartyEnt, winningPartyLK, l1Error, isMatch } = stats;
+            n += 1;
+            if (isMatch) {
+              nMatch += 1;
+            }
+            errorSum += l1Error;
+
             return (
               <BellwetherViewForElection
                 key={"election-" + iElection}
                 election={election}
-                ent={ent}
+                winningPartyEnt={winningPartyEnt}
+                winningPartyLK={winningPartyLK}
+                l1Error={l1Error}
+                isMatch={isMatch}
               />
             );
           })}
         </tbody>
+        <tfoot>
+          <tr>
+            <td colSpan="3"></td>
+
+            <td className="td-number">
+              {nMatch}/{n}
+            </td>
+            {renderPercent(errorSum / n)}
+          </tr>
+        </tfoot>
       </table>
-    </Box>
+    </SectionBox>
   );
 }

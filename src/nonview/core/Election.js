@@ -46,16 +46,15 @@ export default class Election {
     }
     this.resultsList = await this.getResultsList();
     this.resultsIdx = Election.buildResultsIdx(this.resultsList);
-    this.isLoaded = true;
+    this.isLoaded = this.resultsList.length > 10;
   }
 
   getResults(id) {
     if (!this.isLoaded) {
-      throw new Error("Data not loaded.");
+      return null;
     }
     if (!this.resultsIdx[id]) {
-      console.error("No results for: ", id);
-
+      // console.error("No results for ", this.titleShort , ": ", id);
       return null;
     }
     return this.resultsIdx[id];

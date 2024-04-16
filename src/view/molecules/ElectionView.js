@@ -7,30 +7,47 @@ import {
   PollingDivisionResultView,
 } from "./ResultView";
 
-export default function ElectionView({ election, entType }) {
+export default function ElectionView({
+  election,
+  entType,
+  pdEnt,
+  edEnt,
+  countryEnt,
+}) {
   if (election.isNoData) {
     return null;
   }
 
-  let child_classes;
+  let children = [];
 
   if (entType === EntType.PD) {
-    child_classes = [
-      PollingDivisionResultView,
-      ElectoralDistrictResultView,
-      CountryResultView,
-    ];
-  } else if (entType === EntType.ED) {
-    child_classes = [ElectoralDistrictResultView, CountryResultView];
-  } else if (entType === EntType.COUNTRY) {
-    child_classes = [CountryResultView];
-  } else {
-    throw new Error("Invalid entType: " + entType);
+    children.push(
+      <PollingDivisionResultView
+        key={pdEnt.id}
+        election={election}
+        ent={pdEnt}
+      />
+    );
   }
 
-  const children = child_classes.map(function (ChildResultView, iChild) {
-    return <ChildResultView key={"child-" + iChild} election={election} />;
-  });
+  if (entType !== EntType.COUNTRY) {
+    children.push(
+      <ElectoralDistrictResultView
+        key={edEnt.id}
+        election={election}
+        ent={edEnt}
+      />
+    );
+  }
+
+  children.push(
+    <CountryResultView
+      key={countryEnt.id}
+      election={election}
+      ent={countryEnt}
+    />
+  );
+
   return (
     <Grid container direction="row" alignItems="top" spacing={1}>
       {children}

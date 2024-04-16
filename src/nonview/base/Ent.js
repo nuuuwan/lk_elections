@@ -1,6 +1,6 @@
 import EntType from "./EntType.js";
 import WWW from "./WWW.js";
-
+import Random from "./Random.js";
 const URL_BASE = "https://raw.githubusercontent.com/nuuuwan/gig2/data";
 const ID_KEY = "id";
 
@@ -9,6 +9,11 @@ export default class Ent {
   static async listFromType(entType) {
     const url = `${URL_BASE}/${entType.name}.latest.basic.tsv`;
     return await WWW.tsv(url);
+  }
+
+  static async randomFromType(entType) {
+    const ents = await Ent.listFromType(entType);
+    return Random.choice(ents);
   }
 
   static async idxFromType(entType) {

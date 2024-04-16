@@ -1,4 +1,4 @@
-import { URLContext, EntType } from "../../nonview/base";
+import { URLContext, EntType, Ent } from "../../nonview/base";
 import { ElectionFactory, FutureElection } from "../../nonview/core";
 
 import { ElectionView, FutureElectionView } from "../molecules";
@@ -29,22 +29,20 @@ export default class ElectionResultPage extends AbstractCustomPage {
     let { electionTypeID, year, pdID } = this.state;
     const election_class = ElectionFactory.fromElectionTypeID(electionTypeID);
     const election = new election_class(year, pdID);
-    await this.updateStateWithElection(election);
-  }
-
-  async updateStateWithElection(election, pdID) {
-    if (pdID) {
-      election.currentPDID = pdID;
-    }
     await election.loadData();
 
-    const year = election.year;
-    pdID = election.currentPDID;
-    const electionTypeID = election.constructor.getTypeName();
+    if (!pdID) {
+      pdID = (await Ent.randomFromType(EntType.PD)).id;
+    }
+
+    const pdEnt = await Ent.fromID(pdID);
+    const edEnt = await Ent.fromID(pdID.substring(0, 5));
+    const countryEnt = await Ent.fromID("LK");
+
     URLContext.set({
-      pageID: "Election",
-      electionTypeID,
-      year,
+      pageID: "ElectionResult",
+      electionTypeID: election.constructor.getTypeName(),
+      year: election.year,
       pdID,
     });
 
@@ -53,6 +51,9 @@ export default class ElectionResultPage extends AbstractCustomPage {
       year,
       pdID,
       election,
+      pdEnt,
+      edEnt,
+      countryEnt,
     });
   }
 
@@ -69,22 +70,29 @@ export default class ElectionResultPage extends AbstractCustomPage {
   }
 
   renderElection() {
-    const { election } = this.state;
+    const { election, pdEnt, edEnt, countryEnt } = this.state;
     if (election.isFutureElection) {
       const futureElection =
         FutureElection.idx()[election.constructor.getTypeName()][election.year];
       return <FutureElectionView election={futureElection} />;
     }
-    return <ElectionView election={election} entType={EntType.PD} />;
+    return (
+      <ElectionView
+        election={election}
+        entType={EntType.PD}
+        pdEnt={pdEnt}
+        edEnt={edEnt}
+        countryEnt={countryEnt}
+      />
+    );
   }
 
   get title() {
-    const { election } = this.state;
+    const { election, pdEnt, edEnt } = this.state;
     if (!election) {
       return "Loading...";
     }
-    const pdEnt = election.currentPDEnt;
-    const edEnt = election.currentEDEnt;
+
     return `${election.year} ${election.constructor.getTypeName()} - ${
       pdEnt.name
     }, ${edEnt.name}`;

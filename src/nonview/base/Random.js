@@ -7,7 +7,7 @@ export default class Random {
     return parseInt(Random.randomFloat(minValue, maxValue));
   }
 
-  static randomChoice(choices) {
+  static choice(choices) {
     const index = Random.randomInt(0, choices.length);
     return choices[index];
   }

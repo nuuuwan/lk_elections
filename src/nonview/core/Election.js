@@ -1,41 +1,24 @@
-import { WWW, Ent, EntType, Random } from "../base";
+import { WWW, Random } from "../base";
 
 import Result from "./Result.js";
 const URL_BASE =
   "https://raw.githubusercontent.com/nuuuwan/gig-data/master/gig2_custom_ec_only";
 export default class Election {
-  static getTypeName() {
-    throw new Error("Not implemented");
-  }
-
-  static getYears() {
-    throw new Error("Not implemented");
-  }
-
-  static getFutureYears() {
-    throw new Error("Not implemented");
-  }
-
   static getAllYears() {
     return [].concat(this.getYears(), this.getFutureYears());
   }
 
   static getRandomYear() {
     const years = this.getYears();
-    return Random.randomChoice(years);
+    return Random.choice(years);
   }
 
-  constructor(year, pdID) {
+  constructor(year) {
     if (!year) {
       year = this.constructor.getRandomYear();
     }
     this.year = parseInt(year);
-    this.currentPDID = pdID;
     this.resultsIdx = null;
-    this.pdIdx = null;
-    this.edIdx = null;
-    this.countryIdx = null;
-    this.nDisplayResults = undefined;
   }
 
   get urlData() {
@@ -79,94 +62,11 @@ export default class Election {
     }
     this.resultsList = await this.getResultsList();
     this.resultsIdx = await this.getResultsIdx();
-    this.pdIdx = await Ent.idxFromType(EntType.PD);
-    this.edIdx = await Ent.idxFromType(EntType.ED);
-    this.countryIdx = await Ent.idxFromType(EntType.COUNTRY);
-
-    if (!this.currentPDID || this.currentPDID === "null") {
-      const pdIDList = Object.keys(this.resultsIdx);
-      this.currentPDID = Random.randomChoice(pdIDList);
-    }
   }
 
-  // PD
+  getResults(id) {
 
-  get currentPDResult() {
-    return this.resultsIdx[this.currentPDID];
-  }
-
-  get currentPDEnt() {
-    return this.pdIdx[this.currentPDID];
-  }
-
-  get pdIDList() {
-    return Object.keys(this.pdIdx);
-  }
-
-  get pdIDListReleased() {
-    return this.resultsList.map(function (result) {
-      return result.entityID;
-    });
-  }
-
-  get currentPDIndex() {
-    return this.pdIDListReleased.indexOf(this.currentPDID);
-  }
-
-  // ED
-
-  get currentEDID() {
-    return this.currentPDID.substring(0, 5);
-  }
-
-  get currentEDEnt() {
-    return this.edIdx[this.currentEDID];
-  }
-
-  get currentEDPDResults() {
-    return Object.values(this.resultsIdx).filter(
-      function (result) {
-        return result.entityID.startsWith(this.currentEDID);
-      }.bind(this)
-    );
-  }
-
-  get currentEDResult() {
-    return Result.fromList(this.currentEDID, this.currentEDPDResults);
-  }
-
-  get currentEDPDResultCount() {
-    return this.currentEDPDResults.length;
-  }
-
-  get currentEDPDIDList() {
-    return this.pdIDList.filter(
-      function (pdID) {
-        return pdID.startsWith(this.currentEDID);
-      }.bind(this)
-    );
-  }
-
-  get totalEDPDResultCount() {
-    return this.currentEDPDIDList.length;
-  }
-
-  // LK
-
-  get entLK() {
-    return this.countryIdx["LK"];
-  }
-
-  get resultsCount() {
-    return this.resultsList.length;
-  }
-
-  get totalResultsCount() {
-    return this.pdIDList.length;
-  }
-
-  get resultLK() {
-    return Result.fromList("LK", this.resultsList);
+    return this.resultsIdx[id];
   }
 
   // Loaders
@@ -179,6 +79,30 @@ export default class Election {
     return rawDataList;
   }
 
+  static expand(pdResultsList) {
+    // ED
+    const edIDs = pdResultsList.reduce(function (edIDs, result) {
+      const pdID = result.entityID;
+      const edID = pdID.substring(0, 5);
+      if (!edIDs.includes(edID)) {
+        edIDs.push(edID);
+      }
+      return edIDs;
+    }, []);
+    const edResultsList = edIDs.map(function (edID) {
+      const edResults = pdResultsList.filter(function (result) {
+        return result.entityID.startsWith(edID);
+      });
+      return Result.fromList(edID, edResults);
+    });
+
+    // Country
+    const countryResult = Result.fromList("LK", pdResultsList);
+    const expandedResultsList =  [].concat(pdResultsList, edResultsList, [countryResult]);
+
+    return expandedResultsList;
+  }
+
   async getResultsList() {
     const rawData = await this.getRawDataList();
     const filteredRawData = rawData.filter(function (d) {
@@ -187,7 +111,10 @@ export default class Election {
     const resultsList = filteredRawData.map(function (d) {
       return Result.fromDict(d);
     });
-    const sortedResultsList = resultsList.sort(function (a, b) {
+
+    const expandedResultsList = Election.expand(resultsList);
+
+    const sortedResultsList = expandedResultsList.sort(function (a, b) {
       return a.summary.valid - b.summary.valid;
     });
 
@@ -217,25 +144,5 @@ export default class Election {
       entPD: this.currentPDEnt,
       entED: this.currentEDEnt,
     };
-  }
-
-  // Navigation
-
-  next() {
-    const pdIDList = this.pdIDListReleased;
-    const idx = this.currentPDIndex;
-    if (idx < pdIDList.length - 1) {
-      this.currentPDID = pdIDList[idx + 1];
-    }
-    return this.currentPDID;
-  }
-
-  previous() {
-    const pdIDList = this.pdIDListReleased;
-    const idx = this.currentPDIndex;
-    if (idx > 0) {
-      this.currentPDID = pdIDList[idx - 1];
-    }
-    return this.currentPDID;
   }
 }

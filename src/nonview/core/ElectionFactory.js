@@ -20,7 +20,7 @@ export default class ElectionFactory {
     if (idx[electionTypeID] !== undefined) {
       return idx[electionTypeID];
     }
-    return Random.randomChoice(ElectionFactory.list());
+    return Random.choice(ElectionFactory.list());
   }
 
   static listElections() {

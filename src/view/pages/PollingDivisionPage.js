@@ -22,13 +22,14 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     const pdEnt = await Ent.fromID(pdID);
     const edID = pdID.substring(0, 5);
     const edEnt = await Ent.fromID(edID);
+    const countryEnt = await Ent.fromID("LK");
 
     const elections = ElectionFactory.listElections();
     for (let election of elections) {
       election.currentPDID = pdID;
       await election.loadData();
     }
-    this.setState({ pdEnt, edEnt, elections });
+    this.setState({ pdEnt, edEnt,countryEnt, elections });
   }
 
   get title() {
@@ -40,14 +41,14 @@ export default class PollingDivisionPage extends AbstractCustomPage {
   }
 
   renderBody() {
-    const { pdEnt, edEnt, elections } = this.state;
+    const { pdEnt, edEnt, countryEnt, elections } = this.state;
     if (!pdEnt) {
       return "Loading...";
     }
     return (
       <Box>
         <PollingDivisionView pdEnt={pdEnt} edEnt={edEnt} />
-        <ElectionListView elections={elections} entType={EntType.PD} />
+        <ElectionListView elections={elections} entType={EntType.PD} pdEnt={pdEnt} edEnt={edEnt} countryEnt={countryEnt} />
       </Box>
     );
   }

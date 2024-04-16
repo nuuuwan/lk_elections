@@ -7,7 +7,9 @@ import { EntType } from "../../nonview/base";
 import { LIGHT_COLORS } from "../../nonview/constants/POLITICAL_PARTY_TO_COLOR";
 
 export default function ResultView({ entType, result, ent, context }) {
-  if (!ent) {
+
+  if (!result) {
+    console.error("No results!");
     return null;
   }
 
@@ -65,35 +67,34 @@ export default function ResultView({ entType, result, ent, context }) {
   );
 }
 
-export function PollingDivisionResultView({ election }) {
+export function PollingDivisionResultView({ election, ent }) {
   const entType = EntType.PD;
-  const result = election.currentPDResult;
-  const ent = election.currentPDEnt;
+  const result = election.getResults(ent.id);
   const context = { pageID: "PollingDivision", pdID: ent.id };
   return (
     <ResultView entType={entType} result={result} ent={ent} context={context} />
   );
 }
 
-export function ElectoralDistrictResultView({ election }) {
+export function ElectoralDistrictResultView({ election, ent }) {
   const entType = EntType.ED;
-  const result = election.currentEDResult;
-  const ent = election.currentEDEnt;
+
   const context = { pageID: "ElectoralDistrict", edID: ent.id };
+  const result = election.getResults(ent.id);
   return (
     <ResultView entType={entType} result={result} ent={ent} context={context} />
   );
 }
 
-export function CountryResultView({ election }) {
+export function CountryResultView({ election, ent }) {
   const entType = EntType.COUNTRY;
-  const result = election.currentPDResult;
-  const ent = election.currentPDEnt;
+
   const context = {
     pageID: "Election",
     electionTypeID: election.constructor.getTypeName(),
     year: election.year,
   };
+  const result = election.getResults(ent.id);
   return (
     <ResultView entType={entType} result={result} ent={ent} context={context} />
   );

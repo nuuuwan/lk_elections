@@ -2,11 +2,11 @@
 import Cache from "./Cache";
 import Ent from "./Ent";
 import EntType from "./EntType";
+import Format from "./Format";
 import Geo from "./Geo";
 import LatLng from "./LatLng";
 import MathX from "./MathX";
 import Random from "./Random";
-import StringX from "./StringX";
 import Time from "./Time";
 import URLContext from "./URLContext";
 import WWW from "./WWW";
@@ -16,11 +16,11 @@ export {
   Cache,
   Ent,
   EntType,
+  Format,
   Geo,
   LatLng,
   MathX,
   Random,
-  StringX,
   Time,
   URLContext,
   WWW,

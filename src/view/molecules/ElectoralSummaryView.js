@@ -1,4 +1,5 @@
 import { SectionBox, Header, ElectionLink, PartyLink } from "../atoms";
+import { Format } from "../../nonview/base";
 
 function ElectoralSummaryViewForElection({ ent, election }) {
   const resultsForEnt = election.getResults(ent.id);
@@ -19,24 +20,10 @@ function ElectoralSummaryViewForElection({ ent, election }) {
       <td>
         <PartyLink partyID={winningPartyEnt}></PartyLink>
       </td>
-      <td className="td-number">
-        {pMajority
-          ? pMajority.toLocaleString(undefined, { style: "percent" })
-          : "N/A"}
-      </td>
-      <td className="td-number">
-        {summary.electors ? summary.electors.toLocaleString() : "N/A"}
-      </td>
-      <td className="td-number">
-        {summary.pTurnout
-          ? summary.pTurnout.toLocaleString(undefined, { style: "percent" })
-          : "N/A"}
-      </td>
-      <td className="td-number">
-        {summary.pRejected
-          ? summary.pRejected.toLocaleString(undefined, { style: "percent" })
-          : "N/A"}
-      </td>
+      <td className="td-number">{Format.percent(pMajority)}</td>
+      <td className="td-number">{Format.int(summary.electors)}</td>
+      <td className="td-number">{Format.percent(summary.pTurnout)}</td>
+      <td className="td-number">{Format.percent(summary.pRejected)}</td>
     </tr>
   );
 }

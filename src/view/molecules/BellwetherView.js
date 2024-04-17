@@ -1,12 +1,9 @@
 import { AnalysisBellwether } from "../../nonview/core";
+import { Format } from "../../nonview/base";
 import { Header, ElectionLink, SectionBox, PartyLink } from "../atoms";
 
 function renderPercent(l1Error) {
-  let l1ErrorStr = Number(l1Error).toLocaleString(undefined, {
-    style: "percent",
-    minimumFractionDigits: 1,
-    maximumFractionDigits: 1,
-  });
+  let l1ErrorStr = Format.percent(l1Error);
   let l1ErrorColor = "#ccc";
   if (l1Error < 0.02) {
     l1ErrorColor = "#000";

@@ -1,4 +1,5 @@
 import { Header, EntLink, SectionBox } from "../atoms";
+import { Format } from "../../nonview/base";
 
 function getL1Error(pdEnt1, pdEnt2, election) {
   const result1 = election.getResults(pdEnt1.id);
@@ -51,13 +52,7 @@ export default function SimilarRegionsView({ elections, ent, pdEnts }) {
                 <td>
                   <EntLink ent={pdEnt} />
                 </td>
-                <td className="td-number">
-                  {l1Error.toLocaleString(undefined, {
-                    style: "percent",
-                    minimumFractionDigits: 1,
-                    maximumFractionDigits: 1,
-                  })}
-                </td>
+                <td className="td-number">{Format.percent(l1Error)}</td>
               </tr>
             );
           })}

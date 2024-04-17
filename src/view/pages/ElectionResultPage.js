@@ -2,7 +2,7 @@ import { URLContext, EntType, Ent } from "../../nonview/base";
 import { Election } from "../../nonview/core";
 
 import { Header } from "../atoms";
-import { ElectionView } from "../molecules";
+
 
 import { CircularProgress, Box } from "@mui/material";
 
@@ -79,19 +79,6 @@ export default class ElectionResultPage extends AbstractCustomPage {
     );
   }
 
-  renderElection() {
-    const { election, pdEnt, edEnt, countryEnt } = this.state;
-
-    return (
-      <ElectionView
-        election={election}
-        entType={EntType.PD}
-        pdEnt={pdEnt}
-        edEnt={edEnt}
-        countryEnt={countryEnt}
-      />
-    );
-  }
 
   get supertitle() {
     const { election } = this.state;

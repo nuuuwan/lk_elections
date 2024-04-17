@@ -1,4 +1,4 @@
-import { URLContext, Ent, EntType } from "../../nonview/base";
+import { URLContext, Ent, EntType, Format } from "../../nonview/base";
 import { AnalysisBellwether, Election } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
 import {
@@ -65,13 +65,7 @@ export default class AnalysisBellwetherPage extends AbstractCustomPage {
           <EntLink ent={ent} />
         </td>
         <td>{nMatch}</td>
-        <td>
-          {meanError.toLocaleString(undefined, {
-            style: "percent",
-            minimumFractionDigits: 1,
-            maximumFractionDigits: 1,
-          })}
-        </td>
+        <td>{Format.percent(meanError)}</td>
         <td>{this.renderMismatches(mismatches)}</td>
       </tr>
     );

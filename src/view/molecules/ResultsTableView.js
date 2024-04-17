@@ -1,11 +1,12 @@
 import { EntLink, Header, SectionBox, PartyLink } from "../atoms";
-
+import { Format } from "../../nonview/base";
 function ResultsTableViewRowForEnt({ election, ent, majorParties }) {
   const result = election.getResults(ent.id);
   if (!result) {
     return null;
   }
   const partyToPVotes = result.partyToVotes.partyToPVotes;
+
   const pOther = Object.entries(partyToPVotes)
     .filter(function ([party, pVotes]) {
       return !majorParties.includes(party);
@@ -31,16 +32,12 @@ function ResultsTableViewRowForEnt({ election, ent, majorParties }) {
             style={{ borderRadius: 6 }}
           >
             <PartyLink partyID={party} noColor={!isWinner}>
-              {partyToPVotes[party].toLocaleString(undefined, {
-                style: "percent",
-              })}
+              {Format.percent(partyToPVotes[party])}
             </PartyLink>
           </td>
         );
       })}
-      <td className="td-number">
-        {pOther.toLocaleString(undefined, { style: "percent" })}
-      </td>
+      <td className="td-number">{Format.percent(pOther)}</td>
     </tr>
   );
 }
@@ -62,7 +59,9 @@ export default function ResultsTableView({ election, ents }) {
     if (result === null) {
       return allMajorParties;
     }
-    const sortedMajor = result.partyToVotes.sortedMajor;
+
+    const pMajorParty = (ent.id === 'LK') ? 0.005 : 0.05;
+    const sortedMajor = result.partyToVotes.getSortedMajor(pMajorParty);
     const majorParties = Object.keys(sortedMajor).filter(
       (party) => party !== "Other"
     );

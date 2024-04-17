@@ -4,6 +4,9 @@ import { Election, Party } from "../../nonview/core";
 import { ElectionLink, EntLink, PartyLink } from "../atoms";
 
 function formatCell(key, value) {
+    if (value === 0) {
+        return '-';
+    }
   if (value instanceof Election) {
     return <ElectionLink election={value} />;
   }
@@ -29,7 +32,11 @@ function formatCell(key, value) {
 }
 
 export default function DataTableView({ dataList }) {
+    
   dataList = dataList.filter((data) => data !== null);
+  if (dataList.length === 0) {
+    return null;
+  }
   const headerKeys = Object.keys(dataList[0]);
   return (
     <Box>

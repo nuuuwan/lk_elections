@@ -17,7 +17,14 @@ export default class Geo {
     );
   }
 
+  get isGeoEnt() {
+    return !this.entID.endsWith("P");
+  }
+
   async load() {
+    if (!this.isGeoEnt) {
+      return null;
+    }
     return await WWW.json(this.url);
   }
 }

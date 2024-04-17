@@ -9,6 +9,9 @@ const URL_FORMAT = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 export default class GeoMap extends Component {
   render() {
     const { geo } = this.props;
+    if (!geo) {
+      return null;
+    }
 
     const pathOptions = { fillColor: "#888", color: "#000" };
 

@@ -7,6 +7,7 @@ import {
   BellwetherView,
   EntListView,
   ElectoralSummaryView,
+  SimilarRegionsView,
 } from "../molecules";
 import { GeoMap } from "../organisms";
 import AbstractCustomPage from "./AbstractCustomPage";
@@ -28,12 +29,13 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     const edGeo = await new Geo(edID).load();
     const pdEntsAll = await Ent.listFromType(EntType.PD);
     const pdEnts = pdEntsAll.filter((pdEnt) => pdEnt.id.startsWith(edID));
+    const edEnts = await Ent.listFromType(EntType.ED);
     const countryEnt = await Ent.fromID("LK");
     const elections = Election.listAll();
     for (let election of elections) {
       await election.loadData();
     }
-    this.setState({ edEnt, pdEnts, countryEnt, elections, edGeo });
+    this.setState({ edEnt, pdEnts, countryEnt, elections, edGeo, edEnts });
   }
 
   get supertitle() {
@@ -63,7 +65,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     );
   }
   renderBodyRight() {
-    const { edEnt, countryEnt, elections, pdEnts } = this.state;
+    const { edEnt, countryEnt, elections, pdEnts,edEnts } = this.state;
     if (!edEnt) {
       return <CircularProgress />;
     }
@@ -71,6 +73,12 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     return (
       <Box>
         <BellwetherView ent={edEnt} elections={elections} />
+
+        <SimilarRegionsView
+          ent={edEnt}
+          elections={elections}
+          pdEnts={edEnts}
+        />
         <ElectionListView
           elections={elections}
           ents={[].concat(pdEnts, [edEnt, countryEnt])}

@@ -6,7 +6,7 @@ import { EntLink } from "../atoms";
 import {
   ElectionListView,
   BellwetherView,
-  SimilarPollingDivisionsView,
+  SimilarRegionsView,
   ElectoralSummaryView,
 } from "../molecules";
 import { GeoMap } from "../organisms";
@@ -89,7 +89,7 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     return (
       <Box>
         <BellwetherView ent={pdEnt} elections={elections} />
-        <SimilarPollingDivisionsView
+        <SimilarRegionsView
           ent={pdEnt}
           elections={elections}
           pdEnts={pdEnts}

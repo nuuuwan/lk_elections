@@ -23,7 +23,7 @@ function getMeanL1Error(pdEnt1, pdEnt2, elections) {
   return l1Error / n;
 }
 
-export default function SimilarPollingDivisionsView({
+export default function SimilarRegionsView({
   elections,
   ent,
   pdEnts,
@@ -37,11 +37,11 @@ export default function SimilarPollingDivisionsView({
 
   return (
     <SectionBox>
-      <Header level={2}>Similar Polling Divisions</Header>
+      <Header level={2}>Similar Voting Behaviour</Header>
       <table>
         <thead>
           <tr>
-            <th>Polling Division</th>
+            <th>Region</th>
             <th>Mean Diff.</th>
           </tr>
         </thead>

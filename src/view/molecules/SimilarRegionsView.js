@@ -23,11 +23,7 @@ function getMeanL1Error(pdEnt1, pdEnt2, elections) {
   return l1Error / n;
 }
 
-export default function SimilarRegionsView({
-  elections,
-  ent,
-  pdEnts,
-}) {
+export default function SimilarRegionsView({ elections, ent, pdEnts }) {
   const pdAndL1Errors = pdEnts
     .map((pdEnt) => {
       const l1Error = getMeanL1Error(ent, pdEnt, elections);

@@ -51,9 +51,9 @@ function ResultsTableViewRowForEnt({ election, ent, majorParties }) {
 
 export default function ResultsTableView({ election, ents }) {
   const sortedEnts0 = ents.sort(function (a, b) {
-    return a.id.localeCompare(b.id); 
-});  
-  
+    return a.id.localeCompare(b.id);
+  });
+
   const sortEnt = sortedEnts0[ents.length - 1];
   console.debug(election.titleShort, sortEnt.id, sortEnt.name);
   const sortResults = election.getResults(sortEnt.id);
@@ -89,7 +89,9 @@ export default function ResultsTableView({ election, ents }) {
     }
     const partyToVotesA = resultA.partyToVotes.partyToPVotes;
     const partyToVotesB = resultB.partyToVotes.partyToPVotes;
-    return partyToVotesB[sortedWinningParty] - partyToVotesA[sortedWinningParty];
+    return (
+      partyToVotesB[sortedWinningParty] - partyToVotesA[sortedWinningParty]
+    );
   });
 
   return (

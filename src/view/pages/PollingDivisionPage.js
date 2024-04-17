@@ -89,11 +89,7 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     return (
       <Box>
         <BellwetherView ent={pdEnt} elections={elections} />
-        <SimilarRegionsView
-          ent={pdEnt}
-          elections={elections}
-          pdEnts={pdEnts}
-        />
+        <SimilarRegionsView ent={pdEnt} elections={elections} pdEnts={pdEnts} />
         <ElectionListView
           elections={elections}
           ents={[pdEnt, edEnt, countryEnt]}

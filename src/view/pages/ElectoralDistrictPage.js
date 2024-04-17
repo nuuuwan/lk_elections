@@ -65,7 +65,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     );
   }
   renderBodyRight() {
-    const { edEnt, countryEnt, elections, pdEnts,edEnts } = this.state;
+    const { edEnt, countryEnt, elections, pdEnts, edEnts } = this.state;
     if (!edEnt) {
       return <CircularProgress />;
     }
@@ -74,11 +74,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
       <Box>
         <BellwetherView ent={edEnt} elections={elections} />
 
-        <SimilarRegionsView
-          ent={edEnt}
-          elections={elections}
-          pdEnts={edEnts}
-        />
+        <SimilarRegionsView ent={edEnt} elections={elections} pdEnts={edEnts} />
         <ElectionListView
           elections={elections}
           ents={[].concat(pdEnts, [edEnt, countryEnt])}

@@ -27,7 +27,9 @@ export default function ElectionLink({ ent }) {
     <LinkContext context={context}>
       <Box display="flex" alignItems="center">
         <Icon sx={{ color: "#ccc", marginRight: 1, fontSize: "80%" }} />
-        <Typography variant="inherit" sx={{color}}>{ent.name}</Typography>
+        <Typography variant="inherit" sx={{ color }}>
+          {ent.name}
+        </Typography>
       </Box>
     </LinkContext>
   );

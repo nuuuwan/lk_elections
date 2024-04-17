@@ -5,11 +5,11 @@ import CustomBottomNavigator from "./CustomBottomNavigator";
 import ElectionListView from "./ElectionListView";
 import ElectionListViewSmall from "./ElectionListViewSmall";
 import ElectionView from "./ElectionView";
+import ElectoralSummaryView from "./ElectoralSummaryView";
 import EntListView from "./EntListView";
 import GenericListView from "./GenericListView";
 import NoteView from "./NoteView";
 import PartyToVotesView from "./PartyToVotesView";
-import ElectoralSummaryView from "./ElectoralSummaryView";
 import ResultView from "./ResultView";
 import SimilarPollingDivisionsView from "./SimilarPollingDivisionsView";
 import SummaryView from "./SummaryView";
@@ -21,11 +21,11 @@ export {
   ElectionListView,
   ElectionListViewSmall,
   ElectionView,
+  ElectoralSummaryView,
   EntListView,
   GenericListView,
   NoteView,
   PartyToVotesView,
-  ElectoralSummaryView,
   ResultView,
   SimilarPollingDivisionsView,
   SummaryView,

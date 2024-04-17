@@ -66,7 +66,11 @@ export default class PartyToVotes {
       Object.entries(this.partyToVotes).map(([party, votes]) => [
         party,
         votes / totalVotes,
-      ])
+      ]).sort(
+        function(a, b) {
+          return b[1] - a[1];
+        }
+      )
     );
   }
 
@@ -81,5 +85,11 @@ export default class PartyToVotes {
       return error + Math.abs(pVote - pVoteOther) * pVote;
     },
     0);
+  }
+
+  get pMajority() {
+    console.debug(this.partyToPVotes);
+    const pVotes = Object.values(this.partyToPVotes);
+    return pVotes[0] - pVotes[1]; 
   }
 }

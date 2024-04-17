@@ -1,7 +1,8 @@
 import { Component } from "react";
-import { Box, CircularProgress } from "@mui/material";
+import {  CircularProgress } from "@mui/material";
 import { Ent, EntType } from "../../nonview/base";
 import { Election } from "../../nonview/core";
+import {LinkContext, SectionBox} from "../atoms";
 
 import { EntListView, ElectionListViewSmall } from "../molecules";
 
@@ -31,11 +32,17 @@ export default class MainMenu extends Component {
       return <CircularProgress />;
     }
     return (
-      <Box>
+      <SectionBox>
+        <LinkContext context={{pageID: 'Country'}}>
+
+          Elections in Sri Lanka
+
+        </LinkContext>
         <ElectionListViewSmall elections={elections} />
+
         <EntListView ents={edEnts} />
         <EntListView ents={pdEnts} />
-      </Box>
+      </SectionBox>
     );
   }
 }

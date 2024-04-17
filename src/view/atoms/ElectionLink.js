@@ -11,11 +11,14 @@ export default function ElectionLink({ election }) {
     pageID: "Election",
     date: election.date,
   };
+
+  const emoji = election.isFuture ? "⏳" : "";
+
   return (
     <LinkContext context={context}>
       <Box display="flex" alignItems="center">
         <Icon sx={{ color: "#ccc", marginRight: 1, fontSize: "80%" }} />
-        <Typography variant="body2">{election.titleShort}</Typography>
+        <Typography variant="body2">{election.titleShort}{emoji}</Typography>
       </Box>
     </LinkContext>
   );

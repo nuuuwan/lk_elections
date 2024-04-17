@@ -2,7 +2,12 @@ import { Box, CircularProgress } from "@mui/material";
 import { Ent, EntType, URLContext, Geo } from "../../nonview/base";
 import { Election } from "../../nonview/core";
 import { WikiSummaryView } from "../atoms";
-import { ElectionListView, BellwetherView, EntListView, ElectoralSummaryView } from "../molecules";
+import {
+  ElectionListView,
+  BellwetherView,
+  EntListView,
+  ElectoralSummaryView,
+} from "../molecules";
 import { GeoMap } from "../organisms";
 import AbstractCustomPage from "./AbstractCustomPage";
 

@@ -11,7 +11,7 @@ export default function ElectionListView({
 }) {
   return (
     <Box sx={{ marginTop: 2 }}>
-      <Header level={2}>Election History</Header>
+      <Header level={2}>Electoral History</Header>
       {elections.map(function (election, iElection) {
         const key = "election-" + iElection;
         return (

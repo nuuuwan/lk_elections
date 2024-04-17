@@ -58,6 +58,11 @@ def get_polling_division_wiki_page_name_list():
         wiki_page_name_list.append(wiki_page_name)
     return wiki_page_name_list 
 
+def get_misc_wiki_page_name_list():
+    return [
+        'Elections_in_Sri_Lanka'
+    ]
+
 def main():
     var_name = 'WIKIPEDIA_SUMMRY_IDX'
     time_str = TimeFormat.TIME.formatNow
@@ -70,7 +75,7 @@ def main():
     ]
 
 
-    wiki_page_name_list = get_election_wiki_page_name_list() + get_electoral_district_wiki_page_name_list() 
+    wiki_page_name_list = get_election_wiki_page_name_list() + get_electoral_district_wiki_page_name_list() + get_misc_wiki_page_name_list()
     for wiki_page_name in wiki_page_name_list:
         log.debug(wiki_page_name)
         try:

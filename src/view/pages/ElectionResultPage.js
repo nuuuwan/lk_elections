@@ -110,7 +110,7 @@ export default class ElectionResultPage extends AbstractCustomPage {
     return `${pdEnt.name}, ${edEnt.name}`;
   }
 
-  renderBody() {
+  renderBodyRight() {
     const { election } = this.state;
     if (!election) {
       return <CircularProgress />;

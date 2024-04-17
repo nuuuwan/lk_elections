@@ -51,8 +51,8 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     return `${pdEnt.name} (${pdID})`;
   }
 
-  renderBody() {
-    const { pdEnt, edEnt, countryEnt, elections, pdGeo, pdEnts } = this.state;
+  renderBodyMiddle() {
+    const { pdEnt,  pdGeo } = this.state;
     if (!pdEnt) {
       return <CircularProgress />;
     }
@@ -61,6 +61,19 @@ export default class PollingDivisionPage extends AbstractCustomPage {
       <Box>
         <GeoMap geo={pdGeo} />
 
+
+      </Box>
+    );
+  }
+  renderBodyRIght() {
+    const { pdEnt, edEnt, countryEnt, elections, pdEnts } = this.state;
+    if (!pdEnt) {
+      return <CircularProgress />;
+    }
+
+    return (
+      <Box>
+  
         <BellwetherView ent={pdEnt} elections={elections} />
         <SimilarPollingDivisionsView
           ent={pdEnt}

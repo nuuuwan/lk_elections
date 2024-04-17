@@ -45,14 +45,26 @@ export default class ElectionPage extends AbstractCustomPage {
     return election.year;
   }
 
-  renderBody() {
-    const { edEnts, countryEnt, election } = this.state;
+  renderBodyMiddle() {
+    const {  countryEnt, election } = this.state;
     if (!countryEnt) {
       return <CircularProgress />;
     }
     return (
       <Box>
         <WikiSummaryView wikiPageName={election.wikiPageName} />
+
+      </Box>
+    );
+  }
+
+  renderBodyRight() {
+    const { edEnts, countryEnt, election } = this.state;
+    if (!countryEnt) {
+      return <CircularProgress />;
+    }
+    return (
+      <Box>
 
         <ElectionView
           election={election}

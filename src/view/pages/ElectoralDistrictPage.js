@@ -42,9 +42,8 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     }
     return `${edEnt.name} (${edID})`;
   }
-
-  renderBody() {
-    const { edEnt, countryEnt, elections, edGeo, pdEnts } = this.state;
+  renderBodyMiddle() {
+    const { edEnt,  edGeo, pdEnts } = this.state;
     if (!edEnt) {
       return <CircularProgress />;
     }
@@ -54,6 +53,19 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
         <GeoMap geo={edGeo} />
         <WikiSummaryView wikiPageName={edEnt.wikiPageName} />
         <EntListView ents={pdEnts} />
+
+      </Box>
+    );
+  }
+  renderBodyRight() {
+    const { edEnt, countryEnt, elections } = this.state;
+    if (!edEnt) {
+      return <CircularProgress />;
+    }
+
+    return (
+      <Box>
+
         <BellwetherView ent={edEnt} elections={elections} />
         <ElectionListView
           elections={elections}

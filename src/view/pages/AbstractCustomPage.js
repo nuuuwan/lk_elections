@@ -32,6 +32,8 @@ export default class AbstractCustomPage extends Component {
 
         })}
       >
+      <Box sx={{ color: "#ccc" }}>v{VERSION.DATETIME_STR}</Box>
+
         <MainMenu />
       </Box>
     );
@@ -65,7 +67,7 @@ export default class AbstractCustomPage extends Component {
       > 
       
         <Box sx={{ paddingTop: 2 }}>{this.renderBodyRight()}</Box>
-        <Box sx={{ marginTop: 10, color: "#eee" }}>v{VERSION.DATETIME_STR}</Box>
+ 
       </Box>
     );
   }

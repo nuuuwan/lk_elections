@@ -65,7 +65,7 @@ export default class PollingDivisionPage extends AbstractCustomPage {
       </Box>
     );
   }
-  renderBodyRIght() {
+  renderBodyRight() {
     const { pdEnt, edEnt, countryEnt, elections, pdEnts } = this.state;
     if (!pdEnt) {
       return <CircularProgress />;

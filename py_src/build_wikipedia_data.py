@@ -40,11 +40,21 @@ def get_election_wiki_page_name_list():
 
 
 def get_electoral_district_wiki_page_name_list():
-    ed_ents = Ent.list_from_type(EntType.ED)
+    ents = Ent.list_from_type(EntType.ED)
     wiki_page_name_list = []
-    for ent in ed_ents:
+    for ent in ents:
         name_snake = ent.name.replace(' ', '_')
         wiki_page_name = f'{name_snake}_Electoral_District'
+        wiki_page_name_list.append(wiki_page_name)
+    return wiki_page_name_list 
+
+
+def get_polling_division_wiki_page_name_list():
+    ents = Ent.list_from_type(EntType.PD)
+    wiki_page_name_list = []
+    for ent in ents:
+        name_snake = ent.name.replace(' ', '_')
+        wiki_page_name = f'{name_snake}_Polling_Division'
         wiki_page_name_list.append(wiki_page_name)
     return wiki_page_name_list 
 
@@ -60,14 +70,14 @@ def main():
     ]
 
 
-    wiki_page_name_list = get_election_wiki_page_name_list() + get_electoral_district_wiki_page_name_list()
-
+    wiki_page_name_list = get_election_wiki_page_name_list() + get_electoral_district_wiki_page_name_list() 
     for wiki_page_name in wiki_page_name_list:
         log.debug(wiki_page_name)
         try:
             wiki = wikipediaapi.Wikipedia("lk_elections", "en")
             page = wiki.page(wiki_page_name)
             summary = clean(page.summary)
+            log.debug('\t' + summary)
             lines.extend([
                 '',
                 '  // ' + wiki_page_name,

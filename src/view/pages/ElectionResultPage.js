@@ -3,7 +3,6 @@ import { Election } from "../../nonview/core";
 
 import { Header } from "../atoms";
 
-
 import { CircularProgress, Box } from "@mui/material";
 
 import AbstractCustomPage from "./AbstractCustomPage";
@@ -78,7 +77,6 @@ export default class ElectionResultPage extends AbstractCustomPage {
       </div>
     );
   }
-
 
   get supertitle() {
     const { election } = this.state;

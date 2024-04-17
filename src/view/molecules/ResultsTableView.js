@@ -60,7 +60,7 @@ export default function ResultsTableView({ election, ents }) {
       return allMajorParties;
     }
 
-    const pMajorParty = (ent.id === 'LK') ? 0.005 : 0.05;
+    const pMajorParty = ent.id === "LK" ? 0.005 : 0.05;
     const sortedMajor = result.partyToVotes.getSortedMajor(pMajorParty);
     const majorParties = Object.keys(sortedMajor).filter(
       (party) => party !== "Other"

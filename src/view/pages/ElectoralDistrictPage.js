@@ -1,16 +1,10 @@
 import { Box, CircularProgress } from "@mui/material";
 import { Ent, EntType, URLContext, Geo } from "../../nonview/base";
 import { Election } from "../../nonview/core";
-import { SummaryView } from "../atoms";
-import {
-
-  ElectionListView,
-  BellwetherView,
-} from "../molecules";
-import {
-  GeoMap,
-} from "../organisms";
- import AbstractCustomPage from "./AbstractCustomPage";
+import { WikiSummaryView } from "../atoms";
+import { ElectionListView, BellwetherView } from "../molecules";
+import { GeoMap } from "../organisms";
+import AbstractCustomPage from "./AbstractCustomPage";
 
 export default class ElectoralDistrictPage extends AbstractCustomPage {
   static getPageID() {
@@ -34,7 +28,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     for (let election of elections) {
       await election.loadData();
     }
-    this.setState({ edEnt, pdEnts, countryEnt, elections , edGeo});
+    this.setState({ edEnt, pdEnts, countryEnt, elections, edGeo });
   }
 
   get supertitle() {
@@ -57,8 +51,8 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
 
     return (
       <Box>
-                <GeoMap geo={edGeo} />
-        <SummaryView summaryLines={edEnt.wiki.summaryLines} />
+        <GeoMap geo={edGeo} />
+        <WikiSummaryView wikiPageName={edEnt.wikiPageName} />
         <BellwetherView ent={edEnt} elections={elections} />
         <ElectionListView
           elections={elections}

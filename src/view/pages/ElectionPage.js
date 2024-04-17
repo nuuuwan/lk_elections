@@ -3,7 +3,7 @@ import { URLContext, Ent, EntType } from "../../nonview/base";
 import { Election } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
 import { EntListView, ElectionView } from "../molecules";
-import { SummaryView } from "../atoms";
+import { WikiSummaryView } from "../atoms";
 
 export default class ElectionPage extends AbstractCustomPage {
   static getPageID() {
@@ -52,7 +52,7 @@ export default class ElectionPage extends AbstractCustomPage {
     }
     return (
       <Box>
-        <SummaryView summaryLines={election.wiki.summaryLines} />
+        <WikiSummaryView wikiPageName={election.wikiPageName} />
 
         <ElectionView
           election={election}

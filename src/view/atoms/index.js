@@ -5,7 +5,7 @@ import Header from "./Header";
 import Link from "./Link";
 import LinkContext from "./LinkContext";
 import SectionBox from "./SectionBox";
-import SummaryView from "./SummaryView";
+import WikiSummaryView from "./WikiSummaryView";
 
 export {
   ElectionLink,
@@ -14,5 +14,5 @@ export {
   Link,
   LinkContext,
   SectionBox,
-  SummaryView,
+  WikiSummaryView,
 };

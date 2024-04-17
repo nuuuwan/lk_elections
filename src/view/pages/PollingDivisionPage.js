@@ -57,7 +57,6 @@ export default class PollingDivisionPage extends AbstractCustomPage {
       return <CircularProgress />;
     }
 
-
     return (
       <Box>
         <GeoMap geo={pdGeo} />

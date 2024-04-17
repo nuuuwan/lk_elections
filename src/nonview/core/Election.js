@@ -1,4 +1,4 @@
-import { WWW, Random, Time, Wiki } from "../base";
+import { WWW, Random, Time } from "../base";
 
 import Result from "./Result.js";
 const URL_BASE =
@@ -135,10 +135,6 @@ export default class Election {
     return (
       this.year + "_Sri_Lankan_" + this.electionType.toLowerCase() + "_election"
     );
-  }
-
-  get wiki() {
-    return new Wiki(this.wikiPageName);
   }
 
   // Data

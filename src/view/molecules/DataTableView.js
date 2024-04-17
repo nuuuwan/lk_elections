@@ -31,13 +31,31 @@ function formatCell(key, value) {
   return value;
 }
 
+function getHeaderKeys(dataList) {
+return dataList.reduce(
+    function(headerKeys, data) {
+        return Object.keys(data).reduce(
+            function(headerKeys, key) {
+                if (!headerKeys.includes(key)) {
+                    headerKeys.push(key);
+                }
+                return headerKeys;
+            },
+            headerKeys,
+        );
+    },
+    [], 
+  );
+}
+
 export default function DataTableView({ dataList }) {
     
   dataList = dataList.filter((data) => data !== null);
   if (dataList.length === 0) {
     return null;
   }
-  const headerKeys = Object.keys(dataList[0]);
+  const headerKeys = getHeaderKeys(dataList);
+
   return (
     <Box>
       <table>

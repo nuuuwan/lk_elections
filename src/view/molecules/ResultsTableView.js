@@ -8,7 +8,7 @@ function getMajorParties(election) {
     return null;
   }
   const partyToPVotes = result.partyToVotes.partyToPVotes;
-  return Object.keys(partyToPVotes).slice(0, 5)
+  return Object.keys(partyToPVotes)
 }
 
 function getDataList(election, ents) {

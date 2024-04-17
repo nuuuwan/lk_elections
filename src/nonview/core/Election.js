@@ -53,7 +53,7 @@ export default class Election {
       return null;
     }
     if (!this.resultsIdx[id]) {
-      // console.error("No results for ", this.titleShort , ": ", id);
+
       return null;
     }
     return this.resultsIdx[id];

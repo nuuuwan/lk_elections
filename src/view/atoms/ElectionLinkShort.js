@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import { LinkContext } from ".";
 import PersonIcon from "@mui/icons-material/Person";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";

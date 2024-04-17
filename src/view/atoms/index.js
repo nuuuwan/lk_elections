@@ -4,6 +4,7 @@ import EntLink from "./EntLink";
 import Header from "./Header";
 import Link from "./Link";
 import LinkContext from "./LinkContext";
+import PartyLink from "./PartyLink";
 import SectionBox from "./SectionBox";
 import WikiSummaryView from "./WikiSummaryView";
 
@@ -13,6 +14,7 @@ export {
   Header,
   Link,
   LinkContext,
+  PartyLink,
   SectionBox,
   WikiSummaryView,
 };

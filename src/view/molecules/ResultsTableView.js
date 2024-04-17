@@ -1,6 +1,4 @@
-import { EntLink, Header, SectionBox } from "../atoms";
-import { POLITICAL_PARTY_TO_COLOR } from "../../nonview/constants";
-import { LIGHT_COLORS } from "../../nonview/constants/POLITICAL_PARTY_TO_COLOR";
+import { EntLink, Header, SectionBox, PartyLink } from "../atoms";
 
 function ResultsTableViewRowForEnt({ election, ent, majorParties }) {
   const result = election.getResults(ent.id);
@@ -25,20 +23,18 @@ function ResultsTableViewRowForEnt({ election, ent, majorParties }) {
       </td>
       {majorParties.map(function (party, iParty) {
         const isWinner = party === winningParty;
-        const color = POLITICAL_PARTY_TO_COLOR[party];
-        const background = isWinner ? color : "white";
-        const foreground = LIGHT_COLORS.includes(background)
-          ? "black"
-          : "white";
+
         return (
           <td
             key={"cell-" + iParty}
             className="td-number"
-            style={{ background, color: foreground, borderRadius: 6 }}
+            style={{ borderRadius: 6 }}
           >
-            {partyToPVotes[party].toLocaleString(undefined, {
-              style: "percent",
-            })}
+            <PartyLink partyID={party} noColor={!isWinner}>
+              {partyToPVotes[party].toLocaleString(undefined, {
+                style: "percent",
+              })}
+            </PartyLink>
           </td>
         );
       })}
@@ -55,7 +51,7 @@ export default function ResultsTableView({ election, ents }) {
   });
 
   const sortEnt = sortedEnts0[ents.length - 1];
-  console.debug(election.titleShort, sortEnt.id, sortEnt.name);
+
   const sortResults = election.getResults(sortEnt.id);
   if (!sortResults) {
     return null;
@@ -102,7 +98,14 @@ export default function ResultsTableView({ election, ents }) {
           <tr>
             <th></th>
             {sortedMajorParties.map(function (party, iParty) {
-              return <th key={"head-" + iParty}>{party}</th>;
+              return (
+                <th key={"head-" + iParty}>
+                  <PartyLink
+                    partyID={party}
+                    noColor={sortedWinningParty !== party}
+                  />
+                </th>
+              );
             })}
             <th>Other</th>
           </tr>

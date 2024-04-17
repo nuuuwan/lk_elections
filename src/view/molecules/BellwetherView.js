@@ -1,5 +1,5 @@
-import { POLITICAL_PARTY_TO_COLOR } from "../../nonview/constants";
-import { Header, ElectionLink, SectionBox } from "../atoms";
+
+import { Header, ElectionLink, SectionBox, PartyLink } from "../atoms";
 
 function getBellwetherStats(election, ent) {
   const resultsForEnt = election.getResults(ent.id);
@@ -43,17 +43,25 @@ function BellwetherViewForElection({
   l1Error,
   isMatch,
 }) {
-  const colorEnt = POLITICAL_PARTY_TO_COLOR[winningPartyEnt];
-  const colorLK = POLITICAL_PARTY_TO_COLOR[winningPartyLK];
+
 
   return (
     <tr>
       <td>
         <ElectionLink election={election} />
       </td>
-      <td style={{ color: colorEnt }}>{winningPartyEnt}</td>
-      <td style={{ color: colorLK }}>{winningPartyLK}</td>
-      <td style={{ color: colorLK }}>{isMatch ? "✓" : ""}</td>
+      <td>
+        <PartyLink partyID={winningPartyEnt} />
+      </td>
+      <td>
+        <PartyLink partyID={winningPartyLK} />
+      </td>
+
+      <td>
+      <PartyLink partyID={winningPartyLK} >
+        {isMatch ? "✓" : " "}
+      </PartyLink>
+      </td>
       {renderPercent(l1Error)}
     </tr>
   );

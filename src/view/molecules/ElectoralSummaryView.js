@@ -1,5 +1,4 @@
-import { SectionBox, Header, ElectionLink } from "../atoms";
-import { POLITICAL_PARTY_TO_COLOR } from "../../nonview/constants";
+import { SectionBox, Header, ElectionLink, PartyLink } from "../atoms";
 
 function ElectoralSummaryViewForElection({ ent, election }) {
   const resultsForEnt = election.getResults(ent.id);
@@ -9,7 +8,6 @@ function ElectoralSummaryViewForElection({ ent, election }) {
   const summary = resultsForEnt.summary;
 
   const winningPartyEnt = resultsForEnt.partyToVotes.winningParty;
-  const colorEnt = POLITICAL_PARTY_TO_COLOR[winningPartyEnt];
 
   const pMajority = resultsForEnt.partyToVotes.pMajority;
 
@@ -18,7 +16,9 @@ function ElectoralSummaryViewForElection({ ent, election }) {
       <td>
         <ElectionLink election={election} />
       </td>
-      <td style={{ color: colorEnt }}>{winningPartyEnt}</td>
+      <td>
+        <PartyLink partyID={winningPartyEnt}></PartyLink>
+      </td>
       <td className="td-number">
         {pMajority
           ? pMajority.toLocaleString(undefined, { style: "percent" })

@@ -25,8 +25,8 @@ const THEME = createTheme({
     },
   },
   typography: {
-    fontFamily: "Didact Gothic",
-    fontSize: 14,
+    fontFamily: "Abel",
+    fontSize: 16,
   },
 });
 

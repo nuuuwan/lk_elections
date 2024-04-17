@@ -4,9 +4,9 @@ import { Election, Party } from "../../nonview/core";
 import { ElectionLink, EntLink, PartyLink } from "../atoms";
 
 function formatCell(key, value) {
-    if (value === 0) {
-        return '-';
-    }
+  if (value === 0) {
+    return "-";
+  }
   if (value instanceof Election) {
     return <ElectionLink election={value} />;
   }
@@ -27,29 +27,22 @@ function formatCell(key, value) {
   if (typeof value === "boolean") {
     return value ? "✔️" : "";
   }
- 
+
   return value;
 }
 
 function getHeaderKeys(dataList) {
-return dataList.reduce(
-    function(headerKeys, data) {
-        return Object.keys(data).reduce(
-            function(headerKeys, key) {
-                if (!headerKeys.includes(key)) {
-                    headerKeys.push(key);
-                }
-                return headerKeys;
-            },
-            headerKeys,
-        );
-    },
-    [], 
-  );
+  return dataList.reduce(function (headerKeys, data) {
+    return Object.keys(data).reduce(function (headerKeys, key) {
+      if (!headerKeys.includes(key)) {
+        headerKeys.push(key);
+      }
+      return headerKeys;
+    }, headerKeys);
+  }, []);
 }
 
 export default function DataTableView({ dataList }) {
-    
   dataList = dataList.filter((data) => data !== null);
   if (dataList.length === 0) {
     return null;
@@ -68,9 +61,11 @@ export default function DataTableView({ dataList }) {
         </thead>
         <tbody>
           {dataList.map((data, iRow) => (
-            <tr key={'data-row-' + iRow}>
+            <tr key={"data-row-" + iRow}>
               {headerKeys.map((headerKey, iCol) => (
-                <td key={'data-cell-'+iCol}>{formatCell(headerKey, data[headerKey])}</td>
+                <td key={"data-cell-" + iCol}>
+                  {formatCell(headerKey, data[headerKey])}
+                </td>
               ))}
             </tr>
           ))}

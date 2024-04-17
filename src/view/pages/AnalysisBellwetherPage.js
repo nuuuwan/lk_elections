@@ -1,14 +1,9 @@
 import { URLContext, Ent, EntType } from "../../nonview/base";
 import { AnalysisBellwether, Election } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
-import {
-  SectionBox,
-  WikiSummaryView,
+import { SectionBox, WikiSummaryView, Header } from "../atoms";
 
-  Header,
-} from "../atoms";
-
-import {DataTableView} from "../molecules";
+import { DataTableView } from "../molecules";
 import { CircularProgress } from "@mui/material";
 
 export default class AnalysisBellwetherPage extends AbstractCustomPage {
@@ -43,8 +38,6 @@ export default class AnalysisBellwetherPage extends AbstractCustomPage {
     return "Bellwethers";
   }
 
-
-
   renderBodyMiddle() {
     return <WikiSummaryView wikiPageName={"Bellwether"} />;
   }
@@ -53,15 +46,16 @@ export default class AnalysisBellwetherPage extends AbstractCustomPage {
     const { pdEnts, edEnts, elections } = this.state;
     const ents = [].concat(edEnts, pdEnts);
 
-    return ents.map((ent) => {
-      const stats = AnalysisBellwether.statsForElections(elections, ent);
-      if (!stats) {
-        return null;
-      }
-      const  { nMatch, meanError } =stats;
-      return { Region: ent, Matches: nMatch, Diff: meanError };
-    }).sort((a, b) => a.Diff - b.Diff);
-  
+    return ents
+      .map((ent) => {
+        const stats = AnalysisBellwether.statsForElections(elections, ent);
+        if (!stats) {
+          return null;
+        }
+        const { nMatch, meanError } = stats;
+        return { Region: ent, Matches: nMatch, Diff: meanError };
+      })
+      .sort((a, b) => a.Diff - b.Diff);
   }
 
   renderBodyRight() {
@@ -72,9 +66,7 @@ export default class AnalysisBellwetherPage extends AbstractCustomPage {
     return (
       <SectionBox>
         <Header level={2}>Best to Worst Bellwethers</Header>
-        <DataTableView 
-          dataList={this.getDataList()}
-        />
+        <DataTableView dataList={this.getDataList()} />
       </SectionBox>
     );
   }

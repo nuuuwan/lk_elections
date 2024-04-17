@@ -43,14 +43,18 @@ export default class AnalysisBellwether {
     if (!result1 || !result2) {
       return undefined;
     }
-  
+
     return result1.partyToVotes.getL1Error(result2.partyToVotes);
   }
 
   static getMeanL1Error(pdEnt1, pdEnt2, elections) {
     let l1Error = 0;
     for (let election of elections) {
-      const l1ErrorForElection = AnalysisBellwether.getL1Error(pdEnt1, pdEnt2, election);
+      const l1ErrorForElection = AnalysisBellwether.getL1Error(
+        pdEnt1,
+        pdEnt2,
+        election
+      );
       if (l1ErrorForElection === undefined) {
         continue;
       }

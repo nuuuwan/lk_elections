@@ -1,8 +1,7 @@
 import { Party, AnalysisBellwether } from "../../nonview/core";
 
-import { Header,  SectionBox } from "../atoms";
-import {DataTableView} from "../molecules";
-
+import { Header, SectionBox } from "../atoms";
+import { DataTableView } from "../molecules";
 
 function getDataList(elections, ent) {
   return elections.map(function (election) {
@@ -15,23 +14,18 @@ function getDataList(elections, ent) {
     return {
       Election: election,
       Winner: new Party(winningPartyEnt),
-      SriLanka: new Party( winningPartyLK),
+      SriLanka: new Party(winningPartyLK),
       Match: isMatch,
       Error: l1Error,
     };
   });
-
 }
 
-
-
 export default function BellwetherView({ elections, ent }) {
-
-
   return (
     <SectionBox>
       <Header level={2}>Bellwether Analysis</Header>
-      <DataTableView dataList={getDataList(elections, ent)} />  
+      <DataTableView dataList={getDataList(elections, ent)} />
     </SectionBox>
   );
 }

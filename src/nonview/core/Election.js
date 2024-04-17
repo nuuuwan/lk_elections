@@ -53,7 +53,6 @@ export default class Election {
       return null;
     }
     if (!this.resultsIdx[id]) {
-
       return null;
     }
     return this.resultsIdx[id];

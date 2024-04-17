@@ -6,7 +6,7 @@ export default class Wiki {
   }
 
   get url() {
-    return 'https://en.wikipedia.org/wiki/' + this.pageName;
+    return "https://en.wikipedia.org/wiki/" + this.pageName;
   }
   get summary() {
     const summary = WIKIPEDIA_SUMMRY_IDX[this.pageName];

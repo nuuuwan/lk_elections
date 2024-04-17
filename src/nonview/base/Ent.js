@@ -2,7 +2,6 @@ import EntType from "./EntType.js";
 import WWW from "./WWW.js";
 import Random from "./Random.js";
 
-
 const URL_BASE = "https://raw.githubusercontent.com/nuuuwan/gig2/data";
 const ID_KEY = "id";
 

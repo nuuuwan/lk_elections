@@ -44,11 +44,11 @@ export default class PollingDivisionPage extends AbstractCustomPage {
   }
 
   get title() {
-    const { pdEnt } = this.state;
+    const { pdEnt, pdID } = this.state;
     if (!pdEnt) {
-      return <CircularProgress />;
+      return pdID;
     }
-    return pdEnt.name;
+    return `${pdEnt.name} (${pdID})`;
   }
 
   renderBody() {

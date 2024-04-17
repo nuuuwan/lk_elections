@@ -21,6 +21,10 @@ export default class EntType {
     return this.longName.replaceAll(" ", "");
   }
 
+  get longNameSnake() {
+    return this.longName.replaceAll(" ", "_");
+  }
+
   get idKey() {
     return this.name + "ID";
   }

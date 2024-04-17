@@ -1,8 +1,9 @@
-import { Box, Typography, CircularProgress } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import { URLContext, Ent, EntType } from "../../nonview/base";
 import { Election } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
 import { EntListView, ElectionView } from "../molecules";
+import { SummaryView } from "../atoms";
 
 export default class ElectionPage extends AbstractCustomPage {
   static getPageID() {
@@ -51,15 +52,7 @@ export default class ElectionPage extends AbstractCustomPage {
     }
     return (
       <Box>
-        <Box sx={{ maxWidth: 640 }}>
-          {election.wikipediaSummary.split("\n").map(function (paragraph, i) {
-            return (
-              <Typography key={i} variant="body1" sx={{ p: 1 }}>
-                {paragraph}
-              </Typography>
-            );
-          })}
-        </Box>
+        <SummaryView summaryLines={election.wiki.summaryLines} />
 
         <ElectionView
           election={election}

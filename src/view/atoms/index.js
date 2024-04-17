@@ -5,5 +5,14 @@ import Header from "./Header";
 import Link from "./Link";
 import LinkContext from "./LinkContext";
 import SectionBox from "./SectionBox";
+import SummaryView from "./SummaryView";
 
-export { ElectionLink, EntLink, Header, Link, LinkContext, SectionBox };
+export {
+  ElectionLink,
+  EntLink,
+  Header,
+  Link,
+  LinkContext,
+  SectionBox,
+  SummaryView,
+};

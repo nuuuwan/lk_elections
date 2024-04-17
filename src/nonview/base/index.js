@@ -10,6 +10,7 @@ import StringX from "./StringX";
 import Time from "./Time";
 import URLContext from "./URLContext";
 import WWW from "./WWW";
+import Wiki from "./Wiki";
 
 export {
   Cache,
@@ -23,4 +24,5 @@ export {
   Time,
   URLContext,
   WWW,
+  Wiki,
 };

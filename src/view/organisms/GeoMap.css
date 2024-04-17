@@ -1,7 +1,7 @@
 .leaflet-container {
   z-index: 0;
-  width: 67%;
-  height: 67vh;
+  width: 320px;
+  height: 320px;
 }
 
 .leaflet-tile-pane {

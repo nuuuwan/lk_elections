@@ -1,14 +1,38 @@
 import EntType from "./EntType.js";
 import WWW from "./WWW.js";
 import Random from "./Random.js";
+import Wiki from "./Wiki.js";
+
 const URL_BASE = "https://raw.githubusercontent.com/nuuuwan/gig2/data";
 const ID_KEY = "id";
 
 export default class Ent {
+  constructor(d) {
+    this.name = d["name"];
+    this.id = d["id"];
+    this.centroid = d["centroid"];
+    this.d = d;
+  }
+
+  // Wikipedia
+  get nameSnake() {
+    return this.name.replaceAll(' ', '_')
+  }
+  get wikiPageName() {
+    const entType = EntType.fromID(this.id);
+    return this.nameSnake + "_" + entType.longNameSnake;
+  }
+
+  get wiki() {
+    return new Wiki(this.wikiPageName);
+  }
+
   // Loaders
   static async listFromType(entType) {
     const url = `${URL_BASE}/${entType.name}.latest.basic.tsv`;
-    return await WWW.tsv(url);
+    return (await WWW.tsv(url)).map(function (d) {
+      return new Ent(d);
+    });
   }
 
   static async randomFromType(entType) {

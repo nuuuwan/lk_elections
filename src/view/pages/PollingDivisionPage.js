@@ -4,7 +4,6 @@ import { Ent, URLContext, EntType, Geo } from "../../nonview/base";
 import { Election } from "../../nonview/core";
 
 import {
-  PollingDivisionView,
   ElectionListView,
   BellwetherView,
   SimilarPollingDivisionsView,
@@ -62,7 +61,7 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     return (
       <Box>
         <GeoMap zoom={12} center={center} geo={pdGeo} />
-        <PollingDivisionView pdEnt={pdEnt} edEnt={edEnt} />
+
         <BellwetherView ent={pdEnt} elections={elections} />
         <SimilarPollingDivisionsView
           ent={pdEnt}

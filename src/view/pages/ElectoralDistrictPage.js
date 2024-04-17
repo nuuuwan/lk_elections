@@ -1,8 +1,9 @@
 import { Box, CircularProgress } from "@mui/material";
 import { Ent, EntType, URLContext } from "../../nonview/base";
 import { Election } from "../../nonview/core";
+import { SummaryView } from "../atoms";
 import {
-  ElectoralDistrictView,
+
   ElectionListView,
   BellwetherView,
 } from "../molecules";
@@ -45,13 +46,14 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
   }
 
   renderBody() {
-    const { edEnt, pdEnts, countryEnt, elections } = this.state;
+    const { edEnt, countryEnt, elections } = this.state;
     if (!edEnt) {
       return <CircularProgress />;
     }
+
     return (
       <Box>
-        <ElectoralDistrictView edEnt={edEnt} pdEnts={pdEnts} />
+        <SummaryView summaryLines={edEnt.wiki.summaryLines} />
         <BellwetherView ent={edEnt} elections={elections} />
         <ElectionListView
           elections={elections}

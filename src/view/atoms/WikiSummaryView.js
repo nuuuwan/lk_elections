@@ -8,11 +8,11 @@ export default function WikiSummaryView({ wikiPageName }) {
   return (
     <Box
       sx={{
-        maxWidth: 640,
+        paddingRight: 10,
         marginTop: 1,
         marginBottom: 1,
         marginRight: 1,
-        paddingBottom: 1,
+        paddingBottom: 2,
       }}
     >
       {wiki.summaryLines.map(function (paragraph, i) {

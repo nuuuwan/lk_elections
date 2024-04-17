@@ -4,7 +4,11 @@ import { Ent, EntType } from "../../nonview/base";
 import { Election } from "../../nonview/core";
 import { LinkContext, SectionBox } from "../atoms";
 
-import { EntListView, ElectionListViewSmall } from "../molecules";
+import {
+  EntListView,
+  ElectionListViewSmall,
+  GenericListView,
+} from "../molecules";
 
 export default class MainMenu extends Component {
   constructor(props) {
@@ -26,6 +30,20 @@ export default class MainMenu extends Component {
     this.setState({ elections, edEnts, pdEnts });
   }
 
+  renderAnalysisMenu() {
+    const renderItem = function (item) {
+      const { pageID, title } = item;
+      return <LinkContext context={{ pageID }}>{title}</LinkContext>;
+    };
+    return (
+      <GenericListView
+        title="Analysis"
+        items={[{ pageID: "AnalysisBellwether", title: "Bellwethers" }]}
+        renderItem={renderItem}
+      />
+    );
+  }
+
   render() {
     const { elections, edEnts, pdEnts } = this.state;
     if (!elections || !edEnts || !pdEnts) {
@@ -36,6 +54,9 @@ export default class MainMenu extends Component {
         <LinkContext context={{ pageID: "Country" }}>
           Elections in Sri Lanka
         </LinkContext>
+
+        {this.renderAnalysisMenu()}
+
         <ElectionListViewSmall elections={elections} />
 
         <EntListView ents={edEnts} />

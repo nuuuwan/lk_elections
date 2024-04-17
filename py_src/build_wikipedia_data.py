@@ -60,7 +60,8 @@ def get_polling_division_wiki_page_name_list():
 
 def get_misc_wiki_page_name_list():
     return [
-        'Elections_in_Sri_Lanka'
+        'Elections_in_Sri_Lanka',
+        'Bellwether',
     ]
 
 def main():

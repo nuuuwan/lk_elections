@@ -7,6 +7,7 @@ import {
   ElectoralDistrictPage,
   PollingDivisionPage,
   CountryPage,
+  AnalysisBellwetherPage,
 } from "../pages";
 
 export default class BasePage extends Component {
@@ -23,6 +24,7 @@ export default class BasePage extends Component {
       ElectoralDistrictPage,
       PollingDivisionPage,
       CountryPage,
+      AnalysisBellwetherPage,
     ];
   }
   render() {

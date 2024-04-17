@@ -1,20 +1,5 @@
+import { AnalysisBellwether } from "../../nonview/core";
 import { Header, ElectionLink, SectionBox, PartyLink } from "../atoms";
-
-function getBellwetherStats(election, ent) {
-  const resultsForEnt = election.getResults(ent.id);
-  if (!resultsForEnt) {
-    return null;
-  }
-  const resultsForLK = election.getResults("LK");
-  const winningPartyEnt = resultsForEnt.partyToVotes.winningParty;
-  const winningPartyLK = resultsForLK.partyToVotes.winningParty;
-
-  const isMatch = winningPartyEnt === winningPartyLK;
-  const l1Error = resultsForLK.partyToVotes.getL1Error(
-    resultsForEnt.partyToVotes
-  );
-  return { winningPartyEnt, winningPartyLK, l1Error, isMatch };
-}
 
 function renderPercent(l1Error) {
   let l1ErrorStr = Number(l1Error).toLocaleString(undefined, {
@@ -82,7 +67,7 @@ export default function BellwetherView({ elections, ent }) {
         </thead>
         <tbody>
           {elections.map(function (election, iElection) {
-            const stats = getBellwetherStats(election, ent);
+            const stats = AnalysisBellwether.statsForElection(election, ent);
             if (!stats) {
               return null;
             }

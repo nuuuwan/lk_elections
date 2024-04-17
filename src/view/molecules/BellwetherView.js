@@ -26,9 +26,7 @@ function getDataList(elections, ent) {
 
 
 export default function BellwetherView({ elections, ent }) {
-  let n = 0,
-    nMatch = 0;
-  let errorSum = 0;
+
 
   return (
     <SectionBox>

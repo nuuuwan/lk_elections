@@ -21,6 +21,10 @@ function formatCell(key, value) {
     return Format.percent(value);
   }
 
+  if (typeof value === "boolean") {
+    return value ? "✔️" : "";
+  }
+ 
   return value;
 }
 
@@ -32,16 +36,16 @@ export default function DataTableView({ dataList }) {
       <table>
         <thead>
           <tr>
-            {headerKeys.map((headerKey) => (
-              <th>{headerKey}</th>
+            {headerKeys.map((headerKey, iCol) => (
+              <th key={"header-" + iCol}>{headerKey}</th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {dataList.map((data, index) => (
-            <tr key={index}>
-              {headerKeys.map((headerKey) => (
-                <td>{formatCell(headerKey, data[headerKey])}</td>
+          {dataList.map((data, iRow) => (
+            <tr key={'data-row-' + iRow}>
+              {headerKeys.map((headerKey, iCol) => (
+                <td key={'data-cell-'+iCol}>{formatCell(headerKey, data[headerKey])}</td>
               ))}
             </tr>
           ))}

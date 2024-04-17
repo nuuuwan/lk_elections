@@ -74,7 +74,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
       <Box>
         <BellwetherView ent={edEnt} elections={elections} />
 
-        <SimilarRegionsView ent={edEnt} elections={elections} pdEnts={edEnts} />
+        <SimilarRegionsView ent={edEnt} elections={elections} otherEnts={edEnts} />
         <ElectionListView
           elections={elections}
           ents={[].concat(pdEnts, [edEnt, countryEnt])}

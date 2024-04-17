@@ -1,7 +1,11 @@
 import { Box, CircularProgress } from "@mui/material";
 import { Ent, EntType, URLContext } from "../../nonview/base";
 import { Election } from "../../nonview/core";
-import { ElectoralDistrictView, ElectionListView } from "../molecules";
+import {
+  ElectoralDistrictView,
+  ElectionListView,
+  BellwetherView,
+} from "../molecules";
 import AbstractCustomPage from "./AbstractCustomPage";
 
 export default class ElectoralDistrictPage extends AbstractCustomPage {
@@ -48,7 +52,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     return (
       <Box>
         <ElectoralDistrictView edEnt={edEnt} pdEnts={pdEnts} />
-        <BellwetherView ent={pdEnt} elections={elections} />
+        <BellwetherView ent={edEnt} elections={elections} />
         <ElectionListView
           elections={elections}
           entType={EntType.ED}

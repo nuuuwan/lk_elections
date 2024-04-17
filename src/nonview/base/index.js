@@ -3,6 +3,7 @@ import Cache from "./Cache";
 import Ent from "./Ent";
 import EntType from "./EntType";
 import Geo from "./Geo";
+import LatLng from "./LatLng";
 import MathX from "./MathX";
 import Random from "./Random";
 import StringX from "./StringX";
@@ -15,6 +16,7 @@ export {
   Ent,
   EntType,
   Geo,
+  LatLng,
   MathX,
   Random,
   StringX,

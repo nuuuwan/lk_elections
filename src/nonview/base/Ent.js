@@ -2,21 +2,24 @@ import EntType from "./EntType.js";
 import WWW from "./WWW.js";
 import Random from "./Random.js";
 
+
 const URL_BASE = "https://raw.githubusercontent.com/nuuuwan/gig2/data";
 const ID_KEY = "id";
 
 export default class Ent {
   constructor(d) {
-    this.name = d["name"];
+    this.name = d["name"].replace('Postal Votes ', 'Postal ');
     this.id = d["id"];
     this.centroid = d["centroid"];
     this.d = d;
   }
 
-  // Wikipedia
   get nameSnake() {
     return this.name.replaceAll(" ", "_");
   }
+
+  // Wikipedia
+
   get wikiPageName() {
     const entType = EntType.fromID(this.id);
     return this.nameSnake + "_" + entType.longNameSnake;

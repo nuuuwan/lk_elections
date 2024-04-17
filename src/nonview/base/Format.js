@@ -7,9 +7,24 @@ export default class Format {
     if (x < 0.000001) {
       return "-";
     }
+    let minimumFractionDigits = 1;
+    if (x > 0.1) {
+      minimumFractionDigits = 0;
+    }
+
     return x.toLocaleString(undefined, {
       style: "percent",
-      minimumFractionDigits: 1,
+      minimumFractionDigits,
     });
+  }
+
+  static percentWithStyle(x) {
+    const strPart = Format.percent(x);
+    const fontSize = x ? Math.max(12, Math.sqrt(x) * 32) : 12;
+    return (
+      <span style={{ fontSize }} className="span-number">
+        {strPart}
+      </span>
+    );
   }
 }

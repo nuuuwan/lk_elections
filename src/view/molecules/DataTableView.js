@@ -1,9 +1,9 @@
 import { Box } from "@mui/material";
-import { Ent, Format } from "../../nonview/base";
+import { Ent, Format, MathX } from "../../nonview/base";
 import { Election, Party } from "../../nonview/core";
 import { ElectionLink, EntLink, PartyLink } from "../atoms";
 
-function formatCell(key, value) {
+function formatCellValue(key, value) {
   if (value === 0) {
     return "-";
   }
@@ -21,7 +21,10 @@ function formatCell(key, value) {
     if (Number.isInteger(value)) {
       return Format.int(value);
     }
-    return Format.percent(value);
+    if (value < 0.005) {
+      return "-";
+    }
+    return Format.percentWithStyle(value);
   }
 
   if (typeof value === "boolean") {
@@ -29,6 +32,19 @@ function formatCell(key, value) {
   }
 
   return value;
+}
+
+function formatCellValueWithStyle(key, value, isMaxValue) {
+  let color = "black";
+  if (Party.isKnownPartyID(key)) {
+    if (isMaxValue) {
+      const party = new Party(key);
+      color = party.color;
+    } else {
+      color = "#888";
+    }
+  }
+  return <span style={{ color }}>{formatCellValue(key, value)}</span>;
 }
 
 function getHeaderKeys(dataList) {
@@ -43,11 +59,26 @@ function getHeaderKeys(dataList) {
 }
 
 export default function DataTableView({ dataList }) {
-  dataList = dataList.filter((data) => data !== null);
-  if (dataList.length === 0) {
+  const filteredDataList = dataList.filter((data) => data !== null);
+  if (filteredDataList.length === 0) {
     return null;
   }
-  const headerKeys = getHeaderKeys(dataList);
+  const headerKeys = getHeaderKeys(filteredDataList).filter(function (key) {
+    const values = filteredDataList
+      .map((d) => d[key])
+      .filter((v) => v !== null && formatCellValue(key, v) !== "-");
+    return values.length > 0;
+  });
+
+  const firstDataKey = Object.entries(filteredDataList[0]).filter(function (
+    entry
+  ) {
+    return typeof entry[1] === "number";
+  })[0][0];
+
+  const sortedDataList = filteredDataList.sort(function (a, b) {
+    return (a[firstDataKey] || 0) - (b[firstDataKey] || 0);
+  });
 
   return (
     <Box>
@@ -60,15 +91,22 @@ export default function DataTableView({ dataList }) {
           </tr>
         </thead>
         <tbody>
-          {dataList.map((data, iRow) => (
-            <tr key={"data-row-" + iRow}>
-              {headerKeys.map((headerKey, iCol) => (
-                <td key={"data-cell-" + iCol}>
-                  {formatCell(headerKey, data[headerKey])}
-                </td>
-              ))}
-            </tr>
-          ))}
+          {sortedDataList.map(function (data, iRow) {
+            const maxValue = MathX.max(Object.values(data));
+            return (
+              <tr key={"data-row-" + iRow}>
+                {headerKeys.map(function (headerKey, iCol) {
+                  const value = data[headerKey];
+                  const isMaxValue = value === maxValue;
+                  return (
+                    <td key={"data-cell-" + iCol}>
+                      {formatCellValueWithStyle(headerKey, value, isMaxValue)}
+                    </td>
+                  );
+                })}
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </Box>

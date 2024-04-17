@@ -13,4 +13,14 @@ export default class MathX {
     const span = max - min;
     return [...Array(span).keys()].map((x) => x + min);
   }
+
+  static max(numList) {
+    return numList
+      .filter(function (x) {
+        return typeof x === "number";
+      })
+      .reduce(function (_max, num) {
+        return Math.max(_max, num);
+      }, -Infinity);
+  }
 }

@@ -13,4 +13,8 @@ export default class Party {
   get inverseColor() {
     return LIGHT_COLORS.includes(this.color) ? "black" : "white";
   }
+
+  static isKnownPartyID(partyID) {
+    return POLITICAL_PARTY_TO_COLOR[partyID] !== undefined;
+  }
 }

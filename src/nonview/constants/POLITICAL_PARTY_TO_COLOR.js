@@ -1,7 +1,7 @@
 const COLOR_TO_POLITICAL_PARTIES = {
   blue: ["SLFP", "PA", "UPFA"],
   "#080": ["UNP", "NDF"],
-  "#684": ["SJB"],
+  "#280": ["SJB"],
   maroon: ["SLPP"],
   orange: ["ACTC"],
   pink: ["NPP"],

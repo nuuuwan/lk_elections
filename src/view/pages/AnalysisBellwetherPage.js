@@ -1,7 +1,13 @@
 import { URLContext, Ent, EntType } from "../../nonview/base";
 import { AnalysisBellwether, Election } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
-import { SectionBox, WikiSummaryView,ElectionLinkShort, Header, EntLink } from "../atoms";
+import {
+  SectionBox,
+  WikiSummaryView,
+  ElectionLinkShort,
+  Header,
+  EntLink,
+} from "../atoms";
 import { CircularProgress } from "@mui/material";
 
 export default class AnalysisBellwetherPage extends AbstractCustomPage {
@@ -37,39 +43,38 @@ export default class AnalysisBellwetherPage extends AbstractCustomPage {
   }
 
   renderMismatches(mismatches) {
-
-
-    return mismatches.map(
-            function([isMatch, election], iElection) {
-                const color = isMatch ? "#0808" : "#f00";
-                return (
-                   <ElectionLinkShort key={'election-' + iElection} election={election} color={color}/>
-                )
-            }
-        )
-     
+    return mismatches.map(function ([isMatch, election], iElection) {
+      const color = isMatch ? "#0808" : "#f00";
+      return (
+        <ElectionLinkShort
+          key={"election-" + iElection}
+          election={election}
+          color={color}
+        />
+      );
+    });
   }
 
   renderBellwetherTableRow(ent, stats, iEnt, isNew) {
-        console.debug(stats, isNew)
-    const {nMatch, meanError, mismatches} = stats;
-    const background = isNew ? "#f8f8f8" : 'white';
+    console.debug(stats, isNew);
+    const { nMatch, meanError, mismatches } = stats;
+    const background = isNew ? "#f8f8f8" : "white";
     return (
-        <tr key={'item-' + iEnt} style={{background}}>
-          <td>
-            <EntLink ent={ent} />
-          </td>
-          <td >
-            {nMatch}
-          </td>
-            <td>
-                {meanError.toLocaleString(undefined, {style: "percent", minimumFractionDigits: 1, maximumFractionDigits: 1})}
-            </td>
-            <td>
-                {this.renderMismatches(mismatches)}
-            </td>
-        </tr>
-      );
+      <tr key={"item-" + iEnt} style={{ background }}>
+        <td>
+          <EntLink ent={ent} />
+        </td>
+        <td>{nMatch}</td>
+        <td>
+          {meanError.toLocaleString(undefined, {
+            style: "percent",
+            minimumFractionDigits: 1,
+            maximumFractionDigits: 1,
+          })}
+        </td>
+        <td>{this.renderMismatches(mismatches)}</td>
+      </tr>
+    );
   }
 
   renderBellwetherTable() {
@@ -78,41 +83,43 @@ export default class AnalysisBellwetherPage extends AbstractCustomPage {
       return <CircularProgress />;
     }
     const ents = [].concat(edEnts, pdEnts);
-    const entsAndStats = ents.map((ent) => {
-      const stats = AnalysisBellwether.statsForElections(this.state.elections, ent);
-      return { ent, stats };
-    }).sort(
-        function(a, b) {
-            const dNMatch =  b.stats.nMatch - a.stats.nMatch;
-            if (dNMatch !== 0) {
-                return dNMatch;
-            }
-            return a.stats.meanError - b.stats.meanError;
+    const entsAndStats = ents
+      .map((ent) => {
+        const stats = AnalysisBellwether.statsForElections(
+          this.state.elections,
+          ent
+        );
+        return { ent, stats };
+      })
+      .sort(function (a, b) {
+        const dNMatch = b.stats.nMatch - a.stats.nMatch;
+        if (dNMatch !== 0) {
+          return dNMatch;
         }
-    );
+        return a.stats.meanError - b.stats.meanError;
+      });
 
-    const {n} = entsAndStats[0].stats;
+    const { n } = entsAndStats[0].stats;
     let prevNMatch = undefined;
     return (
       <table>
         <thead>
-            <tr>
-                <th></th>
-                <th>Matches (of {n})</th>
-                <th>Diff.</th>
-                <th>Mismatches</th>
-                </tr>
+          <tr>
+            <th></th>
+            <th>Matches (of {n})</th>
+            <th>Diff.</th>
+            <th>Mismatches</th>
+          </tr>
         </thead>
         <tbody>
-          {entsAndStats.map(function ({ent, stats}, iEnt) {
-            const {nMatch} = stats;
-            const isNew =  nMatch !== prevNMatch;
-            prevNMatch = nMatch;
-            return  this.renderBellwetherTableRow(ent, stats, iEnt, isNew);
-
-
-        
-          }.bind(this))}
+          {entsAndStats.map(
+            function ({ ent, stats }, iEnt) {
+              const { nMatch } = stats;
+              const isNew = nMatch !== prevNMatch;
+              prevNMatch = nMatch;
+              return this.renderBellwetherTableRow(ent, stats, iEnt, isNew);
+            }.bind(this)
+          )}
         </tbody>
       </table>
     );

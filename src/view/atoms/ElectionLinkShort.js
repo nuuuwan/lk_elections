@@ -14,9 +14,7 @@ export default function ElectionLinkShort({ election, color }) {
 
   return (
     <LinkContext context={context}>
-
-        <Icon sx={{ color,  fontSize: "80%" }} />
-
+      <Icon sx={{ color, fontSize: "80%" }} />
     </LinkContext>
   );
 }

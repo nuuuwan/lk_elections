@@ -46,7 +46,8 @@ export default class AbstractCustomPage extends Component {
         left: "15%",
         width: "35%",
         zIndex: 2000,
-        background: "#fff",
+        background: "#fcfcfc",
+
       })}
       >
         <Header level={3}>{this.supertitle}</Header>
@@ -63,6 +64,7 @@ export default class AbstractCustomPage extends Component {
         left: "50%",
         width: "50%",
         zIndex: 3000,
+        background: "white",
       })}
       > 
       

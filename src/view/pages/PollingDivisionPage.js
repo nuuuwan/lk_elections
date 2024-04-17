@@ -1,4 +1,4 @@
-import { Box, CircularProgress } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import { Ent, URLContext, EntType, Geo } from "../../nonview/base";
 
 import { Election } from "../../nonview/core";
@@ -51,6 +51,19 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     return `${pdEnt.name} (${pdID})`;
   }
 
+  renderBlurb() {
+    const { pdEnt, pdID, edEnt} = this.state;
+    if (!pdEnt) {
+      return null;
+    }
+    return (
+      <Typography variant="body2" sx={{paddingTop: 1, width: "80%"}}>
+        The {pdEnt.name} Polling Division (Code: {pdID}), 
+        is a polling division in the {edEnt.name} Electoral District, of Sri Lanka.`
+      </Typography>
+    );
+  }
+
   renderBodyMiddle() {
     const { pdEnt,  pdGeo } = this.state;
     if (!pdEnt) {
@@ -61,6 +74,8 @@ export default class PollingDivisionPage extends AbstractCustomPage {
       <Box>
         <GeoMap geo={pdGeo} />
 
+        
+        {this.renderBlurb()}
 
       </Box>
     );

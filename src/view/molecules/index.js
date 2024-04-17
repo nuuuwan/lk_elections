@@ -8,6 +8,7 @@ import ElectoralSummaryView from "./ElectoralSummaryView";
 import EntListView from "./EntListView";
 import GenericListView from "./GenericListView";
 import NoteView from "./NoteView";
+import ResultsSeatsTableView from "./ResultsSeatsTableView";
 import ResultsTableView from "./ResultsTableView";
 import SimilarRegionsView from "./SimilarRegionsView";
 
@@ -21,6 +22,7 @@ export {
   EntListView,
   GenericListView,
   NoteView,
+  ResultsSeatsTableView,
   ResultsTableView,
   SimilarRegionsView,
 };

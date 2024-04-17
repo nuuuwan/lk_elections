@@ -5,6 +5,7 @@ import Note from "./Note";
 import Party from "./Party";
 import PartyToVotes from "./PartyToVotes";
 import Result from "./Result";
+import Seats from "./Seats";
 import Summary from "./Summary";
 
 export {
@@ -14,5 +15,6 @@ export {
   Party,
   PartyToVotes,
   Result,
+  Seats,
   Summary,
 };

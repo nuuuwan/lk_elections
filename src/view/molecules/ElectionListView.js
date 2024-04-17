@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import { Header } from "../atoms";
 
 import ResultsTableView from "./ResultsTableView";
+import ResultsSeatsTableView from "./ResultsSeatsTableView";
 
 export default function ElectionListView({ elections, ents }) {
   return (
@@ -12,6 +13,9 @@ export default function ElectionListView({ elections, ents }) {
         return (
           <Box key={key} sx={{ p: 1 }}>
             <ResultsTableView election={election} ents={ents} />
+            {election.electionType === "Parliamentary" ? (
+              <ResultsSeatsTableView election={election} ents={ents} />
+            ) : null}
           </Box>
         );
       })}

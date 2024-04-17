@@ -13,10 +13,15 @@ export default function Header({ level, children }) {
       color = "#666";
       marginBottom = 1;
       break;
-    default:
+    case 3:
       variant = "h6";
       color = "#888";
       marginBottom = 1;
+      break;
+    default:
+      variant = "body1";
+      color = "#ccc";
+      marginBottom = 0;
   }
 
   return (

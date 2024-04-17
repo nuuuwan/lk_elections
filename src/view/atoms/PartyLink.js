@@ -22,8 +22,6 @@ export default function PartyLink({ partyID, children, noColor, invertColor }) {
     backColor = "#fff0";
   }
 
-
-
   const defaultInner = <Typography variant="inherit">{party.id}</Typography>;
   const inner = children || defaultInner;
 

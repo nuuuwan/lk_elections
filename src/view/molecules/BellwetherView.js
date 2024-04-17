@@ -1,4 +1,3 @@
-
 import { Header, ElectionLink, SectionBox, PartyLink } from "../atoms";
 
 function getBellwetherStats(election, ent) {
@@ -43,8 +42,6 @@ function BellwetherViewForElection({
   l1Error,
   isMatch,
 }) {
-
-
   return (
     <tr>
       <td>
@@ -58,9 +55,7 @@ function BellwetherViewForElection({
       </td>
 
       <td>
-      <PartyLink partyID={winningPartyLK} >
-        {isMatch ? "✓" : " "}
-      </PartyLink>
+        <PartyLink partyID={winningPartyLK}>{isMatch ? "✓" : " "}</PartyLink>
       </td>
       {renderPercent(l1Error)}
     </tr>

@@ -76,6 +76,9 @@ export default function ResultsSeatsTableVIew({ election, ents }) {
             [entID, partyToSeats],
             iEnt
           ) {
+            if (!partyToSeats) {
+              return null;
+            }
             return (
               <ResultsSeatsTableViewRowForEnt
                 key={"row-" + iEnt}

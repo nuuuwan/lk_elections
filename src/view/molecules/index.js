@@ -2,6 +2,7 @@
 import BellwetherView from "./BellwetherView";
 import CustomAppBar from "./CustomAppBar";
 import CustomBottomNavigator from "./CustomBottomNavigator";
+import DataTableView from "./DataTableView";
 import ElectionListView from "./ElectionListView";
 import ElectionListViewSmall from "./ElectionListViewSmall";
 import ElectoralSummaryView from "./ElectoralSummaryView";
@@ -16,6 +17,7 @@ export {
   BellwetherView,
   CustomAppBar,
   CustomBottomNavigator,
+  DataTableView,
   ElectionListView,
   ElectionListViewSmall,
   ElectoralSummaryView,

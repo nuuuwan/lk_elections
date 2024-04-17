@@ -1,4 +1,4 @@
-import { EntLink, Header, SectionBox, PartyLink } from "../atoms";
+import { EntLink, Header, SectionBox, PartyLink, ElectionLink } from "../atoms";
 import { Format } from "../../nonview/base";
 function ResultsTableViewRowForEnt({ election, ent, majorParties }) {
   const result = election.getResults(ent.id);
@@ -91,7 +91,9 @@ export default function ResultsTableView({ election, ents }) {
 
   return (
     <SectionBox>
-      <Header level={3}>{election.titleShort}</Header>
+      <Header level={3}>
+        <ElectionLink election={election} />
+      </Header>
       <table>
         <thead>
           <tr>

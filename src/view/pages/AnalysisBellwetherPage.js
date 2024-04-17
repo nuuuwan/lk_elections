@@ -56,7 +56,6 @@ export default class AnalysisBellwetherPage extends AbstractCustomPage {
   }
 
   renderBellwetherTableRow(ent, stats, iEnt, isNew) {
-    console.debug(stats, isNew);
     const { nMatch, meanError, mismatches } = stats;
     const background = isNew ? "#f8f8f8" : "white";
     return (

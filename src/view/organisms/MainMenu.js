@@ -1,8 +1,8 @@
 import { Component } from "react";
-import {  CircularProgress } from "@mui/material";
+import { CircularProgress } from "@mui/material";
 import { Ent, EntType } from "../../nonview/base";
 import { Election } from "../../nonview/core";
-import {LinkContext, SectionBox} from "../atoms";
+import { LinkContext, SectionBox } from "../atoms";
 
 import { EntListView, ElectionListViewSmall } from "../molecules";
 
@@ -33,10 +33,8 @@ export default class MainMenu extends Component {
     }
     return (
       <SectionBox>
-        <LinkContext context={{pageID: 'Country'}}>
-
+        <LinkContext context={{ pageID: "Country" }}>
           Elections in Sri Lanka
-
         </LinkContext>
         <ElectionListViewSmall elections={elections} />
 

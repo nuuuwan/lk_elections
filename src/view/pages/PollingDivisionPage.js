@@ -95,10 +95,7 @@ export default class PollingDivisionPage extends AbstractCustomPage {
         />
         <ElectionListView
           elections={elections}
-          entType={EntType.PD}
-          pdEnt={pdEnt}
-          edEnt={edEnt}
-          countryEnt={countryEnt}
+          ents={[pdEnt, edEnt, countryEnt]}
         />
       </Box>
     );

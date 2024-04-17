@@ -20,7 +20,9 @@ function ElectoralSummaryViewForElection({ ent, election }) {
       </td>
       <td style={{ color: colorEnt }}>{winningPartyEnt}</td>
       <td className="td-number">
-        {pMajority ? pMajority.toLocaleString(undefined, { style: "percent" }) : "N/A"}
+        {pMajority
+          ? pMajority.toLocaleString(undefined, { style: "percent" })
+          : "N/A"}
       </td>
       <td className="td-number">
         {summary.electors ? summary.electors.toLocaleString() : "N/A"}
@@ -45,6 +47,7 @@ export default function ElectoralSummaryView({ ent, elections }) {
       <Header level={2}>Electoral Summary</Header>
       <table>
         <thead>
+          <tr>
           <th>Election</th>
 
           <th>Winner</th>
@@ -52,6 +55,7 @@ export default function ElectoralSummaryView({ ent, elections }) {
           <th>Elec.</th>
           <th>Turn.</th>
           <th>Rej.</th>
+          </tr>
         </thead>
         <tbody>
           {elections.map(function (election, iElection) {

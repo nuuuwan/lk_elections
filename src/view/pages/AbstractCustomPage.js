@@ -30,7 +30,9 @@ export default class AbstractCustomPage extends Component {
           background: "#f8f8f8",
         })}
       >
-        <Box sx={{ color: "#ccc",paddingBottom: 1 }}>v{VERSION.DATETIME_STR}</Box>
+        <Box sx={{ color: "#ccc", paddingBottom: 1 }}>
+          v{VERSION.DATETIME_STR}
+        </Box>
 
         <MainMenu />
       </Box>

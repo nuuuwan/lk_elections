@@ -15,6 +15,8 @@ th {
   text-align: left;
   padding-right: 12px;
   font-size: 0.7em;
+  font-weight: normal;
+  color: '#ccc';
 }
 
 td {

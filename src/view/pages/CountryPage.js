@@ -1,10 +1,9 @@
 import { Box, CircularProgress } from "@mui/material";
-import { Ent, EntType, URLContext, } from "../../nonview/base";
+import { Ent, EntType, URLContext } from "../../nonview/base";
 import { Election } from "../../nonview/core";
 import { WikiSummaryView } from "../atoms";
 import {
   ElectionListView,
-
   EntListView,
   ElectoralSummaryView,
 } from "../molecules";
@@ -25,7 +24,6 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
   async componentDidMount() {
     const countryEnt = await Ent.fromID("LK");
 
-
     const elections = Election.listAll();
     for (let election of elections) {
       await election.loadData();
@@ -33,7 +31,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
 
     const edEnts = await Ent.listFromType(EntType.ED);
 
-    this.setState({ countryEnt,  elections, edEnts });
+    this.setState({ countryEnt, elections, edEnts });
   }
 
   get supertitle() {
@@ -44,14 +42,13 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     return "Sri Lanka";
   }
   renderBodyMiddle() {
-    const {  countryEnt, elections, edEnts } = this.state;
+    const { countryEnt, elections, edEnts } = this.state;
     if (!countryEnt) {
       return <CircularProgress />;
     }
 
     return (
       <Box>
-
         <WikiSummaryView wikiPageName={"Elections_in_Sri_Lanka"} />
         <ElectoralSummaryView ent={countryEnt} elections={elections} />
         <EntListView ents={edEnts} />
@@ -59,7 +56,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     );
   }
   renderBodyRight() {
-    const { countryEnt, elections } = this.state;
+    const { countryEnt, elections, edEnts } = this.state;
     if (!countryEnt) {
       return <CircularProgress />;
     }
@@ -68,8 +65,8 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
       <Box>
         <ElectionListView
           elections={elections}
-          entType={EntType.COUNTRY}
-          countryEnt={countryEnt}
+
+          ents={[].concat(edEnts, countryEnt)}
         />
       </Box>
     );

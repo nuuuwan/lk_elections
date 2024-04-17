@@ -11,6 +11,7 @@ import GenericListView from "./GenericListView";
 import NoteView from "./NoteView";
 import PartyToVotesView from "./PartyToVotesView";
 import ResultView from "./ResultView";
+import ResultsTableView from "./ResultsTableView";
 import SimilarPollingDivisionsView from "./SimilarPollingDivisionsView";
 import SummaryView from "./SummaryView";
 
@@ -27,6 +28,7 @@ export {
   NoteView,
   PartyToVotesView,
   ResultView,
+  ResultsTableView,
   SimilarPollingDivisionsView,
   SummaryView,
 };

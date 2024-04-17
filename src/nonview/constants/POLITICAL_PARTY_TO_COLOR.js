@@ -33,6 +33,7 @@ const LIGHT_COLORS = [
   "yellow",
   "lightgray",
   "#eee",
+  "white",
 ];
 
 export { LIGHT_COLORS };

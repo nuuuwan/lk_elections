@@ -2,7 +2,7 @@ import { Box, CircularProgress } from "@mui/material";
 import { Ent, EntType, URLContext, Geo } from "../../nonview/base";
 import { Election } from "../../nonview/core";
 import { WikiSummaryView } from "../atoms";
-import { ElectionListView, BellwetherView, EntListView } from "../molecules";
+import { ElectionListView, BellwetherView, EntListView, ElectoralSummaryView } from "../molecules";
 import { GeoMap } from "../organisms";
 import AbstractCustomPage from "./AbstractCustomPage";
 
@@ -43,7 +43,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     return `${edEnt.name} (${edID})`;
   }
   renderBodyMiddle() {
-    const { edEnt,  edGeo, pdEnts } = this.state;
+    const { edEnt, edGeo, pdEnts, elections } = this.state;
     if (!edEnt) {
       return <CircularProgress />;
     }
@@ -52,8 +52,8 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
       <Box>
         <GeoMap geo={edGeo} />
         <WikiSummaryView wikiPageName={edEnt.wikiPageName} />
+        <ElectoralSummaryView ent={edEnt} elections={elections} />
         <EntListView ents={pdEnts} />
-
       </Box>
     );
   }
@@ -65,7 +65,6 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
 
     return (
       <Box>
-
         <BellwetherView ent={edEnt} elections={elections} />
         <ElectionListView
           elections={elections}

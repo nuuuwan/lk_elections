@@ -2,7 +2,7 @@ import { Box, CircularProgress } from "@mui/material";
 import { URLContext, Ent, EntType } from "../../nonview/base";
 import { Election } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
-import {  ElectionView } from "../molecules";
+import { ElectionView } from "../molecules";
 import { WikiSummaryView } from "../atoms";
 
 export default class ElectionPage extends AbstractCustomPage {
@@ -27,7 +27,7 @@ export default class ElectionPage extends AbstractCustomPage {
     await election.loadData();
 
     const countryEnt = await Ent.fromID("LK");
-    this.setState({ election,  countryEnt });
+    this.setState({ election, countryEnt });
   }
   get supertitle() {
     const { election } = this.state;
@@ -46,32 +46,29 @@ export default class ElectionPage extends AbstractCustomPage {
   }
 
   renderBodyMiddle() {
-    const {  countryEnt, election } = this.state;
+    const { countryEnt, election } = this.state;
     if (!countryEnt) {
       return <CircularProgress />;
     }
     return (
       <Box>
         <WikiSummaryView wikiPageName={election.wikiPageName} />
-
       </Box>
     );
   }
 
   renderBodyRight() {
-    const {  countryEnt, election } = this.state;
+    const { countryEnt, election } = this.state;
     if (!countryEnt) {
       return <CircularProgress />;
     }
     return (
       <Box>
-
         <ElectionView
           election={election}
           entType={EntType.COUNTRY}
           countryEnt={countryEnt}
         />
-
       </Box>
     );
   }

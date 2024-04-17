@@ -7,7 +7,13 @@ export default function WikiSummaryView({ wikiPageName }) {
 
   return (
     <Box
-      sx={{ maxWidth: 640, marginTop: 1, marginBottom: 1, marginRight: 1,paddingBottom: 1 }}
+      sx={{
+        maxWidth: 640,
+        marginTop: 1,
+        marginBottom: 1,
+        marginRight: 1,
+        paddingBottom: 1,
+      }}
     >
       {wiki.summaryLines.map(function (paragraph, i) {
         return (

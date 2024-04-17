@@ -1,12 +1,12 @@
 import { Box, CircularProgress, Typography } from "@mui/material";
 import { Ent, URLContext, EntType, Geo } from "../../nonview/base";
-
 import { Election } from "../../nonview/core";
 
 import {
   ElectionListView,
   BellwetherView,
   SimilarPollingDivisionsView,
+  ElectoralSummaryView,
 } from "../molecules";
 import { GeoMap } from "../organisms";
 import AbstractCustomPage from "./AbstractCustomPage";
@@ -52,20 +52,20 @@ export default class PollingDivisionPage extends AbstractCustomPage {
   }
 
   renderBlurb() {
-    const { pdEnt, pdID, edEnt} = this.state;
+    const { pdEnt, pdID, edEnt } = this.state;
     if (!pdEnt) {
       return null;
     }
     return (
-      <Typography variant="body2" sx={{paddingTop: 1, width: "80%"}}>
-        The {pdEnt.name} Polling Division (Code: {pdID}), 
-        is a polling division in the {edEnt.name} Electoral District, of Sri Lanka.`
+      <Typography variant="body2" sx={{ paddingTop: 1, width: "80%" }}>
+        The {pdEnt.name} Polling Division (Code: {pdID}), is a polling division
+        in the {edEnt.name} Electoral District, of Sri Lanka.`
       </Typography>
     );
   }
 
   renderBodyMiddle() {
-    const { pdEnt,  pdGeo } = this.state;
+    const { pdEnt, pdGeo, elections } = this.state;
     if (!pdEnt) {
       return <CircularProgress />;
     }
@@ -74,9 +74,8 @@ export default class PollingDivisionPage extends AbstractCustomPage {
       <Box>
         <GeoMap geo={pdGeo} />
 
-        
         {this.renderBlurb()}
-
+        <ElectoralSummaryView ent={pdEnt} elections={elections} />
       </Box>
     );
   }
@@ -88,7 +87,6 @@ export default class PollingDivisionPage extends AbstractCustomPage {
 
     return (
       <Box>
-  
         <BellwetherView ent={pdEnt} elections={elections} />
         <SimilarPollingDivisionsView
           ent={pdEnt}

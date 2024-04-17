@@ -9,6 +9,7 @@ import EntListView from "./EntListView";
 import GenericListView from "./GenericListView";
 import NoteView from "./NoteView";
 import PartyToVotesView from "./PartyToVotesView";
+import ElectoralSummaryView from "./ElectoralSummaryView";
 import ResultView from "./ResultView";
 import SimilarPollingDivisionsView from "./SimilarPollingDivisionsView";
 import SummaryView from "./SummaryView";
@@ -24,6 +25,7 @@ export {
   GenericListView,
   NoteView,
   PartyToVotesView,
+  ElectoralSummaryView,
   ResultView,
   SimilarPollingDivisionsView,
   SummaryView,

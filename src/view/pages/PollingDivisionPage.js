@@ -56,11 +56,11 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     if (!pdEnt) {
       return <CircularProgress />;
     }
-    const center = pdEnt.centroid;
+
 
     return (
       <Box>
-        <GeoMap zoom={12} center={center} geo={pdGeo} />
+        <GeoMap geo={pdGeo} />
 
         <BellwetherView ent={pdEnt} elections={elections} />
         <SimilarPollingDivisionsView

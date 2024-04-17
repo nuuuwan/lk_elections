@@ -48,13 +48,13 @@ export default function ElectoralSummaryView({ ent, elections }) {
       <table>
         <thead>
           <tr>
-          <th>Election</th>
+            <th>Election</th>
 
-          <th>Winner</th>
-          <th>Maj.</th>
-          <th>Elec.</th>
-          <th>Turn.</th>
-          <th>Rej.</th>
+            <th>Winner</th>
+            <th>Maj.</th>
+            <th>Elec.</th>
+            <th>Turn.</th>
+            <th>Rej.</th>
           </tr>
         </thead>
         <tbody>

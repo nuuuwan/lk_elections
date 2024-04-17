@@ -3,7 +3,7 @@ import { URLContext, Ent, EntType } from "../../nonview/base";
 import { Election } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
 import { ElectionView } from "../molecules";
-import { WikiSummaryView } from "../atoms";
+import { WikiSummaryView, ElectionLink } from "../atoms";
 
 export default class ElectionPage extends AbstractCustomPage {
   static getPageID() {
@@ -30,11 +30,7 @@ export default class ElectionPage extends AbstractCustomPage {
     this.setState({ election, countryEnt });
   }
   get supertitle() {
-    const { election } = this.state;
-    if (!election) {
-      return <CircularProgress />;
-    }
-    return election.electionType;
+    return "Election";
   }
 
   get title() {
@@ -42,7 +38,7 @@ export default class ElectionPage extends AbstractCustomPage {
     if (!election) {
       return <CircularProgress />;
     }
-    return election.year;
+    return <ElectionLink election={election} />;
   }
 
   renderBodyMiddle() {

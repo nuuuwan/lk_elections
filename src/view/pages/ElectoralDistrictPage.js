@@ -1,7 +1,7 @@
 import { Box, CircularProgress } from "@mui/material";
 import { Ent, EntType, URLContext, Geo } from "../../nonview/base";
 import { Election } from "../../nonview/core";
-import { WikiSummaryView } from "../atoms";
+import { WikiSummaryView, EntLink } from "../atoms";
 import {
   ElectionListView,
   BellwetherView,
@@ -45,7 +45,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     if (!edEnt) {
       return edID;
     }
-    return `${edEnt.name} (${edID})`;
+    return <EntLink ent={edEnt} />;
   }
   renderBodyMiddle() {
     const { edEnt, edGeo, pdEnts, elections } = this.state;
@@ -73,7 +73,6 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
         <BellwetherView ent={edEnt} elections={elections} />
         <ElectionListView
           elections={elections}
-
           ents={[].concat(pdEnts, [edEnt, countryEnt])}
         />
       </Box>

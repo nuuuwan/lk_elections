@@ -1,7 +1,7 @@
 import { Box, CircularProgress } from "@mui/material";
 import { Ent, EntType, URLContext } from "../../nonview/base";
 import { Election } from "../../nonview/core";
-import { WikiSummaryView } from "../atoms";
+import { WikiSummaryView, EntLink } from "../atoms";
 import {
   ElectionListView,
   EntListView,
@@ -39,7 +39,11 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
   }
 
   get title() {
-    return "Sri Lanka";
+    const { countryEnt } = this.state;
+    if (!countryEnt) {
+      return "Sri Lanka";
+    }
+    return <EntLink ent={countryEnt} />;
   }
   renderBodyMiddle() {
     const { countryEnt, elections, edEnts } = this.state;
@@ -65,7 +69,6 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
       <Box>
         <ElectionListView
           elections={elections}
-
           ents={[].concat(edEnts, countryEnt)}
         />
       </Box>

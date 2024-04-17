@@ -2,6 +2,7 @@ import { Box, CircularProgress, Typography } from "@mui/material";
 import { Ent, URLContext, EntType, Geo } from "../../nonview/base";
 import { Election } from "../../nonview/core";
 
+import { EntLink } from "../atoms";
 import {
   ElectionListView,
   BellwetherView,
@@ -48,7 +49,7 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     if (!pdEnt) {
       return pdID;
     }
-    return `${pdEnt.name} (${pdID})`;
+    return <EntLink ent={pdEnt} />;
   }
 
   renderBlurb() {

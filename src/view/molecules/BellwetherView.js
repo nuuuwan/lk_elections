@@ -23,11 +23,11 @@ function renderPercent(l1Error) {
     minimumFractionDigits: 1,
     maximumFractionDigits: 1,
   });
-  let l1ErrorColor = "red";
+  let l1ErrorColor = "#ccc";
   if (l1Error < 0.02) {
-    l1ErrorColor = "green";
+    l1ErrorColor = "#000";
   } else if (l1Error < 0.1) {
-    l1ErrorColor = "orange";
+    l1ErrorColor = "#888";
   }
   return (
     <td className="td-number" style={{ color: l1ErrorColor }}>

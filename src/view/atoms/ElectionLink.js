@@ -18,7 +18,7 @@ export default function ElectionLink({ election }) {
     <LinkContext context={context}>
       <Box display="flex" alignItems="center">
         <Icon sx={{ color: "#ccc", marginRight: 1, fontSize: "80%" }} />
-        <Typography variant="body2">
+        <Typography variant="inherit">
           {election.titleShort}
           {emoji}
         </Typography>

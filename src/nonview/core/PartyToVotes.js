@@ -85,7 +85,6 @@ export default class PartyToVotes {
   }
 
   get pMajority() {
-
     const pVotes = Object.values(this.partyToPVotes);
     return pVotes[0] - pVotes[1];
   }

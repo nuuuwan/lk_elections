@@ -1,13 +1,14 @@
-import { URLContext, Ent, EntType, Format } from "../../nonview/base";
+import { URLContext, Ent, EntType } from "../../nonview/base";
 import { AnalysisBellwether, Election } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
 import {
   SectionBox,
   WikiSummaryView,
-  ElectionLinkShort,
+
   Header,
-  EntLink,
 } from "../atoms";
+
+import {DataTableView} from "../molecules";
 import { CircularProgress } from "@mui/material";
 
 export default class AnalysisBellwetherPage extends AbstractCustomPage {
@@ -42,91 +43,38 @@ export default class AnalysisBellwetherPage extends AbstractCustomPage {
     return "Bellwethers";
   }
 
-  renderMismatches(mismatches) {
-    return mismatches.map(function ([isMatch, election], iElection) {
-      const color = isMatch ? "#0808" : "#f00";
-      return (
-        <ElectionLinkShort
-          key={"election-" + iElection}
-          election={election}
-          color={color}
-        />
-      );
-    });
-  }
 
-  renderBellwetherTableRow(ent, stats, iEnt, isNew) {
-    const { nMatch, meanError, mismatches } = stats;
-    const background = isNew ? "#f8f8f8" : "white";
-    return (
-      <tr key={"item-" + iEnt} style={{ background }}>
-        <td>
-          <EntLink ent={ent} />
-        </td>
-        <td>{nMatch}</td>
-        <td>{Format.percent(meanError)}</td>
-        <td>{this.renderMismatches(mismatches)}</td>
-      </tr>
-    );
-  }
-
-  renderBellwetherTable() {
-    const { pdEnts, edEnts } = this.state;
-    if (!pdEnts) {
-      return <CircularProgress />;
-    }
-    const ents = [].concat(edEnts, pdEnts);
-    const entsAndStats = ents
-      .map((ent) => {
-        const stats = AnalysisBellwether.statsForElections(
-          this.state.elections,
-          ent
-        );
-        return { ent, stats };
-      })
-      .sort(function (a, b) {
-        const dNMatch = b.stats.nMatch - a.stats.nMatch;
-        if (dNMatch !== 0) {
-          return dNMatch;
-        }
-        return a.stats.meanError - b.stats.meanError;
-      });
-
-    const { n } = entsAndStats[0].stats;
-    let prevNMatch = undefined;
-    return (
-      <table>
-        <thead>
-          <tr>
-            <th></th>
-            <th>Matches (of {n})</th>
-            <th>Diff.</th>
-            <th>Mismatches</th>
-          </tr>
-        </thead>
-        <tbody>
-          {entsAndStats.map(
-            function ({ ent, stats }, iEnt) {
-              const { nMatch } = stats;
-              const isNew = nMatch !== prevNMatch;
-              prevNMatch = nMatch;
-              return this.renderBellwetherTableRow(ent, stats, iEnt, isNew);
-            }.bind(this)
-          )}
-        </tbody>
-      </table>
-    );
-  }
 
   renderBodyMiddle() {
     return <WikiSummaryView wikiPageName={"Bellwether"} />;
   }
 
+  getDataList() {
+    const { pdEnts, edEnts, elections } = this.state;
+    const ents = [].concat(edEnts, pdEnts);
+
+    return ents.map((ent) => {
+      const stats = AnalysisBellwether.statsForElections(elections, ent);
+      if (!stats) {
+        return null;
+      }
+      const  { nMatch, meanError } =stats;
+      return { Region: ent, Matches: nMatch, Diff: meanError };
+    }).sort((a, b) => a.Diff - b.Diff);
+  
+  }
+
   renderBodyRight() {
+    const { elections } = this.state;
+    if (!elections) {
+      return <CircularProgress />;
+    }
     return (
       <SectionBox>
         <Header level={2}>Best to Worst Bellwethers</Header>
-        {this.renderBellwetherTable()}
+        <DataTableView 
+          dataList={this.getDataList()}
+        />
       </SectionBox>
     );
   }

@@ -13,7 +13,7 @@ export default class Ent {
     this.d = d;
   }
 
-  // compare 
+  // compare
   localeCompare(other) {
     const dLevel = this.entType.level - other.entType.level;
     if (dLevel !== 0) {

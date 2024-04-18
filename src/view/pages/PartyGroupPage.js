@@ -59,7 +59,7 @@ export default class PartyGroupPage extends AbstractCustomPage {
     }
 
     const renderItem = function (party) {
-      return <PartyLink partyID={party.id} longName/>;
+      return <PartyLink partyID={party.id} longName />;
     };
 
     return (

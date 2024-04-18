@@ -57,12 +57,12 @@ export default class ElectionPage extends AbstractCustomPage {
   }
 
   get subtitle() {
-    const {election ,elections} = this.state;
+    const { election, elections } = this.state;
     if (!elections) {
       return null;
     }
 
-    const i = elections.map((e) => (e.date)).indexOf(election.date);
+    const i = elections.map((e) => e.date).indexOf(election.date);
     let closeElections = [];
     if (i < elections.length - 1) {
       closeElections.push(elections[i + 1]);
@@ -71,15 +71,13 @@ export default class ElectionPage extends AbstractCustomPage {
       closeElections.push(elections[i - 1]);
     }
 
-
     return (
       <Stack direction="row" spacing={1}>
         {closeElections.map((e) => (
           <ElectionLink key={e.date} election={e} />
         ))}
       </Stack>
-    )
-
+    );
   }
 
   renderBodyMiddle() {

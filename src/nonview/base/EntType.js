@@ -18,7 +18,7 @@ export default class EntType {
       country: 1,
       province: 2,
       ed: 3,
-      district: 4,     
+      district: 4,
       pd: 5,
     }[this.name];
   }

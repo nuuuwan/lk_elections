@@ -5,9 +5,8 @@ import { DataTableView } from "../molecules";
 
 function getDataList(election, ents) {
   const seats = new Seats(election);
-  return ents.sort(
-    (a, b) => a.localeCompare(b)
-  )
+  return ents
+    .sort((a, b) => a.localeCompare(b))
     .map(function (ent) {
       const partyToSeats = seats.getPartyToSeats(ent.id);
       if (!partyToSeats) {

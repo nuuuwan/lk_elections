@@ -85,33 +85,6 @@ function formatCellValue(key, value) {
   return formatCellValueObject(key, value) || formatCellValueNumber(key, value);
 }
 
-function formatCellValueWithStyle(key, value) {
-  let color = "black";
-  if (Party.isKnownPartyID(key)) {
-    if (value instanceof Fraction) {
-      if (value.isMax) {
-        const party = new Party(key);
-        color = party.color;
-      } else {
-        color = "#888";
-      }
-    }
-  }
-
-  if (PartyGroup.isKnownPartyGroupID(key)) {
-    if (value instanceof Fraction) {
-      if (value.isMax) {
-        const partyGroup = PartyGroup.fromID(key);
-        color = partyGroup.color;
-      } else {
-        color = "#888";
-      }
-    }
-  }
-
-  return <Box sx={{ color }}>{formatCellValue(key, value)}</Box>;
-}
-
 function getHeaderKeys(dataList) {
   return dataList.reduce(function (headerKeys, data) {
     return Object.keys(data).reduce(function (headerKeys, key) {
@@ -133,7 +106,7 @@ function DataTableViewHeaderRow({ headerKeys, setSortKeyInner }) {
         };
         return (
           <th key={"header-" + iCol}>
-            {formatCellValueWithStyle(headerKey, headerKey)}
+            {formatCellValue(headerKey, headerKey)}
             <div onClick={onClickSort} className="sorter">
               ▴
             </div>
@@ -145,7 +118,7 @@ function DataTableViewHeaderRow({ headerKeys, setSortKeyInner }) {
 }
 
 function DataTableViewCell({ headerKey, value }) {
-  return <td>{formatCellValueWithStyle(headerKey, value)}</td>;
+  return <td>{formatCellValue(headerKey, value)}</td>;
 }
 
 function DataTableViewRow({ headerKeys, data, iRow }) {
@@ -173,7 +146,7 @@ function DataTableViewFooterRow({ headerKeys, footerData }) {
       <td className="td-row-num"></td>
       {headerKeys.map((headerKey, iCol) => (
         <th key={"footer-" + iCol} className="th-footer">
-          {formatCellValueWithStyle(headerKey, footerData[headerKey])}
+          {formatCellValue(headerKey, footerData[headerKey])}
         </th>
       ))}
     </tr>

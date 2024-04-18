@@ -1,4 +1,5 @@
 import { Fraction } from "../../nonview/base";
+import { PartyGroup } from "../../nonview/core";
 
 import { Header, SectionBox } from "../atoms";
 
@@ -23,7 +24,8 @@ function getDataList(partyGroups, elections, ents) {
     }
     d = Object.fromEntries(Object.entries(d).sort((a, b) => b[1].p - a[1].p));
 
-    d[Object.keys(d)[0]].isMax = true;
+    const topPartyGroupID = Object.keys(d)[0];
+    d[topPartyGroupID].color = PartyGroup.fromID(topPartyGroupID).color;
 
     const electors = Object.values(d)[0].d;
 

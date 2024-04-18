@@ -1,8 +1,9 @@
 export default class Fraction {
-  constructor(n, d, isMax = false) {
+  constructor(n, d, color = null) {
     this.n = n;
     this.d = d || 1;
-    this.isMax = isMax;
+
+    this.color = color;
   }
 
   get p() {

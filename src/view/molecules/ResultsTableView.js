@@ -1,6 +1,7 @@
 import { Fraction } from "../../nonview/base";
 import { DataTableView } from "../molecules";
 import { Header, SectionBox, ElectionLink } from "../atoms";
+import { Party } from "../../nonview/core";
 
 function getMajorParties(election) {
   const result = election.getResults("LK");
@@ -25,7 +26,7 @@ function getDataList(election, ents) {
       d[party] = new Fraction(
         result.partyToVotes.partyToVotes[party],
         result.partyToVotes.totalVotes,
-        party === winningParty
+        party === winningParty ? new Party(winningParty).color : "#888"
       );
     }
     return d;

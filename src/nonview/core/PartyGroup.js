@@ -29,7 +29,7 @@ export default class PartyGroup {
         "orange"
       ),
       new PartyGroup("Muslim", ["SLMC", "ACMC", "UNFFM", "MNA", "NUA"], "teal"),
-      new PartyGroup("Sinhala-Buddhist", ["JHU", "SU", "OPPP"], "yellow"),
+      new PartyGroup("Sinhala-Buddhist", ["JHU", "SU", "OPPP"], "#f80"),
     ];
     // let partyGroupIdx = Object.fromEntries(
     //   partyGroupList.map((partyGroup) => [partyGroup.id, partyGroup])

@@ -12,13 +12,14 @@ function getDataList(ent, elections) {
     const summary = resultsForEnt.summary;
     const partyToVotes = resultsForEnt.partyToVotes;
     const winningPartyID = partyToVotes.winningParty;
-
+    const winningParty = new Party(winningPartyID);
     return {
       Election: election,
       Winner: new Party(winningPartyID),
       Votes: new Fraction(
         partyToVotes.partyToVotes[winningPartyID],
-        partyToVotes.totalVotes
+        partyToVotes.totalVotes,
+        winningParty.color
       ),
       Electors: summary.electors,
       Turnout: new Fraction(summary.polled, summary.electors),

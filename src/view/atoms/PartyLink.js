@@ -2,12 +2,9 @@ import { Box, Typography } from "@mui/material";
 import { LinkContext } from "../atoms";
 import { Party } from "../../nonview/core";
 
-export default function PartyLink({ partyID, children, noColor, invertColor }) {
-  if (children === " ") {
-    return null;
-  }
+function getStyle(partyID, invertColor, noColor) {
   const party = new Party(partyID);
-  const context = {}; // TODO
+
 
   let backColor = party.inverseColor;
   let foreColor = party.color;
@@ -22,11 +19,21 @@ export default function PartyLink({ partyID, children, noColor, invertColor }) {
     backColor = "#fff0";
   }
 
-  const defaultInner = <Typography variant="inherit">{party.id}</Typography>;
+  return { backColor, foreColor };
+}
+
+export default function PartyLink({ partyID, children, noColor, invertColor }) {
+  if (children === " ") {
+    return null;
+  }
+  const {backColor, foreColor} = getStyle(partyID, invertColor, noColor);
+
+
+  const defaultInner = <Typography variant="inherit">{partyID}</Typography>;
   const inner = children || defaultInner;
 
   return (
-    <LinkContext context={context}>
+    <LinkContext context={{}}>
       <Box
         display="flex"
         alignItems="center"

@@ -1,7 +1,7 @@
 import json
 import wikipediaapi
 import os
-from utils import File, Log, TimeFormat
+from utils import File, Log, TimeFormat, JSONFile
 from gig import Ent, EntType
 log = Log('build_wikipedia_data')
 ELECTION_LIST = [
@@ -64,6 +64,59 @@ def get_misc_wiki_page_name_list():
         'Bellwether',
     ]
 
+
+
+
+def get_party_wiki_page_name_list():
+    names = [
+        "All Ceylon Tamil Congress",
+        "Democratic People's Liberation Front",
+        "Eelam People's Democratic Party",
+        "Illankai Tamil Arasu Kachchi",
+        "Jathika Jana Balawegaya",
+        "Janatha Vimukthi Peramuna",
+        "Lanka Sama Samaja Party",
+        "Mahajana Eksath Peramuna",
+        "Muslim National Alliance",
+        "New Democratic Front",
+        "National Muslim Congress",
+        "National People's Power",
+        "National Unity Alliance",
+        "People's Alliance",
+        "Samagi Jana Balawegaya",
+        "Sri Lanka Freedom Party",
+        "Sri Lanka Muslim Congress",
+        "Sri Lanka Mahajana Pakshaya",
+        "Sri Lanka Podujana Peramuna",
+        "Tamil Makkal Viduthalai Pulikal",
+        "Tamil United Liberation Front",
+        "United National Party",
+        "United People's Freedom Alliance", 
+    ]
+    return [name.replace(' ', '_') for name in names]
+
+def get_wikipedia_summary_nocache(wiki_page_name):
+    log.debug(f'Fetching: "{wiki_page_name}"')
+    try:
+        wiki = wikipediaapi.Wikipedia("lk_elections", "en")
+        page = wiki.page(wiki_page_name)
+        summary = clean(page.summary)
+        log.debug('\t' + summary)
+        return summary
+    except Exception as e:
+        log.error(f'Error fetching {wiki_page_name}: {e}')  
+        return ""
+def get_wikipedia_summary(wiki_page_name):
+        data_path = os.path.join('py_src', 'wikipedia_cache', wiki_page_name + '.json')
+        data_file = JSONFile(data_path)
+        if data_file.exists:
+            data =  data_file.read()
+            return data['summary']
+        
+        summary = get_wikipedia_summary_nocache(wiki_page_name)
+        data_file.write(dict(summary=summary))
+        return summary
+
 def main():
     var_name = 'WIKIPEDIA_SUMMRY_IDX'
     time_str = TimeFormat.TIME.formatNow
@@ -76,22 +129,15 @@ def main():
     ]
 
 
-    wiki_page_name_list = get_election_wiki_page_name_list() + get_electoral_district_wiki_page_name_list() + get_misc_wiki_page_name_list()
+    wiki_page_name_list = get_election_wiki_page_name_list() + get_electoral_district_wiki_page_name_list() + get_misc_wiki_page_name_list() + get_party_wiki_page_name_list()
     for wiki_page_name in wiki_page_name_list:
-        log.debug(wiki_page_name)
-        try:
-            wiki = wikipediaapi.Wikipedia("lk_elections", "en")
-            page = wiki.page(wiki_page_name)
-            summary = clean(page.summary)
-            log.debug('\t' + summary)
-            lines.extend([
-                '',
-                '  // ' + wiki_page_name,
-                f'  "{wiki_page_name}": {json.dumps(summary)},',
-            ])
-        except Exception as e:
-            log.error(f'Error fetching {wiki_page_name}: {e}')
-
+        summary = get_wikipedia_summary(wiki_page_name)
+        lines.extend([
+            '',
+            '  // ' + wiki_page_name,
+            f'  "{wiki_page_name}": {json.dumps(summary)},',
+        ])
+    
 
     lines.extend([
         '',

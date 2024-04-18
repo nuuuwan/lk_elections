@@ -22,17 +22,36 @@ function getDataList(election, ents) {
     .filter((d) => d !== null);
 }
 
+function getFooterData(dataList) {
+  return dataList.reduce(
+    function(footerData, data) {
+      for (let [party, seats] of Object.entries(data)) {
+        if (party === "Region") {
+          continue;
+        }
+        if (!footerData[party]) {
+          footerData[party] = 0;
+        }
+        footerData[party] += seats;
+      }
+      return footerData;
+    },
+    {Region: 'Total'},
+  )
+}
+
 export default function ResultsSeatsTableView({ election, ents }) {
   const dataList = getDataList(election, ents);
   if (!dataList || dataList.length === 0) {
     return null;
   }
+  const footerData = getFooterData(dataList);
 
   return (
     <SectionBox>
       <Header level={4}>Seats</Header>
 
-      <DataTableView dataList={dataList} />
+      <DataTableView dataList={dataList} footerData={footerData} />
     </SectionBox>
   );
 }

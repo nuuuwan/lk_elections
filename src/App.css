@@ -11,7 +11,7 @@ table {
 }
 
 tr:nth-child(5n) {
-  background-color: #eee;
+  background-color: #f8f8f8;
 }
 
 th {
@@ -24,12 +24,20 @@ th {
 
 .th-footer {
   border-bottom: 1px double #222;
+  text-align: right;
 }
 
 td {
   padding-right: 12px;
   border: 1px solid #eee;
   text-align: right;
+}
+
+.td-row-num {
+  text-align: right;
+  color: #ccc;
+  border: none;
+  font-size: 0.75em;
 }
 
 .span-number {

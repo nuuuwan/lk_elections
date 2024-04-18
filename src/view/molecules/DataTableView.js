@@ -72,6 +72,7 @@ function getHeaderKeys(dataList) {
 function DataTableViewHeaderRow({ headerKeys }) {
   return (
     <tr>
+       <td className="td-row-num"></td>
       {headerKeys.map((headerKey, iCol) => (
         <th key={"header-" + iCol}>
           {formatCellValueWithStyle(headerKey, headerKey)}
@@ -85,9 +86,12 @@ function DataTableViewCell({ headerKey, value, isMaxValue }) {
   return <td>{formatCellValueWithStyle(headerKey, value, isMaxValue)}</td>;
 }
 
-function DataTableViewRow({ headerKeys, data, maxValue }) {
+function DataTableViewRow({ headerKeys, data, maxValue, iRow }) {
   return (
     <tr>
+      <td className="td-row-num">
+        {iRow  + 1}
+      </td>
       {headerKeys.map(function (headerKey, iCol) {
         const value = data[headerKey];
         const isMaxValue = value === maxValue;
@@ -108,6 +112,7 @@ function DataTableViewRow({ headerKeys, data, maxValue }) {
 function DataTableViewFooterRow({ headerKeys, footerData }) {
   return (
     <tr>
+       <td className="td-row-num"></td>
       {headerKeys.map((headerKey, iCol) => (
         <th key={"footer-" + iCol} className="th-footer">
           {formatCellValueWithStyle(headerKey, footerData[headerKey])}
@@ -137,6 +142,7 @@ export default function DataTableView({ dataList, footerData }) {
             return (
               <DataTableViewRow
                 key={"data-row-" + iRow}
+                iRow={iRow}
                 headerKeys={headerKeys}
                 data={data}
                 maxValue={maxValue}

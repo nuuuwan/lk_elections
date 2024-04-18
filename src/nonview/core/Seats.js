@@ -90,7 +90,7 @@ export default class Seats {
       return null;
     }
     const { results, totalSeats } = validatedOutput;
-   
+
     const { filteredPartyToPVotes, newTotalPVotes } = this.getEligiblePartyInfo(
       results,
       entID

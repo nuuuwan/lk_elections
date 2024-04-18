@@ -7,7 +7,7 @@ export default class Party {
   }
 
   get longName() {
-    return PARTY_TO_LONG_NAME[this.id];
+    return PARTY_TO_LONG_NAME[this.id] || this.id;
   }
 
   get wikiPageName() {

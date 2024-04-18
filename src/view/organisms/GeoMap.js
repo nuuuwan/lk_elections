@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Polygon } from "react-leaflet";
 import { LatLng, Geo } from "../../nonview/base";
 
 import "./GeoMap.css";
+import { CircularProgress } from "@mui/material";
 
 const URL_FORMAT = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 
@@ -21,7 +22,7 @@ export default class GeoMap extends Component {
   render() {
     const { geo } = this.state;
     if (!geo) {
-      return null;
+      return <CircularProgress />;
     }
 
     const pathOptions = { fillColor: "#888", color: "#000" };

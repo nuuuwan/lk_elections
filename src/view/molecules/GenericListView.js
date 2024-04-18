@@ -1,16 +1,22 @@
-import { Box } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
+import React, { Suspense } from "react";
 
-import { Header } from "../atoms";
+const GenericListViewLazy = React.lazy(() => import("./GenericListViewLazy"));
 
 export default function GenericListView({ title, items, renderItem }) {
   return (
-    <Box sx={{ marginTop: 2, marginBottom: 2 }}>
-      <Header level={2}>{title}</Header>
-      <Box>
-        {items.map(function (item, iItem) {
-          return <Box key={"item-" + iItem}>{renderItem(item)}</Box>;
-        })}
-      </Box>
-    </Box>
+    <Suspense
+      fallback={
+        <Box>
+          <CircularProgress />
+        </Box>
+      }
+    >
+      <GenericListViewLazy
+        title={title}
+        items={items}
+        renderItem={renderItem}
+      />
+    </Suspense>
   );
 }

@@ -25,10 +25,14 @@ export default class PartyGroup {
       // new PartyGroup("Old-Left", ["LSSP", "CP", "MEP", "SLMP"], "red"),
       new PartyGroup(
         "Tamil",
-        ["ITAK", "TNA", "EPDP", "ACTC", "AITC", "DPLF", "TMVP", "TULF"],
+        ["ITAK", "TNA", "EPDP", "ACTC", "AITC", "DPLF", "TMVP", "TULF", "AITM"],
         "orange"
       ),
-      new PartyGroup("Muslim", ["SLMC", "ACMC", "UNFFM", "MNA", "NUA"], "teal"),
+      new PartyGroup(
+        "Muslim",
+        ["SLMC", "ACMC", "MNA", "NUA", "ACMC", "NC"],
+        "teal"
+      ),
       new PartyGroup("Sinhala-Buddhist", ["JHU", "SU", "OPPP"], "#f80"),
     ];
     // let partyGroupIdx = Object.fromEntries(
@@ -97,13 +101,13 @@ export default class PartyGroup {
       .map((election) => this.getVoteInfo(election, ent))
       .filter((info) => !!info);
 
-    const windowYears = 18;
+    const windowYears = 10;
     let pVotesList = [];
     let pVotesListInWindow = [];
     const utNow = Time.now().ut;
     for (let info of infoList) {
       const { election, pVotes } = info;
-      if (pVotes < MathX.EPSILON) {
+      if (pVotes < 0.01) {
         continue;
       }
       pVotesList.push(pVotes);

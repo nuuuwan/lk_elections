@@ -26,6 +26,9 @@ const PARTY_TO_LONG_NAME = {
   JHU: "Jathika Hela Urumaya",
   SU: "Sihala Urumaya",
   OPPP: "Our People's Power Party",
+  ACMC: "All Ceylon Makkal Congress",
+  NC: "National Congress",
+  AITM: "Akhila Ilankai Tamil Mahasabha",
 };
 
 export default PARTY_TO_LONG_NAME;

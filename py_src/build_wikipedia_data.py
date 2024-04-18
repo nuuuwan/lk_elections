@@ -10,6 +10,7 @@ log = Log('build_wikipedia_data')
 SRI_LANKA_PAGE_PREFIX = '_(Sri_Lanka)'
 SRI_LANKA_PAGES = [
     "New_Democratic_Front",
+    "National_Congress",
 ]
 
 ELECTION_LIST = [
@@ -103,6 +104,8 @@ def get_party_wiki_page_name_list():
         "United People's Freedom Alliance", 
         "Sihala Urumaya",
         "Jathika Hela Urumaya",
+        "All Ceylon Makkal Congress",
+        "National Congress",
     ]
     return [name.replace(' ', '_') for name in names]
 

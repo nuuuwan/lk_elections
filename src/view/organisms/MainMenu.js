@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { CircularProgress } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import { Ent, EntType } from "../../nonview/base";
 import { Election, PartyGroup } from "../../nonview/core";
 import { LinkContext, SectionBox } from "../atoms";
@@ -35,13 +35,7 @@ export default class MainMenu extends Component {
       const { pageID, title } = item;
       return <LinkContext context={{ pageID }}>{title}</LinkContext>;
     };
-    return (
-      <GenericListView
-        title="Analysis"
-        items={[{ pageID: "AnalysisBellwether", title: "Bellwethers" }]}
-        renderItem={renderItem}
-      />
-    );
+    return <Box></Box>;
   }
 
   renderPartyGroupsMenu() {

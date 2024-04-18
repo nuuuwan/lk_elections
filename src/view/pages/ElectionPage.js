@@ -46,7 +46,7 @@ export default class ElectionPage extends AbstractCustomPage {
   get browserTitle() {
     const { election } = this.state;
     if (!election) {
-      return 'Election'
+      return "Election";
     }
     return election.titleShort;
   }

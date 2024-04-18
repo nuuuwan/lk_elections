@@ -50,8 +50,6 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     return <EntLink ent={edEnt} />;
   }
 
-
-  
   get browserTitle() {
     const { edEnt, edID } = this.state;
     if (!edEnt) {

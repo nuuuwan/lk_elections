@@ -40,8 +40,7 @@ export default class PartyPage extends AbstractCustomPage {
     return <PartyLink partyID={partyID} longName />;
   }
 
-
-    get browserTitle() {
+  get browserTitle() {
     return this.state.partyID;
   }
   renderPartyGroups() {

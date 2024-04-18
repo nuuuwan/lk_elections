@@ -17,7 +17,7 @@ export default class AbstractCustomPage extends Component {
   get browserTitle() {
     return this.title;
   }
-  
+
   renderBodyMiddle() {
     return null;
   }

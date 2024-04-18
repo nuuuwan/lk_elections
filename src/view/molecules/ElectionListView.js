@@ -10,6 +10,9 @@ export default function ElectionListView({ elections, ents }) {
       <Header level={2}>Electoral History</Header>
       {elections.map(function (election, iElection) {
         const key = "election-" + iElection;
+        if (election.isFuture) {
+          return null;
+        }
         return (
           <Box key={key} sx={{ p: 1 }}>
             <ResultsTableView election={election} ents={ents} />

@@ -9,6 +9,7 @@ import {
   CountryPage,
   AnalysisBellwetherPage,
   PartyPage,
+  PartyGroupPage,
 } from "../pages";
 
 export default class BasePage extends Component {
@@ -27,6 +28,7 @@ export default class BasePage extends Component {
       CountryPage,
       AnalysisBellwetherPage,
       PartyPage,
+      PartyGroupPage,
     ];
   }
   render() {

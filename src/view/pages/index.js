@@ -6,6 +6,7 @@ import CountryPage from "./CountryPage";
 import ElectionPage from "./ElectionPage";
 import ElectionResultPage from "./ElectionResultPage";
 import ElectoralDistrictPage from "./ElectoralDistrictPage";
+import PartyGroupPage from "./PartyGroupPage";
 import PartyPage from "./PartyPage";
 import PollingDivisionPage from "./PollingDivisionPage";
 
@@ -17,6 +18,7 @@ export {
   ElectionPage,
   ElectionResultPage,
   ElectoralDistrictPage,
+  PartyGroupPage,
   PartyPage,
   PollingDivisionPage,
 };

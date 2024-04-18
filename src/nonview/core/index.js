@@ -3,6 +3,7 @@ import AnalysisBellwether from "./AnalysisBellwether";
 import Election from "./Election";
 import Note from "./Note";
 import Party from "./Party";
+import PartyGroup from "./PartyGroup";
 import PartyToVotes from "./PartyToVotes";
 import Result from "./Result";
 import Seats from "./Seats";
@@ -13,6 +14,7 @@ export {
   Election,
   Note,
   Party,
+  PartyGroup,
   PartyToVotes,
   Result,
   Seats,

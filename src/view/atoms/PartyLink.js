@@ -42,9 +42,6 @@ export default function PartyLink({
         alignItems="center"
         sx={{
           color: foreColor,
-          borderRadius: 1,
-          padding: 0.3,
-          width: "auto",
         }}
       >
         {inner}

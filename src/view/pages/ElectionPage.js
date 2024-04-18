@@ -1,4 +1,4 @@
-import { Box, CircularProgress } from "@mui/material";
+import { Box, Stack, CircularProgress } from "@mui/material";
 import { URLContext, Ent, EntType } from "../../nonview/base";
 import { Election } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
@@ -26,10 +26,15 @@ export default class ElectionPage extends AbstractCustomPage {
     const election = Election.fromDate(date);
     await election.loadData();
 
+    const elections = Election.listAll();
+    for (let election of elections) {
+      await election.loadData();
+    }
+
     const edEnts = await Ent.listFromType(EntType.ED);
 
     const countryEnt = await Ent.fromID("LK");
-    this.setState({ election, countryEnt, edEnts });
+    this.setState({ election, countryEnt, edEnts, elections });
   }
   get supertitle() {
     return "Election";
@@ -49,6 +54,32 @@ export default class ElectionPage extends AbstractCustomPage {
       return "Election";
     }
     return election.titleShort;
+  }
+
+  get subtitle() {
+    const {election ,elections} = this.state;
+    if (!elections) {
+      return null;
+    }
+
+    const i = elections.map((e) => (e.date)).indexOf(election.date);
+    let closeElections = [];
+    if (i < elections.length - 1) {
+      closeElections.push(elections[i + 1]);
+    }
+    if (i > 0) {
+      closeElections.push(elections[i - 1]);
+    }
+
+
+    return (
+      <Stack direction="row" spacing={1}>
+        {closeElections.map((e) => (
+          <ElectionLink key={e.date} election={e} />
+        ))}
+      </Stack>
+    )
+
   }
 
   renderBodyMiddle() {

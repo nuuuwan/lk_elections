@@ -5,6 +5,13 @@ import re
 from utils import File, Log, TimeFormat, JSONFile
 from gig import Ent, EntType
 log = Log('build_wikipedia_data')
+
+
+SRI_LANKA_PAGE_PREFIX = '_(Sri_Lanka)'
+SRI_LANKA_PAGES = [
+    "New_Democratic_Front",
+]
+
 ELECTION_LIST = [
       ("Presidential", "2024-10-24"),
       ("Presidential", "2019-11-16"),
@@ -102,6 +109,8 @@ def get_wikipedia_summary_nocache(wiki_page_name):
     log.debug(f'Fetching: "{wiki_page_name}"')
     try:
         wiki = wikipediaapi.Wikipedia("lk_elections", "en")
+        if wiki_page_name in SRI_LANKA_PAGES:
+            wiki_page_name += SRI_LANKA_PAGE_PREFIX
         page = wiki.page(wiki_page_name)
         summary = page.summary
         log.debug('\t' + summary)

@@ -7,8 +7,8 @@ export default function FractionView({ fraction }) {
       <Typography variant="body1" sx={{ color: "inherit" }}>
         {Format.percentWithStyle(fraction.p)}
       </Typography>
-      <Typography variant="caption" sx={{ fontSize: "80%" }}>
-        {Format.intHumanize(fraction.n)}
+      <Typography variant="caption" sx={{ fontSize: "67%" }}>
+        {Format.intHumanizeWithStyle(fraction.n)}
       </Typography>
     </Box>
   );

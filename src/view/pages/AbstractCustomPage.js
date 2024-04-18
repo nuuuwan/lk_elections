@@ -56,6 +56,7 @@ export default class AbstractCustomPage extends Component {
       >
         <Header level={3}>{this.supertitle}</Header>
         <Header level={1}>{this.title}</Header>
+        {this.subtitle}
         <Box sx={{ paddingTop: 2 }}>{this.renderBodyMiddle()}</Box>
       </Box>
     );

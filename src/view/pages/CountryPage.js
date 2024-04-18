@@ -45,6 +45,11 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     }
     return <EntLink ent={countryEnt} />;
   }
+
+  get browserTitle() {
+    return "Sri Lanka";
+  }
+
   renderBodyMiddle() {
     const { countryEnt, elections, edEnts } = this.state;
     if (!countryEnt) {

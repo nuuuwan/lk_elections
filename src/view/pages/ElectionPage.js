@@ -43,6 +43,14 @@ export default class ElectionPage extends AbstractCustomPage {
     return <ElectionLink election={election} />;
   }
 
+  get browserTitle() {
+    const { election } = this.state;
+    if (!election) {
+      return 'Election'
+    }
+    return election.titleShort;
+  }
+
   renderBodyMiddle() {
     const { countryEnt, election } = this.state;
     if (!countryEnt) {

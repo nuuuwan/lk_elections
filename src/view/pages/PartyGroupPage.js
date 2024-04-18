@@ -48,6 +48,10 @@ export default class PartyGroupPage extends AbstractCustomPage {
     return <PartyGroupLink partyGroupID={partyGroupID} />;
   }
 
+  get browserTitle() {
+    return this.state.partyGroupID;
+  }
+
   renderPartyList() {
     const { partyList } = this.state;
     if (!partyList) {

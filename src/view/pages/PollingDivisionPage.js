@@ -51,7 +51,13 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     }
     return <EntLink ent={pdEnt} />;
   }
-
+  get browserTitle() {
+    const { pdEnt, pdID } = this.state;
+    if (!pdEnt) {
+      return pdID;
+    }
+    return pdEnt.name;
+  }
   renderBlurb() {
     const { pdEnt, pdID, edEnt } = this.state;
     if (!pdEnt) {

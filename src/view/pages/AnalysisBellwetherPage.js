@@ -37,6 +37,7 @@ export default class AnalysisBellwetherPage extends AbstractCustomPage {
   get title() {
     return "Bellwethers";
   }
+  
 
   renderBodyMiddle() {
     return <WikiSummaryView wikiPageName={"Bellwether"} />;

@@ -14,6 +14,10 @@ const commonStyles = {
 };
 
 export default class AbstractCustomPage extends Component {
+  get browserTitle() {
+    return this.title;
+  }
+  
   renderBodyMiddle() {
     return null;
   }
@@ -40,6 +44,7 @@ export default class AbstractCustomPage extends Component {
   }
 
   renderMiddle() {
+    window.document.title = this.browserTitle;
     return (
       <Box
         sx={Object.assign({}, commonStyles, {

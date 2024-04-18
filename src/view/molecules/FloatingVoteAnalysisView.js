@@ -23,6 +23,8 @@ function getDataList(partyGroups, elections, ents) {
     }
     d = Object.fromEntries(Object.entries(d).sort((a, b) => b[1].p - a[1].p));
 
+    d[Object.keys(d)[0]].isMax = true;
+
     const electors = Object.values(d)[0].d;
 
     d["Floating"] = new Fraction(

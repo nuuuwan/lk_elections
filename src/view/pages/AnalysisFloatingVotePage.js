@@ -1,9 +1,9 @@
 import { URLContext, Ent, EntType } from "../../nonview/base";
-import { AnalysisFloatingVote, Election } from "../../nonview/core";
+import { Election, PartyGroup } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
-import { SectionBox, WikiSummaryView, Header } from "../atoms";
+import { SectionBox, WikiSummaryView } from "../atoms";
 
-import { DataTableView } from "../molecules";
+import { FloatingVoteAnalysisView } from "../molecules";
 import { CircularProgress } from "@mui/material";
 
 export default class AnalysisFloatingVotePage extends AbstractCustomPage {
@@ -27,46 +27,35 @@ export default class AnalysisFloatingVotePage extends AbstractCustomPage {
     }
     const pdEnts = await Ent.listFromType(EntType.PD);
     const edEnts = await Ent.listFromType(EntType.ED);
+    const partyGroups = PartyGroup.listAll();
     const countryEnt = await Ent.fromID("LK");
-    this.setState({ elections, countryEnt, pdEnts, edEnts });
+    this.setState({ elections, countryEnt, pdEnts, edEnts, partyGroups });
   }
   get supertitle() {
     return "Analysis";
   }
 
   get title() {
-    return "Bellwethers";
+    return "Base/Floating Votes";
   }
 
   renderBodyMiddle() {
-    return <WikiSummaryView wikiPageName={"Bellwether"} />;
-  }
-
-  getDataList() {
-    const { pdEnts, edEnts, elections } = this.state;
-    const ents = [].concat(edEnts, pdEnts);
-
-    return ents
-      .map((ent) => {
-        const stats = AnalysisFloatingVote.statsForElections(elections, ent);
-        if (!stats) {
-          return null;
-        }
-        const { nMatch, meanError } = stats;
-        return { Region: ent, Matches: nMatch, Diff: meanError };
-      })
-      .sort((a, b) => a.Diff - b.Diff);
+    return <WikiSummaryView wikiPageName={"Swing_vote"} />;
   }
 
   renderBodyRight() {
-    const { elections } = this.state;
+    const { elections, edEnts, pdEnts, countryEnt, partyGroups } = this.state;
     if (!elections) {
       return <CircularProgress />;
     }
+    const ents = [].concat(countryEnt, edEnts, pdEnts);
     return (
       <SectionBox>
-        <Header level={2}>Best to Worst Bellwethers</Header>
-        <DataTableView dataList={this.getDataList()} />
+        <FloatingVoteAnalysisView
+          elections={elections}
+          ents={ents}
+          partyGroups={partyGroups}
+        />
       </SectionBox>
     );
   }

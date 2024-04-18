@@ -97,6 +97,18 @@ function formatCellValueWithStyle(key, value) {
       }
     }
   }
+
+  if (PartyGroup.isKnownPartyGroupID(key)) {
+    if (value instanceof Fraction) {
+      if (value.isMax) {
+        const partyGroup = PartyGroup.fromID(key);
+        color = partyGroup.color;
+      } else {
+        color = "#888";
+      }
+    }
+  }
+
   return <Box sx={{ color }}>{formatCellValue(key, value)}</Box>;
 }
 

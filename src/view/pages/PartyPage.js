@@ -38,7 +38,7 @@ export default class PartyPage extends AbstractCustomPage {
     if (!party) {
       return <CircularProgress />;
     }
-    return <WikiSummaryView wikiPageName={party.id} />;
+    return <WikiSummaryView wikiPageName={party.wikiPageName} />;
   }
 
   renderBodyRight() {

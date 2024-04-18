@@ -11,6 +11,10 @@ export default class Party {
     return PARTY_TO_LONG_NAME[this.id];
   }
 
+  get wikiPageName() {
+    return this.longName.replaceAll(" ", "_");
+  }
+
   get color() {
     return POLITICAL_PARTY_TO_COLOR[this.id];
   }

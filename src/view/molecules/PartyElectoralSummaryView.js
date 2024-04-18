@@ -1,4 +1,3 @@
-
 import { SectionBox, Header } from "../atoms";
 import { DataTableView } from ".";
 
@@ -15,8 +14,7 @@ function getDataList(party, elections) {
     }
     const pVotes = partyToVotes.partyToPVotes[party.id];
 
-    let position =
-      Object.keys(partyToVotes.partyToVotes).indexOf(party.id) + 1;
+    let position = Object.keys(partyToVotes.partyToVotes).indexOf(party.id) + 1;
     if (position === 1) {
       position = "✔️";
     }

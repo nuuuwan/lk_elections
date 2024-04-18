@@ -1,5 +1,5 @@
 import { URLContext } from "../../nonview/base";
-import { Party, Election} from "../../nonview/core";
+import { Party, Election } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
 import { WikiSummaryView, PartyLink } from "../atoms";
 import { Box, CircularProgress } from "@mui/material";
@@ -41,14 +41,16 @@ export default class PartyPage extends AbstractCustomPage {
   }
 
   renderBodyMiddle() {
-    const { party , elections} = this.state;
+    const { party, elections } = this.state;
     if (!party) {
       return <CircularProgress />;
     }
-    return (<Box>
-       <WikiSummaryView wikiPageName={party.wikiPageName} />
-      <PartyElectoralSummaryView party={party} elections={elections} />
-      </Box>);
+    return (
+      <Box>
+        <WikiSummaryView wikiPageName={party.wikiPageName} />
+        <PartyElectoralSummaryView party={party} elections={elections} />
+      </Box>
+    );
   }
 
   renderBodyRight() {

@@ -13,6 +13,16 @@ export default class EntType {
     }[this.name];
   }
 
+  get level() {
+    return {
+      country: 1,
+      province: 2,
+      ed: 3,
+      district: 4,     
+      pd: 5,
+    }[this.name];
+  }
+
   get longNamePlural() {
     return this.longName + "s";
   }

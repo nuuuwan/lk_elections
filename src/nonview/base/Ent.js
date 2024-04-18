@@ -13,6 +13,19 @@ export default class Ent {
     this.d = d;
   }
 
+  // compare 
+  localeCompare(other) {
+    const dLevel = this.entType.level - other.entType.level;
+    if (dLevel !== 0) {
+      return dLevel;
+    }
+    return this.id.localeCompare(other.id);
+  }
+
+  get entType() {
+    return EntType.fromID(this.id);
+  }
+
   get nameSnake() {
     return this.name.replaceAll(" ", "_");
   }

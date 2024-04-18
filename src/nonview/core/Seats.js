@@ -10,57 +10,57 @@ export default class Seats {
     const partyToPVotes = results.partyToVotes.partyToPVotes;
 
     const pVotesLimit = entID === "LK" ? 0 : 0.05;
-    const filteredPartyToPVotes = Object.fromEntries(
+    const eligPartyToVotes = Object.fromEntries(
       Object.entries(partyToPVotes).filter(
         ([party, pVotes]) => pVotes >= pVotesLimit
       )
     );
-    const newTotalPVotes = MathX.sum(Object.values(filteredPartyToPVotes));
-    return { filteredPartyToPVotes, newTotalPVotes };
+    const eligTotalPVotes = MathX.sum(Object.values(eligPartyToVotes));
+    return { eligPartyToVotes, eligTotalPVotes };
   }
 
   getBonusSeats(entID) {
     return entID === "LK" ? 0 : 1;
   }
 
-  assignSeatsInteger(entID, totalSeats, filteredPartyToPVotes, newTotalPVotes) {
-    let partyToSeatsInteger = {};
+  assignSeatsInt(entID, totalSeats, eligPartyToVotes, eligTotalPVotes) {
+    let partyToSeatsInt = {};
     let partyToRem = {};
     const bonusSeats = this.getBonusSeats(entID);
     const nonBonusSeats = totalSeats - bonusSeats;
-    for (let [party, pVotes] of Object.entries(filteredPartyToPVotes)) {
-      const seatsFloat = (pVotes * nonBonusSeats) / newTotalPVotes;
+    for (let [party, pVotes] of Object.entries(eligPartyToVotes)) {
+      const seatsFloat = (pVotes * nonBonusSeats) / eligTotalPVotes;
       const seatsInt = Math.floor(seatsFloat);
       const remSeats = seatsFloat - seatsInt;
       if (seatsInt > 0) {
-        partyToSeatsInteger[party] = seatsInt;
+        partyToSeatsInt[party] = seatsInt;
       }
       partyToRem[party] = remSeats;
     }
 
-    return { partyToSeatsInteger, partyToRem, nonBonusSeats, bonusSeats };
+    return { partyToSeatsInt, partyToRem, nonBonusSeats, bonusSeats };
   }
 
-  assignSeatsRemainder(partyToSeatsInteger, partyToRem, nonBonusSeats) {
-    let partyToSeatsRemainder = partyToSeatsInteger;
-    const totalSeatsInt = MathX.sum(Object.values(partyToSeatsRemainder));
+  assignSeatsRem(partyToSeatsInt, partyToRem, nonBonusSeats) {
+    let partyToSeatsRem = partyToSeatsInt;
+    const totalSeatsInt = MathX.sum(Object.values(partyToSeatsRem));
     const remSeats = nonBonusSeats - totalSeatsInt;
     const sortedPartyAndRem = Object.entries(partyToRem).sort(
       (a, b) => b[1] - a[1]
     );
     for (let i = 0; i < remSeats; i++) {
       const party = sortedPartyAndRem[i][0];
-      if (partyToSeatsRemainder[party] === undefined) {
-        partyToSeatsRemainder[party] = 0;
+      if (partyToSeatsRem[party] === undefined) {
+        partyToSeatsRem[party] = 0;
       }
-      partyToSeatsRemainder[party] += 1;
+      partyToSeatsRem[party] += 1;
     }
 
-    return { partyToSeatsRemainder };
+    return { partyToSeatsRem };
   }
 
-  assignSeatsBonus(results, partyToSeatsRemainder, bonusSeats) {
-    let partyToSeatsBonus = partyToSeatsRemainder;
+  assignSeatsBonus(results, partyToSeatsRem, bonusSeats) {
+    let partyToSeatsBonus = partyToSeatsRem;
     const winningParty = results.partyToVotes.winningParty;
     partyToSeatsBonus[winningParty] += bonusSeats;
 
@@ -91,25 +91,25 @@ export default class Seats {
     }
     const { results, totalSeats } = validatedOutput;
 
-    const { filteredPartyToPVotes, newTotalPVotes } = this.getEligiblePartyInfo(
+    const { eligPartyToVotes, eligTotalPVotes } = this.getEligiblePartyInfo(
       results,
       entID
     );
-    const { partyToSeatsInteger, partyToRem, nonBonusSeats, bonusSeats } =
-      this.assignSeatsInteger(
+    const { partyToSeatsInt, partyToRem, nonBonusSeats, bonusSeats } =
+      this.assignSeatsInt(
         entID,
         totalSeats,
-        filteredPartyToPVotes,
-        newTotalPVotes
+        eligPartyToVotes,
+        eligTotalPVotes
       );
-    const { partyToSeatsRemainder } = this.assignSeatsRemainder(
-      partyToSeatsInteger,
+    const { partyToSeatsRem } = this.assignSeatsRem(
+      partyToSeatsInt,
       partyToRem,
       nonBonusSeats
     );
     const { partyToSeatsBonus } = this.assignSeatsBonus(
       results,
-      partyToSeatsRemainder,
+      partyToSeatsRem,
       bonusSeats
     );
 

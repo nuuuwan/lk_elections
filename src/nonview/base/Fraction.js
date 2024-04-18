@@ -1,7 +1,8 @@
 export default class Fraction {
-  constructor(n, d) {
+  constructor(n, d, isMax = false) {
     this.n = n;
     this.d = d || 1;
+    this.isMax = isMax;
   }
 
   get p() {
@@ -11,5 +12,4 @@ export default class Fraction {
   localeCompare(other) {
     return this.p - other.p;
   }
-
 }

@@ -1,4 +1,4 @@
-import {Fraction} from "../../nonview/base";
+import { Fraction } from "../../nonview/base";
 import { DataTableView } from "../molecules";
 import { Header, SectionBox, ElectionLink } from "../atoms";
 
@@ -20,10 +20,12 @@ function getDataList(election, ents) {
       return null;
     }
     let d = { Region: ent };
+    const winningParty = result.partyToVotes.winningParty;
     for (let party of majorParties) {
       d[party] = new Fraction(
         result.partyToVotes.partyToVotes[party],
         result.partyToVotes.totalVotes,
+        party === winningParty
       );
     }
     return d;

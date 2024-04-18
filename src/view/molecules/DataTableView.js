@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Box } from "@mui/material";
-import { Ent, Format ,Fraction} from "../../nonview/base";
+import { Ent, Format, Fraction } from "../../nonview/base";
 import { Election, Party } from "../../nonview/core";
 import { ElectionLink, EntLink, FractionView, PartyLink } from "../atoms";
 
@@ -47,7 +47,7 @@ function formatCellValueObject(key, value) {
 function formatCellValueNumber(key, value) {
   if (typeof value === "number") {
     if (Number.isInteger(value)) {
-      return Format.int(value);
+      return Format.intHumanize(value);
     }
     if (value < 0.005) {
       return "-";
@@ -73,10 +73,14 @@ function formatCellValue(key, value) {
 function formatCellValueWithStyle(key, value) {
   let color = "black";
   if (Party.isKnownPartyID(key)) {
-
-      const party = new Party(key);
-      color = party.color;
-
+    if (value instanceof Fraction) {
+      if (value.isMax) {
+        const party = new Party(key);
+        color = party.color;
+      } else {
+        color = "#888";
+      }
+    }
   }
   return <Box sx={{ color }}>{formatCellValue(key, value)}</Box>;
 }
@@ -129,7 +133,6 @@ function DataTableViewRow({ headerKeys, data, iRow }) {
             key={"data-cell-" + iCol}
             headerKey={headerKey}
             value={value}
-
           />
         );
       })}
@@ -198,14 +201,12 @@ export default function DataTableView({ dataList, footerData, sortKey }) {
         </thead>
         <tbody>
           {sortedDataList.map(function (data, iRow) {
-
             return (
               <DataTableViewRow
                 key={"data-row-" + iRow}
                 iRow={iRow}
                 headerKeys={colFilteredHeaderKeys}
                 data={data}
-
               />
             );
           })}

@@ -1,3 +1,4 @@
+import { Fraction } from "../../nonview/base";
 import { Party } from "../../nonview/core";
 import { SectionBox, Header } from "../atoms";
 import { DataTableView } from "../molecules";
@@ -9,16 +10,19 @@ function getDataList(ent, elections) {
       return null;
     }
     const summary = resultsForEnt.summary;
-    const winningPartyEnt = resultsForEnt.partyToVotes.winningParty;
-    const pMajority = resultsForEnt.partyToVotes.pMajority;
+    const partyToVotes = resultsForEnt.partyToVotes;
+    const winningPartyID = partyToVotes.winningParty;
 
     return {
       Election: election,
-      Winner: new Party(winningPartyEnt),
-      Majority: pMajority,
+      Winner: new Party(winningPartyID),
+      Votes: new Fraction(
+        partyToVotes.partyToVotes[winningPartyID],
+        partyToVotes.totalVotes
+      ),
       Electors: summary.electors,
-      Turnout: summary.pTurnout,
-      Rejected: summary.pRejected,
+      Turnout: new Fraction(summary.polled, summary.electors),
+      Rejected: new Fraction(summary.rejected, summary.polled),
     };
   });
 }

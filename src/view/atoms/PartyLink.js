@@ -5,7 +5,6 @@ import { Party } from "../../nonview/core";
 function getStyle(partyID, invertColor, noColor) {
   const party = new Party(partyID);
 
-
   let backColor = party.inverseColor;
   let foreColor = party.color;
 
@@ -26,8 +25,7 @@ export default function PartyLink({ partyID, children, noColor, invertColor }) {
   if (children === " ") {
     return null;
   }
-  const {backColor, foreColor} = getStyle(partyID, invertColor, noColor);
-
+  const { backColor, foreColor } = getStyle(partyID, invertColor, noColor);
 
   const defaultInner = <Typography variant="inherit">{partyID}</Typography>;
   const inner = children || defaultInner;

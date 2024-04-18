@@ -21,8 +21,7 @@ const Style = {
     color: "#ccc",
     marginBottom: 0,
   },
-}
-
+};
 
 export default function Header({ level, children }) {
   const { variant, color, marginBottom } = Style[level];

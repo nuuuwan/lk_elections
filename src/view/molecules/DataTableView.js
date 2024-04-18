@@ -58,37 +58,39 @@ function getHeaderKeys(dataList) {
   }, []);
 }
 
-function DataTableViewHeaderRow({headerKeys}) {
+function DataTableViewHeaderRow({ headerKeys }) {
   return (
     <tr>
-            {headerKeys.map((headerKey, iCol) => (
-              <th key={"header-" + iCol}>{headerKey}</th>
-            ))}
-          </tr>
-  )
-}
-
-function DataTableViewCell({headerKey, value, isMaxValue}) {
-  return (
-    <td >
-    {formatCellValueWithStyle(headerKey, value, isMaxValue)}
-  </td>
-  )
-}
-
-function DataTableViewRow({headerKeys, data, maxValue}) {
-  return (
-    <tr >
-      {headerKeys.map(function (headerKey, iCol) {
-        const value = data[headerKey];
-        const isMaxValue = value === maxValue;
-
-        return <DataTableViewCell key={"data-cell-" + iCol} headerKey={headerKey} value={value} isMaxValue={isMaxValue} />;
-      })}
+      {headerKeys.map((headerKey, iCol) => (
+        <th key={"header-" + iCol}>{headerKey}</th>
+      ))}
     </tr>
   );
 }
 
+function DataTableViewCell({ headerKey, value, isMaxValue }) {
+  return <td>{formatCellValueWithStyle(headerKey, value, isMaxValue)}</td>;
+}
+
+function DataTableViewRow({ headerKeys, data, maxValue }) {
+  return (
+    <tr>
+      {headerKeys.map(function (headerKey, iCol) {
+        const value = data[headerKey];
+        const isMaxValue = value === maxValue;
+
+        return (
+          <DataTableViewCell
+            key={"data-cell-" + iCol}
+            headerKey={headerKey}
+            value={value}
+            isMaxValue={isMaxValue}
+          />
+        );
+      })}
+    </tr>
+  );
+}
 
 export default function DataTableView({ dataList }) {
   const filteredDataList = dataList.filter((data) => data !== null);
@@ -106,7 +108,14 @@ export default function DataTableView({ dataList }) {
         <tbody>
           {filteredDataList.map(function (data, iRow) {
             const maxValue = MathX.max(Object.values(data));
-            return <DataTableViewRow key={"data-row-" + iRow} headerKeys={headerKeys} data={data} maxValue={maxValue} />;
+            return (
+              <DataTableViewRow
+                key={"data-row-" + iRow}
+                headerKeys={headerKeys}
+                data={data}
+                maxValue={maxValue}
+              />
+            );
           })}
         </tbody>
       </table>

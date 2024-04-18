@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Box } from "@mui/material";
-import { Ent, Format, MathX } from "../../nonview/base";
+import { Ent, Format ,Fraction} from "../../nonview/base";
 import { Election, Party } from "../../nonview/core";
-import { ElectionLink, EntLink, PartyLink } from "../atoms";
+import { ElectionLink, EntLink, FractionView, PartyLink } from "../atoms";
 
 function compare(a, b) {
   if (!a && !b) {
@@ -36,6 +36,11 @@ function formatCellValueObject(key, value) {
   if (value instanceof Party) {
     return <PartyLink partyID={value.id} />;
   }
+
+  if (value instanceof Fraction) {
+    return <FractionView fraction={value} />;
+  }
+
   return null;
 }
 
@@ -65,17 +70,15 @@ function formatCellValue(key, value) {
   return formatCellValueObject(key, value) || formatCellValueNumber(key, value);
 }
 
-function formatCellValueWithStyle(key, value, isMaxValue) {
+function formatCellValueWithStyle(key, value) {
   let color = "black";
   if (Party.isKnownPartyID(key)) {
-    if (isMaxValue) {
+
       const party = new Party(key);
       color = party.color;
-    } else {
-      color = "#888";
-    }
+
   }
-  return <span style={{ color }}>{formatCellValue(key, value)}</span>;
+  return <Box sx={{ color }}>{formatCellValue(key, value)}</Box>;
 }
 
 function getHeaderKeys(dataList) {
@@ -110,24 +113,23 @@ function DataTableViewHeaderRow({ headerKeys, setSortKeyInner }) {
   );
 }
 
-function DataTableViewCell({ headerKey, value, isMaxValue }) {
-  return <td>{formatCellValueWithStyle(headerKey, value, isMaxValue)}</td>;
+function DataTableViewCell({ headerKey, value }) {
+  return <td>{formatCellValueWithStyle(headerKey, value)}</td>;
 }
 
-function DataTableViewRow({ headerKeys, data, maxValue, iRow }) {
+function DataTableViewRow({ headerKeys, data, iRow }) {
   return (
     <tr>
       <td className="td-row-num">{iRow + 1}</td>
       {headerKeys.map(function (headerKey, iCol) {
         const value = data[headerKey];
-        const isMaxValue = value === maxValue;
 
         return (
           <DataTableViewCell
             key={"data-cell-" + iCol}
             headerKey={headerKey}
             value={value}
-            isMaxValue={isMaxValue}
+
           />
         );
       })}
@@ -196,14 +198,14 @@ export default function DataTableView({ dataList, footerData, sortKey }) {
         </thead>
         <tbody>
           {sortedDataList.map(function (data, iRow) {
-            const maxValue = MathX.max(Object.values(data));
+
             return (
               <DataTableViewRow
                 key={"data-row-" + iRow}
                 iRow={iRow}
                 headerKeys={colFilteredHeaderKeys}
                 data={data}
-                maxValue={maxValue}
+
               />
             );
           })}

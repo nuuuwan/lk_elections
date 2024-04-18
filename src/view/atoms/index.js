@@ -2,6 +2,7 @@
 import ElectionLink from "./ElectionLink";
 import ElectionLinkShort from "./ElectionLinkShort";
 import EntLink from "./EntLink";
+import FractionView from "./FractionView";
 import Header from "./Header";
 import Link from "./Link";
 import LinkContext from "./LinkContext";
@@ -14,6 +15,7 @@ export {
   ElectionLink,
   ElectionLinkShort,
   EntLink,
+  FractionView,
   Header,
   Link,
   LinkContext,

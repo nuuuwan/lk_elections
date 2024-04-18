@@ -3,6 +3,7 @@ import Cache from "./Cache";
 import Ent from "./Ent";
 import EntType from "./EntType";
 import Format from "./Format";
+import Fraction from "./Fraction";
 import Geo from "./Geo";
 import LatLng from "./LatLng";
 import MathX from "./MathX";
@@ -17,6 +18,7 @@ export {
   Ent,
   EntType,
   Format,
+  Fraction,
   Geo,
   LatLng,
   MathX,

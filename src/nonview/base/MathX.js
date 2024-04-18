@@ -39,4 +39,8 @@ export default class MathX {
         return Math.min(_min, num);
       }, Infinity);
   }
+
+  static fitRange(value, min, max) {
+    return Math.max(min, Math.min(max, value));
+  }
 }

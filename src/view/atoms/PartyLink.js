@@ -30,8 +30,13 @@ export default function PartyLink({ partyID, children, noColor, invertColor }) {
   const defaultInner = <Typography variant="inherit">{partyID}</Typography>;
   const inner = children || defaultInner;
 
+  const context = {
+    pageID: "Party",
+    partyID,
+  }
+
   return (
-    <LinkContext context={{}}>
+    <LinkContext context={context}>
       <Box
         display="flex"
         alignItems="center"

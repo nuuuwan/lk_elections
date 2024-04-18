@@ -1,7 +1,7 @@
 import { URLContext } from "../../nonview/base";
 import { Party } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
-import { WikiSummaryView } from "../atoms";
+import { WikiSummaryView , PartyLink} from "../atoms";
 import { CircularProgress } from "@mui/material";
 
 export default class PartyPage extends AbstractCustomPage {
@@ -29,11 +29,7 @@ export default class PartyPage extends AbstractCustomPage {
   }
 
   get title() {
-    const { party, partyID } = this.state;
-    if (!party) {
-      return partyID;
-    }
-    return party.id;
+    return <PartyLink partyID={this.state.partyID} />;
   }
 
   renderBodyMiddle() {

@@ -4,7 +4,6 @@ import AnalysisBellwetherPage from "./AnalysisBellwetherPage";
 import BasePage from "./BasePage";
 import CountryPage from "./CountryPage";
 import ElectionPage from "./ElectionPage";
-import ElectionResultPage from "./ElectionResultPage";
 import ElectoralDistrictPage from "./ElectoralDistrictPage";
 import PartyGroupPage from "./PartyGroupPage";
 import PartyPage from "./PartyPage";
@@ -16,7 +15,6 @@ export {
   BasePage,
   CountryPage,
   ElectionPage,
-  ElectionResultPage,
   ElectoralDistrictPage,
   PartyGroupPage,
   PartyPage,

@@ -5,6 +5,11 @@ export default class MathX {
     }, 0);
   }
 
+
+  static mean(numList) {
+    return MathX.sum(numList) / numList.length;
+  }
+
   static forceRange(min, max, value) {
     return Math.max(min, Math.min(max, value));
   }

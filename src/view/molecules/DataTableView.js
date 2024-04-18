@@ -105,7 +105,20 @@ function DataTableViewRow({ headerKeys, data, maxValue }) {
   );
 }
 
-export default function DataTableView({ dataList }) {
+function DataTableViewFooterRow({ headerKeys, footerData }) {
+  return (
+    <tr>
+      {headerKeys.map((headerKey, iCol) => (
+        <th key={"footer-" + iCol} className="th-footer">
+          {formatCellValueWithStyle(headerKey, footerData[headerKey])}
+        </th>
+      ))}
+    </tr>
+  );
+}
+
+
+export default function DataTableView({ dataList, footerData }) {
   const filteredDataList = dataList.filter((data) => data !== null);
   if (filteredDataList.length === 0) {
     return null;
@@ -131,6 +144,15 @@ export default function DataTableView({ dataList }) {
             );
           })}
         </tbody>
+        {footerData ? (
+          <tfoot>
+            <DataTableViewFooterRow
+              headerKeys={headerKeys}
+              footerData={footerData}
+
+            />
+          </tfoot>
+        ): null}
       </table>
     </Box>
   );

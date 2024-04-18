@@ -10,18 +10,25 @@ table {
   border-collapse: collapse;
 }
 
-th {
+tr:nth-child(5n) {
   background-color: #eee;
-  text-align: center;
+}
+
+th {
+  background-color: #ccc;
+  word-wrap: break-word;
   padding-right: 12px;
-  font-size: 0.7em;
   font-weight: normal;
-  color: "#ccc";
+
+}
+
+.th-footer {
+  border-bottom: 1px double #222;
 }
 
 td {
   padding-right: 12px;
-  border-bottom: 1px solid #f2f2f2;
+  border: 1px solid #eee;
   text-align: right;
 }
 

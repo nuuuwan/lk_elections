@@ -14,4 +14,12 @@ export default class PartyGroup {
       new PartyGroup("Muslim", ["SLMC", "ACMC", "UNFFM"], "teal"),
     ];
   }
+
+  static fromID(id) {
+    return this.listAll().find((pg) => pg.id === id);
+  }
+
+  static listFromPartyID(partyID) {
+    return this.listAll().filter((pg) => pg.partyIDList.includes(partyID));
+    }
 }

@@ -3,13 +3,14 @@ import { PartyGroup } from "../../nonview/core";
 import { LinkContext } from "../atoms";
 
 export default function PartyGroupLink({ partyGroupID }) {
-  const partyGroup = new PartyGroup(partyGroupID);
+  const partyGroup = PartyGroup.fromID(partyGroupID);
   const context = {
     pageID: "PartyGroup",
     partyGroupID,
   };
 
-  const foreColor = partyGroup.color;
+  const color = partyGroup.color;
+  console.debug(color);
 
   return (
     <LinkContext context={context}>
@@ -17,7 +18,7 @@ export default function PartyGroupLink({ partyGroupID }) {
         display="flex"
         alignItems="center"
         sx={{
-          color: foreColor,
+          color,
         }}
       >
         {partyGroupID}

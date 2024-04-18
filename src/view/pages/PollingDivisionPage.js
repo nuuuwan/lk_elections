@@ -1,5 +1,5 @@
 import { Box, CircularProgress, Typography } from "@mui/material";
-import { Ent, URLContext, EntType, Geo } from "../../nonview/base";
+import { Ent, URLContext, EntType } from "../../nonview/base";
 import { Election, PartyGroup } from "../../nonview/core";
 
 import { EntLink } from "../atoms";
@@ -30,7 +30,7 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     const edID = pdID.substring(0, 5);
     const edEnt = await Ent.fromID(edID);
     const countryEnt = await Ent.fromID("LK");
-    const pdGeo = await new Geo(pdID).load();
+
     const pdEnts = await Ent.listFromType(EntType.PD);
 
     const elections = Election.listAll();
@@ -45,7 +45,7 @@ export default class PollingDivisionPage extends AbstractCustomPage {
       edEnt,
       countryEnt,
       elections,
-      pdGeo,
+
       pdEnts,
       partyGroups,
     });
@@ -83,14 +83,14 @@ export default class PollingDivisionPage extends AbstractCustomPage {
   }
 
   renderBodyMiddle() {
-    const { pdEnt, pdGeo, elections } = this.state;
+    const { pdEnt, elections } = this.state;
     if (!pdEnt) {
       return <CircularProgress />;
     }
 
     return (
       <Box>
-        <GeoMap geo={pdGeo} />
+        <GeoMap geoID={pdEnt.id} />
 
         {this.renderBlurb()}
         <ElectoralSummaryView ent={pdEnt} elections={elections} />

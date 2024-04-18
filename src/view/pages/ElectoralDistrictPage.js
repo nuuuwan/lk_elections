@@ -1,5 +1,5 @@
 import { Box, CircularProgress } from "@mui/material";
-import { Ent, EntType, URLContext, Geo } from "../../nonview/base";
+import { Ent, EntType, URLContext } from "../../nonview/base";
 import { Election, PartyGroup } from "../../nonview/core";
 import { WikiSummaryView, EntLink } from "../atoms";
 import {
@@ -27,7 +27,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
   async componentDidMount() {
     const { edID } = this.state;
     const edEnt = await Ent.fromID(edID);
-    const edGeo = await new Geo(edID).load();
+
     const pdEntsAll = await Ent.listFromType(EntType.PD);
     const pdEnts = pdEntsAll.filter((pdEnt) => pdEnt.id.startsWith(edID));
     const edEnts = await Ent.listFromType(EntType.ED);
@@ -42,7 +42,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
       pdEnts,
       countryEnt,
       elections,
-      edGeo,
+
       edEnts,
       partyGroups,
     });
@@ -69,14 +69,14 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
   }
 
   renderBodyMiddle() {
-    const { edEnt, edGeo, pdEnts, elections } = this.state;
+    const { edEnt, pdEnts, elections } = this.state;
     if (!edEnt) {
       return <CircularProgress />;
     }
 
     return (
       <Box>
-        <GeoMap geo={edGeo} />
+        <GeoMap geoID={edEnt.id} />
         <WikiSummaryView wikiPageName={edEnt.wikiPageName} />
         <ElectoralSummaryView ent={edEnt} elections={elections} />
         <EntListView ents={pdEnts} />

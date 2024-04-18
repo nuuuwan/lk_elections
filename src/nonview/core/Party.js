@@ -25,4 +25,8 @@ export default class Party {
   static isKnownPartyID(partyID) {
     return POLITICAL_PARTY_TO_COLOR[partyID] !== undefined;
   }
+
+  localeCompare(other) {
+    return this.id.localeCompare(other.id);
+  }
 }

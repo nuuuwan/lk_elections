@@ -1,7 +1,27 @@
+import React, { useState } from "react";
 import { Box } from "@mui/material";
 import { Ent, Format, MathX } from "../../nonview/base";
 import { Election, Party } from "../../nonview/core";
 import { ElectionLink, EntLink, PartyLink } from "../atoms";
+
+function compare(a, b) {
+  if (!a && !b ) {
+    return 0;
+  }
+  if (!a) {
+    return -1;
+  }
+  if (!b) {
+    return 1;
+  }
+   if (typeof a === "number") {
+    return a - b;
+  }
+  if (typeof a === "boolean") {
+    return (a ? 1 : 0) - (b ? 1 : 0);
+  }
+  return a.localeCompare(b);
+}
 
 function formatCellValueObject(key, value) {
   if (Party.isKnownPartyID(value)) {
@@ -69,15 +89,26 @@ function getHeaderKeys(dataList) {
   }, []);
 }
 
-function DataTableViewHeaderRow({ headerKeys }) {
+function DataTableViewHeaderRow({ headerKeys, setSortKeyInner }) {
   return (
     <tr>
       <td className="td-row-num"></td>
-      {headerKeys.map((headerKey, iCol) => (
-        <th key={"header-" + iCol}>
-          {formatCellValueWithStyle(headerKey, headerKey)}
-        </th>
-      ))}
+      {headerKeys.map(
+        function(headerKey, iCol) {
+          const onClickSort = function() {
+            setSortKeyInner(headerKey);
+          }
+          return (
+            <th key={"header-" + iCol}>
+               
+                {formatCellValueWithStyle(headerKey, headerKey)}
+                <div onClick={onClickSort} className="sorter">
+                  ▴
+                </div>
+                </th>
+          )
+        }
+      )}
     </tr>
   );
 }
@@ -120,21 +151,34 @@ function DataTableViewFooterRow({ headerKeys, footerData }) {
   );
 }
 
-export default function DataTableView({ dataList, footerData }) {
+export default function DataTableView({ dataList, footerData, sortKey }) {
+  const [sortKeyInner, setSortKeyInner] = useState(sortKey);
+
   const filteredDataList = dataList.filter((data) => data !== null);
   if (filteredDataList.length === 0) {
     return null;
   }
   const headerKeys = getHeaderKeys(filteredDataList);
 
+let sortedFilteredDataList;
+if (sortKeyInner) {
+    sortedFilteredDataList = filteredDataList.sort(function (a, b) {
+      
+      return compare(b[sortKeyInner], a[sortKeyInner]);
+    });
+} else {
+    sortedFilteredDataList = filteredDataList;
+}
+
+
   return (
     <Box>
       <table>
         <thead>
-          <DataTableViewHeaderRow headerKeys={headerKeys} />
+          <DataTableViewHeaderRow headerKeys={headerKeys} setSortKeyInner={setSortKeyInner} />
         </thead>
         <tbody>
-          {filteredDataList.map(function (data, iRow) {
+          {sortedFilteredDataList.map(function (data, iRow) {
             const maxValue = MathX.max(Object.values(data));
             return (
               <DataTableViewRow

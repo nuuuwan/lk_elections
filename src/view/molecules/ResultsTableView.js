@@ -27,12 +27,14 @@ function getDataList(election, ents) {
 }
 
 export default function ResultsTableView({ election, ents }) {
+  const dataList = getDataList(election, ents);
+  
   return (
     <SectionBox>
       <Header level={3}>
         <ElectionLink election={election} />
       </Header>
-      <DataTableView dataList={getDataList(election, ents)} />
+      <DataTableView dataList={dataList} />
     </SectionBox>
   );
 }

@@ -98,7 +98,7 @@ export default class Seats {
       partyToRem,
       nonBonusSeats
     );
-    const partyToSeatsBonus = this.assignSeatsBonus(
+    const {partyToSeatsBonus} = this.assignSeatsBonus(
       results,
       partyToSeatsRemainder,
       bonusSeats

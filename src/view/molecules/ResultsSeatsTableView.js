@@ -22,11 +22,12 @@ function getDataList(election, ents) {
     .filter((d) => d !== null);
 }
 
-export default function ResultsSeatsTableVIew({ election, ents }) {
+export default function ResultsSeatsTableView({ election, ents }) {
   const dataList = getDataList(election, ents);
   if (!dataList || dataList.length === 0) {
     return null;
   }
+  console.debug('ResultsSeatsTableView', dataList);
 
   return (
     <SectionBox>

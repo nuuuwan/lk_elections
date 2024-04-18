@@ -70,15 +70,22 @@ export default function DataTableView({ dataList }) {
     return values.length > 0;
   });
 
-  const firstDataKey = Object.entries(filteredDataList[0]).filter(function (
+  const firstDataKeys = Object.entries(filteredDataList[0]).filter(function (
     entry
   ) {
     return typeof entry[1] === "number";
-  })[0][0];
+  })[0];
 
-  const sortedDataList = filteredDataList.sort(function (a, b) {
-    return (a[firstDataKey] || 0) - (b[firstDataKey] || 0);
-  });
+  let sortedDataList;
+  if (firstDataKeys && firstDataKeys.length > 0) {
+    const firstDataKey = firstDataKeys[0];
+    sortedDataList = filteredDataList.sort(function (a, b) {
+      return (a[firstDataKey] || 0) - (b[firstDataKey] || 0);
+    });
+  } else {
+    sortedDataList = filteredDataList;
+  }
+  
 
   return (
     <Box>

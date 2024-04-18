@@ -4,6 +4,9 @@ import { Election, Party } from "../../nonview/core";
 import { ElectionLink, EntLink, PartyLink } from "../atoms";
 
 function formatCellValueObject(key, value) {
+  if(Party.isKnownPartyID(value)) {
+    value = new Party(value);
+  }
   if (value instanceof Election) {
     return <ElectionLink election={value} />;
   }
@@ -70,7 +73,9 @@ function DataTableViewHeaderRow({ headerKeys }) {
   return (
     <tr>
       {headerKeys.map((headerKey, iCol) => (
-        <th key={"header-" + iCol}>{headerKey}</th>
+        <th key={"header-" + iCol}>
+          {formatCellValueWithStyle(headerKey, headerKey)}
+        </th>
       ))}
     </tr>
   );

@@ -2,28 +2,23 @@ import { Box, Typography } from "@mui/material";
 import { LinkContext } from "../atoms";
 import { Party } from "../../nonview/core";
 
-function getStyle(party, invertColor, noColor) {
-  let backColor = party.inverseColor;
-  let foreColor = party.color;
+function getStyle(party, noColor) {
 
-  if (invertColor) {
-    backColor = party.inverseColor;
-    foreColor = party.color;
-  }
+  let foreColor = party.color;
 
   if (noColor) {
     foreColor = "#888";
-    backColor = "#fff0";
+
   }
 
-  return { backColor, foreColor };
+  return {  foreColor };
 }
 
 export default function PartyLink({
   partyID,
   children,
   noColor,
-  invertColor,
+
   longName,
 }) {
   if (children === " ") {
@@ -31,7 +26,7 @@ export default function PartyLink({
   }
   const party = new Party(partyID);
 
-  const { backColor, foreColor } = getStyle(party, invertColor, noColor);
+  const {  foreColor } = getStyle(party, noColor);
 
   const partyLabel = longName ? party.longName : partyID;
   const defaultInner = <Typography variant="inherit">{partyLabel}</Typography>;
@@ -48,7 +43,7 @@ export default function PartyLink({
         display="flex"
         alignItems="center"
         sx={{
-          background: backColor,
+
           color: foreColor,
           borderRadius: 1,
           padding: 0.3,

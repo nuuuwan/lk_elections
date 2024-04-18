@@ -3,10 +3,8 @@ import { Ent, Format, MathX } from "../../nonview/base";
 import { Election, Party } from "../../nonview/core";
 import { ElectionLink, EntLink, PartyLink } from "../atoms";
 
-function formatCellValue(key, value) {
-  if (value === 0) {
-    return "-";
-  }
+
+function formatCellValueObject(key, value) {
   if (value instanceof Election) {
     return <ElectionLink election={value} />;
   }
@@ -16,7 +14,10 @@ function formatCellValue(key, value) {
   if (value instanceof Party) {
     return <PartyLink partyID={value.id} />;
   }
+  return null;
+}
 
+function formatCellValueNumber(key, value) {
   if (typeof value === "number") {
     if (Number.isInteger(value)) {
       return Format.int(value);
@@ -32,6 +33,15 @@ function formatCellValue(key, value) {
   }
 
   return value;
+}
+
+function formatCellValue(key, value) { 
+  if (!value) {
+    return "";
+  }
+
+  return formatCellValueObject(key, value) || formatCellValueNumber(key, value);
+
 }
 
 function formatCellValueWithStyle(key, value, isMaxValue) {

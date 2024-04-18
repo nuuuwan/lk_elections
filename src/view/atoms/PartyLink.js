@@ -3,15 +3,13 @@ import { LinkContext } from "../atoms";
 import { Party } from "../../nonview/core";
 
 function getStyle(party, noColor) {
-
   let foreColor = party.color;
 
   if (noColor) {
     foreColor = "#888";
-
   }
 
-  return {  foreColor };
+  return { foreColor };
 }
 
 export default function PartyLink({
@@ -26,7 +24,7 @@ export default function PartyLink({
   }
   const party = new Party(partyID);
 
-  const {  foreColor } = getStyle(party, noColor);
+  const { foreColor } = getStyle(party, noColor);
 
   const partyLabel = longName ? party.longName : partyID;
   const defaultInner = <Typography variant="inherit">{partyLabel}</Typography>;
@@ -43,7 +41,6 @@ export default function PartyLink({
         display="flex"
         alignItems="center"
         sx={{
-
           color: foreColor,
           borderRadius: 1,
           padding: 0.3,

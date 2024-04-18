@@ -5,7 +5,6 @@ export default class MathX {
     }, 0);
   }
 
-
   static mean(numList) {
     return MathX.sum(numList) / numList.length;
   }

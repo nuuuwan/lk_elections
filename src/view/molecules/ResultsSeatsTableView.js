@@ -24,7 +24,7 @@ function getDataList(election, ents) {
 
 function getFooterData(dataList) {
   return dataList.reduce(
-    function(footerData, data) {
+    function (footerData, data) {
       for (let [party, seats] of Object.entries(data)) {
         if (party === "Region") {
           continue;
@@ -36,8 +36,8 @@ function getFooterData(dataList) {
       }
       return footerData;
     },
-    {Region: 'Total'},
-  )
+    { Region: "Total" }
+  );
 }
 
 export default function ResultsSeatsTableView({ election, ents }) {

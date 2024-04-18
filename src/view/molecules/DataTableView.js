@@ -4,7 +4,7 @@ import { Election, Party } from "../../nonview/core";
 import { ElectionLink, EntLink, PartyLink } from "../atoms";
 
 function formatCellValueObject(key, value) {
-  if(Party.isKnownPartyID(value)) {
+  if (Party.isKnownPartyID(value)) {
     value = new Party(value);
   }
   if (value instanceof Election) {
@@ -72,7 +72,7 @@ function getHeaderKeys(dataList) {
 function DataTableViewHeaderRow({ headerKeys }) {
   return (
     <tr>
-       <td className="td-row-num"></td>
+      <td className="td-row-num"></td>
       {headerKeys.map((headerKey, iCol) => (
         <th key={"header-" + iCol}>
           {formatCellValueWithStyle(headerKey, headerKey)}
@@ -89,9 +89,7 @@ function DataTableViewCell({ headerKey, value, isMaxValue }) {
 function DataTableViewRow({ headerKeys, data, maxValue, iRow }) {
   return (
     <tr>
-      <td className="td-row-num">
-        {iRow  + 1}
-      </td>
+      <td className="td-row-num">{iRow + 1}</td>
       {headerKeys.map(function (headerKey, iCol) {
         const value = data[headerKey];
         const isMaxValue = value === maxValue;
@@ -112,7 +110,7 @@ function DataTableViewRow({ headerKeys, data, maxValue, iRow }) {
 function DataTableViewFooterRow({ headerKeys, footerData }) {
   return (
     <tr>
-       <td className="td-row-num"></td>
+      <td className="td-row-num"></td>
       {headerKeys.map((headerKey, iCol) => (
         <th key={"footer-" + iCol} className="th-footer">
           {formatCellValueWithStyle(headerKey, footerData[headerKey])}
@@ -121,7 +119,6 @@ function DataTableViewFooterRow({ headerKeys, footerData }) {
     </tr>
   );
 }
-
 
 export default function DataTableView({ dataList, footerData }) {
   const filteredDataList = dataList.filter((data) => data !== null);
@@ -155,10 +152,9 @@ export default function DataTableView({ dataList, footerData }) {
             <DataTableViewFooterRow
               headerKeys={headerKeys}
               footerData={footerData}
-
             />
           </tfoot>
-        ): null}
+        ) : null}
       </table>
     </Box>
   );

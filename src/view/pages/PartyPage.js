@@ -1,8 +1,9 @@
 import { URLContext } from "../../nonview/base";
-import { Party } from "../../nonview/core";
+import { Party, Election} from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
 import { WikiSummaryView, PartyLink } from "../atoms";
-import { CircularProgress } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
+import { PartyElectoralSummaryView } from "../molecules";
 
 export default class PartyPage extends AbstractCustomPage {
   static getPageID() {
@@ -22,7 +23,13 @@ export default class PartyPage extends AbstractCustomPage {
   async componentDidMount() {
     const { partyID } = this.state;
     const party = new Party(partyID);
-    this.setState({ party });
+
+    const elections = Election.listAll();
+    for (const election of elections) {
+      await election.loadData();
+    }
+
+    this.setState({ party, elections });
   }
   get supertitle() {
     return "Party";
@@ -34,11 +41,14 @@ export default class PartyPage extends AbstractCustomPage {
   }
 
   renderBodyMiddle() {
-    const { party } = this.state;
+    const { party , elections} = this.state;
     if (!party) {
       return <CircularProgress />;
     }
-    return <WikiSummaryView wikiPageName={party.wikiPageName} />;
+    return (<Box>
+       <WikiSummaryView wikiPageName={party.wikiPageName} />
+      <PartyElectoralSummaryView party={party} elections={elections} />
+      </Box>);
   }
 
   renderBodyRight() {

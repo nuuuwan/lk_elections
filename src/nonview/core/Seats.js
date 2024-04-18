@@ -5,6 +5,68 @@ export default class Seats {
   constructor(election) {
     this.election = election;
   }
+
+  getEligiblePartyInfo(results, entID) {
+    const partyToPVotes = results.partyToVotes.partyToPVotes;
+
+    const pVotesLimit = entID === "LK" ? 0 : 0.05;
+    const filteredPartyToPVotes = Object.fromEntries(
+      Object.entries(partyToPVotes).filter(
+        ([party, pVotes]) => pVotes >= pVotesLimit
+      )
+    );
+    const newTotalPVotes = MathX.sum(Object.values(filteredPartyToPVotes));
+    return { filteredPartyToPVotes, newTotalPVotes };
+  }
+
+  getBonusSeats(entID) {
+    return entID === "LK" ? 0 : 1;
+  }
+
+  assignSeatsInteger(entID, totalSeats, filteredPartyToPVotes, newTotalPVotes) {
+    let partyToSeatsInteger = {};
+    let partyToRem = {};
+    const bonusSeats = this.getBonusSeats(entID);
+    const nonBonusSeats = totalSeats - bonusSeats;
+    for (let [party, pVotes] of Object.entries(filteredPartyToPVotes)) {
+      const seatsFloat = (pVotes * nonBonusSeats) / newTotalPVotes;
+      const seatsInt = Math.floor(seatsFloat);
+      const remSeats = seatsFloat - seatsInt;
+      if (seatsInt > 0) {
+        partyToSeatsInteger[party] = seatsInt;
+      }
+      partyToRem[party] = remSeats;
+    }
+
+    return { partyToSeatsInteger, partyToRem, nonBonusSeats, bonusSeats };
+  }
+
+  assignSeatsRemainder(partyToSeatsInteger, partyToRem, nonBonusSeats) {
+    let partyToSeatsRemainder = partyToSeatsInteger;
+    const totalSeatsInt = MathX.sum(Object.values(partyToSeatsRemainder));
+    const remSeats = nonBonusSeats - totalSeatsInt;
+    const sortedPartyAndRem = Object.entries(partyToRem).sort(
+      (a, b) => b[1] - a[1]
+    );
+    for (let i = 0; i < remSeats; i++) {
+      const party = sortedPartyAndRem[i][0];
+      if (partyToSeatsRemainder[party] === undefined) {
+        partyToSeatsRemainder[party] = 0;
+      }
+      partyToSeatsRemainder[party] += 1;
+    }
+
+    return { partyToSeatsRemainder };
+  }
+
+  assignSeatsBonus(results, partyToSeatsRemainder, bonusSeats) {
+    let partyToSeatsBonus = partyToSeatsRemainder;
+    const winningParty = results.partyToVotes.winningParty;
+    partyToSeatsBonus[winningParty] += bonusSeats;
+
+    return { partyToSeatsBonus };
+  }
+
   getPartyToSeats(entID) {
     const forYear = YEAR_TO_REGION_TO_SEATS[this.election.year];
     if (!forYear) {
@@ -20,47 +82,29 @@ export default class Seats {
       return null;
     }
 
-    const partyToPVotes = results.partyToVotes.partyToPVotes;
-
-    const pVotesLimit = entID === "LK" ? 0 : 0.05;
-    const filteredPartyToPVotes = Object.fromEntries(
-      Object.entries(partyToPVotes).filter(
-        ([party, pVotes]) => pVotes >= pVotesLimit
-      )
+    const { filteredPartyToPVotes, newTotalPVotes } = this.getEligiblePartyInfo(
+      results,
+      entID
     );
-    const newTotalPVotes = MathX.sum(Object.values(filteredPartyToPVotes));
-
-    let partyToSeats = {};
-    let partyToRem = {};
-    const bonusSeats = entID === "LK" ? 0 : 1;
-    const nonBonusSeats = totalSeats - bonusSeats;
-    for (let [party, pVotes] of Object.entries(filteredPartyToPVotes)) {
-      const seatsFloat = (pVotes * nonBonusSeats) / newTotalPVotes;
-      const seatsInt = Math.floor(seatsFloat);
-      const remSeats = seatsFloat - seatsInt;
-      if (seatsInt > 0) {
-        partyToSeats[party] = seatsInt;
-      }
-      partyToRem[party] = remSeats;
-    }
-
-    const totalSeatsInt = MathX.sum(Object.values(partyToSeats));
-    const remSeats = nonBonusSeats - totalSeatsInt;
-    const sortedPartyAndRem = Object.entries(partyToRem).sort(
-      (a, b) => b[1] - a[1]
+    const { partyToSeatsInteger, partyToRem, nonBonusSeats, bonusSeats } =
+      this.assignSeatsInteger(
+        entID,
+        totalSeats,
+        filteredPartyToPVotes,
+        newTotalPVotes
+      );
+    const { partyToSeatsRemainder } = this.assignSeatsRemainder(
+      partyToSeatsInteger,
+      partyToRem,
+      nonBonusSeats
     );
-    for (let i = 0; i < remSeats; i++) {
-      const party = sortedPartyAndRem[i][0];
-      if (partyToSeats[party] === undefined) {
-        partyToSeats[party] = 0;
-      }
-      partyToSeats[party] += 1;
-    }
+    const partyToSeatsBonus = this.assignSeatsBonus(
+      results,
+      partyToSeatsRemainder,
+      bonusSeats
+    );
 
-    const winningParty = results.partyToVotes.winningParty;
-    partyToSeats[winningParty] += bonusSeats;
-
-    return partyToSeats;
+    return partyToSeatsBonus;
   }
 
   getEntToPartyToSeats(ents) {

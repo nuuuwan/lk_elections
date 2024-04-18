@@ -29,7 +29,8 @@ export default class PartyPage extends AbstractCustomPage {
   }
 
   get title() {
-    return <PartyLink partyID={this.state.partyID} />;
+    const { partyID } = this.state;
+    return <PartyLink partyID={partyID} longName/>;
   }
 
   renderBodyMiddle() {

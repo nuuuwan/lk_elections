@@ -10,7 +10,6 @@ export default function PartyGroupLink({ partyGroupID }) {
   };
 
   const color = partyGroup.color;
-  console.debug(color);
 
   return (
     <LinkContext context={context}>

@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { CircularProgress } from "@mui/material";
 import { Ent, EntType } from "../../nonview/base";
-import { Election } from "../../nonview/core";
+import { Election, PartyGroup } from "../../nonview/core";
 import { LinkContext, SectionBox } from "../atoms";
 
 import {
@@ -44,6 +44,27 @@ export default class MainMenu extends Component {
     );
   }
 
+  renderPartyGroupsMenu() {
+    const partyGroups = PartyGroup.listAll();
+
+    const renderItem = function (partyGroup) {
+      return (
+        <LinkContext
+          context={{ pageID: "PartyGroup", partyGroupID: partyGroup.id }}
+        >
+          {partyGroup.id}
+        </LinkContext>
+      );
+    };
+    return (
+      <GenericListView
+        title="Party Groups"
+        items={partyGroups}
+        renderItem={renderItem}
+      />
+    );
+  }
+
   render() {
     const { elections, edEnts, pdEnts } = this.state;
     if (!elections || !edEnts || !pdEnts) {
@@ -56,6 +77,8 @@ export default class MainMenu extends Component {
         </LinkContext>
 
         {this.renderAnalysisMenu()}
+
+        {this.renderPartyGroupsMenu()}
 
         <ElectionListViewSmall elections={elections} />
 

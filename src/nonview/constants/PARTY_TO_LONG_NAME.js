@@ -10,7 +10,7 @@ const PARTY_TO_LONG_NAME = {
   MEP: "Mahajana Eksath Peramuna",
   MNA: "Muslim National Alliance",
   NDF: "New Democratic Front",
-  NMPP: "National Muslim Congress",
+  NMPP: "National Movement for People's Power",
   NPP: "National People's Power",
   NUA: "National Unity Alliance",
   PA: "People's Alliance",
@@ -23,6 +23,9 @@ const PARTY_TO_LONG_NAME = {
   TULF: "Tamil United Liberation Front",
   UNP: "United National Party",
   UPFA: "United People's Freedom Alliance",
+  JHU: "Jathika Hela Urumaya",
+  SU: "Sihala Urumaya",
+  OPPP: "Our People's Power Party",
 };
 
 export default PARTY_TO_LONG_NAME;

@@ -80,7 +80,7 @@ def get_party_wiki_page_name_list():
         "Mahajana Eksath Peramuna",
         "Muslim National Alliance",
         "New Democratic Front",
-        "National Muslim Congress",
+        "National Movement for People's Power",
         "National People's Power",
         "National Unity Alliance",
         "People's Alliance",
@@ -93,6 +93,8 @@ def get_party_wiki_page_name_list():
         "Tamil United Liberation Front",
         "United National Party",
         "United People's Freedom Alliance", 
+        "Sihala Urumaya",
+        "Jathika Hela Urumaya",
     ]
     return [name.replace(' ', '_') for name in names]
 

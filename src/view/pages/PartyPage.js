@@ -1,7 +1,7 @@
 import { URLContext } from "../../nonview/base";
 import { Party, Election, PartyGroup } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
-import { WikiSummaryView, PartyLink, PartyGroupLink, SectionBox } from "../atoms";
+import { WikiSummaryView, PartyLink, PartyGroupLink } from "../atoms";
 import { Box, CircularProgress } from "@mui/material";
 import { GenericListView, PartyElectoralSummaryView } from "../molecules";
 
@@ -45,18 +45,18 @@ export default class PartyPage extends AbstractCustomPage {
     if (!party) {
       return <CircularProgress />;
     }
- 
+
     const partyGroups = PartyGroup.listFromPartyID(party.id);
     return (
-      <SectionBox>
-        <GenericListView
-      title="Party Groups"
-      items={partyGroups}
-      renderItem={(partyGroup) => <PartyGroupLink partyGroupID={partyGroup.id} />}
-    />
-      </SectionBox>
-    )
-    }
+      <GenericListView
+        title="Party Groups"
+        items={partyGroups}
+        renderItem={(partyGroup) => (
+          <PartyGroupLink partyGroupID={partyGroup.id} />
+        )}
+      />
+    );
+  }
 
   renderBodyMiddle() {
     const { party, elections } = this.state;

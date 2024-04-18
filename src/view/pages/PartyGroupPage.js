@@ -1,9 +1,9 @@
-import {CircularProgress} from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import { URLContext } from "../../nonview/base";
 import { PartyGroup, Election, Party } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
 import { PartyGroupLink, PartyLink } from "../atoms";
-import { GenericListView } from "../molecules";
+import { GenericListView, PartyGroupElectoralSummaryView } from "../molecules";
 
 export default class PartyGroupPage extends AbstractCustomPage {
   static getPageID() {
@@ -30,9 +30,8 @@ export default class PartyGroupPage extends AbstractCustomPage {
     }
 
     const partyList = partyGroup.partyIDList.map(
-        (partyID) => new Party(partyID)
-        );
-    
+      (partyID) => new Party(partyID)
+    );
 
     this.setState({ partyGroup, elections, partyList });
   }
@@ -55,10 +54,28 @@ export default class PartyGroupPage extends AbstractCustomPage {
       return <PartyLink partyID={party.id} />;
     };
 
-    return <GenericListView title="Component Parties" items={partyList} renderItem={renderItem} />
-   }
+    return (
+      <GenericListView
+        title="Component Parties"
+        items={partyList}
+        renderItem={renderItem}
+      />
+    );
+  }
 
   renderBodyMiddle() {
-    return this.renderPartyList();
+    const { partyGroup, elections } = this.state;
+    if (!partyGroup) {
+      return <CircularProgress />;
+    }
+    return (
+      <Box>
+        {this.renderPartyList()}
+        <PartyGroupElectoralSummaryView
+          partyGroup={partyGroup}
+          elections={elections}
+        />
+      </Box>
+    );
   }
 }

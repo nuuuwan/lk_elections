@@ -7,6 +7,7 @@ import ElectoralSummaryView from "./ElectoralSummaryView";
 import EntListView from "./EntListView";
 import GenericListView from "./GenericListView";
 import PartyElectoralSummaryView from "./PartyElectoralSummaryView";
+import PartyGroupElectoralSummaryView from "./PartyGroupElectoralSummaryView";
 import ResultsSeatsTableView from "./ResultsSeatsTableView";
 import ResultsTableView from "./ResultsTableView";
 import SimilarRegionsView from "./SimilarRegionsView";
@@ -20,6 +21,7 @@ export {
   EntListView,
   GenericListView,
   PartyElectoralSummaryView,
+  PartyGroupElectoralSummaryView,
   ResultsSeatsTableView,
   ResultsTableView,
   SimilarRegionsView,

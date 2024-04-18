@@ -67,7 +67,7 @@ export default class Seats {
     return { partyToSeatsBonus };
   }
 
-  getPartyToSeats(entID) {
+  validate(entID) {
     const forYear = YEAR_TO_REGION_TO_SEATS[this.election.year];
     if (!forYear) {
       return null;
@@ -78,6 +78,14 @@ export default class Seats {
     }
 
     const results = this.election.getResults(entID);
+    if (!results) {
+      return null;
+    }
+    return { results, totalSeats };
+  }
+
+  getPartyToSeats(entID) {
+    const { results, totalSeats } = this.validate(entID);
     if (!results) {
       return null;
     }
@@ -98,7 +106,7 @@ export default class Seats {
       partyToRem,
       nonBonusSeats
     );
-    const {partyToSeatsBonus} = this.assignSeatsBonus(
+    const { partyToSeatsBonus } = this.assignSeatsBonus(
       results,
       partyToSeatsRemainder,
       bonusSeats

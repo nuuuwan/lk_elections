@@ -85,7 +85,6 @@ export default function DataTableView({ dataList }) {
   } else {
     sortedDataList = filteredDataList;
   }
-  
 
   return (
     <Box>

@@ -27,7 +27,6 @@ export default function ResultsSeatsTableView({ election, ents }) {
   if (!dataList || dataList.length === 0) {
     return null;
   }
-  console.debug('ResultsSeatsTableView', dataList);
 
   return (
     <SectionBox>

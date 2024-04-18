@@ -28,7 +28,7 @@ function getDataList(election, ents) {
 
 export default function ResultsTableView({ election, ents }) {
   const dataList = getDataList(election, ents);
-  
+
   return (
     <SectionBox>
       <Header level={3}>

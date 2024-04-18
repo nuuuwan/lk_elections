@@ -3,7 +3,6 @@ import { LinkContext } from "../atoms";
 import { Party } from "../../nonview/core";
 
 function getStyle(party, invertColor, noColor) {
-  
   let backColor = party.inverseColor;
   let foreColor = party.color;
 
@@ -20,7 +19,13 @@ function getStyle(party, invertColor, noColor) {
   return { backColor, foreColor };
 }
 
-export default function PartyLink({ partyID, children, noColor, invertColor , longName}) {
+export default function PartyLink({
+  partyID,
+  children,
+  noColor,
+  invertColor,
+  longName,
+}) {
   if (children === " ") {
     return null;
   }
@@ -35,7 +40,7 @@ export default function PartyLink({ partyID, children, noColor, invertColor , lo
   const context = {
     pageID: "Party",
     partyID,
-  }
+  };
 
   return (
     <LinkContext context={context}>

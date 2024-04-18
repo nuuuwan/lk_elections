@@ -96,12 +96,7 @@ export default class Seats {
       entID
     );
     const { partyToSeatsInt, partyToRem, nonBonusSeats, bonusSeats } =
-      this.assignSeatsInt(
-        entID,
-        totalSeats,
-        eligPartyToVotes,
-        eligTotalPVotes
-      );
+      this.assignSeatsInt(entID, totalSeats, eligPartyToVotes, eligTotalPVotes);
     const { partyToSeatsRem } = this.assignSeatsRem(
       partyToSeatsInt,
       partyToRem,

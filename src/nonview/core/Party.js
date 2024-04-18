@@ -1,6 +1,5 @@
-import { POLITICAL_PARTY_TO_COLOR , PARTY_TO_LONG_NAME} from "../constants";
+import { POLITICAL_PARTY_TO_COLOR, PARTY_TO_LONG_NAME } from "../constants";
 import { LIGHT_COLORS } from "../constants/POLITICAL_PARTY_TO_COLOR";
-
 
 export default class Party {
   constructor(id) {

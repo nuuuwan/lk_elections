@@ -85,11 +85,12 @@ export default class Seats {
   }
 
   getPartyToSeats(entID) {
-    const { results, totalSeats } = this.validate(entID);
-    if (!results) {
+    const validatedOutput = this.validate(entID);
+    if (!validatedOutput) {
       return null;
     }
-
+    const { results, totalSeats } = validatedOutput;
+   
     const { filteredPartyToPVotes, newTotalPVotes } = this.getEligiblePartyInfo(
       results,
       entID

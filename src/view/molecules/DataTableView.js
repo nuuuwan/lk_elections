@@ -63,28 +63,7 @@ export default function DataTableView({ dataList }) {
   if (filteredDataList.length === 0) {
     return null;
   }
-  const headerKeys = getHeaderKeys(filteredDataList).filter(function (key) {
-    const values = filteredDataList
-      .map((d) => d[key])
-      .filter((v) => v !== null && formatCellValue(key, v) !== "-");
-    return values.length > 0;
-  });
-
-  const firstDataKeys = Object.entries(filteredDataList[0]).filter(function (
-    entry
-  ) {
-    return typeof entry[1] === "number";
-  })[0];
-
-  let sortedDataList;
-  if (firstDataKeys && firstDataKeys.length > 0) {
-    const firstDataKey = firstDataKeys[0];
-    sortedDataList = filteredDataList.sort(function (a, b) {
-      return (a[firstDataKey] || 0) - (b[firstDataKey] || 0);
-    });
-  } else {
-    sortedDataList = filteredDataList;
-  }
+  const headerKeys = getHeaderKeys(filteredDataList);
 
   return (
     <Box>
@@ -97,7 +76,7 @@ export default function DataTableView({ dataList }) {
           </tr>
         </thead>
         <tbody>
-          {sortedDataList.map(function (data, iRow) {
+          {filteredDataList.map(function (data, iRow) {
             const maxValue = MathX.max(Object.values(data));
             return (
               <tr key={"data-row-" + iRow}>

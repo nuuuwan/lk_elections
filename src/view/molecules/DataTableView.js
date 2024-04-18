@@ -3,7 +3,6 @@ import { Ent, Format, MathX } from "../../nonview/base";
 import { Election, Party } from "../../nonview/core";
 import { ElectionLink, EntLink, PartyLink } from "../atoms";
 
-
 function formatCellValueObject(key, value) {
   if (value instanceof Election) {
     return <ElectionLink election={value} />;
@@ -35,13 +34,12 @@ function formatCellValueNumber(key, value) {
   return value;
 }
 
-function formatCellValue(key, value) { 
+function formatCellValue(key, value) {
   if (!value) {
     return "";
   }
 
   return formatCellValueObject(key, value) || formatCellValueNumber(key, value);
-
 }
 
 function formatCellValueWithStyle(key, value, isMaxValue) {

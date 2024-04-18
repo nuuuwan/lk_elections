@@ -1,9 +1,9 @@
 import { SectionBox, Header } from "../atoms";
 import { DataTableView } from ".";
 
-function getDataList(partyGroup, elections) {
+function getDataList(partyGroup, elections, ent) {
   return elections.map(function (election) {
-    const info = partyGroup.getVoteInfo(election);
+    const info = partyGroup.getVoteInfo(election, ent);
     if (!info) {
       return null;
     }
@@ -20,8 +20,9 @@ function getDataList(partyGroup, elections) {
 export default function PartyGroupElectoralSummaryView({
   partyGroup,
   elections,
+  ent,
 }) {
-  const dataList = getDataList(partyGroup, elections);
+  const dataList = getDataList(partyGroup, elections, ent);
   return (
     <SectionBox>
       <Header level={2}>Electoral Summary</Header>

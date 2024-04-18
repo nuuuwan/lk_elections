@@ -5,13 +5,13 @@ import ElectionListView from "./ElectionListView";
 import ElectionListViewSmall from "./ElectionListViewSmall";
 import ElectoralSummaryView from "./ElectoralSummaryView";
 import EntListView from "./EntListView";
+import FloatingVoteAnalysisView from "./FloatingVoteAnalysisView";
 import GenericListView from "./GenericListView";
 import PartyElectoralSummaryView from "./PartyElectoralSummaryView";
 import PartyGroupElectoralSummaryView from "./PartyGroupElectoralSummaryView";
 import ResultsSeatsTableView from "./ResultsSeatsTableView";
 import ResultsTableView from "./ResultsTableView";
 import SimilarRegionsView from "./SimilarRegionsView";
-import VoterBaseView from "./VoterBaseView";
 
 export {
   BellwetherView,
@@ -20,11 +20,11 @@ export {
   ElectionListViewSmall,
   ElectoralSummaryView,
   EntListView,
+  FloatingVoteAnalysisView,
   GenericListView,
   PartyElectoralSummaryView,
   PartyGroupElectoralSummaryView,
   ResultsSeatsTableView,
   ResultsTableView,
   SimilarRegionsView,
-  VoterBaseView,
 };

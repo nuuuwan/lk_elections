@@ -1,6 +1,6 @@
 import { Box, CircularProgress, Typography } from "@mui/material";
 import { Ent, URLContext, EntType, Geo } from "../../nonview/base";
-import { Election } from "../../nonview/core";
+import { Election, PartyGroup } from "../../nonview/core";
 
 import { EntLink } from "../atoms";
 import {
@@ -8,6 +8,7 @@ import {
   BellwetherView,
   SimilarRegionsView,
   ElectoralSummaryView,
+  FloatingVoteAnalysisView,
 } from "../molecules";
 import { GeoMap } from "../organisms";
 import AbstractCustomPage from "./AbstractCustomPage";
@@ -37,7 +38,17 @@ export default class PollingDivisionPage extends AbstractCustomPage {
       await election.loadData();
     }
 
-    this.setState({ pdEnt, edEnt, countryEnt, elections, pdGeo, pdEnts });
+    const partyGroups = PartyGroup.listAll();
+
+    this.setState({
+      pdEnt,
+      edEnt,
+      countryEnt,
+      elections,
+      pdGeo,
+      pdEnts,
+      partyGroups,
+    });
   }
 
   get supertitle() {
@@ -87,7 +98,8 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     );
   }
   renderBodyRight() {
-    const { pdEnt, edEnt, countryEnt, elections, pdEnts } = this.state;
+    const { pdEnt, edEnt, countryEnt, elections, pdEnts, partyGroups } =
+      this.state;
     if (!pdEnt) {
       return <CircularProgress />;
     }
@@ -95,6 +107,13 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     return (
       <Box>
         <BellwetherView ent={pdEnt} elections={elections} />
+
+        <FloatingVoteAnalysisView
+          partyGroups={partyGroups}
+          elections={elections}
+          ents={[pdEnt, edEnt, countryEnt]}
+        />
+
         <SimilarRegionsView
           ent={pdEnt}
           elections={elections}

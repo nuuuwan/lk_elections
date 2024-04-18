@@ -1,12 +1,12 @@
 import { Box, CircularProgress } from "@mui/material";
-import { URLContext } from "../../nonview/base";
+import { Ent, URLContext } from "../../nonview/base";
 import { PartyGroup, Election, Party } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
 import { PartyGroupLink, PartyLink } from "../atoms";
 import {
   GenericListView,
   PartyGroupElectoralSummaryView,
-  VoterBaseView,
+  FloatingVoteAnalysisView,
 } from "../molecules";
 
 export default class PartyGroupPage extends AbstractCustomPage {
@@ -33,11 +33,21 @@ export default class PartyGroupPage extends AbstractCustomPage {
       await election.loadData();
     }
 
+    const countryEnt = await Ent.fromID("LK");
+
+    const partyGroups = PartyGroup.listAll();
+
     const partyList = partyGroup.partyIDList.map(
       (partyID) => new Party(partyID)
     );
 
-    this.setState({ partyGroup, elections, partyList });
+    this.setState({
+      partyGroup,
+      elections,
+      partyList,
+      countryEnt,
+      partyGroups,
+    });
   }
   get supertitle() {
     return "Party Group";
@@ -72,7 +82,7 @@ export default class PartyGroupPage extends AbstractCustomPage {
   }
 
   renderBodyMiddle() {
-    const { partyGroup, elections } = this.state;
+    const { partyGroup, elections, countryEnt } = this.state;
     if (!partyGroup) {
       return <CircularProgress />;
     }
@@ -82,19 +92,24 @@ export default class PartyGroupPage extends AbstractCustomPage {
         <PartyGroupElectoralSummaryView
           partyGroup={partyGroup}
           elections={elections}
+          ent={countryEnt}
         />
       </Box>
     );
   }
 
   renderBodyRight() {
-    const { partyGroup, elections } = this.state;
+    const { partyGroup, elections, countryEnt, partyGroups } = this.state;
     if (!partyGroup) {
       return <CircularProgress />;
     }
     return (
       <Box>
-        <VoterBaseView partyGroup={partyGroup} elections={elections} />
+        <FloatingVoteAnalysisView
+          partyGroups={partyGroups}
+          elections={elections}
+          ents={[countryEnt]}
+        />
       </Box>
     );
   }

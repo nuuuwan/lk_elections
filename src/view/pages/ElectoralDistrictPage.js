@@ -1,6 +1,6 @@
 import { Box, CircularProgress } from "@mui/material";
 import { Ent, EntType, URLContext, Geo } from "../../nonview/base";
-import { Election } from "../../nonview/core";
+import { Election, PartyGroup } from "../../nonview/core";
 import { WikiSummaryView, EntLink } from "../atoms";
 import {
   ElectionListView,
@@ -8,6 +8,7 @@ import {
   EntListView,
   ElectoralSummaryView,
   SimilarRegionsView,
+  FloatingVoteAnalysisView,
 } from "../molecules";
 import { GeoMap } from "../organisms";
 import AbstractCustomPage from "./AbstractCustomPage";
@@ -35,7 +36,16 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     for (let election of elections) {
       await election.loadData();
     }
-    this.setState({ edEnt, pdEnts, countryEnt, elections, edGeo, edEnts });
+    const partyGroups = PartyGroup.listAll();
+    this.setState({
+      edEnt,
+      pdEnts,
+      countryEnt,
+      elections,
+      edGeo,
+      edEnts,
+      partyGroups,
+    });
   }
 
   get supertitle() {
@@ -74,7 +84,8 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     );
   }
   renderBodyRight() {
-    const { edEnt, countryEnt, elections, pdEnts, edEnts } = this.state;
+    const { edEnt, countryEnt, elections, pdEnts, edEnts, partyGroups } =
+      this.state;
     if (!edEnt) {
       return <CircularProgress />;
     }
@@ -82,6 +93,12 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     return (
       <Box>
         <BellwetherView ent={edEnt} elections={elections} />
+
+        <FloatingVoteAnalysisView
+          partyGroups={partyGroups}
+          elections={elections}
+          ents={[edEnt, countryEnt]}
+        />
 
         <SimilarRegionsView
           ent={edEnt}

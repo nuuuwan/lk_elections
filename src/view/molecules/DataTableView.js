@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import { Box } from "@mui/material";
 import { Ent, Format, Fraction } from "../../nonview/base";
-import { Election, Party } from "../../nonview/core";
-import { ElectionLink, EntLink, FractionView, PartyLink } from "../atoms";
+import { Election, Party, PartyGroup } from "../../nonview/core";
+import {
+  ElectionLink,
+  EntLink,
+  FractionView,
+  PartyGroupLink,
+  PartyLink,
+} from "../atoms";
 
 function compare(a, b) {
   if (!a && !b) {
@@ -27,6 +33,11 @@ function formatCellValueObject(key, value) {
   if (Party.isKnownPartyID(value)) {
     value = new Party(value);
   }
+
+  if (PartyGroup.isKnownPartyGroupID(value)) {
+    value = PartyGroup.fromID(value);
+  }
+
   if (value instanceof Election) {
     return <ElectionLink election={value} />;
   }
@@ -35,6 +46,10 @@ function formatCellValueObject(key, value) {
   }
   if (value instanceof Party) {
     return <PartyLink partyID={value.id} />;
+  }
+
+  if (value instanceof PartyGroup) {
+    return <PartyGroupLink partyGroupID={value.id} />;
   }
 
   if (value instanceof Fraction) {
@@ -64,7 +79,7 @@ function formatCellValueNumber(key, value) {
 
 function formatCellValue(key, value) {
   if (!value) {
-    return "";
+    return "-";
   }
 
   return formatCellValueObject(key, value) || formatCellValueNumber(key, value);

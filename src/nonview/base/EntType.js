@@ -29,34 +29,41 @@ export default class EntType {
     return this.name + "ID";
   }
 
+  static fromIDLK(entID) {
+    if (entID.substring(0, 2) !== "LK") {
+      return null;
+    }
+    const entIDLength = entID.length;
+    switch (entIDLength) {
+      case 2:
+        return EntType.COUNTRY;
+      case 4:
+        return EntType.PROVINCE;
+      case 5:
+        return EntType.DISTRICT;
+
+      default:
+        return null;
+    }
+  }
+
+  static fromIDEC(entID) {
+    if (entID.substring(0, 2) !== "EC") {
+      return null;
+    }
+    const entIDLength = entID.length;
+    switch (entIDLength) {
+      case 5:
+        return EntType.ED;
+      case 6:
+        return EntType.PD;
+      default:
+        return null;
+    }
+  }
+
   static fromID(entID) {
-    if (entID.substring(0, 2) === "LK") {
-      const entIDLength = entID.length;
-      switch (entIDLength) {
-        case 2:
-          return EntType.COUNTRY;
-        case 4:
-          return EntType.PROVINCE;
-        case 5:
-          return EntType.DISTRICT;
-
-        default:
-          throw new Error("Unknown entID: " + entID);
-      }
-    }
-    if (entID.substring(0, 2) === "EC") {
-      const entIDLength = entID.length;
-      switch (entIDLength) {
-        case 5:
-          return EntType.ED;
-        case 6:
-          return EntType.PD;
-        default:
-          throw new Error("Unknown entID: " + entID);
-      }
-    }
-
-    throw new Error("Unknown entID: " + entID);
+    return EntType.fromIDLK(entID) || EntType.fromIDEC(entID);
   }
 }
 

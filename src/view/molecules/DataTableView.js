@@ -58,6 +58,38 @@ function getHeaderKeys(dataList) {
   }, []);
 }
 
+function DataTableViewHeaderRow({headerKeys}) {
+  return (
+    <tr>
+            {headerKeys.map((headerKey, iCol) => (
+              <th key={"header-" + iCol}>{headerKey}</th>
+            ))}
+          </tr>
+  )
+}
+
+function DataTableViewCell({headerKey, value, isMaxValue}) {
+  return (
+    <td >
+    {formatCellValueWithStyle(headerKey, value, isMaxValue)}
+  </td>
+  )
+}
+
+function DataTableViewRow({headerKeys, data, maxValue}) {
+  return (
+    <tr >
+      {headerKeys.map(function (headerKey, iCol) {
+        const value = data[headerKey];
+        const isMaxValue = value === maxValue;
+
+        return <DataTableViewCell key={"data-cell-" + iCol} headerKey={headerKey} value={value} isMaxValue={isMaxValue} />;
+      })}
+    </tr>
+  );
+}
+
+
 export default function DataTableView({ dataList }) {
   const filteredDataList = dataList.filter((data) => data !== null);
   if (filteredDataList.length === 0) {
@@ -69,28 +101,12 @@ export default function DataTableView({ dataList }) {
     <Box>
       <table>
         <thead>
-          <tr>
-            {headerKeys.map((headerKey, iCol) => (
-              <th key={"header-" + iCol}>{headerKey}</th>
-            ))}
-          </tr>
+          <DataTableViewHeaderRow headerKeys={headerKeys} />
         </thead>
         <tbody>
           {filteredDataList.map(function (data, iRow) {
             const maxValue = MathX.max(Object.values(data));
-            return (
-              <tr key={"data-row-" + iRow}>
-                {headerKeys.map(function (headerKey, iCol) {
-                  const value = data[headerKey];
-                  const isMaxValue = value === maxValue;
-                  return (
-                    <td key={"data-cell-" + iCol}>
-                      {formatCellValueWithStyle(headerKey, value, isMaxValue)}
-                    </td>
-                  );
-                })}
-              </tr>
-            );
+            return <DataTableViewRow key={"data-row-" + iRow} headerKeys={headerKeys} data={data} maxValue={maxValue} />;
           })}
         </tbody>
       </table>

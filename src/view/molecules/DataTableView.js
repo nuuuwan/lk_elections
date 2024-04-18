@@ -5,7 +5,7 @@ import { Election, Party } from "../../nonview/core";
 import { ElectionLink, EntLink, PartyLink } from "../atoms";
 
 function compare(a, b) {
-  if (!a && !b ) {
+  if (!a && !b) {
     return 0;
   }
   if (!a) {
@@ -14,7 +14,7 @@ function compare(a, b) {
   if (!b) {
     return 1;
   }
-   if (typeof a === "number") {
+  if (typeof a === "number") {
     return a - b;
   }
   if (typeof a === "boolean") {
@@ -93,22 +93,19 @@ function DataTableViewHeaderRow({ headerKeys, setSortKeyInner }) {
   return (
     <tr>
       <td className="td-row-num"></td>
-      {headerKeys.map(
-        function(headerKey, iCol) {
-          const onClickSort = function() {
-            setSortKeyInner(headerKey);
-          }
-          return (
-            <th key={"header-" + iCol}>
-               
-                {formatCellValueWithStyle(headerKey, headerKey)}
-                <div onClick={onClickSort} className="sorter">
-                  ▴
-                </div>
-                </th>
-          )
-        }
-      )}
+      {headerKeys.map(function (headerKey, iCol) {
+        const onClickSort = function () {
+          setSortKeyInner(headerKey);
+        };
+        return (
+          <th key={"header-" + iCol}>
+            {formatCellValueWithStyle(headerKey, headerKey)}
+            <div onClick={onClickSort} className="sorter">
+              ▴
+            </div>
+          </th>
+        );
+      })}
     </tr>
   );
 }
@@ -160,22 +157,23 @@ export default function DataTableView({ dataList, footerData, sortKey }) {
   }
   const headerKeys = getHeaderKeys(filteredDataList);
 
-let sortedFilteredDataList;
-if (sortKeyInner) {
+  let sortedFilteredDataList;
+  if (sortKeyInner) {
     sortedFilteredDataList = filteredDataList.sort(function (a, b) {
-      
       return compare(b[sortKeyInner], a[sortKeyInner]);
     });
-} else {
+  } else {
     sortedFilteredDataList = filteredDataList;
-}
-
+  }
 
   return (
     <Box>
       <table>
         <thead>
-          <DataTableViewHeaderRow headerKeys={headerKeys} setSortKeyInner={setSortKeyInner} />
+          <DataTableViewHeaderRow
+            headerKeys={headerKeys}
+            setSortKeyInner={setSortKeyInner}
+          />
         </thead>
         <tbody>
           {sortedFilteredDataList.map(function (data, iRow) {

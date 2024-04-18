@@ -1,4 +1,4 @@
-import { MathX } from "../base";
+import { MathX, Time } from "../base";
 
 export default class PartyGroup {
   constructor(id, partyIDList, color) {
@@ -54,7 +54,13 @@ export default class PartyGroup {
 
   // Vote Info
 
-  getVoteInfo(partyToVotes) {
+  getVoteInfo(election) {
+    const resultLK = election.getResults("LK");
+    if (!resultLK) {
+      return null;
+    }
+    const partyToVotes = resultLK.partyToVotes;
+
     const votes = MathX.sum(
       Object.entries(partyToVotes.partyToVotes)
         .filter(([partyID, votes]) => this.partyIDList.includes(partyID))
@@ -70,6 +76,36 @@ export default class PartyGroup {
         .filter(([partyID, pVotes]) => this.partyIDList.includes(partyID))
         .map(([partyID, pVotes]) => (pVotes ? 1 : 0))
     );
-    return { votes, pVotes, nParties };
+    return { election, votes, pVotes, nParties };
+  }
+
+  getBaseAnalysisInfo(elections) {
+    const infoList = elections
+      .map((election) => this.getVoteInfo(election))
+      .filter((info) => !!info);
+
+    const windowYears = 10;
+    let pVotesList = [];
+    let pVotesListInWindow = [];
+    const utNow = Time.now().ut;
+    for (let info of infoList) {
+      const { election, pVotes } = info;
+      if (pVotes < MathX.EPSILON) {
+        continue;
+      }
+      pVotesList.push(pVotes);
+
+      const ut = Time.fromString(election.date).ut;
+      const dut = utNow - ut;
+      const dyears = dut / (1000 * 365.25 * 86400);
+      if (dyears < windowYears) {
+        pVotesListInWindow.push(pVotes);
+      }
+    }
+    const n = pVotesList.length;
+    const nWindow = pVotesListInWindow.length;
+    const minBase = MathX.min(pVotesList);
+    const windowBase = MathX.min(pVotesListInWindow);
+    return { n, minBase, nWindow, windowBase };
   }
 }

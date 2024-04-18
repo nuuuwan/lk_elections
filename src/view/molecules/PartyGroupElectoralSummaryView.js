@@ -3,13 +3,11 @@ import { DataTableView } from ".";
 
 function getDataList(partyGroup, elections) {
   return elections.map(function (election) {
-    const resultsForLK = election.getResults("LK");
-    if (!resultsForLK) {
+    const info = partyGroup.getVoteInfo(election);
+    if (!info) {
       return null;
     }
-    const partyToVotes = resultsForLK.partyToVotes;
-    const { votes, pVotes, nParties } = partyGroup.getVoteInfo(partyToVotes);
-
+    const { votes, pVotes, nParties } = info;
     return {
       Election: election,
       Parties: nParties,

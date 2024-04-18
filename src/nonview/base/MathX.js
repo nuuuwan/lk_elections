@@ -1,4 +1,6 @@
 export default class MathX {
+  static EPSILON = 0.0000000001;
+
   static sum(numList) {
     return numList.reduce(function (_sum, num) {
       return _sum + num;
@@ -26,5 +28,15 @@ export default class MathX {
       .reduce(function (_max, num) {
         return Math.max(_max, num);
       }, -Infinity);
+  }
+
+  static min(numList) {
+    return numList
+      .filter(function (x) {
+        return typeof x === "number";
+      })
+      .reduce(function (_min, num) {
+        return Math.min(_min, num);
+      }, Infinity);
   }
 }

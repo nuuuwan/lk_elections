@@ -3,7 +3,11 @@ import { URLContext } from "../../nonview/base";
 import { PartyGroup, Election, Party } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
 import { PartyGroupLink, PartyLink } from "../atoms";
-import { GenericListView, PartyGroupElectoralSummaryView } from "../molecules";
+import {
+  GenericListView,
+  PartyGroupElectoralSummaryView,
+  VoterBaseView,
+} from "../molecules";
 
 export default class PartyGroupPage extends AbstractCustomPage {
   static getPageID() {
@@ -75,6 +79,18 @@ export default class PartyGroupPage extends AbstractCustomPage {
           partyGroup={partyGroup}
           elections={elections}
         />
+      </Box>
+    );
+  }
+
+  renderBodyRight() {
+    const { partyGroup, elections } = this.state;
+    if (!partyGroup) {
+      return <CircularProgress />;
+    }
+    return (
+      <Box>
+        <VoterBaseView partyGroup={partyGroup} elections={elections} />
       </Box>
     );
   }

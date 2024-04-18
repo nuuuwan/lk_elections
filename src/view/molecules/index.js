@@ -11,6 +11,7 @@ import PartyGroupElectoralSummaryView from "./PartyGroupElectoralSummaryView";
 import ResultsSeatsTableView from "./ResultsSeatsTableView";
 import ResultsTableView from "./ResultsTableView";
 import SimilarRegionsView from "./SimilarRegionsView";
+import VoterBaseView from "./VoterBaseView";
 
 export {
   BellwetherView,
@@ -25,4 +26,5 @@ export {
   ResultsSeatsTableView,
   ResultsTableView,
   SimilarRegionsView,
+  VoterBaseView,
 };

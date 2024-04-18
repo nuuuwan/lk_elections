@@ -151,38 +151,57 @@ function DataTableViewFooterRow({ headerKeys, footerData }) {
 export default function DataTableView({ dataList, footerData, sortKey }) {
   const [sortKeyInner, setSortKeyInner] = useState(sortKey);
 
+  // Filter Null
   const filteredDataList = dataList.filter((data) => data !== null);
   if (filteredDataList.length === 0) {
     return null;
   }
+
+  // Get Headers
   const headerKeys = getHeaderKeys(filteredDataList);
 
-  let sortedFilteredDataList;
+  // Sort
+  let sortedDataList;
   if (sortKeyInner) {
-    sortedFilteredDataList = filteredDataList.sort(function (a, b) {
+    sortedDataList = filteredDataList.sort(function (a, b) {
       return compare(b[sortKeyInner], a[sortKeyInner]);
     });
   } else {
-    sortedFilteredDataList = filteredDataList;
+    sortedDataList = filteredDataList;
   }
+
+  // Filter out Null Columns
+  const colFilteredHeaderKeys = headerKeys.filter(function (headerKey) {
+    const colValues = dataList
+      .map(function (data) {
+        if (!data) {
+          return null;
+        }
+        const value = data[headerKey];
+        const colValue = formatCellValue(headerKey, value);
+        return colValue;
+      })
+      .filter((colValue) => !!colValue && colValue !== "-");
+    return colValues.length > 0;
+  });
 
   return (
     <Box>
       <table>
         <thead>
           <DataTableViewHeaderRow
-            headerKeys={headerKeys}
+            headerKeys={colFilteredHeaderKeys}
             setSortKeyInner={setSortKeyInner}
           />
         </thead>
         <tbody>
-          {sortedFilteredDataList.map(function (data, iRow) {
+          {sortedDataList.map(function (data, iRow) {
             const maxValue = MathX.max(Object.values(data));
             return (
               <DataTableViewRow
                 key={"data-row-" + iRow}
                 iRow={iRow}
-                headerKeys={headerKeys}
+                headerKeys={colFilteredHeaderKeys}
                 data={data}
                 maxValue={maxValue}
               />
@@ -192,7 +211,7 @@ export default function DataTableView({ dataList, footerData, sortKey }) {
         {footerData ? (
           <tfoot>
             <DataTableViewFooterRow
-              headerKeys={headerKeys}
+              headerKeys={colFilteredHeaderKeys}
               footerData={footerData}
             />
           </tfoot>

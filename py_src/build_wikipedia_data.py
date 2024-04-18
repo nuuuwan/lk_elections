@@ -1,6 +1,7 @@
 import json
 import wikipediaapi
 import os
+import re
 from utils import File, Log, TimeFormat, JSONFile
 from gig import Ent, EntType
 log = Log('build_wikipedia_data')
@@ -27,7 +28,7 @@ ELECTION_LIST = [
 
 def clean(x):
       x = x.replace('.', '. ')
-      x = x.replace('  ', '\n')
+      x = re.sub(r'\s+', ' ', x)
       return x 
 
 def get_election_wiki_page_name_list():
@@ -100,7 +101,7 @@ def get_wikipedia_summary_nocache(wiki_page_name):
     try:
         wiki = wikipediaapi.Wikipedia("lk_elections", "en")
         page = wiki.page(wiki_page_name)
-        summary = clean(page.summary)
+        summary = page.summary
         log.debug('\t' + summary)
         return summary
     except Exception as e:
@@ -131,7 +132,7 @@ def main():
 
     wiki_page_name_list = get_election_wiki_page_name_list() + get_electoral_district_wiki_page_name_list() + get_misc_wiki_page_name_list() + get_party_wiki_page_name_list()
     for wiki_page_name in wiki_page_name_list:
-        summary = get_wikipedia_summary(wiki_page_name)
+        summary =clean( get_wikipedia_summary(wiki_page_name))
         lines.extend([
             '',
             '  // ' + wiki_page_name,

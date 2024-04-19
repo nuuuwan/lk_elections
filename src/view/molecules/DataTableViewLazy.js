@@ -81,6 +81,9 @@ function formatCellValue(key, value) {
   if (!value) {
     return "-";
   }
+  if (value === "Other") {
+    return "Other";
+  }
 
   return formatCellValueObject(key, value) || formatCellValueNumber(key, value);
 }
@@ -191,7 +194,7 @@ export default function DataTableViewLazy({ dataList, footerData, sortKey }) {
   });
 
   return (
-    <Box>
+    <Box >
       <table>
         <thead>
           <DataTableViewHeaderRow

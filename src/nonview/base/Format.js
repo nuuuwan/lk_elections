@@ -21,10 +21,10 @@ export default class Format {
     const strPart = Format.intHumanize(x);
     let fontSize = 9;
     if (x > 1_000_000) {
-      fontSize = 18;
+      fontSize = 13;
     }
     if (x > 1_000) {
-      fontSize = 12;
+      fontSize = 11;
     }
     const color = x < 100 ? "#ccc" : "inherit";
     return (
@@ -51,7 +51,7 @@ export default class Format {
 
   static percentWithStyle(x) {
     const strPart = Format.percent(x);
-    const fontSize = x ? MathX.fitRange(Math.sqrt(x) * 36, 12, 24) : 12;
+    const fontSize = x ? MathX.fitRange(Math.sqrt(x) * 36, 12, 18) : 12;
     const color = x < 0.01 ? "#ccc" : "inherit";
     return (
       <span style={{ fontSize, color }} className="span-number">

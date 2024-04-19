@@ -10,7 +10,8 @@ const commonStyles = {
   bottom: 0,
   zIndex: 1000,
   overflow: "scroll",
-  padding: 3,
+  padding: 2,
+  marginRight: 2,
 };
 
 export default class AbstractCustomPage extends Component {

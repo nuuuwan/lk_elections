@@ -20,12 +20,14 @@ function getDataList(election, ents) {
     if (!result) {
       return null;
     }
-    const pLimit = ent.id === "LK" ? 0.005 : 0.05;
+    const pLimit = ent.id === "LK" ? 0.0025 : 0.025;
     let d = { Region: ent };
     const winningParty = result.partyToVotes.winningParty;
+    let pOther = 0;
     for (let party of majorParties) {
       const p = result.partyToVotes.partyToPVotes[party];
       if (p < pLimit) {
+        pOther += p;
         d[party] = "~";
       } else{
 
@@ -35,8 +37,13 @@ function getDataList(election, ents) {
         party === winningParty ? new Party(winningParty).color : "#888"
       );
     }
+  }
       
+    if (pOther > 0) {
+      const nOther = Math.round(pOther * result.partyToVotes.totalVotes);
+      d["Other"] = new Fraction(nOther, result.partyToVotes.totalVotes, '#888');
     }
+
     return d;
   });
 }

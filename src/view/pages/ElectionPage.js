@@ -35,6 +35,7 @@ export default class ElectionPage extends AbstractCustomPage {
       nextElection = elections[i - 1];
     }
 
+    const pdEnts = await Ent.listFromType(EntType.PD);
     const edEnts = await Ent.listFromType(EntType.ED);
     const countryEnt = await Ent.fromID("LK");
 
@@ -44,6 +45,7 @@ export default class ElectionPage extends AbstractCustomPage {
       election,
       countryEnt,
       edEnts,
+      pdEnts,
       elections,
       prevElection,
       nextElection,
@@ -100,22 +102,24 @@ export default class ElectionPage extends AbstractCustomPage {
   }
 
   renderBodyRight() {
-    const { partyGroups, countryEnt, election, prevElection, edEnts } =
+    const { partyGroups, countryEnt, election, prevElection, edEnts ,pdEnts} =
       this.state;
     if (!countryEnt) {
       return <CircularProgress />;
     }
+
+    const ents = [].concat([countryEnt], edEnts, pdEnts)
     return (
       <Box>
         <ElectionListView
           elections={[election]}
-          ents={[].concat(edEnts, [countryEnt])}
+          ents={ents}
         />
         <SwingAnalysisForElectionView
           partyGroups={partyGroups}
           prevElection={prevElection}
           election={election}
-          ents={[].concat(edEnts, [countryEnt])}
+          ents={ents}
         />
       </Box>
     );

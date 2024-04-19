@@ -26,7 +26,7 @@ const THEME = createTheme({
   },
   typography: {
     fontFamily: "Abel",
-    fontSize: 16,
+    fontSize: 14,
   },
 });
 

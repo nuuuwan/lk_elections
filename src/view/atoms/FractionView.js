@@ -5,7 +5,9 @@ export default function FractionView({ fraction }) {
   return (
     <div style={{ color, margin: 0, padding: 0 }}>
       <div>{Format.percentWithStyle(fraction.p)}</div>
-      <div>{Format.intHumanizeWithStyle(fraction.n)}</div>
+      <div style={{ fontSize: "50%" }}>
+        {Format.intHumanizeWithStyle(fraction.n)}
+      </div>
     </div>
   );
 }

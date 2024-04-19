@@ -102,19 +102,16 @@ export default class ElectionPage extends AbstractCustomPage {
   }
 
   renderBodyRight() {
-    const { partyGroups, countryEnt, election, prevElection, edEnts ,pdEnts} =
+    const { partyGroups, countryEnt, election, prevElection, edEnts, pdEnts } =
       this.state;
     if (!countryEnt) {
       return <CircularProgress />;
     }
 
-    const ents = [].concat([countryEnt], edEnts, pdEnts)
+    const ents = [].concat([countryEnt], edEnts, pdEnts);
     return (
       <Box>
-        <ElectionListView
-          elections={[election]}
-          ents={ents}
-        />
+        <ElectionListView elections={[election]} ents={ents} />
         <SwingAnalysisForElectionView
           partyGroups={partyGroups}
           prevElection={prevElection}

@@ -42,10 +42,6 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     });
   }
 
-  get supertitle() {
-    return "Polling Division";
-  }
-
   get title() {
     const { pdEnt, pdID } = this.state;
     if (!pdEnt) {

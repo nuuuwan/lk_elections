@@ -43,10 +43,6 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     });
   }
 
-  get supertitle() {
-    return "Electoral District";
-  }
-
   get title() {
     const { edEnt, edID } = this.state;
     if (!edEnt) {
@@ -79,8 +75,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     );
   }
   renderBodyRight() {
-    const { edEnt, countryEnt, elections, pdEnts, edEnts, partyGroups } =
-      this.state;
+    const { edEnt, countryEnt, elections, edEnts, partyGroups } = this.state;
     if (!edEnt) {
       return <CircularProgress />;
     }

@@ -20,7 +20,7 @@ function getDataList(partyGroups, election, prevElection, ents) {
 
       const swing = pVotes - pVotesPrev;
       let color = null;
-      if (swing > 0) {
+      if (swing > 0.01) {
         color = partyGroup.color;
       }
       d[partyGroup.id] = new PercentagePoint(swing, color);
@@ -36,8 +36,6 @@ export default function SwingAnalysisForElectionView({
   prevElection,
   ents,
 }) {
-
-
   const dataList = getDataList(partyGroups, election, prevElection, ents);
   return (
     <SectionBox>

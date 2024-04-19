@@ -33,10 +33,6 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     this.setState({ countryEnt, elections, edEnts, partyGroups });
   }
 
-  get supertitle() {
-    return "Elections";
-  }
-
   get title() {
     const { countryEnt } = this.state;
     if (!countryEnt) {

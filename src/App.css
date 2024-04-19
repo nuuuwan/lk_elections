@@ -23,23 +23,21 @@ th {
 
 .th-footer {
   border-bottom: 1px double #222;
-  text-align: right;
 }
 
 td {
   border: 1px solid #eee;
-  text-align: right;
+
   padding: 0.2em;
 }
 
 .td-row-num {
-  text-align: right;
   color: #ccc;
   border: none;
   font-size: 0.75em;
 }
 
-.span-number {
+.number {
   text-align: right;
 }
 

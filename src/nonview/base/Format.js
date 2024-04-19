@@ -21,14 +21,14 @@ export default class Format {
     const strPart = Format.intHumanize(x);
     let fontSize = 9;
     if (x > 1_000_000) {
-      fontSize = 13;
+      fontSize = 24;
     }
     if (x > 1_000) {
-      fontSize = 11;
+      fontSize = 12;
     }
     const color = x < 100 ? "#ccc" : "inherit";
     return (
-      <span style={{ fontSize, color }} className="span-number">
+      <span className="number" style={{ fontSize, color }}>
         {strPart}
       </span>
     );
@@ -60,7 +60,7 @@ export default class Format {
     const fontSize = x ? MathX.fitRange(Math.sqrt(x) * 36, 12, 18) : 12;
     const color = x < 0.01 ? "#ccc" : "inherit";
     return (
-      <span style={{ fontSize, color }} className="span-number">
+      <span style={{ fontSize, color }} className="number">
         {strPart}
       </span>
     );
@@ -89,7 +89,7 @@ export default class Format {
       color = colorOverride;
     }
     return (
-      <span style={{ fontSize, color }} className="span-number">
+      <span style={{ fontSize, color }} className="number">
         {strPart}
       </span>
     );

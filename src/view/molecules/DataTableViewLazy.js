@@ -71,6 +71,10 @@ function formatCellValueObject(key, value) {
     return <PartyGroupLink partyGroupID={value.id} />;
   }
 
+  return null;
+}
+
+function formatCellValueNumberInner(key, value) {
   if (value instanceof Fraction) {
     return <FractionView fraction={value} />;
   }
@@ -79,13 +83,9 @@ function formatCellValueObject(key, value) {
     return Format.percentagePointWithStyle(value.value, value.color);
   }
 
-  return null;
-}
-
-function formatCellValueNumber(key, value) {
   if (typeof value === "number") {
     if (Number.isInteger(value)) {
-      return Format.intHumanize(value);
+      return Format.intHumanizeWithStyle(value);
     }
     return Format.percentWithStyle(value);
   }
@@ -95,6 +95,14 @@ function formatCellValueNumber(key, value) {
   }
 
   return value;
+}
+
+function formatCellValueNumber(key, value) {
+  return (
+    <div style={{ textAlign: "right" }}>
+      {formatCellValueNumberInner(key, value)}
+    </div>
+  );
 }
 
 function formatCellValue(key, value) {

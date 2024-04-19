@@ -82,8 +82,8 @@ export default class MainMenu extends Component {
 
         <ElectionListViewSmall elections={elections} />
 
-        <EntListView ents={edEnts} />
-        <EntListView ents={pdEnts} />
+        <EntListView ents={edEnts} hideEntType={true} />
+        <EntListView ents={pdEnts} hideEntType={true} />
       </SectionBox>
     );
   }

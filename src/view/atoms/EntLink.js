@@ -2,22 +2,8 @@ import { Box, Typography } from "@mui/material";
 import { EntType } from "../../nonview/base";
 import { LinkContext } from "../atoms";
 
-import SignalCellularAlt1BarIcon from "@mui/icons-material/SignalCellularAlt1Bar";
-import SignalCellularAlt2BarIcon from "@mui/icons-material/SignalCellularAlt2Bar";
-import SignalCellularAltIcon from "@mui/icons-material/SignalCellularAlt";
-
-export default function ElectionLink({ ent }) {
+export default function ElectionLink({ ent, hideEntType }) {
   const entType = EntType.fromID(ent.id);
-
-  let Icon = SignalCellularAlt1BarIcon;
-  let color = "#ccc";
-  if (entType === EntType.ED) {
-    Icon = SignalCellularAlt2BarIcon;
-    color = "#888";
-  } else if (entType === EntType.PD) {
-    Icon = SignalCellularAltIcon;
-    color = "#444";
-  }
 
   const context = {
     pageID: entType.longNameCamel,
@@ -26,9 +12,13 @@ export default function ElectionLink({ ent }) {
   return (
     <LinkContext context={context}>
       <Box display="flex" alignItems="center">
-        <Icon sx={{ color: "#ccc", marginRight: 1, fontSize: "80%" }} />
-        <Typography variant="inherit" sx={{ color }}>
-          {ent.name}
+        <Typography variant="inherit">
+          {hideEntType ? null : (
+            <div style={{ fontSize: "0.67em", opacity: 0.5 }}>
+              {entType.longName}
+            </div>
+          )}
+          <div>{ent.name}</div>
         </Typography>
       </Box>
     </LinkContext>

@@ -20,7 +20,7 @@ function getDataList(partyGroups, elections, ent) {
         if (prevPVotes) {
           const swing = pVotes - partyGroupToPrevPVotes[partyGroup.id];
           let color = null;
-          if (swing > 0) {
+          if (swing > 0.01) {
             color = partyGroup.color;
           }
           d[partyGroup.id] = new PercentagePoint(swing, color);

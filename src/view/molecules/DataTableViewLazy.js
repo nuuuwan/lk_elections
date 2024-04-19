@@ -98,6 +98,10 @@ function formatCellValueNumberInner(key, value) {
 }
 
 function formatCellValueNumber(key, value) {
+  if (["-", "~", ""].includes(value)) {
+    return value;
+  }
+
   return (
     <div style={{ textAlign: "right" }}>
       {formatCellValueNumberInner(key, value)}
@@ -233,6 +237,7 @@ export default function DataTableViewLazy({ dataList, footerData }) {
         return colValue;
       })
       .filter((colValue) => !!colValue && colValue !== "-" && colValue !== "~");
+
     return colValues.length > 0;
   });
 

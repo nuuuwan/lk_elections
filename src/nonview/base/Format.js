@@ -68,6 +68,9 @@ export default class Format {
 
   static percentagePoint(x) {
     const absX = Math.abs(x);
+    if (absX < 0.001) {
+      return "-";
+    }
     const sign = x < 0 ? "-" : "+";
     return sign + Format.percentAbs(absX).replace("%", "pp");
   }

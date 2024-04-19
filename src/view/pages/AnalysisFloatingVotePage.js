@@ -21,10 +21,8 @@ export default class AnalysisFloatingVotePage extends AbstractCustomPage {
   }
 
   async componentDidMount() {
-    const elections = Election.listAll();
-    for (let election of elections) {
-      await election.loadData();
-    }
+    const elections = await Election.listAll();
+
     const pdEnts = await Ent.listFromType(EntType.PD);
     const edEnts = await Ent.listFromType(EntType.ED);
     const partyGroups = PartyGroup.listAll();

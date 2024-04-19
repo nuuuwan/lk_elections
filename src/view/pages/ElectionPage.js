@@ -23,16 +23,9 @@ export default class ElectionPage extends AbstractCustomPage {
 
   async componentDidMount() {
     let { date } = this.state;
-    const election = Election.fromDate(date);
-    await election.loadData();
-
-    const elections = Election.listAll();
-    for (let election of elections) {
-      await election.loadData();
-    }
-
+    const election = await Election.fromDate(date);
+    const elections = await Election.listAll();
     const edEnts = await Ent.listFromType(EntType.ED);
-
     const countryEnt = await Ent.fromID("LK");
     this.setState({ election, countryEnt, edEnts, elections });
   }

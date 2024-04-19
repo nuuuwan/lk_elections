@@ -33,10 +33,8 @@ export default class PollingDivisionPage extends AbstractCustomPage {
 
     const pdEnts = await Ent.listFromType(EntType.PD);
 
-    const elections = Election.listAll();
-    for (let election of elections) {
-      await election.loadData();
-    }
+    const elections = await Election.listAll();
+
 
     const partyGroups = PartyGroup.listAll();
 

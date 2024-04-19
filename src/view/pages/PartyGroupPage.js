@@ -28,10 +28,7 @@ export default class PartyGroupPage extends AbstractCustomPage {
     const { partyGroupID } = this.state;
     const partyGroup = PartyGroup.fromID(partyGroupID);
 
-    const elections = Election.listAll();
-    for (const election of elections) {
-      await election.loadData();
-    }
+    const elections = await Election.listAll();
 
     const countryEnt = await Ent.fromID("LK");
 

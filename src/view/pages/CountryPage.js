@@ -24,10 +24,8 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
   async componentDidMount() {
     const countryEnt = await Ent.fromID("LK");
 
-    const elections = Election.listAll();
-    for (let election of elections) {
-      await election.loadData();
-    }
+    const elections = await Election.listAll();
+
 
     const edEnts = await Ent.listFromType(EntType.ED);
 

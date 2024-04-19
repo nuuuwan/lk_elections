@@ -1,4 +1,4 @@
-import { WWW, Random, Time } from "../base";
+import { WWW, Time } from "../base";
 
 import Result from "./Result.js";
 const URL_BASE =
@@ -10,6 +10,15 @@ export default class Election {
     this.resultsList = null;
     this.resultsIdx = null;
     this.isLoaded = false;
+  }
+
+  async __loadData() {
+    if (this.isFutureElection) {
+      return;
+    }
+    this.resultsList = await this.getResultsList();
+    this.resultsIdx = Election.buildResultsIdx(this.resultsList);
+    this.isLoaded = this.resultsList.length > 10;
   }
 
   get year() {
@@ -39,14 +48,7 @@ export default class Election {
     return this.date === other.date;
   }
 
-  async loadData() {
-    if (this.isFutureElection) {
-      return;
-    }
-    this.resultsList = await this.getResultsList();
-    this.resultsIdx = Election.buildResultsIdx(this.resultsList);
-    this.isLoaded = this.resultsList.length > 10;
-  }
+
 
   getResults(id) {
     if (!this.isLoaded) {
@@ -138,8 +140,8 @@ export default class Election {
 
   // Data
 
-  static listAll() {
-    return [
+  static async listAll() {
+    const elections = [
       // Presidential
       new Election("Presidential", "2024-10-24"),
       new Election("Presidential", "2019-11-16"),
@@ -162,15 +164,19 @@ export default class Election {
       new Election("Parliamentary", "1994-08-16"),
       new Election("Parliamentary", "1989-02-15"),
     ].sort((a, b) => b.localeCompare(a));
+
+    for (const election of elections) {
+      await election.__loadData();
+    }
+    return elections;
+
   }
 
-  static fromDate(date) {
-    return Election.listAll().find(function (election) {
+  static async fromDate(date) {
+    const elections = await Election.listAll();
+    return elections.find(function (election) {
       return election.date === date;
     });
   }
 
-  static random() {
-    return Random.choice(Election.listAll());
-  }
 }

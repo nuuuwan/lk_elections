@@ -21,10 +21,7 @@ export default class MainMenu extends Component {
   }
 
   async componentDidMount() {
-    const elections = Election.listAll();
-    for (const election of elections) {
-      await election.loadData();
-    }
+    const elections =await Election.listAll();
     const edEnts = await Ent.listFromType(EntType.ED);
     const pdEnts = await Ent.listFromType(EntType.PD);
     this.setState({ elections, edEnts, pdEnts });

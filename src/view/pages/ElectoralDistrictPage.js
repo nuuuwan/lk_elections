@@ -32,10 +32,8 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     const pdEnts = pdEntsAll.filter((pdEnt) => pdEnt.id.startsWith(edID));
     const edEnts = await Ent.listFromType(EntType.ED);
     const countryEnt = await Ent.fromID("LK");
-    const elections = Election.listAll();
-    for (let election of elections) {
-      await election.loadData();
-    }
+    const elections = await Election.listAll();
+
     const partyGroups = PartyGroup.listAll();
     this.setState({
       edEnt,

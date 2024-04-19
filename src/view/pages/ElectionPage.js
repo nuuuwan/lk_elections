@@ -1,8 +1,8 @@
 import { Box, Stack, CircularProgress } from "@mui/material";
 import { URLContext, Ent, EntType } from "../../nonview/base";
-import { Election } from "../../nonview/core";
+import { Election, PartyGroup } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
-import { ElectionListView } from "../molecules";
+import { ElectionListView, SwingAnalysisForElectionView } from "../molecules";
 import { WikiSummaryView, ElectionLink } from "../atoms";
 
 export default class ElectionPage extends AbstractCustomPage {
@@ -25,9 +25,24 @@ export default class ElectionPage extends AbstractCustomPage {
     let { date } = this.state;
     const election = await Election.fromDate(date);
     const elections = await Election.listAll();
+
+
+    const i = elections.map((e) => e.date).indexOf(election.date);
+    let prevElection, nextElection;
+    if (i < elections.length - 1) {
+      prevElection = elections[i + 1];
+    }
+    if (i > 0) {
+      nextElection = elections[i - 1];
+    }
+
+
     const edEnts = await Ent.listFromType(EntType.ED);
     const countryEnt = await Ent.fromID("LK");
-    this.setState({ election, countryEnt, edEnts, elections });
+
+    const partyGroups = PartyGroup.listAll();
+
+    this.setState({ election, countryEnt, edEnts, elections, prevElection, nextElection, partyGroups });
   }
   get supertitle() {
     return "Election";
@@ -50,23 +65,14 @@ export default class ElectionPage extends AbstractCustomPage {
   }
 
   get subtitle() {
-    const { election, elections } = this.state;
+    const {  elections, prevElection, nextElection } = this.state;
     if (!elections) {
       return null;
     }
 
-    const i = elections.map((e) => e.date).indexOf(election.date);
-    let closeElections = [];
-    if (i < elections.length - 1) {
-      closeElections.push(elections[i + 1]);
-    }
-    if (i > 0) {
-      closeElections.push(elections[i - 1]);
-    }
-
     return (
       <Stack direction="row" spacing={1}>
-        {closeElections.map((e) => (
+        {[prevElection, nextElection].filter((x) => !!x).map((e) => (
           <ElectionLink key={e.date} election={e} />
         ))}
       </Stack>
@@ -86,7 +92,7 @@ export default class ElectionPage extends AbstractCustomPage {
   }
 
   renderBodyRight() {
-    const { countryEnt, election, edEnts } = this.state;
+    const { partyGroups, countryEnt, election, prevElection, edEnts } = this.state;
     if (!countryEnt) {
       return <CircularProgress />;
     }
@@ -94,6 +100,13 @@ export default class ElectionPage extends AbstractCustomPage {
       <Box>
         <ElectionListView
           elections={[election]}
+          ents={[].concat(edEnts, [countryEnt])}
+        />
+        <SwingAnalysisForElectionView
+        partyGroups={partyGroups}
+        
+          prevElection={prevElection}
+          election={election}
           ents={[].concat(edEnts, [countryEnt])}
         />
       </Box>

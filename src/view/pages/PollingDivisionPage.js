@@ -3,13 +3,7 @@ import { Ent, URLContext, EntType } from "../../nonview/base";
 import { Election, PartyGroup } from "../../nonview/core";
 
 import { EntLink } from "../atoms";
-import {
-  ElectionListView,
-  BellwetherView,
-  SimilarRegionsView,
-  ElectoralSummaryView,
-  FloatingVoteAnalysisView,
-} from "../molecules";
+import { ElectoralSummaryView, CommonEntAnalysisView } from "../molecules";
 import { GeoMap } from "../organisms";
 import AbstractCustomPage from "./AbstractCustomPage";
 
@@ -100,25 +94,15 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     if (!pdEnt) {
       return <CircularProgress />;
     }
-
+    const ents = [].concat(pdEnts, [edEnt, countryEnt]);
     return (
       <Box>
-        <BellwetherView ent={pdEnt} elections={elections} />
-
-        <FloatingVoteAnalysisView
-          partyGroups={partyGroups}
-          elections={elections}
-          ents={[pdEnt, edEnt, countryEnt]}
-        />
-
-        <SimilarRegionsView
+        <CommonEntAnalysisView
           ent={pdEnt}
+          entsSimilar={[pdEnt, edEnt, countryEnt]}
+          entsAll={ents}
           elections={elections}
-          otherEnts={pdEnts}
-        />
-        <ElectionListView
-          elections={elections}
-          ents={[pdEnt, edEnt, countryEnt]}
+          partyGroups={partyGroups}
         />
       </Box>
     );

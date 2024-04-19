@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Box, IconButton, Typography } from "@mui/material";
-import { Ent, Format, Fraction } from "../../nonview/base";
+import { Ent, Format, Fraction, PercentagePoint } from "../../nonview/base";
 import { Election, Party, PartyGroup } from "../../nonview/core";
 import SwapVertIcon from "@mui/icons-material/SwapVert";
 import {
@@ -75,6 +75,10 @@ function formatCellValueObject(key, value) {
     return <FractionView fraction={value} />;
   }
 
+  if (value instanceof PercentagePoint) {
+    return Format.percentagePointWithStyle(value.value, value.color);
+  }
+
   return null;
 }
 
@@ -82,9 +86,6 @@ function formatCellValueNumber(key, value) {
   if (typeof value === "number") {
     if (Number.isInteger(value)) {
       return Format.intHumanize(value);
-    }
-    if (value < 0.005) {
-      return "-";
     }
     return Format.percentWithStyle(value);
   }

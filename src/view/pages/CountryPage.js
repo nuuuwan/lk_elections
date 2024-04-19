@@ -1,11 +1,12 @@
 import { Box, CircularProgress } from "@mui/material";
 import { Ent, EntType, URLContext } from "../../nonview/base";
-import { Election } from "../../nonview/core";
+import { Election, PartyGroup } from "../../nonview/core";
 import { WikiSummaryView, EntLink } from "../atoms";
 import {
-  ElectionListView,
+
   EntListView,
   ElectoralSummaryView,
+  CommonEntAnalysisView,
 } from "../molecules";
 
 import AbstractCustomPage from "./AbstractCustomPage";
@@ -28,7 +29,9 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
 
     const edEnts = await Ent.listFromType(EntType.ED);
 
-    this.setState({ countryEnt, elections, edEnts });
+    const partyGroups = PartyGroup.listAll();
+
+    this.setState({ countryEnt, elections, edEnts,partyGroups });
   }
 
   get supertitle() {
@@ -62,17 +65,14 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     );
   }
   renderBodyRight() {
-    const { countryEnt, elections, edEnts } = this.state;
+    const { countryEnt, elections, edEnts,partyGroups } = this.state;
     if (!countryEnt) {
       return <CircularProgress />;
     }
-
+    const entsAll = [].concat(edEnts,[countryEnt]);
     return (
       <Box>
-        <ElectionListView
-          elections={elections}
-          ents={[].concat(edEnts, countryEnt)}
-        />
+       <CommonEntAnalysisView ent={countryEnt} entsSimilar={[countryEnt]} entsAll={entsAll} elections={elections} partyGroups={partyGroups} />
       </Box>
     );
   }

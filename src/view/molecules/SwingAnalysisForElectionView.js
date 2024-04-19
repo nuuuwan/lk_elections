@@ -36,8 +36,7 @@ export default function SwingAnalysisForElectionView({
   prevElection,
   ents,
 }) {
-  console.debug("election", election.titleShort);
-  console.debug("prevElection", prevElection.titleShort);
+
 
   const dataList = getDataList(partyGroups, election, prevElection, ents);
   return (

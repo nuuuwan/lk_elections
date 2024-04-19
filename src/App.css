@@ -17,6 +17,8 @@ tr:nth-child(5n) {
 th {
   background-color: #ccc;
   font-weight: normal;
+  font-size: 0.8em;
+  padding: 0.2em;
 }
 
 .th-footer {
@@ -25,9 +27,9 @@ th {
 }
 
 td {
-  padding-right: 12px;
   border: 1px solid #eee;
   text-align: right;
+  padding: 0.2em;
 }
 
 .td-row-num {
@@ -37,18 +39,11 @@ td {
   font-size: 0.75em;
 }
 
-.sorter {
-  cursor: pointer;
-  font-size: 1em;
-  color: #444;
-  padding: 1;
-}
-
 .span-number {
   text-align: right;
 }
 
 tfoot td {
   font-weight: bold;
-  font-size: 1.5em;
+  font-size: 2.5em;
 }

@@ -129,6 +129,10 @@ export default class Election {
     return this.year + " " + this.electionType;
   }
 
+  get titleShorter() {
+    return this.year + " " + this.electionType.substring(0, 5) + ".";
+  }
+
   // Wikipedia
   get wikiPageName() {
     return (

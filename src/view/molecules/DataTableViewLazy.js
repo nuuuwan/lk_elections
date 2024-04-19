@@ -124,17 +124,6 @@ function formatCellValue(key, value) {
   return formatCellValueObject(key, value) || formatCellValueNumber(key, value);
 }
 
-function getHeaderKeys(dataList) {
-  return dataList.reduce(function (headerKeys, data) {
-    return Object.keys(data).reduce(function (headerKeys, key) {
-      if (!headerKeys.includes(key)) {
-        headerKeys.push(key);
-      }
-      return headerKeys;
-    }, headerKeys);
-  }, []);
-}
-
 function DataTableViewHeaderRow({ headerKeys, setSortKey }) {
   return (
     <tr>
@@ -194,40 +183,15 @@ function DataTableViewFooterRow({ headerKeys, footerData }) {
   );
 }
 
-export default function DataTableViewLazy({ dataList, footerData }) {
-  const [sortKey, setSortKey] = useState(null);
-  const [sortOrder, setSortOrder] = useState(true);
-  const setSortKeyInner = function (key) {
-    if (sortKey === key) {
-      setSortOrder(!sortOrder);
-    } else {
-      setSortKey(key);
-      setSortOrder(true);
-    }
-  };
-
-  // Filter Null
-  const filteredDataList = dataList.filter((data) => data !== null);
-  if (filteredDataList.length === 0) {
-    return null;
-  }
-
-  // Get Headers
-  const headerKeys = getHeaderKeys(filteredDataList);
-
-  // Sort
-  let sortedDataList;
-  if (sortKey) {
-    sortedDataList = filteredDataList.sort(function (a, b) {
-      if (sortOrder) {
-        return compare(b[sortKey], a[sortKey]);
-      } else {
-        return compare(a[sortKey], b[sortKey]);
+function getHeaderKeys(dataList) {
+  const headerKeys = dataList.reduce(function (headerKeys, data) {
+    return Object.keys(data).reduce(function (headerKeys, key) {
+      if (!headerKeys.includes(key)) {
+        headerKeys.push(key);
       }
-    });
-  } else {
-    sortedDataList = filteredDataList;
-  }
+      return headerKeys;
+    }, headerKeys);
+  }, []);
 
   // Filter out Null Columns
   const colFilteredHeaderKeys = headerKeys.filter(function (headerKey) {
@@ -245,12 +209,51 @@ export default function DataTableViewLazy({ dataList, footerData }) {
     return colValues.length > 0;
   });
 
+  return colFilteredHeaderKeys;
+}
+
+export default function DataTableViewLazy({ dataList, footerData }) {
+  // Init Sorter
+  const [sortKey, setSortKey] = useState(null);
+  const [sortOrder, setSortOrder] = useState(true);
+  const setSortKeyInner = function (key) {
+    if (sortKey === key) {
+      setSortOrder(!sortOrder);
+    } else {
+      setSortKey(key);
+      setSortOrder(true);
+    }
+  };
+
+  // Filter Null
+  const filteredDataList = dataList.filter((data) => data !== null);
+  if (filteredDataList.length === 0) {
+    return null;
+  }
+
+  // Get HeaderKeys
+  const headerKeys = getHeaderKeys(filteredDataList);
+
+  // Sort
+  let sortedDataList;
+  if (sortKey) {
+    sortedDataList = filteredDataList.sort(function (a, b) {
+      if (sortOrder) {
+        return compare(b[sortKey], a[sortKey]);
+      } else {
+        return compare(a[sortKey], b[sortKey]);
+      }
+    });
+  } else {
+    sortedDataList = filteredDataList;
+  }
+
   return (
     <Box>
       <table>
         <thead>
           <DataTableViewHeaderRow
-            headerKeys={colFilteredHeaderKeys}
+            headerKeys={headerKeys}
             setSortKey={setSortKeyInner}
           />
         </thead>
@@ -260,7 +263,7 @@ export default function DataTableViewLazy({ dataList, footerData }) {
               <DataTableViewRow
                 key={"data-row-" + iRow}
                 iRow={iRow}
-                headerKeys={colFilteredHeaderKeys}
+                headerKeys={headerKeys}
                 data={data}
               />
             );
@@ -269,7 +272,7 @@ export default function DataTableViewLazy({ dataList, footerData }) {
         {footerData ? (
           <tfoot>
             <DataTableViewFooterRow
-              headerKeys={colFilteredHeaderKeys}
+              headerKeys={headerKeys}
               footerData={footerData}
             />
           </tfoot>

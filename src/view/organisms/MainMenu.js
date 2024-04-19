@@ -37,7 +37,7 @@ export default class MainMenu extends Component {
         title="Analysis"
         items={[
           { pageID: "AnalysisBellwether", title: "Bellwethers" },
-          { pageID: "AnalysisFloatingVote", title: "Base/Floating Votes" },
+          { pageID: "AnalysisFloatingVote", title: "Floating Votes" },
         ]}
         renderItem={renderItem}
       />
@@ -82,8 +82,8 @@ export default class MainMenu extends Component {
 
         <ElectionListViewSmall elections={elections} />
 
-        <EntListView ents={edEnts} hideEntType={true} />
-        <EntListView ents={pdEnts} hideEntType={true} />
+        <EntListView ents={edEnts} shortFormat={true} />
+        <EntListView ents={pdEnts} shortFormat={true} />
       </SectionBox>
     );
   }

@@ -19,14 +19,14 @@ export default class Format {
 
   static intHumanizeWithStyle(x) {
     const strPart = Format.intHumanize(x);
-    let fontSize = 9;
+    let fontSize = 12;
     if (x > 1_000_000) {
       fontSize = 24;
     }
     if (x > 1_000) {
-      fontSize = 12;
+      fontSize = 18;
     }
-    const color = x < 100 ? "#ccc" : "inherit";
+    const color = x < 100 ? "#888" : "inherit";
     return (
       <span className="number" style={{ fontSize, color }}>
         {strPart}

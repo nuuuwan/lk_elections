@@ -1,4 +1,4 @@
-import { Box, Breadcrumbs, CircularProgress } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import { Ent, EntType, URLContext } from "../../nonview/base";
 import { Election, PartyGroup } from "../../nonview/core";
 import { WikiSummaryView, EntLink } from "../atoms";
@@ -55,7 +55,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
       <Box>
         <WikiSummaryView wikiPageName={"Elections_in_Sri_Lanka"} />
         <ElectoralSummaryView ent={countryEnt} elections={elections} />
-        <EntListView ents={edEnts} />
+        <EntListView ents={edEnts} shortFormat={true} />
       </Box>
     );
   }

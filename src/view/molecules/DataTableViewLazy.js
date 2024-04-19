@@ -61,7 +61,7 @@ function formatCellValueObject(key, value) {
     return <ElectionLink election={value} />;
   }
   if (value instanceof Ent) {
-    return <EntLink ent={value} />;
+    return <EntLink ent={value} shortFormat={true} />;
   }
   if (value instanceof Party) {
     return <PartyLink partyID={value.id} />;
@@ -145,11 +145,11 @@ function DataTableViewHeaderRow({ headerKeys, setSortKey }) {
         };
         return (
           <th key={"header-" + iCol}>
-            <Box>{formatCellValue(headerKey, headerKey)}</Box>
-            <Box>
+            <Box display="flex" alignItems="center">
               <IconButton onClick={onClickSort}>
                 <SwapVertIcon sx={{ fontSize: "50%" }} />
               </IconButton>
+              {formatCellValue(headerKey, headerKey)}
             </Box>
           </th>
         );

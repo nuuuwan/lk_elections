@@ -51,8 +51,8 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
 
     return (
       <Breadcrumbs aria-label="breadcrumb">
-        <EntLink ent={countryEnt} hideEntType={true} />
-        <EntLink ent={edEnt} hideEntType={true} />
+        <EntLink ent={countryEnt} shortFormat={true} />
+        <EntLink ent={edEnt} shortFormat={true} />
       </Breadcrumbs>
     );
   }
@@ -82,8 +82,8 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
       <Box>
         <GeoMap geoID={edEnt.id} />
         <WikiSummaryView wikiPageName={edEnt.wikiPageName} />
+        <EntListView ents={pdEnts} shortFormat={true} />
         <ElectoralSummaryView ent={edEnt} elections={elections} />
-        <EntListView ents={pdEnts} hideEntType={true} />
       </Box>
     );
   }

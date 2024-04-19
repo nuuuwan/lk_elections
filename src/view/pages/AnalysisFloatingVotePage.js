@@ -1,10 +1,10 @@
 import { URLContext, Ent, EntType } from "../../nonview/base";
 import { Election, PartyGroup } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
-import { SectionBox, WikiSummaryView } from "../atoms";
+import { EntLink, SectionBox, WikiSummaryView } from "../atoms";
 
 import { FloatingVoteAnalysisView } from "../molecules";
-import { CircularProgress } from "@mui/material";
+import { Box, Breadcrumbs, CircularProgress } from "@mui/material";
 
 export default class AnalysisFloatingVotePage extends AbstractCustomPage {
   static getPageID() {
@@ -30,11 +30,22 @@ export default class AnalysisFloatingVotePage extends AbstractCustomPage {
     this.setState({ elections, countryEnt, pdEnts, edEnts, partyGroups });
   }
   get supertitle() {
-    return "Analysis";
+    const { countryEnt } = this.state;
+    if (!countryEnt) {
+      return null;
+    }
+
+    return (
+      <Breadcrumbs aria-label="breadcrumb">
+        <EntLink ent={countryEnt} shortFormat={true} />
+        <Box>Analysis</Box>
+        <Box>Floating Votes</Box>
+      </Breadcrumbs>
+    );
   }
 
   get title() {
-    return "Base/Floating Votes";
+    return "Floating Votes";
   }
 
   renderBodyMiddle() {

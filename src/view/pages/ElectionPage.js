@@ -1,8 +1,18 @@
-import { Box, Stack, CircularProgress, Breadcrumbs } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  Breadcrumbs,
+  Typography,
+  Alert,
+} from "@mui/material";
 import { URLContext, Ent, EntType } from "../../nonview/base";
 import { Election, PartyGroup } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
-import { ElectionListView, SwingAnalysisForElectionView } from "../molecules";
+import {
+  ElectionListView,
+  ElectoralSummaryView,
+  SwingAnalysisForElectionView,
+} from "../molecules";
 import { WikiSummaryView, ElectionLink, EntLink } from "../atoms";
 
 export default class ElectionPage extends AbstractCustomPage {
@@ -77,7 +87,7 @@ export default class ElectionPage extends AbstractCustomPage {
 
     return (
       <Breadcrumbs aria-label="breadcrumb">
-        <EntLink ent={countryEnt} hideEntType={true} />
+        <EntLink ent={countryEnt} shortFormat={true} />
 
         {[prevElection, nextElection]
           .filter((x) => !!x)
@@ -95,7 +105,11 @@ export default class ElectionPage extends AbstractCustomPage {
     }
     return (
       <Box>
+        <Typography variant="body2" sx={{ color: "#888" }}>
+          {election.dateFormatted}
+        </Typography>
         <WikiSummaryView wikiPageName={election.wikiPageName} />
+        <ElectoralSummaryView ent={countryEnt} elections={[election]} />
       </Box>
     );
   }
@@ -107,16 +121,22 @@ export default class ElectionPage extends AbstractCustomPage {
       return <CircularProgress />;
     }
 
+    if (election.isFuture) {
+      return <Alert severity="info">This election has not yet occurred.</Alert>;
+    }
+
     const ents = [].concat([countryEnt], edEnts, pdEnts);
     return (
       <Box>
         <ElectionListView elections={[election]} ents={ents} />
-        <SwingAnalysisForElectionView
-          partyGroups={partyGroups}
-          prevElection={prevElection}
-          election={election}
-          ents={ents}
-        />
+        {prevElection ? (
+          <SwingAnalysisForElectionView
+            partyGroups={partyGroups}
+            prevElection={prevElection}
+            election={election}
+            ents={ents}
+          />
+        ) : null}
       </Box>
     );
   }

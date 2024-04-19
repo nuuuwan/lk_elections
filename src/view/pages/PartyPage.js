@@ -1,8 +1,8 @@
-import { URLContext } from "../../nonview/base";
+import { Ent, URLContext } from "../../nonview/base";
 import { Party, Election, PartyGroup } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
-import { WikiSummaryView, PartyLink, PartyGroupLink } from "../atoms";
-import { Box, CircularProgress } from "@mui/material";
+import { WikiSummaryView, PartyLink, PartyGroupLink, EntLink } from "../atoms";
+import { Box, Breadcrumbs, CircularProgress } from "@mui/material";
 import { GenericListView, PartyElectoralSummaryView } from "../molecules";
 
 export default class PartyPage extends AbstractCustomPage {
@@ -24,12 +24,31 @@ export default class PartyPage extends AbstractCustomPage {
     const { partyID } = this.state;
     const party = new Party(partyID);
     const elections = await Election.listAll();
-    this.setState({ party, elections });
-  }
-  get supertitle() {
-    return "Party";
+    const partyGroups = PartyGroup.listFromPartyID(party.id);
+    const countryEnt = await Ent.fromID("LK");
+    this.setState({ party, elections, partyGroups, countryEnt });
   }
 
+  get supertitle() {
+    const { party, partyGroups, countryEnt } = this.state;
+    if (!party) {
+      return null;
+    }
+    return (
+      <Breadcrumbs aria-label="breadcrumb">
+        <EntLink ent={countryEnt} shortFormat={true} />
+        {partyGroups.map(function (partyGroup, iPartyGroup) {
+          return (
+            <PartyGroupLink
+              key={"partyGroup" + iPartyGroup}
+              partyGroupID={partyGroup.id}
+            />
+          );
+        })}
+        <PartyLink partyID={party.id} />
+      </Breadcrumbs>
+    );
+  }
   get title() {
     const { partyID } = this.state;
     return <PartyLink partyID={partyID} longName />;
@@ -39,12 +58,11 @@ export default class PartyPage extends AbstractCustomPage {
     return this.state.partyID;
   }
   renderPartyGroups() {
-    const { party } = this.state;
+    const { party, partyGroups } = this.state;
     if (!party) {
       return <CircularProgress />;
     }
 
-    const partyGroups = PartyGroup.listFromPartyID(party.id);
     return (
       <GenericListView
         title="Party Groups"

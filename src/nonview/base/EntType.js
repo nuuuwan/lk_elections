@@ -6,10 +6,16 @@ export default class EntType {
   get longName() {
     return {
       country: "Country",
-      province: "Province",
-      district: "District",
       pd: "Polling Division",
       ed: "Electoral District",
+    }[this.name];
+  }
+
+  get shortName() {
+    return {
+      country: "",
+      pd: "PD",
+      ed: "ED",
     }[this.name];
   }
 

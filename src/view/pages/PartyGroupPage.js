@@ -1,8 +1,8 @@
-import { Box, CircularProgress } from "@mui/material";
+import { Box, Breadcrumbs, CircularProgress } from "@mui/material";
 import { Ent, URLContext } from "../../nonview/base";
 import { PartyGroup, Election, Party } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
-import { PartyGroupLink, PartyLink } from "../atoms";
+import { EntLink, PartyGroupLink, PartyLink } from "../atoms";
 import {
   GenericListView,
   PartyGroupElectoralSummaryView,
@@ -46,10 +46,20 @@ export default class PartyGroupPage extends AbstractCustomPage {
       partyGroups,
     });
   }
-  get supertitle() {
-    return "Party Group";
-  }
 
+  get supertitle() {
+    const { partyGroup, countryEnt } = this.state;
+    if (!partyGroup) {
+      return null;
+    }
+    return (
+      <Breadcrumbs aria-label="breadcrumb">
+        <EntLink ent={countryEnt} shortFormat={true} />
+
+        <PartyGroupLink partyGroupID={partyGroup.id} />
+      </Breadcrumbs>
+    );
+  }
   get title() {
     const { partyGroupID } = this.state;
     return <PartyGroupLink partyGroupID={partyGroupID} />;

@@ -2,7 +2,7 @@ import { Box, Breadcrumbs, CircularProgress, Typography } from "@mui/material";
 import { Ent, URLContext, EntType } from "../../nonview/base";
 import { Election, PartyGroup } from "../../nonview/core";
 
-import { EntLink, Link } from "../atoms";
+import { EntLink } from "../atoms";
 import { ElectoralSummaryView, CommonEntAnalysisView } from "../molecules";
 import { GeoMap } from "../organisms";
 import AbstractCustomPage from "./AbstractCustomPage";
@@ -51,9 +51,9 @@ export default class PollingDivisionPage extends AbstractCustomPage {
 
     return (
       <Breadcrumbs aria-label="breadcrumb">
-        <EntLink ent={countryEnt} hideEntType={true} />
-        <EntLink ent={edEnt} hideEntType={true} />
-        <EntLink ent={pdEnt} hideEntType={true} />
+        <EntLink ent={countryEnt} shortFormat={true} />
+        <EntLink ent={edEnt} shortFormat={true} />
+        <EntLink ent={pdEnt} shortFormat={true} />
       </Breadcrumbs>
     );
   }

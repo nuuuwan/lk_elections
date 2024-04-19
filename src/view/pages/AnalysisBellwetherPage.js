@@ -1,10 +1,10 @@
 import { URLContext, Ent, EntType } from "../../nonview/base";
 import { AnalysisBellwether, Election } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
-import { SectionBox, WikiSummaryView, Header } from "../atoms";
+import { SectionBox, WikiSummaryView, Header, EntLink } from "../atoms";
 
 import { DataTableView } from "../molecules";
-import { CircularProgress } from "@mui/material";
+import { Box, Breadcrumbs, CircularProgress } from "@mui/material";
 
 export default class AnalysisBellwetherPage extends AbstractCustomPage {
   static getPageID() {
@@ -29,7 +29,18 @@ export default class AnalysisBellwetherPage extends AbstractCustomPage {
     this.setState({ elections, countryEnt, pdEnts, edEnts });
   }
   get supertitle() {
-    return "Analysis";
+    const { countryEnt } = this.state;
+    if (!countryEnt) {
+      return null;
+    }
+
+    return (
+      <Breadcrumbs aria-label="breadcrumb">
+        <EntLink ent={countryEnt} shortFormat={true} />
+        <Box>Analysis</Box>
+        <Box>Bellwether</Box>
+      </Breadcrumbs>
+    );
   }
 
   get title() {

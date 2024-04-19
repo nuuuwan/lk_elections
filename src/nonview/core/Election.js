@@ -25,6 +25,14 @@ export default class Election {
     return this.date.substring(0, 4);
   }
 
+  get dateFormatted() {
+    return Time.fromString(this.date).getDate().toLocaleDateString("en-LK", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  }
+
   get urlData() {
     return (
       URL_BASE +

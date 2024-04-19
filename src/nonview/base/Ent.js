@@ -22,6 +22,14 @@ export default class Ent {
     return this.id.localeCompare(other.id);
   }
 
+  localeCompareByName(other) {
+    const dLevel = this.entType.level - other.entType.level;
+    if (dLevel !== 0) {
+      return dLevel;
+    }
+    return this.name.localeCompare(other.name);
+  }
+
   get entType() {
     return EntType.fromID(this.id);
   }

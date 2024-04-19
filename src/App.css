@@ -1,5 +1,5 @@
 body {
-  font-family: Abel, sans-serif;
+  font-family: Afacad, sans-serif;
 }
 
 a {
@@ -16,7 +16,6 @@ tr:nth-child(5n) {
 
 th {
   background-color: #ccc;
-  padding-right: 12px;
   font-weight: normal;
 }
 

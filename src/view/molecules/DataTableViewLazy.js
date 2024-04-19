@@ -42,7 +42,7 @@ function compare(a, b) {
   }
 
   if (a instanceof Ent) {
-    return b.name.localeCompare(a.name);
+    return a.localeCompareByName(b);
   }
 
   return a.localeCompare(b);

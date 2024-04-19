@@ -48,8 +48,6 @@ export default class Election {
     return this.date === other.date;
   }
 
-
-
   getResults(id) {
     if (!this.isLoaded) {
       return null;
@@ -169,7 +167,6 @@ export default class Election {
       await election.__loadData();
     }
     return elections;
-
   }
 
   static async fromDate(date) {
@@ -178,5 +175,4 @@ export default class Election {
       return election.date === date;
     });
   }
-
 }

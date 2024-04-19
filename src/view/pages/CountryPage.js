@@ -26,7 +26,6 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
 
     const elections = await Election.listAll();
 
-
     const edEnts = await Ent.listFromType(EntType.ED);
 
     this.setState({ countryEnt, elections, edEnts });

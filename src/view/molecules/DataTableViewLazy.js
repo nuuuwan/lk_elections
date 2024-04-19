@@ -128,13 +128,11 @@ function DataTableViewHeaderRow({ headerKeys, setSortKey }) {
         };
         return (
           <th key={"header-" + iCol}>
+            <Box>{formatCellValue(headerKey, headerKey)}</Box>
             <Box>
-            {formatCellValue(headerKey, headerKey)}
-            </Box>
-            <Box>
-            <IconButton onClick={onClickSort}>
-              <SwapVertIcon sx={{ fontSize: "50%" }} />
-            </IconButton>
+              <IconButton onClick={onClickSort}>
+                <SwapVertIcon sx={{ fontSize: "50%" }} />
+              </IconButton>
             </Box>
           </th>
         );

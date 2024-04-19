@@ -35,7 +35,6 @@ export default class PollingDivisionPage extends AbstractCustomPage {
 
     const elections = await Election.listAll();
 
-
     const partyGroups = PartyGroup.listAll();
 
     this.setState({

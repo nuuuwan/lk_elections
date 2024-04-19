@@ -4,32 +4,30 @@ import { Header, SectionBox } from "../atoms";
 import DataTableView from "./DataTableView";
 
 function getDataList(partyGroups, election, prevElection, ents) {
-  return ents
-    .map(function (ent) {
-      let d = { Region: ent };
-      for (let partyGroup of partyGroups) {
-        const voteInfo = partyGroup.getVoteInfo(election, ent);
-        if (!voteInfo) {
-          continue;
-        }
-        const voteInfoPrev = partyGroup.getVoteInfo(prevElection, ent);
-        if (!voteInfoPrev) {
-          continue;
-        }
-        const { pVotes } = voteInfo;
-        const {pVotes: pVotesPrev} = voteInfoPrev;
+  return ents.map(function (ent) {
+    let d = { Region: ent };
+    for (let partyGroup of partyGroups) {
+      const voteInfo = partyGroup.getVoteInfo(election, ent);
+      if (!voteInfo) {
+        continue;
+      }
+      const voteInfoPrev = partyGroup.getVoteInfo(prevElection, ent);
+      if (!voteInfoPrev) {
+        continue;
+      }
+      const { pVotes } = voteInfo;
+      const { pVotes: pVotesPrev } = voteInfoPrev;
 
-          const swing = pVotes - pVotesPrev;
-          let color = null;
-          if (swing > 0) {
-            color = partyGroup.color;
-          }
-          d[partyGroup.id] = new PercentagePoint(swing, color);
-        }
-      
-  return d;    })
- 
+      const swing = pVotes - pVotesPrev;
+      let color = null;
+      if (swing > 0) {
+        color = partyGroup.color;
+      }
+      d[partyGroup.id] = new PercentagePoint(swing, color);
+    }
 
+    return d;
+  });
 }
 
 export default function SwingAnalysisForElectionView({
@@ -38,9 +36,9 @@ export default function SwingAnalysisForElectionView({
   prevElection,
   ents,
 }) {
-  console.debug('election', election.titleShort);
-  console.debug('prevElection', prevElection.titleShort);
-  
+  console.debug("election", election.titleShort);
+  console.debug("prevElection", prevElection.titleShort);
+
   const dataList = getDataList(partyGroups, election, prevElection, ents);
   return (
     <SectionBox>

@@ -26,7 +26,6 @@ export default class ElectionPage extends AbstractCustomPage {
     const election = await Election.fromDate(date);
     const elections = await Election.listAll();
 
-
     const i = elections.map((e) => e.date).indexOf(election.date);
     let prevElection, nextElection;
     if (i < elections.length - 1) {
@@ -36,13 +35,20 @@ export default class ElectionPage extends AbstractCustomPage {
       nextElection = elections[i - 1];
     }
 
-
     const edEnts = await Ent.listFromType(EntType.ED);
     const countryEnt = await Ent.fromID("LK");
 
     const partyGroups = PartyGroup.listAll();
 
-    this.setState({ election, countryEnt, edEnts, elections, prevElection, nextElection, partyGroups });
+    this.setState({
+      election,
+      countryEnt,
+      edEnts,
+      elections,
+      prevElection,
+      nextElection,
+      partyGroups,
+    });
   }
   get supertitle() {
     return "Election";
@@ -65,16 +71,18 @@ export default class ElectionPage extends AbstractCustomPage {
   }
 
   get subtitle() {
-    const {  elections, prevElection, nextElection } = this.state;
+    const { elections, prevElection, nextElection } = this.state;
     if (!elections) {
       return null;
     }
 
     return (
       <Stack direction="row" spacing={1}>
-        {[prevElection, nextElection].filter((x) => !!x).map((e) => (
-          <ElectionLink key={e.date} election={e} />
-        ))}
+        {[prevElection, nextElection]
+          .filter((x) => !!x)
+          .map((e) => (
+            <ElectionLink key={e.date} election={e} />
+          ))}
       </Stack>
     );
   }
@@ -92,7 +100,8 @@ export default class ElectionPage extends AbstractCustomPage {
   }
 
   renderBodyRight() {
-    const { partyGroups, countryEnt, election, prevElection, edEnts } = this.state;
+    const { partyGroups, countryEnt, election, prevElection, edEnts } =
+      this.state;
     if (!countryEnt) {
       return <CircularProgress />;
     }
@@ -103,8 +112,7 @@ export default class ElectionPage extends AbstractCustomPage {
           ents={[].concat(edEnts, [countryEnt])}
         />
         <SwingAnalysisForElectionView
-        partyGroups={partyGroups}
-        
+          partyGroups={partyGroups}
           prevElection={prevElection}
           election={election}
           ents={[].concat(edEnts, [countryEnt])}

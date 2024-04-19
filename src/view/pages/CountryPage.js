@@ -3,7 +3,6 @@ import { Ent, EntType, URLContext } from "../../nonview/base";
 import { Election, PartyGroup } from "../../nonview/core";
 import { WikiSummaryView, EntLink } from "../atoms";
 import {
-
   EntListView,
   ElectoralSummaryView,
   CommonEntAnalysisView,
@@ -31,7 +30,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
 
     const partyGroups = PartyGroup.listAll();
 
-    this.setState({ countryEnt, elections, edEnts,partyGroups });
+    this.setState({ countryEnt, elections, edEnts, partyGroups });
   }
 
   get supertitle() {
@@ -65,14 +64,20 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     );
   }
   renderBodyRight() {
-    const { countryEnt, elections, edEnts,partyGroups } = this.state;
+    const { countryEnt, elections, edEnts, partyGroups } = this.state;
     if (!countryEnt) {
       return <CircularProgress />;
     }
-    const entsAll = [].concat(edEnts,[countryEnt]);
+    const entsAll = [].concat(edEnts, [countryEnt]);
     return (
       <Box>
-       <CommonEntAnalysisView ent={countryEnt} entsSimilar={[countryEnt]} entsAll={entsAll} elections={elections} partyGroups={partyGroups} />
+        <CommonEntAnalysisView
+          ent={countryEnt}
+          entsSimilar={[countryEnt]}
+          entsAll={entsAll}
+          elections={elections}
+          partyGroups={partyGroups}
+        />
       </Box>
     );
   }

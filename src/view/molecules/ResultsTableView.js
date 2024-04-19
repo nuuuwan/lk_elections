@@ -29,19 +29,18 @@ function getDataList(election, ents) {
       if (p < pLimit) {
         pOther += p;
         d[party] = "~";
-      } else{
-
-      d[party] = new Fraction(
-        result.partyToVotes.partyToVotes[party],
-        result.partyToVotes.totalVotes,
-        party === winningParty ? new Party(winningParty).color : "#888"
-      );
+      } else {
+        d[party] = new Fraction(
+          result.partyToVotes.partyToVotes[party],
+          result.partyToVotes.totalVotes,
+          party === winningParty ? new Party(winningParty).color : "#888"
+        );
+      }
     }
-  }
-      
+
     if (pOther > 0) {
       const nOther = Math.round(pOther * result.partyToVotes.totalVotes);
-      d["Other"] = new Fraction(nOther, result.partyToVotes.totalVotes, '#888');
+      d["Other"] = new Fraction(nOther, result.partyToVotes.totalVotes, "#888");
     }
 
     return d;

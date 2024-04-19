@@ -24,7 +24,6 @@ function getDataList(ent, elections) {
         partyToVotes.totalVotes,
         winningParty.color
       ),
-
     };
   });
 }

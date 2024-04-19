@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, IconButton, Typography } from "@mui/material";
 import { Ent, Format, Fraction } from "../../nonview/base";
 import { Election, Party, PartyGroup } from "../../nonview/core";
-import SwapVertIcon from '@mui/icons-material/SwapVert';
+import SwapVertIcon from "@mui/icons-material/SwapVert";
 import {
   ElectionLink,
   EntLink,
@@ -12,15 +12,16 @@ import {
 } from "../atoms";
 
 function isZero(a) {
-  return a === 0 || a === "0" || a === 0.0 || a === "0.0" || a === '-' || a === '~';
-
+  return (
+    a === 0 || a === "0" || a === 0.0 || a === "0.0" || a === "-" || a === "~"
+  );
 }
 
 function compare(a, b) {
-  if (isZero(a)){
+  if (isZero(a)) {
     a = 0;
   }
-  if (isZero(b)){
+  if (isZero(b)) {
     b = 0;
   }
 
@@ -128,10 +129,10 @@ function DataTableViewHeaderRow({ headerKeys, setSortKey }) {
         return (
           <th key={"header-" + iCol}>
             {formatCellValue(headerKey, headerKey)}
-            <IconButton onClick={onClickSort} >
-            <SwapVertIcon sx={{fontSize: "50%"}}/>
-              </IconButton>
-           </th>
+            <IconButton onClick={onClickSort}>
+              <SwapVertIcon sx={{ fontSize: "50%" }} />
+            </IconButton>
+          </th>
         );
       })}
     </tr>
@@ -184,7 +185,7 @@ export default function DataTableViewLazy({ dataList, footerData }) {
       setSortKey(key);
       setSortOrder(true);
     }
-  }
+  };
 
   // Filter Null
   const filteredDataList = dataList.filter((data) => data !== null);
@@ -225,7 +226,7 @@ export default function DataTableViewLazy({ dataList, footerData }) {
   });
 
   return (
-    <Box >
+    <Box>
       <table>
         <thead>
           <DataTableViewHeaderRow

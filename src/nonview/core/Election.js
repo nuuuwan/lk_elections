@@ -125,12 +125,15 @@ export default class Election {
     return resultsIdx;
   }
 
-  get titleShort() {
-    return this.year + " " + this.electionType;
+  get electionTypeTitle() {
+    if (this.electionType === "Presidential") {
+      return "Presidential";
+    }
+    return "General";
   }
 
-  get titleShorter() {
-    return this.year + " " + this.electionType.substring(0, 5) + ".";
+  get titleShort() {
+    return this.year + " " + this.electionTypeTitle;
   }
 
   // Wikipedia

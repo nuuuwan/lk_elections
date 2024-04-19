@@ -15,15 +15,16 @@ function getDataList(ent, elections) {
     const winningParty = new Party(winningPartyID);
     return {
       Election: election,
+      Electors: summary.electors,
+      Turnout: new Fraction(summary.polled, summary.electors),
+      Rejected: new Fraction(summary.rejected, summary.polled),
       Winner: new Party(winningPartyID),
       Votes: new Fraction(
         partyToVotes.partyToVotes[winningPartyID],
         partyToVotes.totalVotes,
         winningParty.color
       ),
-      Electors: summary.electors,
-      Turnout: new Fraction(summary.polled, summary.electors),
-      Rejected: new Fraction(summary.rejected, summary.polled),
+
     };
   });
 }

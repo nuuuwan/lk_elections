@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 import { Ent, Format, Fraction } from "../../nonview/base";
 import { Election, Party, PartyGroup } from "../../nonview/core";
+import SwapVertIcon from '@mui/icons-material/SwapVert';
 import {
   ElectionLink,
   EntLink,
@@ -10,7 +11,19 @@ import {
   PartyLink,
 } from "../atoms";
 
+function isZero(a) {
+  return a === 0 || a === "0" || a === 0.0 || a === "0.0" || a === '-' || a === '~';
+
+}
+
 function compare(a, b) {
+  if (isZero(a)){
+    a = 0;
+  }
+  if (isZero(b)){
+    b = 0;
+  }
+
   if (!a && !b) {
     return 0;
   }
@@ -26,6 +39,11 @@ function compare(a, b) {
   if (typeof a === "boolean") {
     return (a ? 1 : 0) - (b ? 1 : 0);
   }
+
+  if (a instanceof Ent) {
+    return b.name.localeCompare(a.name);
+  }
+
   return a.localeCompare(b);
 }
 
@@ -99,21 +117,21 @@ function getHeaderKeys(dataList) {
   }, []);
 }
 
-function DataTableViewHeaderRow({ headerKeys, setSortKeyInner }) {
+function DataTableViewHeaderRow({ headerKeys, setSortKey }) {
   return (
     <tr>
       <td className="td-row-num"></td>
       {headerKeys.map(function (headerKey, iCol) {
         const onClickSort = function () {
-          setSortKeyInner(headerKey);
+          setSortKey(headerKey);
         };
         return (
           <th key={"header-" + iCol}>
             {formatCellValue(headerKey, headerKey)}
-            <div onClick={onClickSort} className="sorter">
-              ▴
-            </div>
-          </th>
+            <IconButton onClick={onClickSort} >
+            <SwapVertIcon sx={{fontSize: "50%"}}/>
+              </IconButton>
+           </th>
         );
       })}
     </tr>
@@ -156,8 +174,17 @@ function DataTableViewFooterRow({ headerKeys, footerData }) {
   );
 }
 
-export default function DataTableViewLazy({ dataList, footerData, sortKey }) {
-  const [sortKeyInner, setSortKeyInner] = useState(sortKey);
+export default function DataTableViewLazy({ dataList, footerData }) {
+  const [sortKey, setSortKey] = useState(null);
+  const [sortOrder, setSortOrder] = useState(true);
+  const setSortKeyInner = function (key) {
+    if (sortKey === key) {
+      setSortOrder(!sortOrder);
+    } else {
+      setSortKey(key);
+      setSortOrder(true);
+    }
+  }
 
   // Filter Null
   const filteredDataList = dataList.filter((data) => data !== null);
@@ -170,9 +197,13 @@ export default function DataTableViewLazy({ dataList, footerData, sortKey }) {
 
   // Sort
   let sortedDataList;
-  if (sortKeyInner) {
+  if (sortKey) {
     sortedDataList = filteredDataList.sort(function (a, b) {
-      return compare(b[sortKeyInner], a[sortKeyInner]);
+      if (sortOrder) {
+        return compare(b[sortKey], a[sortKey]);
+      } else {
+        return compare(a[sortKey], b[sortKey]);
+      }
     });
   } else {
     sortedDataList = filteredDataList;
@@ -199,7 +230,7 @@ export default function DataTableViewLazy({ dataList, footerData, sortKey }) {
         <thead>
           <DataTableViewHeaderRow
             headerKeys={colFilteredHeaderKeys}
-            setSortKeyInner={setSortKeyInner}
+            setSortKey={setSortKeyInner}
           />
         </thead>
         <tbody>

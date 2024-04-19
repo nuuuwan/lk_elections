@@ -20,14 +20,22 @@ function getDataList(election, ents) {
     if (!result) {
       return null;
     }
+    const pLimit = ent.id === "LK" ? 0.005 : 0.05;
     let d = { Region: ent };
     const winningParty = result.partyToVotes.winningParty;
     for (let party of majorParties) {
+      const p = result.partyToVotes.partyToPVotes[party];
+      if (p < pLimit) {
+        d[party] = "~";
+      } else{
+
       d[party] = new Fraction(
         result.partyToVotes.partyToVotes[party],
         result.partyToVotes.totalVotes,
         party === winningParty ? new Party(winningParty).color : "#888"
       );
+    }
+      
     }
     return d;
   });

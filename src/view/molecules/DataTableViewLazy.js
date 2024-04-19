@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { Ent, Format, Fraction } from "../../nonview/base";
 import { Election, Party, PartyGroup } from "../../nonview/core";
 import {
@@ -186,7 +186,7 @@ export default function DataTableViewLazy({ dataList, footerData, sortKey }) {
         const colValue = formatCellValue(headerKey, value);
         return colValue;
       })
-      .filter((colValue) => !!colValue && colValue !== "-");
+      .filter((colValue) => !!colValue && colValue !== "-" && colValue !== "~");
     return colValues.length > 0;
   });
 
@@ -220,6 +220,9 @@ export default function DataTableViewLazy({ dataList, footerData, sortKey }) {
           </tfoot>
         ) : null}
       </table>
+      <Typography variant="caption">
+        - represents zero. ~ represents small enough to be insignificant.
+      </Typography>
     </Box>
   );
 }

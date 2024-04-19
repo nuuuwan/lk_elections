@@ -102,6 +102,10 @@ function formatCellValueNumber(key, value) {
     return value;
   }
 
+  if (key === value) {
+    return key;
+  }
+
   return (
     <Box sx={{ textAlign: "right" }}>
       {formatCellValueNumberInner(key, value)}

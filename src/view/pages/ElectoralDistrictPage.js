@@ -1,4 +1,4 @@
-import { Box, CircularProgress } from "@mui/material";
+import { Box, Breadcrumbs, CircularProgress } from "@mui/material";
 import { Ent, EntType, URLContext } from "../../nonview/base";
 import { Election, PartyGroup } from "../../nonview/core";
 import { WikiSummaryView, EntLink } from "../atoms";
@@ -42,7 +42,20 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
       partyGroups,
     });
   }
+  get supertitle() {
+    const { edEnt, countryEnt } = this.state;
 
+    if (!countryEnt) {
+      return null;
+    }
+
+    return (
+      <Breadcrumbs aria-label="breadcrumb">
+        <EntLink ent={countryEnt} hideEntType={true} />
+        <EntLink ent={edEnt} hideEntType={true} />
+      </Breadcrumbs>
+    );
+  }
   get title() {
     const { edEnt, edID } = this.state;
     if (!edEnt) {
@@ -70,7 +83,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
         <GeoMap geoID={edEnt.id} />
         <WikiSummaryView wikiPageName={edEnt.wikiPageName} />
         <ElectoralSummaryView ent={edEnt} elections={elections} />
-        <EntListView ents={pdEnts} />
+        <EntListView ents={pdEnts} hideEntType={true} />
       </Box>
     );
   }

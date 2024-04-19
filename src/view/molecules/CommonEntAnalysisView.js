@@ -17,6 +17,8 @@ export default function CommonEntAnalysisView({
   const isLK = ent.id === "LK";
   return (
     <Box>
+      <SimilarRegionsView ent={ent} elections={elections} otherEnts={entsAll} />
+
       {isLK ? null : <BellwetherView ent={ent} elections={elections} />}
 
       <FloatingVoteAnalysisView
@@ -31,7 +33,6 @@ export default function CommonEntAnalysisView({
         ent={ent}
       />
 
-      <SimilarRegionsView ent={ent} elections={elections} otherEnts={entsAll} />
       <ElectionListView elections={elections} ents={entsSimilar} />
     </Box>
   );

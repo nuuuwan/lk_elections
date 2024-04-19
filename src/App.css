@@ -15,20 +15,21 @@ tr:nth-child(5n) {
 }
 
 th {
-  background-color: #ccc;
+  border: 1px solid #ccc;
+  background-color: #ddd;
   font-weight: normal;
   font-size: 0.8em;
-  padding: 0.2em;
+  padding: 0.5em;
+  text-align: center;
 }
 
 .th-footer {
-  border-bottom: 1px double #222;
+  border-bottom: 1px double #000;
 }
 
 td {
-  border: 1px solid #eee;
-
-  padding: 0.2em;
+  border: 1px solid #ccc;
+  padding: 6px;
 }
 
 .td-row-num {

@@ -1,4 +1,4 @@
-import { Box, CircularProgress } from "@mui/material";
+import { Box, Breadcrumbs, CircularProgress } from "@mui/material";
 import { Ent, EntType, URLContext } from "../../nonview/base";
 import { Election, PartyGroup } from "../../nonview/core";
 import { WikiSummaryView, EntLink } from "../atoms";

@@ -1,9 +1,9 @@
-import { Box, Stack, CircularProgress } from "@mui/material";
+import { Box, Stack, CircularProgress, Breadcrumbs } from "@mui/material";
 import { URLContext, Ent, EntType } from "../../nonview/base";
 import { Election, PartyGroup } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
 import { ElectionListView, SwingAnalysisForElectionView } from "../molecules";
-import { WikiSummaryView, ElectionLink } from "../atoms";
+import { WikiSummaryView, ElectionLink, EntLink } from "../atoms";
 
 export default class ElectionPage extends AbstractCustomPage {
   static getPageID() {
@@ -52,9 +52,6 @@ export default class ElectionPage extends AbstractCustomPage {
       partyGroups,
     });
   }
-  get supertitle() {
-    return "Election";
-  }
 
   get title() {
     const { election } = this.state;
@@ -72,20 +69,22 @@ export default class ElectionPage extends AbstractCustomPage {
     return election.titleShort;
   }
 
-  get subtitle() {
-    const { elections, prevElection, nextElection } = this.state;
+  get supertitle() {
+    const { elections, prevElection, nextElection, countryEnt } = this.state;
     if (!elections) {
       return null;
     }
 
     return (
-      <Stack direction="row" spacing={1}>
+      <Breadcrumbs aria-label="breadcrumb">
+        <EntLink ent={countryEnt} hideEntType={true} />
+
         {[prevElection, nextElection]
           .filter((x) => !!x)
           .map((e) => (
             <ElectionLink key={e.date} election={e} />
           ))}
-      </Stack>
+      </Breadcrumbs>
     );
   }
 

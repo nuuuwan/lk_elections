@@ -103,9 +103,9 @@ function formatCellValueNumber(key, value) {
   }
 
   return (
-    <div style={{ textAlign: "right" }}>
+    <Box sx={{ textAlign: "right" }}>
       {formatCellValueNumberInner(key, value)}
-    </div>
+    </Box>
   );
 }
 

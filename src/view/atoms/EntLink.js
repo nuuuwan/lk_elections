@@ -11,15 +11,13 @@ export default function ElectionLink({ ent, hideEntType }) {
   };
   return (
     <LinkContext context={context}>
-      <Box display="flex" alignItems="center">
-        <Typography variant="inherit">
-          {hideEntType ? null : (
-            <div style={{ fontSize: "0.67em", opacity: 0.5 }}>
-              {entType.longName}
-            </div>
-          )}
-          <div>{ent.name}</div>
-        </Typography>
+      <Box>
+        {hideEntType ? null : (
+          <Box sx={{ fontSize: "0.67em", opacity: 0.5 }}>
+            <Typography variant="inherit">{entType.longName}</Typography>
+          </Box>
+        )}
+        <Typography variant="inherit">{ent.name} </Typography>
       </Box>
     </LinkContext>
   );

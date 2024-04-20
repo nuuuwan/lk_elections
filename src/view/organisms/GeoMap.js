@@ -15,11 +15,18 @@ export default class GeoMap extends Component {
 
   async componentDidMount() {
     const { geoID } = this.props;
+    if (geoID.endsWith("P")) {
+      return null;
+    }
     const geo = await new Geo(geoID).load();
     this.setState({ geo });
   }
 
   render() {
+    const { geoID } = this.props;
+    if (geoID.endsWith("P")) {
+      return null;
+    }
     const { geo } = this.state;
     if (!geo) {
       return <CircularProgress />;

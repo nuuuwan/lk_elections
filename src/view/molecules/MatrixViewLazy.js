@@ -6,7 +6,7 @@ import SwapVerticalCircleIcon from "@mui/icons-material/SwapVerticalCircle";
 
 import ScreenRotationIcon from "@mui/icons-material/ScreenRotation";
 import { Box, IconButton } from "@mui/material";
-import { Comparator } from "../../nonview/core";
+// import { Comparator } from "../../nonview/core";
 function numberToLetter(number) {
   return String.fromCharCode(64 + number);
 }
@@ -20,28 +20,23 @@ function MatrixViewHeader({
 }) {
   return [
     <tr key="1">
-    <th className="hidden"/>
-     <th className="hidden"/>
+      <th className="hidden" />
+      <th className="hidden" />
 
-
-    {Object.keys(Object.values(idx)[0]).map(function (xScalar, iX) {
-
-
-      return (
-        <th key={"header-" + iX} className="td-row-num">{numberToLetter(iX + 1)}</th>
-
-      );
-    })}
-  </tr>,
+      {Object.keys(Object.values(idx)[0]).map(function (xScalar, iX) {
+        return (
+          <th key={"header-" + iX} className="td-row-num">
+            {numberToLetter(iX + 1)}
+          </th>
+        );
+      })}
+    </tr>,
     <tr key="2">
       <th className="hidden"></th>
-       <th className="hidden">
- 
-          <IconButton onClick={handleToggleXY}>
-            <ScreenRotationIcon sx={{ fontSize: "80%" }} />
-          </IconButton>
-
-
+      <th className="hidden">
+        <IconButton onClick={handleToggleXY}>
+          <ScreenRotationIcon sx={{ fontSize: "80%" }} />
+        </IconButton>
       </th>
 
       {Object.keys(Object.values(idx)[0]).map(function (xScalar, iX) {
@@ -60,7 +55,7 @@ function MatrixViewHeader({
           </th>
         );
       })}
-    </tr>
+    </tr>,
   ];
 }
 
@@ -73,8 +68,9 @@ function MatrixViewBody({ idx, setSortYScalarAndOrder, scalarToOriginal }) {
     };
 
     const y = scalarToOriginal[yScalar];
-    const rowValues = Object.values(xScalarToZ);
-    const rowSum = Comparator.sum(rowValues);
+    // const rowValues = Object.values(xScalarToZ);
+    // const rowSum = Comparator.sum(rowValues);
+    // <th  className="th-sum">{Renderer.formatCellValue(rowSum)}</th>
 
     return (
       <tr key={"row-" + iY}>
@@ -93,31 +89,30 @@ function MatrixViewBody({ idx, setSortYScalarAndOrder, scalarToOriginal }) {
             <td key={"cell-" + iX + "-" + iY}>{Renderer.formatCellValue(z)}</td>
           );
         })}
-        <th  className="th-sum">{Renderer.formatCellValue(rowSum)}</th>
       </tr>
     );
   });
 }
 
-function MatrixViewFooter({ idx }) {
-  const firstYScalar = Object.keys(idx)[0];
-  const xScalarList = Object.keys(idx[firstYScalar]);
+// function MatrixViewFooter({ idx }) {
+//   const firstYScalar = Object.keys(idx)[0];
+//   const xScalarList = Object.keys(idx[firstYScalar]);
 
-  return (
-    <tr>
-      <th className="hidden"/>
-      <th style={{ background: "white", border: "white" }}></th>
-      {xScalarList.map(function (xScalar, iX) {
-        const colValues = Object.values(idx).map(function (xScalarToZ) {
-          return xScalarToZ[xScalar];
-        });
-        const colSum = Comparator.sum(colValues);
+//   return (
+//     <tr>
+//       <th className="hidden"/>
+//       <th style={{ background: "white", border: "white" }}></th>
+//       {xScalarList.map(function (xScalar, iX) {
+//         const colValues = Object.values(idx).map(function (xScalarToZ) {
+//           return xScalarToZ[xScalar];
+//         });
+//         const colSum = Comparator.sum(colValues);
 
-        return <th key={"footer-" + iX} className="th-sum">{Renderer.formatCellValue(colSum)}</th>;
-      })}
-    </tr>
-  );
-}
+//         return <th key={"footer-" + iX} className="th-sum">{Renderer.formatCellValue(colSum)}</th>;
+//       })}
+//     </tr>
+//   );
+// }
 
 export default function MatrixViewLazy({ sparseMatrix, zKey, xKey, yKey }) {
   // State - X, Y
@@ -184,9 +179,10 @@ export default function MatrixViewLazy({ sparseMatrix, zKey, xKey, yKey }) {
           scalarToOriginal={scalarToOriginal}
         />
       </tbody>
-      <tfoot>
-        <MatrixViewFooter idx={idx} />
-      </tfoot>
     </table>
   );
 }
+
+// <tfoot>
+// <MatrixViewFooter idx={idx} />
+// </tfoot>

@@ -10,9 +10,8 @@ table {
   border-collapse: collapse;
 }
 
-
-
-td, th {
+td,
+th {
   font-weight: 300;
   border: 1px solid #eee;
   padding: 2px;
@@ -24,20 +23,19 @@ th {
 }
 
 .th-sum {
-  background: #f9f9f9;  border: none;
+  background: #f9f9f9;
+  border: none;
 }
 
 .td-row-num {
   color: #ccc;
   background: none;
   border: none;
-
 }
 
 .number {
   text-align: right;
 }
-
 
 .hidden {
   background: none;

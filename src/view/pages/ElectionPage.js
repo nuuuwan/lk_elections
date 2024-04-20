@@ -115,7 +115,7 @@ export default class ElectionPage extends AbstractCustomPage {
   }
 
   renderBodyRight() {
-    const { partyGroups, countryEnt, election, prevElection, edEnts } =
+    const { partyGroups, countryEnt, election, prevElection, edEnts, pdEnts } =
       this.state;
     if (!countryEnt) {
       return <CircularProgress />;
@@ -125,9 +125,10 @@ export default class ElectionPage extends AbstractCustomPage {
       return <Alert severity="info">This election has not yet occurred.</Alert>;
     }
 
-    const ents = [].concat([countryEnt], edEnts);
+    const ents = [].concat([countryEnt], edEnts, pdEnts);
     return (
       <Box>
+        {" "}
         <ElectionListView elections={[election]} ents={ents} />
         {prevElection ? (
           <SwingAnalysisForElectionView

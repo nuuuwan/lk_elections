@@ -22,30 +22,29 @@ function getSparseMatrix(partyGroups, elections, ent) {
       const { pVotes } = voteInfo;
       const prevPVotes = partyGroupToPrevPVotes[partyGroup.id] || 0.0;
       const swing = pVotes - prevPVotes;
-        let color = null;
-        if (swing > 0.01) {
-          color = partyGroup.color;
-        }
-        accountedSwing += swing;
-        if (election.titleShort === '2010 General') {
-          console.debug(partyGroup.id, swing,pVotes , prevPVotes);
-        }
-        if (!isFirst){
+      let color = null;
+      if (swing > 0.01) {
+        color = partyGroup.color;
+      }
+      accountedSwing += swing;
+
+      if (!isFirst) {
         sparseMatrix.push({
           Election: election,
           PartyGroup: partyGroup,
           Swing: new PercentagePoint(swing, color),
         });
       }
-      
+
       partyGroupToPrevPVotes[partyGroup.id] = pVotes;
     }
-    if (!isFirst){
-    sparseMatrix.push({
-      Election: election,
-      PartyGroup: PartyGroup.UNGROUPED,
-      Swing: new PercentagePoint(-accountedSwing, "#888"),
-    });}
+    if (!isFirst) {
+      sparseMatrix.push({
+        Election: election,
+        PartyGroup: PartyGroup.UNGROUPED,
+        Swing: new PercentagePoint(-accountedSwing, "#888"),
+      });
+    }
     isFirst = false;
   }
   return sparseMatrix;

@@ -7,7 +7,9 @@ import SwapVerticalCircleIcon from "@mui/icons-material/SwapVerticalCircle";
 import ScreenRotationIcon from "@mui/icons-material/ScreenRotation";
 import { Box, IconButton } from "@mui/material";
 import { Comparator } from "../../nonview/core";
-
+function numberToLetter(number) {
+  return String.fromCharCode(64 + number);
+}
 function MatrixViewHeader({
   idx,
   xKey,
@@ -16,15 +18,30 @@ function MatrixViewHeader({
   setSortXScalar,
   scalarToOriginal,
 }) {
-  return (
-    <tr>
-      <th>
-        <Box display="flex" alignItems="center">
+  return [
+    <tr key="1">
+    <th className="hidden"/>
+     <th className="hidden"/>
+
+
+    {Object.keys(Object.values(idx)[0]).map(function (xScalar, iX) {
+
+
+      return (
+        <th key={"header-" + iX} className="td-row-num">{numberToLetter(iX + 1)}</th>
+
+      );
+    })}
+  </tr>,
+    <tr key="2">
+      <th className="hidden"></th>
+       <th className="hidden">
+ 
           <IconButton onClick={handleToggleXY}>
             <ScreenRotationIcon sx={{ fontSize: "80%" }} />
           </IconButton>
-          {yKey}/{xKey}
-        </Box>
+
+
       </th>
 
       {Object.keys(Object.values(idx)[0]).map(function (xScalar, iX) {
@@ -44,7 +61,7 @@ function MatrixViewHeader({
         );
       })}
     </tr>
-  );
+  ];
 }
 
 function MatrixViewBody({ idx, setSortYScalarAndOrder, scalarToOriginal }) {
@@ -61,6 +78,7 @@ function MatrixViewBody({ idx, setSortYScalarAndOrder, scalarToOriginal }) {
 
     return (
       <tr key={"row-" + iY}>
+        <td className="td-row-num">{iY + 1}</td>
         <th>
           <Box display="flex" alignItems="center">
             <IconButton onClick={setSortYScalarAndOrderInner}>
@@ -75,7 +93,7 @@ function MatrixViewBody({ idx, setSortYScalarAndOrder, scalarToOriginal }) {
             <td key={"cell-" + iX + "-" + iY}>{Renderer.formatCellValue(z)}</td>
           );
         })}
-        <th>{Renderer.formatCellValue(rowSum)}</th>
+        <th  className="th-sum">{Renderer.formatCellValue(rowSum)}</th>
       </tr>
     );
   });
@@ -87,6 +105,7 @@ function MatrixViewFooter({ idx }) {
 
   return (
     <tr>
+      <th className="hidden"/>
       <th style={{ background: "white", border: "white" }}></th>
       {xScalarList.map(function (xScalar, iX) {
         const colValues = Object.values(idx).map(function (xScalarToZ) {
@@ -94,7 +113,7 @@ function MatrixViewFooter({ idx }) {
         });
         const colSum = Comparator.sum(colValues);
 
-        return <th key={"footer-" + iX}>{Renderer.formatCellValue(colSum)}</th>;
+        return <th key={"footer-" + iX} className="th-sum">{Renderer.formatCellValue(colSum)}</th>;
       })}
     </tr>
   );

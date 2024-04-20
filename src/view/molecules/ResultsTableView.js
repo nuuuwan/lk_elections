@@ -11,7 +11,7 @@ function getMajorPartyIDs(election) {
   const partyToPVotes = result.partyToVotes.partyToPVotes;
   return Object.entries(partyToPVotes)
     .filter(function ([partyID, pVotes]) {
-      return pVotes > 0.0025;
+      return pVotes > 0.005;
     })
     .map(function ([partyID, pVotes]) {
       return partyID;

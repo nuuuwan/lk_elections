@@ -29,6 +29,9 @@ export default class Comparator {
   }
 
   static zero(value) {
+    if (!value) {
+      return null;
+    }
     if (typeof value === "number") {
       return 0;
     }

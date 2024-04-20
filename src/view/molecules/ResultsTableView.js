@@ -9,7 +9,13 @@ function getMajorPartyIDs(election) {
     return null;
   }
   const partyToPVotes = result.partyToVotes.partyToPVotes;
-  return Object.keys(partyToPVotes);
+  return Object.entries(partyToPVotes)
+    .filter(function ([partyID, pVotes]) {
+      return pVotes > 0.0025;
+    })
+    .map(function ([partyID, pVotes]) {
+      return partyID;
+    });
 }
 
 function getSparseMatrix(election, ents) {
@@ -22,28 +28,32 @@ function getSparseMatrix(election, ents) {
       return null;
     }
 
-    const pLimit = ent.id === "LK" ? 0.0025 : 0.025;
-
     const winningPartyID = result.partyToVotes.winningParty;
     const winningParty = Party.fromID(winningPartyID);
     const color = winningParty.color;
 
+    let accountedVotes = 0;
+
     for (let partyID of majorPartyIDs) {
-      const voteInfo = new Fraction(
+      const fraction = new Fraction(
         result.partyToVotes.partyToVotes[partyID],
         result.partyToVotes.totalVotes,
         winningPartyID === partyID ? color : null
       );
 
-      if (voteInfo.p < pLimit) {
-        continue;
-      }
+      accountedVotes += fraction.n;
       matrix.push({
         Region: ent,
         Party: Party.fromID(partyID),
-        VoteInfo: voteInfo,
+        VoteInfo: fraction,
       });
     }
+    const totalVotes = result.partyToVotes.totalVotes;
+    matrix.push({
+      Region: ent,
+      Party: Party.OTHER,
+      VoteInfo: new Fraction(totalVotes - accountedVotes, totalVotes),
+    });
   });
 
   return matrix;

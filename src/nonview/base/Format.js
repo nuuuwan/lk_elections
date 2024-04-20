@@ -14,6 +14,9 @@ export default class Format {
       1
     );
     const fontSize = minFontSize + pLogX * (maxFontSize - minFontSize);
+    if (!fontSize || isNaN(fontSize)) {
+      return minFontSize;
+    }
     return fontSize;
   }
 

@@ -115,7 +115,7 @@ export default class ElectionPage extends AbstractCustomPage {
   }
 
   renderBodyRight() {
-    const { partyGroups, countryEnt, election, prevElection, edEnts, pdEnts } =
+    const { partyGroups, countryEnt, election, prevElection, edEnts } =
       this.state;
     if (!countryEnt) {
       return <CircularProgress />;

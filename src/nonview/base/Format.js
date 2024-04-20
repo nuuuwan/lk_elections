@@ -1,5 +1,35 @@
 import { MathX } from "../base";
 export default class Format {
+  static  DEFAULT_FONT_SIZE_RANGE = [12, 24];
+
+  // common
+  static getFontSize(x, valueRange, fontSizeRange) {
+    const [minValue, maxValue] = valueRange;
+    const [minFontSize, maxFontSize] = fontSizeRange;
+
+    const pLogX =  MathX.fitRange((Math.log10(x) - Math.log10(minValue))/(Math.log10(maxValue) - Math.log10(minValue)), 0, 1);
+    const fontSize = minFontSize + pLogX * (maxFontSize - minFontSize);
+    return fontSize;
+
+  }
+
+static getColor(x, valueRange) {
+  const minValue = valueRange[0];
+  const color = x < minValue ? "#888" : "inherit";
+  return color;
+}
+  static formatWithStyle(x, strGetter, valueRange, fontSizeRange,colorOverride=null) {
+    const strPart = strGetter(x);
+    const fontSize = Format.getFontSize(x, valueRange, fontSizeRange);
+    const color = colorOverride || Format.getColor(x, valueRange);
+    return (
+      <span style={{ fontSize, color }} className="number">
+        {strPart}
+      </span>
+    );
+  }
+
+  // int 
   static int(x) {
     return x.toLocaleString();
   }
@@ -17,22 +47,13 @@ export default class Format {
     return x.toLocaleString();
   }
 
-  static intHumanizeWithStyle(x) {
-    const strPart = Format.intHumanize(x);
-    let fontSize = 12;
-    if (x > 1_000_000) {
-      fontSize = 24;
-    }
-    if (x > 1_000) {
-      fontSize = 18;
-    }
-    const color = x < 100 ? "#888" : "inherit";
-    return (
-      <span className="number" style={{ fontSize, color }}>
-        {strPart}
-      </span>
-    );
+
+
+  static intHumanizeWithStyle(x, valueRange=[1, 10], fontSizeRange=Format.DEFAULT_FONT_SIZE_RANGE) {
+    return Format.formatWithStyle(x, Format.intHumanize, valueRange, fontSizeRange);
   }
+
+  // percent
 
   static percentAbs(x) {
     if (x < 0.000001) {
@@ -55,16 +76,11 @@ export default class Format {
     return sign + Format.percentAbs(absX);
   }
 
-  static percentWithStyle(x) {
-    const strPart = Format.percent(x);
-    const fontSize = x ? MathX.fitRange(Math.sqrt(x) * 36, 12, 18) : 12;
-    const color = x < 0.01 ? "#ccc" : "inherit";
-    return (
-      <span style={{ fontSize, color }} className="number">
-        {strPart}
-      </span>
-    );
+  static percentWithStyle(x, valueRange=[0.01,0.67], fontSizeRange=Format.DEFAULT_FONT_SIZE_RANGE) {
+   return Format.formatWithStyle(x, Format.percent, valueRange, fontSizeRange);
   }
+
+  // percentage point
 
   static percentagePoint(x) {
     const absX = Math.abs(x);
@@ -76,25 +92,6 @@ export default class Format {
   }
 
   static percentagePointWithStyle(x, colorOverride = null) {
-    const strPart = Format.percentagePoint(x);
-    const absX = Math.abs(x);
-    let fontSize = 12;
-    if (absX > 0.15) {
-      fontSize = 24;
-    } else if (absX > 0.1) {
-      fontSize = 18;
-    } else if (absX < 0.01) {
-      fontSize = 9;
-    }
-
-    let color = x < 0 ? "#888" : "#000";
-    if (colorOverride) {
-      color = colorOverride;
-    }
-    return (
-      <span style={{ fontSize, color }} className="number">
-        {strPart}
-      </span>
-    );
+   return Format.formatWithStyle(x, Format.percentagePoint, [0.01,0.1], Format.DEFAULT_FONT_SIZE_RANGE, colorOverride);
   }
 }

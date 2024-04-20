@@ -10,7 +10,6 @@ export default class Party {
   // getters
 
   get wikiPageName() {
-
     return this.name.replaceAll(" ", "_");
   }
 
@@ -109,9 +108,8 @@ export default class Party {
 
   static fromID(id) {
     const party = this.listAll().find((party) => party.id === id);
-    if (party){
+    if (party) {
       return party;
-    
     }
     console.error(`new Party("${id}", "${id}")`);
     return new Party(id);

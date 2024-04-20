@@ -26,7 +26,7 @@ export default function PartyLink({
 
   const { foreColor } = getStyle(party, noColor);
 
-  const partyLabel = longName ? party.longName : partyID;
+  const partyLabel = longName ? party.name : partyID;
   const defaultInner = <Typography variant="inherit">{partyLabel}</Typography>;
   const inner = children || defaultInner;
 

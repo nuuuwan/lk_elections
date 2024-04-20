@@ -21,6 +21,20 @@ export default class Election {
     this.isLoaded = this.resultsList.length > 10;
   }
 
+  // Getters
+
+  
+  get electionTypeTitle() {
+    if (this.electionType === "Presidential") {
+      return "Presidential";
+    }
+    return "General";
+  }
+
+  get titleShort() {
+    return this.year + " " + this.electionTypeTitle;
+  }
+
   get year() {
     return this.date.substring(0, 4);
   }
@@ -48,13 +62,14 @@ export default class Election {
     return !this.resultsList || this.resultsList.length === 0;
   }
 
+  get isFuture() {
+    return this.date.localeCompare(Time.now().date) > 0;
+  }
+
   localeCompare(other) {
     return this.date.localeCompare(other.date);
   }
 
-  isEqual(other) {
-    return this.date === other.date;
-  }
 
   getResults(id) {
     if (!this.isLoaded) {
@@ -66,9 +81,7 @@ export default class Election {
     return this.resultsIdx[id];
   }
 
-  get isFuture() {
-    return this.date.localeCompare(Time.now().date) > 0;
-  }
+
 
   // Loaders
 
@@ -133,16 +146,6 @@ export default class Election {
     return resultsIdx;
   }
 
-  get electionTypeTitle() {
-    if (this.electionType === "Presidential") {
-      return "Presidential";
-    }
-    return "General";
-  }
-
-  get titleShort() {
-    return this.year + " " + this.electionTypeTitle;
-  }
 
   // Wikipedia
   get wikiPageName() {

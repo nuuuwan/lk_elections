@@ -22,7 +22,7 @@ export default class PartyPage extends AbstractCustomPage {
 
   async componentDidMount() {
     const { partyID } = this.state;
-    const party = new Party(partyID);
+    const party = Party.fromID(partyID);
     const elections = await Election.listAll();
     const partyGroups = PartyGroup.listFromPartyID(party.id);
     const countryEnt = await Ent.fromID("LK");

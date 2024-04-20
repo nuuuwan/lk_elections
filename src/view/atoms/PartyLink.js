@@ -22,7 +22,7 @@ export default function PartyLink({
   if (children === " ") {
     return null;
   }
-  const party = new Party(partyID);
+  const party = Party.fromID(partyID);
 
   const { foreColor } = getStyle(party, noColor);
 

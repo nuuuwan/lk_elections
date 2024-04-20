@@ -17,7 +17,7 @@ function getSparseMatrix(election, ents) {
       for (let [partyID, seats] of Object.entries(partyToSeats)) {
         sparseMatrix.push({
           Region: ent,
-          Party: new Party(partyID),
+          Party: Party.fromID(partyID),
           Seats: seats,
         });
       }

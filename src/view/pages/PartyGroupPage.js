@@ -34,8 +34,8 @@ export default class PartyGroupPage extends AbstractCustomPage {
 
     const partyGroups = PartyGroup.listAll();
 
-    const partyList = partyGroup.partyIDList.map(
-      (partyID) => new Party(partyID)
+    const partyList = partyGroup.partyIDList.map((partyID) =>
+      Party.fromID(partyID)
     );
 
     this.setState({

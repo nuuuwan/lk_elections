@@ -39,7 +39,7 @@ export default class Party {
       new Party("DPLF", "Democratic People's Liberation Front"),
       new Party("DUNF", "Democratic United National Front"),
       new Party("ELJP", "Eksath Lanka Janarajaya Pakshaya"),
-     
+
       new Party("EPDP", "Eelam People's Democratic Party"),
       new Party("EPRLF", "Eelam People's Revolutionary Liberation Front"),
       new Party("IG1", "IG1"),

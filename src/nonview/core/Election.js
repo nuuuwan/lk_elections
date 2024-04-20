@@ -23,7 +23,6 @@ export default class Election {
 
   // Getters
 
-  
   get electionTypeTitle() {
     if (this.electionType === "Presidential") {
       return "Presidential";
@@ -70,7 +69,6 @@ export default class Election {
     return this.date.localeCompare(other.date);
   }
 
-
   getResults(id) {
     if (!this.isLoaded) {
       return null;
@@ -80,8 +78,6 @@ export default class Election {
     }
     return this.resultsIdx[id];
   }
-
-
 
   // Loaders
 
@@ -145,7 +141,6 @@ export default class Election {
 
     return resultsIdx;
   }
-
 
   // Wikipedia
   get wikiPageName() {

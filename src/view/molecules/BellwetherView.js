@@ -15,8 +15,8 @@ function getDataList(elections, ent) {
 
       return {
         Election: election,
-        [ent.name]: new Party(winningPartyEnt),
-        SriLanka: new Party(winningPartyLK),
+        [ent.name]: Party.fromID(winningPartyEnt),
+        SriLanka: Party.fromID(winningPartyLK),
         Match: isMatch,
         Error: l1Error,
       };

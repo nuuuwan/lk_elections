@@ -13,7 +13,7 @@ import {
 export default class Renderer {
   static formatCellValueObject(value) {
     if (Party.isKnownPartyID(value)) {
-      value = new Party(value);
+      value = Party.fromID(value);
     }
 
     if (PartyGroup.isKnownPartyGroupID(value)) {

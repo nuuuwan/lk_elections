@@ -10,6 +10,7 @@ export default class Party {
   // getters
 
   get wikiPageName() {
+
     return this.name.replaceAll(" ", "_");
   }
 
@@ -30,7 +31,7 @@ export default class Party {
     return [
       new Party("ACMC", "All Ceylon Makkal Congress"),
       new Party("ACTC", "All Ceylon Tamil Congress"),
-      new Party("AITC", "All Island Tamil Congress"),
+      new Party("AITC", "Ahila Ilankai Thamil Congress"),
       new Party("AITM", "All Island Tamil Makkal Congress"),
       new Party("CDUA", "Ceylon Democratic Unity Alliance"),
       new Party("CWC", "Central Workers' Congress"),
@@ -49,6 +50,7 @@ export default class Party {
       new Party("Ind 1", "Ind 1"),
       new Party("Ind 2", "Ind 2"),
       new Party("IND", "IND"),
+      new Party("IND 1", "IND 1"),
       new Party("IND01_D04", "Independent"),
       new Party("IND01_D06", "Independent"),
       new Party("IND05_D10", "Independent"),
@@ -107,9 +109,11 @@ export default class Party {
 
   static fromID(id) {
     const party = this.listAll().find((party) => party.id === id);
-    if (!party) {
-      console.error(`new Party("${id}", "${id}")`);
+    if (party){
+      return party;
+    
     }
+    console.error(`new Party("${id}", "${id}")`);
     return new Party(id);
   }
 

@@ -109,7 +109,6 @@ export default class ElectionPage extends AbstractCustomPage {
           {election.dateFormatted}
         </Typography>
         <WikiSummaryView wikiPageName={election.wikiPageName} />
-        <ElectoralSummaryView ent={countryEnt} elections={[election]} />
       </Box>
     );
   }
@@ -128,7 +127,7 @@ export default class ElectionPage extends AbstractCustomPage {
     const ents = [].concat([countryEnt], edEnts, pdEnts);
     return (
       <Box>
-        {" "}
+        <ElectoralSummaryView ent={countryEnt} elections={[election]} />
         <ElectionListView elections={[election]} ents={ents} />
         {prevElection ? (
           <SwingAnalysisForElectionView

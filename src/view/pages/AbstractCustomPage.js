@@ -31,7 +31,7 @@ export default class AbstractCustomPage extends Component {
       <Box
         sx={Object.assign({}, commonStyles, {
           left: 0,
-          width: "15%",
+          width: "10%",
           background: "#f8f8f8",
         })}
       >
@@ -49,8 +49,8 @@ export default class AbstractCustomPage extends Component {
     return (
       <Box
         sx={Object.assign({}, commonStyles, {
-          left: "15%",
-          width: "35%",
+          left: "10%",
+          width: "25%",
           zIndex: 2000,
           background: "#fcfcfc",
         })}
@@ -67,7 +67,7 @@ export default class AbstractCustomPage extends Component {
     return (
       <Box
         sx={Object.assign({}, commonStyles, {
-          left: "50%",
+          left: "35%",
           right: 0,
           zIndex: 3000,
           background: "white",

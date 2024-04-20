@@ -46,7 +46,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
   }
 
   renderBodyMiddle() {
-    const { countryEnt, elections, edEnts } = this.state;
+    const { countryEnt, edEnts } = this.state;
     if (!countryEnt) {
       return <CircularProgress />;
     }
@@ -54,7 +54,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     return (
       <Box>
         <WikiSummaryView wikiPageName={"Elections_in_Sri_Lanka"} />
-        <ElectoralSummaryView ent={countryEnt} elections={elections} />
+
         <EntListView ents={edEnts} shortFormat={true} />
       </Box>
     );
@@ -67,6 +67,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     const entsAll = [].concat(edEnts, [countryEnt]);
     return (
       <Box>
+        <ElectoralSummaryView ent={countryEnt} elections={elections} />
         <CommonEntAnalysisView
           ent={countryEnt}
           entsSimilar={entsAll}

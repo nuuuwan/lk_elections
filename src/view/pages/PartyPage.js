@@ -75,7 +75,7 @@ export default class PartyPage extends AbstractCustomPage {
   }
 
   renderBodyMiddle() {
-    const { party, elections } = this.state;
+    const { party } = this.state;
     if (!party) {
       return <CircularProgress />;
     }
@@ -83,12 +83,19 @@ export default class PartyPage extends AbstractCustomPage {
       <Box>
         <WikiSummaryView wikiPageName={party.wikiPageName} />
         {this.renderPartyGroups()}
-        <PartyElectoralSummaryView party={party} elections={elections} />
       </Box>
     );
   }
 
   renderBodyRight() {
-    return null;
+    const { party, elections } = this.state;
+    if (!party) {
+      return <CircularProgress />;
+    }
+    return (
+      <Box>
+        <PartyElectoralSummaryView party={party} elections={elections} />
+      </Box>
+    );
   }
 }

@@ -2,11 +2,7 @@ import { Box, Breadcrumbs, CircularProgress } from "@mui/material";
 import { Ent, EntType, URLContext } from "../../nonview/base";
 import { Election, PartyGroup } from "../../nonview/core";
 import { WikiSummaryView, EntLink } from "../atoms";
-import {
-  EntListView,
-  ElectoralSummaryView,
-  CommonEntAnalysisView,
-} from "../molecules";
+import { EntListView, CommonEntAnalysisView } from "../molecules";
 import { GeoMap } from "../organisms";
 import AbstractCustomPage from "./AbstractCustomPage";
 
@@ -73,7 +69,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
   }
 
   renderBodyMiddle() {
-    const { edEnt, pdEnts, elections } = this.state;
+    const { edEnt, pdEnts } = this.state;
     if (!edEnt) {
       return <CircularProgress />;
     }
@@ -83,12 +79,12 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
         <GeoMap geoID={edEnt.id} />
         <WikiSummaryView wikiPageName={edEnt.wikiPageName} />
         <EntListView ents={pdEnts} shortFormat={true} />
-        <ElectoralSummaryView ent={edEnt} elections={elections} />
       </Box>
     );
   }
   renderBodyRight() {
-    const { edEnt, countryEnt, elections, edEnts, partyGroups,pdEnts } = this.state;
+    const { edEnt, countryEnt, elections, edEnts, partyGroups, pdEnts } =
+      this.state;
     if (!edEnt) {
       return <CircularProgress />;
     }

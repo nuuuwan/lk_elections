@@ -3,7 +3,7 @@ import { Ent, URLContext, EntType } from "../../nonview/base";
 import { Election, PartyGroup } from "../../nonview/core";
 
 import { EntLink } from "../atoms";
-import { ElectoralSummaryView, CommonEntAnalysisView } from "../molecules";
+import { CommonEntAnalysisView } from "../molecules";
 import { GeoMap } from "../organisms";
 import AbstractCustomPage from "./AbstractCustomPage";
 
@@ -86,7 +86,7 @@ export default class PollingDivisionPage extends AbstractCustomPage {
   }
 
   renderBodyMiddle() {
-    const { pdEnt, elections } = this.state;
+    const { pdEnt } = this.state;
     if (!pdEnt) {
       return <CircularProgress />;
     }
@@ -96,7 +96,6 @@ export default class PollingDivisionPage extends AbstractCustomPage {
         <GeoMap geoID={pdEnt.id} />
 
         {this.renderBlurb()}
-        <ElectoralSummaryView ent={pdEnt} elections={elections} />
       </Box>
     );
   }

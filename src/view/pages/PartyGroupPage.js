@@ -89,20 +89,11 @@ export default class PartyGroupPage extends AbstractCustomPage {
   }
 
   renderBodyMiddle() {
-    const { partyGroup, elections, countryEnt } = this.state;
+    const { partyGroup } = this.state;
     if (!partyGroup) {
       return <CircularProgress />;
     }
-    return (
-      <Box>
-        {this.renderPartyList()}
-        <PartyGroupElectoralSummaryView
-          partyGroup={partyGroup}
-          elections={elections}
-          ent={countryEnt}
-        />
-      </Box>
-    );
+    return <Box>{this.renderPartyList()}</Box>;
   }
 
   renderBodyRight() {
@@ -112,6 +103,11 @@ export default class PartyGroupPage extends AbstractCustomPage {
     }
     return (
       <Box>
+        <PartyGroupElectoralSummaryView
+          partyGroup={partyGroup}
+          elections={elections}
+          ent={countryEnt}
+        />
         <FloatingVoteAnalysisView
           partyGroups={partyGroups}
           elections={elections}

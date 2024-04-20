@@ -5,6 +5,7 @@ import {
   SwingAnalysisView,
   SimilarRegionsView,
   ElectionListView,
+  ElectoralSummaryView,
 } from "../molecules";
 
 export default function CommonEntAnalysisView({
@@ -17,6 +18,7 @@ export default function CommonEntAnalysisView({
   const isLK = ent.id === "LK";
   return (
     <Box>
+      <ElectoralSummaryView ent={ent} elections={elections} />
       <SimilarRegionsView ent={ent} elections={elections} otherEnts={entsAll} />
 
       {isLK ? null : <BellwetherView ent={ent} elections={elections} />}

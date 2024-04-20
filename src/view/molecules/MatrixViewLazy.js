@@ -6,6 +6,7 @@ import SwapVerticalCircleIcon from "@mui/icons-material/SwapVerticalCircle";
 
 import ScreenRotationIcon from "@mui/icons-material/ScreenRotation";
 import { Box, IconButton } from "@mui/material";
+import { Comparator } from "../../nonview/core";
 
 function MatrixViewHeader({
   idx,
@@ -55,6 +56,9 @@ function MatrixViewBody({ idx, setSortYScalarAndOrder, scalarToOriginal }) {
     };
 
     const y = scalarToOriginal[yScalar];
+    const rowValues = Object.values(xScalarToZ);
+    const rowSum = Comparator.sum(rowValues);
+    console.debug(yScalar, rowValues, rowSum);
 
     return (
       <tr key={"row-" + iY}>

@@ -58,7 +58,6 @@ function MatrixViewBody({ idx, setSortYScalarAndOrder, scalarToOriginal }) {
     const y = scalarToOriginal[yScalar];
     const rowValues = Object.values(xScalarToZ);
     const rowSum = Comparator.sum(rowValues);
-    console.debug(yScalar, rowValues, rowSum);
 
     return (
       <tr key={"row-" + iY}>
@@ -76,6 +75,7 @@ function MatrixViewBody({ idx, setSortYScalarAndOrder, scalarToOriginal }) {
             <td key={"cell-" + iX + "-" + iY}>{Renderer.formatCellValue(z)}</td>
           );
         })}
+        <th>{Renderer.formatCellValue(rowSum)}</th>
       </tr>
     );
   });

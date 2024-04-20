@@ -1,4 +1,5 @@
 import { PercentagePoint, SparseMatrix } from "../../nonview/base";
+import { PartyGroup } from "../../nonview/core";
 import { Header, SectionBox } from "../atoms";
 
 import MatrixView from "./MatrixView";
@@ -11,6 +12,7 @@ function getSparseMatrix(partyGroups, elections, ent) {
   for (let election of elections
     .filter((election) => !election.isFuture)
     .reverse()) {
+    let accountedSwing = 0;
     for (let partyGroup of partyGroups) {
       const voteInfo = partyGroup.getVoteInfo(election, ent);
       if (!voteInfo) {
@@ -24,6 +26,7 @@ function getSparseMatrix(partyGroups, elections, ent) {
         if (swing > 0.01) {
           color = partyGroup.color;
         }
+        accountedSwing += swing;
 
         sparseMatrix.push({
           Election: election,
@@ -33,6 +36,12 @@ function getSparseMatrix(partyGroups, elections, ent) {
       }
       partyGroupToPrevPVotes[partyGroup.id] = pVotes;
     }
+
+    sparseMatrix.push({
+      Election: election,
+      PartyGroup: PartyGroup.UNGROUPED,
+      Swing: new PercentagePoint(-accountedSwing, "#888"),
+    });
   }
   return sparseMatrix;
 }

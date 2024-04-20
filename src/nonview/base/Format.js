@@ -4,6 +4,7 @@ export default class Format {
 
   // common
   static getFontSize(x, valueRange, fontSizeRange) {
+    x = Math.abs(x);
     const [minValue, maxValue] = valueRange;
     const [minFontSize, maxFontSize] = fontSizeRange;
 

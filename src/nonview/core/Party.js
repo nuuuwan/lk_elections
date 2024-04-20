@@ -2,6 +2,7 @@ import { POLITICAL_PARTY_TO_COLOR } from "../constants";
 import { LIGHT_COLORS } from "../constants/POLITICAL_PARTY_TO_COLOR";
 
 export default class Party {
+  static OTHER = new Party("Other", "Other");
   constructor(id, name) {
     this.id = id;
     this.name = name;
@@ -39,27 +40,11 @@ export default class Party {
       new Party("DPLF", "Democratic People's Liberation Front"),
       new Party("DUNF", "Democratic United National Front"),
       new Party("ELJP", "Eksath Lanka Janarajaya Pakshaya"),
-
       new Party("EPDP", "Eelam People's Democratic Party"),
       new Party("EPRLF", "Eelam People's Revolutionary Liberation Front"),
-      new Party("IG1", "IG1"),
-      new Party("IG2", "IG2"),
-      new Party("IG4", "IG4"),
-      new Party("IG7", "IG7"),
-      new Party("Ind 1", "Ind 1"),
-      new Party("Ind 2", "Ind 2"),
-      new Party("IND", "IND"),
-      new Party("IND 1", "IND 1"),
       new Party("IND01_D04", "Independent"),
       new Party("IND01_D06", "Independent"),
       new Party("IND05_D10", "Independent"),
-      new Party("IND1", "IND1"),
-      new Party("IND11", "IND11"),
-      new Party("IND2", "IND2"),
-      new Party("IND4", "IND4"),
-      new Party("IND7", "IND7"),
-      new Party("IND9", "IND9"),
-      new Party("INDI", "INDI"),
       new Party("ITAK", "Illankai Tamil Arasu Kachchi"),
       new Party("JHU", "Jathika Hela Urumaya"),
       new Party("JJB", "Jathika Jana Balawegaya"),
@@ -111,7 +96,7 @@ export default class Party {
     if (party) {
       return party;
     }
-    console.error(`new Party("${id}", "${id}")`);
+    // console.error(`new Party("${id}", "${id}")`);
     return new Party(id);
   }
 

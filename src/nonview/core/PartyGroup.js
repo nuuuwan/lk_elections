@@ -1,6 +1,8 @@
 import { MathX, Time } from "../base";
 
 export default class PartyGroup {
+  static UNGROUPED = new PartyGroup("Ungrouped", [], "#888");
+
   constructor(id, partyIDList, color) {
     this.id = id;
     this.partyIDList = partyIDList;
@@ -21,8 +23,8 @@ export default class PartyGroup {
     let partyGroupList = [
       new PartyGroup("Greens", ["UNP", "SJB", "NDF"], "green"),
       new PartyGroup("Blues", ["SLPP", "UPFA", "PA", "SLFP"], "blue"),
-      new PartyGroup("Reds", ["JVP", "JJB", "NMPP", "NPP"], "red"),
-      // new PartyGroup("Old-Left", ["LSSP", "CP", "MEP", "SLMP"], "red"),
+      new PartyGroup("Reds", ["JVP", "JJB", "NMPP", "NPP", "DNA"], "red"),
+      new PartyGroup("Old-Left", ["LSSP", "CP", "MEP", "SLMP"], "red"),
       new PartyGroup(
         "Tamil",
         ["ITAK", "TNA", "EPDP", "ACTC", "AITC", "DPLF", "TMVP", "TULF", "AITM"],
@@ -35,21 +37,12 @@ export default class PartyGroup {
       ),
       new PartyGroup("Sinhala-Buddhist", ["JHU", "SU", "OPPP"], "#f80"),
     ];
-    // let partyGroupIdx = Object.fromEntries(
-    //   partyGroupList.map((partyGroup) => [partyGroup.id, partyGroup])
-    // );
-    // partyGroupList.push(
-    //   PartyGroup.combine("Blues+Old-Left+Sinhala-Buddhist", "purple", [
-    //     partyGroupIdx["Blues"],
-    //     partyGroupIdx["Old-Left"],
-    //     partyGroupIdx["Sinhala-Buddhist"],
-    //   ])
-    // );
+
     return partyGroupList;
   }
 
   static fromID(id) {
-    return this.listAll().find((pg) => pg.id === id);
+    return this.listAll().find((pg) => pg.id === id) || PartyGroup.UNGROUPED;
   }
 
   static listFromPartyID(partyID) {

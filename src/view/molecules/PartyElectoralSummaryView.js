@@ -20,16 +20,12 @@ function getDataList(party, elections) {
       position = "✔️";
     }
 
-    const fraction = new Fraction(
-      votes,
-      Math.round(votes / pVotes, 0)
-    )
-    
+    const fraction = new Fraction(votes, Math.round(votes / pVotes, 0));
+
     return {
       Election: election,
       Position: position,
       Votes: fraction,
-
     };
   });
 }

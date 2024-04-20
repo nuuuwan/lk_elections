@@ -1,5 +1,6 @@
 import { SectionBox, Header } from "../atoms";
 import { DataTableView } from ".";
+import { Fraction } from "../../nonview/base";
 
 function getDataList(partyGroup, elections, ent) {
   return elections.map(function (election) {
@@ -11,8 +12,7 @@ function getDataList(partyGroup, elections, ent) {
     return {
       Election: election,
       Parties: nParties,
-      Votes: votes,
-      "Votes %": pVotes,
+      Votes: new Fraction(votes,Math.round(votes / pVotes, 0)),
     };
   });
 }

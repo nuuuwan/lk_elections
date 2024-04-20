@@ -33,30 +33,24 @@ export default class SparseMatrix {
   }
 
   getOrderedScalarList(xKey, yKey, zKey, sortYScalar, sortReverse) {
-
-
     const idx = this.getIdx(yKey, xKey, zKey);
-    const orderedScalarList = Object.entries(idx).sort(
-      function([xScalarA, yScalarToZA], [xScalarB, yScalarToZB])  {
-        return Comparator.cmp(yScalarToZA[sortYScalar], yScalarToZB[sortYScalar], sortReverse);
-      }
-    ).map(
-      function([xScalar, yScalarToZ]) {
+    const orderedScalarList = Object.entries(idx)
+      .sort(function ([xScalarA, yScalarToZA], [xScalarB, yScalarToZB]) {
+        return Comparator.cmp(
+          yScalarToZA[sortYScalar],
+          yScalarToZB[sortYScalar],
+          sortReverse
+        );
+      })
+      .map(function ([xScalar, yScalarToZ]) {
         return xScalar;
-      }
-    );
+      });
 
     return orderedScalarList;
   }
 
-  getIdx(
-    xKey,
-    yKey,
-    zKey,
-
-  ) {
+  getIdx(xKey, yKey, zKey) {
     let idx = {};
-
 
     for (let data of this.dataList) {
       const x = data[xKey];
@@ -77,10 +71,6 @@ export default class SparseMatrix {
       idx[yScalar][xScalar] = z;
     }
 
-
-
-
-
     return idx;
   }
 
@@ -88,16 +78,26 @@ export default class SparseMatrix {
     xKey,
     yKey,
     zKey,
-    sortXScalar ,
-    sortYScalar ,
+    sortXScalar,
+    sortYScalar,
     sortXReverse,
-    sortYReverse,
+    sortYReverse
   ) {
-    
-    const orderedXScalarList = this.getOrderedScalarList(xKey, yKey, zKey, sortYScalar, sortYReverse);
+    const orderedXScalarList = this.getOrderedScalarList(
+      xKey,
+      yKey,
+      zKey,
+      sortYScalar,
+      sortYReverse
+    );
 
-    const orderedYScalarList = this.getOrderedScalarList(yKey, xKey, zKey, sortXScalar, sortXReverse);
-
+    const orderedYScalarList = this.getOrderedScalarList(
+      yKey,
+      xKey,
+      zKey,
+      sortXScalar,
+      sortXReverse
+    );
 
     const idx = this.getIdx(xKey, yKey, zKey);
     let idxOrdered = {};
@@ -106,10 +106,9 @@ export default class SparseMatrix {
         if (!idxOrdered[yScalar]) {
           idxOrdered[yScalar] = {};
         }
-        idxOrdered[yScalar][xScalar] = (idx[yScalar] || {})[xScalar]; 
+        idxOrdered[yScalar][xScalar] = (idx[yScalar] || {})[xScalar];
       }
     }
     return idxOrdered;
-  } 
-
+  }
 }

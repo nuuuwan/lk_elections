@@ -12,7 +12,7 @@ function getDataList(partyGroup, elections, ent) {
     return {
       Election: election,
       Parties: nParties,
-      Votes: new Fraction(votes,Math.round(votes / pVotes, 0)),
+      Votes: new Fraction(votes, Math.round(votes / pVotes, 0)),
     };
   });
 }

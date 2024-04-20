@@ -11,6 +11,7 @@ import FloatingVoteAnalysisView from "./FloatingVoteAnalysisView";
 import GenericListView from "./GenericListView";
 import GenericListViewLazy from "./GenericListViewLazy";
 import MatrixView from "./MatrixView";
+import MatrixViewLazy from "./MatrixViewLazy";
 import PartyElectoralSummaryView from "./PartyElectoralSummaryView";
 import PartyGroupElectoralSummaryView from "./PartyGroupElectoralSummaryView";
 import Renderer from "./Renderer";
@@ -33,6 +34,7 @@ export {
   GenericListView,
   GenericListViewLazy,
   MatrixView,
+  MatrixViewLazy,
   PartyElectoralSummaryView,
   PartyGroupElectoralSummaryView,
   Renderer,

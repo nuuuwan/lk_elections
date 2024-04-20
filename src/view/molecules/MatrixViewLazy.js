@@ -7,28 +7,35 @@ import SwapVerticalCircleIcon from "@mui/icons-material/SwapVerticalCircle";
 import ScreenRotationIcon from "@mui/icons-material/ScreenRotation";
 import { Box, IconButton } from "@mui/material";
 
-function MatrixViewHeader({ idx, xKey, yKey, handleToggleXY, setSortXScalar, scalarToOriginal }) {
+function MatrixViewHeader({
+  idx,
+  xKey,
+  yKey,
+  handleToggleXY,
+  setSortXScalar,
+  scalarToOriginal,
+}) {
   return (
     <tr>
       <th>
         <Box display="flex" alignItems="center">
           <IconButton onClick={handleToggleXY}>
-            <ScreenRotationIcon sx={{ fontSize: "80%" }}/>
+            <ScreenRotationIcon sx={{ fontSize: "80%" }} />
           </IconButton>
           {yKey}/{xKey}
         </Box>
       </th>
-      
+
       {Object.keys(Object.values(idx)[0]).map(function (xScalar, iX) {
         const setSortXScalarInner = function () {
           setSortXScalar(xScalar);
         };
-        const x = scalarToOriginal[xScalar]
+        const x = scalarToOriginal[xScalar];
         return (
           <th key={"header-" + iX}>
             <Box display="flex" alignItems="center">
               <IconButton onClick={setSortXScalarInner}>
-                <SwapVerticalCircleIcon sx={{ fontSize: "80%" }}/>
+                <SwapVerticalCircleIcon sx={{ fontSize: "80%" }} />
               </IconButton>
               {Renderer.formatCellValue(x)}
             </Box>
@@ -39,7 +46,7 @@ function MatrixViewHeader({ idx, xKey, yKey, handleToggleXY, setSortXScalar, sca
   );
 }
 
-function MatrixViewBody({ idx, setSortYScalarAndOrder ,scalarToOriginal}) {
+function MatrixViewBody({ idx, setSortYScalarAndOrder, scalarToOriginal }) {
   const firstYXScalarList = Object.keys(Object.values(idx)[0]);
 
   return Object.entries(idx).map(function ([yScalar, xScalarToZ], iY) {
@@ -54,7 +61,7 @@ function MatrixViewBody({ idx, setSortYScalarAndOrder ,scalarToOriginal}) {
         <th>
           <Box display="flex" alignItems="center">
             <IconButton onClick={setSortYScalarAndOrderInner}>
-              <SwapHorizontalCircleIcon sx={{ fontSize: "80%" }}/>
+              <SwapHorizontalCircleIcon sx={{ fontSize: "80%" }} />
             </IconButton>
             {Renderer.formatCellValue(y)}
           </Box>
@@ -94,7 +101,6 @@ export default function MatrixViewLazy({ sparseMatrix, zKey, xKey, yKey }) {
       setSortXScalar(xScalar);
       setSortXReverse(false);
     }
-
   };
 
   const setSortYScalarAndOrder = function (yScalar) {
@@ -104,8 +110,6 @@ export default function MatrixViewLazy({ sparseMatrix, zKey, xKey, yKey }) {
       setSortYScalar(yScalar);
       setSortYReverse(false);
     }
-
-
   };
   const idx = sparseMatrix.getIdxOrdered(
     xKeyInner,
@@ -116,7 +120,6 @@ export default function MatrixViewLazy({ sparseMatrix, zKey, xKey, yKey }) {
     sortXReverse,
     sortYReverse
   );
-
 
   const scalarToOriginal = sparseMatrix.scalarToOriginal;
 
@@ -130,7 +133,7 @@ export default function MatrixViewLazy({ sparseMatrix, zKey, xKey, yKey }) {
           handleToggleXY={handleToggleXY}
           setSortXScalar={setSortXScalarAndOrder}
           scalarToOriginal={scalarToOriginal}
-       />
+        />
       </thead>
       <tbody>
         <MatrixViewBody

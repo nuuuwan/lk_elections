@@ -24,7 +24,7 @@ function getSparseMatrix(election, ents) {
 
     const pLimit = ent.id === "LK" ? 0.0025 : 0.025;
 
-    const winningPartyID  = result.partyToVotes.winningParty;
+    const winningPartyID = result.partyToVotes.winningParty;
     const winningParty = new Party(winningPartyID);
     const color = winningParty.color;
 
@@ -32,7 +32,7 @@ function getSparseMatrix(election, ents) {
       const voteInfo = new Fraction(
         result.partyToVotes.partyToVotes[partyID],
         result.partyToVotes.totalVotes,
-        winningPartyID === partyID ? color : null,
+        winningPartyID === partyID ? color : null
       );
 
       if (voteInfo.p < pLimit) {

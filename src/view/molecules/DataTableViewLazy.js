@@ -1,12 +1,8 @@
 import React, { useState } from "react";
 import { Box, IconButton, Typography } from "@mui/material";
 import SwapVerticalCircleIcon from "@mui/icons-material/SwapVerticalCircle";
-import {Comparator} from "../../nonview/core";
+import { Comparator } from "../../nonview/core";
 import { Renderer } from "../molecules";
-
-
-
-
 
 function DataTableViewHeaderRow({ headerKeys, setSortKey }) {
   return (
@@ -60,7 +56,7 @@ function DataTableViewFooterRow({ headerKeys, footerData }) {
       <td className="td-row-num"></td>
       {headerKeys.map((headerKey, iCol) => (
         <th key={"footer-" + iCol} className="th-footer">
-          {Renderer.formatCellValue( footerData[headerKey])}
+          {Renderer.formatCellValue(footerData[headerKey])}
         </th>
       ))}
     </tr>
@@ -85,7 +81,7 @@ function getHeaderKeys(dataList) {
           return null;
         }
         const value = data[headerKey];
-        const colValue = Renderer.formatCellValue( value);
+        const colValue = Renderer.formatCellValue(value);
         return colValue;
       })
       .filter((colValue) => !!colValue && colValue !== "-" && colValue !== "~");
@@ -122,7 +118,7 @@ export default function DataTableViewLazy({ dataList, footerData }) {
   let sortedDataList;
   if (sortKey) {
     sortedDataList = filteredDataList.sort(function (a, b) {
-     return Comparator.cmp(b[sortKey], a[sortKey], sortReverse)
+      return Comparator.cmp(b[sortKey], a[sortKey], sortReverse);
     });
   } else {
     sortedDataList = filteredDataList;

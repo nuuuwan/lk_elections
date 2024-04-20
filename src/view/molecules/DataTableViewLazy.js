@@ -1,128 +1,12 @@
 import React, { useState } from "react";
 import { Box, IconButton, Typography } from "@mui/material";
-import { Ent, Format, Fraction, PercentagePoint } from "../../nonview/base";
-import { Election, Party, PartyGroup } from "../../nonview/core";
 import SwapVerticalCircleIcon from "@mui/icons-material/SwapVerticalCircle";
-import {
-  ElectionLink,
-  EntLink,
-  FractionView,
-  PartyGroupLink,
-  PartyLink,
-} from "../atoms";
+import {Comparator} from "../../nonview/core";
+import { Renderer } from "../molecules";
 
-function isZero(a) {
-  return (
-    a === 0 || a === "0" || a === 0.0 || a === "0.0" || a === "-" || a === "~"
-  );
-}
 
-function compare(a, b) {
-  if (isZero(a)) {
-    a = 0;
-  }
-  if (isZero(b)) {
-    b = 0;
-  }
 
-  if (!a && !b) {
-    return 0;
-  }
-  if (!a) {
-    return -1;
-  }
-  if (!b) {
-    return 1;
-  }
-  if (typeof a === "number") {
-    return a - b;
-  }
-  if (typeof a === "boolean") {
-    return (a ? 1 : 0) - (b ? 1 : 0);
-  }
 
-  if (a instanceof Ent) {
-    return a.localeCompareByName(b);
-  }
-
-  return a.localeCompare(b);
-}
-
-function formatCellValueObject(key, value) {
-  if (Party.isKnownPartyID(value)) {
-    value = new Party(value);
-  }
-
-  if (PartyGroup.isKnownPartyGroupID(value)) {
-    value = PartyGroup.fromID(value);
-  }
-
-  if (value instanceof Election) {
-    return <ElectionLink election={value} />;
-  }
-  if (value instanceof Ent) {
-    return <EntLink ent={value} shortFormat={true} />;
-  }
-  if (value instanceof Party) {
-    return <PartyLink partyID={value.id} />;
-  }
-
-  if (value instanceof PartyGroup) {
-    return <PartyGroupLink partyGroupID={value.id} />;
-  }
-
-  return null;
-}
-
-function formatCellValueNumberInner(key, value) {
-  if (value instanceof Fraction) {
-    return <FractionView fraction={value} />;
-  }
-
-  if (value instanceof PercentagePoint) {
-    return Format.percentagePointWithStyle(value.value, value.color);
-  }
-
-  if (typeof value === "number") {
-    if (Number.isInteger(value)) {
-      return Format.intHumanizeWithStyle(value);
-    }
-    return Format.percentWithStyle(value);
-  }
-
-  if (typeof value === "boolean") {
-    return value ? "✔️" : "";
-  }
-
-  return value;
-}
-
-function formatCellValueNumber(key, value) {
-  if (["-", "~", ""].includes(value)) {
-    return value;
-  }
-
-  if (key === value) {
-    return key;
-  }
-
-  return (
-    <Box sx={{ textAlign: "right" }}>
-      {formatCellValueNumberInner(key, value)}
-    </Box>
-  );
-}
-
-function formatCellValue(key, value) {
-  if (!value) {
-    return "-";
-  }
-  if (value === "Other") {
-    return "Other";
-  }
-
-  return formatCellValueObject(key, value) || formatCellValueNumber(key, value);
-}
 
 function DataTableViewHeaderRow({ headerKeys, setSortKey }) {
   return (
@@ -138,7 +22,7 @@ function DataTableViewHeaderRow({ headerKeys, setSortKey }) {
               <IconButton onClick={onClickSort}>
                 <SwapVerticalCircleIcon sx={{ fontSize: "80%" }} />
               </IconButton>
-              {formatCellValue(headerKey, headerKey)}
+              {Renderer.formatCellValue(headerKey)}
             </Box>
           </th>
         );
@@ -148,7 +32,7 @@ function DataTableViewHeaderRow({ headerKeys, setSortKey }) {
 }
 
 function DataTableViewCell({ headerKey, value }) {
-  return <td>{formatCellValue(headerKey, value)}</td>;
+  return <td>{Renderer.formatCellValue(value)}</td>;
 }
 
 function DataTableViewRow({ headerKeys, data, iRow }) {
@@ -176,7 +60,7 @@ function DataTableViewFooterRow({ headerKeys, footerData }) {
       <td className="td-row-num"></td>
       {headerKeys.map((headerKey, iCol) => (
         <th key={"footer-" + iCol} className="th-footer">
-          {formatCellValue(headerKey, footerData[headerKey])}
+          {Renderer.formatCellValue( footerData[headerKey])}
         </th>
       ))}
     </tr>
@@ -201,7 +85,7 @@ function getHeaderKeys(dataList) {
           return null;
         }
         const value = data[headerKey];
-        const colValue = formatCellValue(headerKey, value);
+        const colValue = Renderer.formatCellValue( value);
         return colValue;
       })
       .filter((colValue) => !!colValue && colValue !== "-" && colValue !== "~");
@@ -238,11 +122,7 @@ export default function DataTableViewLazy({ dataList, footerData }) {
   let sortedDataList;
   if (sortKey) {
     sortedDataList = filteredDataList.sort(function (a, b) {
-      if (sortReverse) {
-        return compare(b[sortKey], a[sortKey]);
-      } else {
-        return compare(a[sortKey], b[sortKey]);
-      }
+     return Comparator.cmp(b[sortKey], a[sortKey], sortReverse)
     });
   } else {
     sortedDataList = filteredDataList;

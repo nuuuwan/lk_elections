@@ -88,7 +88,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     );
   }
   renderBodyRight() {
-    const { edEnt, countryEnt, elections, edEnts, partyGroups } = this.state;
+    const { edEnt, countryEnt, elections, edEnts, partyGroups,pdEnts } = this.state;
     if (!edEnt) {
       return <CircularProgress />;
     }
@@ -97,7 +97,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
       <Box>
         <CommonEntAnalysisView
           ent={edEnt}
-          entsSimilar={[edEnt, countryEnt]}
+          entsSimilar={[].concat(pdEnts, [edEnt, countryEnt])}
           entsAll={entsAll}
           elections={elections}
           partyGroups={partyGroups}

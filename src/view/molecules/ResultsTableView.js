@@ -27,6 +27,7 @@ function getSparseMatrix(election, ents) {
     if (!result) {
       return null;
     }
+    const noSum = ent.id === "LK";
 
     const winningPartyID = result.partyToVotes.winningParty;
     const winningParty = Party.fromID(winningPartyID);
@@ -39,7 +40,8 @@ function getSparseMatrix(election, ents) {
         result.partyToVotes.partyToVotes[partyID],
         result.partyToVotes.totalVotes,
         winningPartyID === partyID ? color : null,
-        ent.id === 'LK'
+
+        noSum
       );
 
       accountedVotes += fraction.n;
@@ -50,10 +52,17 @@ function getSparseMatrix(election, ents) {
       });
     }
     const totalVotes = result.partyToVotes.totalVotes;
+    const fractionOther = new Fraction(
+      totalVotes - accountedVotes,
+      totalVotes,
+      null,
+      noSum
+    );
+
     matrix.push({
       Region: ent,
       Party: Party.OTHER,
-      VoteInfo: new Fraction(totalVotes - accountedVotes, totalVotes),
+      VoteInfo: fractionOther,
     });
   });
 

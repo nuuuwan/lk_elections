@@ -14,7 +14,11 @@ function getSparseMatrix(partyGroups, elections, ents) {
         elections,
         ent
       );
-      const base = new Fraction(Math.round(windowBase * electors, 0), electors,      ent.id === 'LK');
+      const base = new Fraction(
+        Math.round(windowBase * electors, 0),
+        electors,
+        ent.id === "LK"
+      );
 
       sparseMatrix.push({
         Region: ent,
@@ -33,7 +37,7 @@ function getSparseMatrix(partyGroups, elections, ents) {
     const floating = new Fraction(
       Math.round((1 - sumBase) * electors, 0),
       electors,
-      ent.id === 'LK'
+      ent.id === "LK"
     );
     sparseMatrix.push({
       Region: ent,

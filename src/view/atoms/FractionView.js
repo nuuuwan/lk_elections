@@ -9,6 +9,7 @@ export default function FractionView({ fraction }) {
       <Box sx={{ fontSize: "80%" }}>
         {Format.intHumanizeWithStyle(fraction.n, [100, 1_000_000], [6, 12])}
       </Box>
+      {fraction.noSum ? "NoSum" : "YesSum"}
     </Box>
   );
 }

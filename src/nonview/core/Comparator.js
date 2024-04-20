@@ -47,6 +47,12 @@ export default class Comparator {
       return value1 + value2;
     }
     if (value1 instanceof Fraction && value2 instanceof Fraction) {
+      if (value1.noSum) {
+        return value2;
+      }
+      if (value2.noSum) {
+        return value1;
+      }
       const d = value1.d === value2.d ? value1.d : value1.d + value2.d;
       return new Fraction(value1.n + value2.n, d);
     }

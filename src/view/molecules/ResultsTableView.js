@@ -38,7 +38,8 @@ function getSparseMatrix(election, ents) {
       const fraction = new Fraction(
         result.partyToVotes.partyToVotes[partyID],
         result.partyToVotes.totalVotes,
-        winningPartyID === partyID ? color : null
+        winningPartyID === partyID ? color : null,
+        ent.id === 'LK'
       );
 
       accountedVotes += fraction.n;

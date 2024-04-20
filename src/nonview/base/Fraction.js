@@ -1,9 +1,11 @@
 export default class Fraction {
-  constructor(n, d, color = null) {
+  constructor(n, d, color = null, noSum=false) {
     this.n = n;
     this.d = d;
 
     this.color = color;
+    this.noSum = noSum;
+ 
   }
 
   get p() {

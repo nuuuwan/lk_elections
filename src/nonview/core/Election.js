@@ -23,6 +23,10 @@ export default class Election {
 
   // Getters
 
+  get id() {
+    return this.date;
+  }
+
   get electionTypeTitle() {
     if (this.electionType === "Presidential") {
       return "Presidential";

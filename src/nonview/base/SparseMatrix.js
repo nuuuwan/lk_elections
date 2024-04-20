@@ -56,9 +56,10 @@ export default class SparseMatrix {
       const x = data[xKey];
       const y = data[yKey];
       const z = data[zKey];
-
+      
       const xScalar = this.toScalar(x);
       const yScalar = this.toScalar(y);
+
 
       if (!idx[yScalar]) {
         idx[yScalar] = {};

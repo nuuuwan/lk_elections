@@ -10,13 +10,9 @@ table {
   border-collapse: collapse;
 }
 
-tr:nth-child(5n) {
-  background-color: #f8f8f8;
-}
-
 th {
-  border: 1px solid #ccc;
-  background-color: #ddd;
+  border: 1px solid #ddd;
+  background-color: #eee;
   font-weight: normal;
   font-size: 0.8em;
   padding: 0.5em;

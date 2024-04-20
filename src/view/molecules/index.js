@@ -10,8 +10,10 @@ import EntListView from "./EntListView";
 import FloatingVoteAnalysisView from "./FloatingVoteAnalysisView";
 import GenericListView from "./GenericListView";
 import GenericListViewLazy from "./GenericListViewLazy";
+import MatrixView from "./MatrixView";
 import PartyElectoralSummaryView from "./PartyElectoralSummaryView";
 import PartyGroupElectoralSummaryView from "./PartyGroupElectoralSummaryView";
+import Renderer from "./Renderer";
 import ResultsSeatsTableView from "./ResultsSeatsTableView";
 import ResultsTableView from "./ResultsTableView";
 import SimilarRegionsView from "./SimilarRegionsView";
@@ -30,8 +32,10 @@ export {
   FloatingVoteAnalysisView,
   GenericListView,
   GenericListViewLazy,
+  MatrixView,
   PartyElectoralSummaryView,
   PartyGroupElectoralSummaryView,
+  Renderer,
   ResultsSeatsTableView,
   ResultsTableView,
   SimilarRegionsView,

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, IconButton, Typography } from "@mui/material";
 import { Ent, Format, Fraction, PercentagePoint } from "../../nonview/base";
 import { Election, Party, PartyGroup } from "../../nonview/core";
-import SwapVertIcon from "@mui/icons-material/SwapVert";
+import SwapVerticalCircleIcon from "@mui/icons-material/SwapVerticalCircle";
 import {
   ElectionLink,
   EntLink,
@@ -136,7 +136,7 @@ function DataTableViewHeaderRow({ headerKeys, setSortKey }) {
           <th key={"header-" + iCol}>
             <Box display="flex" alignItems="center">
               <IconButton onClick={onClickSort}>
-                <SwapVertIcon sx={{ fontSize: "50%" }} />
+                <SwapVerticalCircleIcon sx={{ fontSize: "80%" }} />
               </IconButton>
               {formatCellValue(headerKey, headerKey)}
             </Box>
@@ -215,13 +215,13 @@ function getHeaderKeys(dataList) {
 export default function DataTableViewLazy({ dataList, footerData }) {
   // Init Sorter
   const [sortKey, setSortKey] = useState(null);
-  const [sortOrder, setSortOrder] = useState(true);
+  const [sortReverse, setSortReverse] = useState(true);
   const setSortKeyInner = function (key) {
     if (sortKey === key) {
-      setSortOrder(!sortOrder);
+      setSortReverse(!sortReverse);
     } else {
       setSortKey(key);
-      setSortOrder(true);
+      setSortReverse(true);
     }
   };
 
@@ -238,7 +238,7 @@ export default function DataTableViewLazy({ dataList, footerData }) {
   let sortedDataList;
   if (sortKey) {
     sortedDataList = filteredDataList.sort(function (a, b) {
-      if (sortOrder) {
+      if (sortReverse) {
         return compare(b[sortKey], a[sortKey]);
       } else {
         return compare(a[sortKey], b[sortKey]);

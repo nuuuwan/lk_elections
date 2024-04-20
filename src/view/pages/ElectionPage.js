@@ -125,7 +125,7 @@ export default class ElectionPage extends AbstractCustomPage {
       return <Alert severity="info">This election has not yet occurred.</Alert>;
     }
 
-    const ents = [].concat([countryEnt], edEnts, pdEnts);
+    const ents = [].concat([countryEnt], edEnts);
     return (
       <Box>
         <ElectionListView elections={[election]} ents={ents} />

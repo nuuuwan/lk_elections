@@ -11,6 +11,12 @@ export default class Fraction {
   }
 
   localeCompare(other) {
-    return this.p - other.p;
+    if (this.p > other.p) {
+      return 1;
+    }
+    if (this.p < other.p) {
+      return -1;
+    }
+    return 0;
   }
 }

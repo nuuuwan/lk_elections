@@ -69,7 +69,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
       <Box>
         <CommonEntAnalysisView
           ent={countryEnt}
-          entsSimilar={[countryEnt]}
+          entsSimilar={entsAll}
           entsAll={entsAll}
           elections={elections}
           partyGroups={partyGroups}

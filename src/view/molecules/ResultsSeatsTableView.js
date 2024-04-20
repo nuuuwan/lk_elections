@@ -1,58 +1,42 @@
-import { Seats } from "../../nonview/core";
+import { SparseMatrix } from "../../nonview/base";
+import { Party, Seats } from "../../nonview/core";
 
 import { Header, SectionBox } from "../atoms";
-import { DataTableView } from "../molecules";
+import {  MatrixView } from "../molecules";
 
-function getDataList(election, ents) {
+function getSparseMatrix(election, ents) {
+  let sparseMatrix = new SparseMatrix();
   const seats = new Seats(election);
-  return ents
+  ents
     .sort((a, b) => a.localeCompare(b))
-    .map(function (ent) {
+    .forEach(function (ent) {
       const partyToSeats = seats.getPartyToSeats(ent.id);
       if (!partyToSeats) {
         return null;
       }
-
-      let d = { Region: ent };
-
-      for (let [party, seats] of Object.entries(partyToSeats)) {
-        d[party] = seats;
+      for (let [partyID, seats] of Object.entries(partyToSeats)) {
+        sparseMatrix.push({
+          Region: ent,
+            Party: new Party(partyID) ,
+          Seats: seats,
+        });
       }
-      return d;
-    })
-    .filter((d) => d !== null);
+      
+      })
+  return sparseMatrix;  
 }
 
-function getFooterData(dataList) {
-  return dataList.reduce(
-    function (footerData, data) {
-      for (let [party, seats] of Object.entries(data)) {
-        if (party === "Region") {
-          continue;
-        }
-        if (!footerData[party]) {
-          footerData[party] = 0;
-        }
-        footerData[party] += seats;
-      }
-      return footerData;
-    },
-    { Region: "Total" }
-  );
-}
+
 
 export default function ResultsSeatsTableView({ election, ents }) {
-  const dataList = getDataList(election, ents);
-  if (!dataList || dataList.length === 0) {
-    return null;
-  }
-  const footerData = getFooterData(dataList);
+  const sparseMatrix = getSparseMatrix(election, ents);
+
 
   return (
     <SectionBox>
       <Header level={4}>Seats</Header>
 
-      <DataTableView dataList={dataList} footerData={footerData} />
+      <MatrixView sparseMatrix={sparseMatrix} zKey="Seats" xKey="Party" yKey="Region" />
     </SectionBox>
   );
 }

@@ -1,11 +1,14 @@
-import { PercentagePoint } from "../../nonview/base";
+import { PercentagePoint, SparseMatrix } from "../../nonview/base";
 import { Header, SectionBox } from "../atoms";
 
-import DataTableView from "./DataTableView";
 
-function getDataList(partyGroups, election, prevElection, ents) {
-  return ents.map(function (ent) {
-    let d = { Region: ent };
+import {MatrixView} from "../molecules";
+
+function getSparseMatrix(partyGroups, election, prevElection, ents) {
+  let sparseMatrix = new SparseMatrix();
+
+   ents.forEach(function (ent) {
+    
     for (let partyGroup of partyGroups) {
       const voteInfo = partyGroup.getVoteInfo(election, ent);
       if (!voteInfo) {
@@ -23,11 +26,19 @@ function getDataList(partyGroups, election, prevElection, ents) {
       if (swing > 0.01) {
         color = partyGroup.color;
       }
-      d[partyGroup.id] = new PercentagePoint(swing, color);
+
+
+      sparseMatrix.push({
+        Region: ent,
+        PartyGroup: partyGroup,
+        Swing: new PercentagePoint(swing, color),
+      
+      })
     }
 
-    return d;
+
   });
+  return sparseMatrix;
 }
 
 export default function SwingAnalysisForElectionView({
@@ -36,11 +47,11 @@ export default function SwingAnalysisForElectionView({
   prevElection,
   ents,
 }) {
-  const dataList = getDataList(partyGroups, election, prevElection, ents);
+  const sparseMatrix = getSparseMatrix(partyGroups, election, prevElection, ents);
   return (
     <SectionBox>
       <Header level={2}>Swing Analysis for Election</Header>
-      <DataTableView dataList={dataList} />
+      <MatrixView sparseMatrix={sparseMatrix} zKey="Swing" xKey="PartyGroup" yKey="Region" />
     </SectionBox>
   );
 }

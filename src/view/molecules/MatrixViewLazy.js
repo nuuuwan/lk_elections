@@ -81,6 +81,30 @@ function MatrixViewBody({ idx, setSortYScalarAndOrder, scalarToOriginal }) {
   });
 }
 
+function MatrixViewFooter({idx}) {
+  const firstYScalar = Object.keys(idx)[0];
+  const xScalarList = Object.keys(idx[firstYScalar]);
+
+  return (
+    <tr>
+      <th style={{background: "white", border: "white"}}></th>
+      {xScalarList.map(
+    function(xScalar, iX) {
+
+      const colValues = Object.values(idx).map(function (xScalarToZ) {
+        return xScalarToZ[xScalar];
+      });
+      const colSum = Comparator.sum(colValues);
+
+      return (
+        <th key={'footer-'+iX}>{Renderer.formatCellValue(colSum)}</th>
+      )
+    }
+  )}
+    </tr>
+  )
+}
+
 export default function MatrixViewLazy({ sparseMatrix, zKey, xKey, yKey }) {
   // State - X, Y
   const [xKeyInner, setXKeyInner] = useState(xKey);
@@ -146,6 +170,11 @@ export default function MatrixViewLazy({ sparseMatrix, zKey, xKey, yKey }) {
           scalarToOriginal={scalarToOriginal}
         />
       </tbody>
+      <tfoot>
+        <MatrixViewFooter      
+          idx={idx}
+        />
+        </tfoot>
     </table>
   );
 }

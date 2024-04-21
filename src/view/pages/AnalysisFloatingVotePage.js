@@ -2,7 +2,7 @@ import AbstractCustomPage from "./AbstractCustomPage";
 import { EntLink, SectionBox, WikiSummaryView } from "../atoms";
 
 import { FloatingVoteAnalysisView } from "../molecules";
-import { Box, CircularProgress } from "@mui/material";
+import { CircularProgress } from "@mui/material";
 
 export default class AnalysisFloatingVotePage extends AbstractCustomPage {
   static getPageID() {
@@ -16,8 +16,8 @@ export default class AnalysisFloatingVotePage extends AbstractCustomPage {
     }
     return [
       <EntLink ent={countryEnt} shortFormat={true} />,
-      <Box>Analysis</Box>,
-      <Box>Floating Votes</Box>,
+      "Analysis",
+      "Floating Votes",
     ];
   }
 

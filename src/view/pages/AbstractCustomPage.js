@@ -34,8 +34,15 @@ export default class AbstractCustomPage extends Component {
   }
 
   renderBreadcrumbs() {
+    if (!this.breadcrumbs) {
+      return null;
+    }
     return (
-      <Breadcrumbs aria-label="breadcrumb">{this.breadcrumbs}</Breadcrumbs>
+      <Breadcrumbs aria-label="breadcrumb">
+        {this.breadcrumbs.map(function (breadcrumb, index) {
+          return <Box key={index}>{breadcrumb}</Box>;
+        })}
+      </Breadcrumbs>
     );
   }
 

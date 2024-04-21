@@ -3,7 +3,7 @@ import AbstractCustomPage from "./AbstractCustomPage";
 import { SectionBox, WikiSummaryView, Header, EntLink } from "../atoms";
 
 import { DataTableView } from "../molecules";
-import { Box, CircularProgress } from "@mui/material";
+import { CircularProgress } from "@mui/material";
 
 export default class AnalysisBellwetherPage extends AbstractCustomPage {
   static getPageID() {
@@ -17,8 +17,8 @@ export default class AnalysisBellwetherPage extends AbstractCustomPage {
     }
     return [
       <EntLink ent={countryEnt} shortFormat={true} />,
-      <Box>Analysis</Box>,
-      <Box>Bellwether</Box>,
+      "Analysis",
+      "Bellwether",
     ];
   }
 

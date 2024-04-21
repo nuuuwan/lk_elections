@@ -1,4 +1,4 @@
-import { Box, Breadcrumbs, CircularProgress, Typography } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import { Ent } from "../../nonview/base";
 
 import { EntLink } from "../atoms";
@@ -26,20 +26,18 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     });
   }
 
-  get supertitle() {
+  get breadcrumbs() {
     const { pdEnt, edEnt, countryEnt } = this.state;
 
     if (!countryEnt) {
       return null;
     }
 
-    return (
-      <Breadcrumbs aria-label="breadcrumb">
-        <EntLink ent={countryEnt} shortFormat={true} />
-        <EntLink ent={edEnt} shortFormat={true} />
-        <EntLink ent={pdEnt} shortFormat={true} />
-      </Breadcrumbs>
-    );
+    return [
+      <EntLink ent={countryEnt} shortFormat={true} />,
+      <EntLink ent={edEnt} shortFormat={true} />,
+      <EntLink ent={pdEnt} shortFormat={true} />,
+    ];
   }
 
   get title() {

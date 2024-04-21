@@ -1,7 +1,7 @@
 import { Party } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
 import { WikiSummaryView, PartyLink, PartyGroupLink, EntLink } from "../atoms";
-import { Box, Breadcrumbs, CircularProgress } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import { GenericListView, PartyElectoralSummaryView } from "../molecules";
 
 export default class PartyPage extends AbstractCustomPage {
@@ -16,24 +16,22 @@ export default class PartyPage extends AbstractCustomPage {
     this.setState({ partyID, party });
   }
 
-  get supertitle() {
+  get breadcrumbs() {
     const { party, partyGroups, countryEnt } = this.state;
     if (!party) {
       return null;
     }
-    return (
-      <Breadcrumbs aria-label="breadcrumb">
-        <EntLink ent={countryEnt} shortFormat={true} />
-        {partyGroups.map(function (partyGroup, iPartyGroup) {
-          return (
-            <PartyGroupLink
-              key={"partyGroup" + iPartyGroup}
-              partyGroupID={partyGroup.id}
-            />
-          );
-        })}
-        <PartyLink partyID={party.id} />
-      </Breadcrumbs>
+    return [].concat(
+      [<EntLink ent={countryEnt} shortFormat={true} />],
+      partyGroups.map(function (partyGroup, iPartyGroup) {
+        return (
+          <PartyGroupLink
+            key={"partyGroup" + iPartyGroup}
+            partyGroupID={partyGroup.id}
+          />
+        );
+      }),
+      [<PartyLink partyID={party.id} />]
     );
   }
   get title() {

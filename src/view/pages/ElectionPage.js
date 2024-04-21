@@ -1,10 +1,4 @@
-import {
-  Box,
-  CircularProgress,
-  Breadcrumbs,
-  Typography,
-  Alert,
-} from "@mui/material";
+import { Box, CircularProgress, Typography, Alert } from "@mui/material";
 
 import { Election } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
@@ -23,9 +17,7 @@ export default class ElectionPage extends AbstractCustomPage {
   async componentDidMount() {
     let { elections } = await super.componentDidMount();
     const { date } = this.state;
-
-    const election = await Election.fromDate(date);
-
+    const election = Election.findFromDate(elections, date);
     const { prevElection, nextElection } = Election.getNextAndPrevious(
       elections,
       election
@@ -54,22 +46,16 @@ export default class ElectionPage extends AbstractCustomPage {
     return election.titleShort;
   }
 
-  get supertitle() {
+  get breadcrumbs() {
     const { elections, prevElection, nextElection, countryEnt } = this.state;
     if (!elections) {
       return null;
     }
-
-    return (
-      <Breadcrumbs aria-label="breadcrumb">
-        <EntLink ent={countryEnt} shortFormat={true} />
-
-        {[prevElection, nextElection]
-          .filter((x) => !!x)
-          .map((e) => (
-            <ElectionLink key={e.date} election={e} />
-          ))}
-      </Breadcrumbs>
+    return [].concat(
+      [<EntLink ent={countryEnt} shortFormat={true} />],
+      [prevElection, nextElection]
+        .filter((x) => !!x)
+        .map((e) => <ElectionLink key={e.date} election={e} />)
     );
   }
 

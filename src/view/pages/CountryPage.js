@@ -14,12 +14,12 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     return "Country";
   }
 
-  get title() {
+  get breadcrumbs() {
     const { countryEnt } = this.state;
     if (!countryEnt) {
-      return "Sri Lanka";
+      return ["Sri Lanka"];
     }
-    return <EntLink ent={countryEnt} />;
+    return [<EntLink ent={countryEnt} />];
   }
 
   get browserTitle() {

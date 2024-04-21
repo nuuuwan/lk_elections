@@ -3,26 +3,23 @@ import AbstractCustomPage from "./AbstractCustomPage";
 import { SectionBox, WikiSummaryView, Header, EntLink } from "../atoms";
 
 import { DataTableView } from "../molecules";
-import { Box, Breadcrumbs, CircularProgress } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 
 export default class AnalysisBellwetherPage extends AbstractCustomPage {
   static getPageID() {
     return "AnalysisBellwether";
   }
 
-  get supertitle() {
+  get breadcrumbs() {
     const { countryEnt } = this.state;
     if (!countryEnt) {
       return null;
     }
-
-    return (
-      <Breadcrumbs aria-label="breadcrumb">
-        <EntLink ent={countryEnt} shortFormat={true} />
-        <Box>Analysis</Box>
-        <Box>Bellwether</Box>
-      </Breadcrumbs>
-    );
+    return [
+      <EntLink ent={countryEnt} shortFormat={true} />,
+      <Box>Analysis</Box>,
+      <Box>Bellwether</Box>,
+    ];
   }
 
   get title() {

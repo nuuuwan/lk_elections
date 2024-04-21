@@ -1,4 +1,4 @@
-import { Box, Breadcrumbs, CircularProgress } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 
 import AbstractCustomPage from "./AbstractCustomPage";
 import { EntLink, PartyGroupLink, PartyLink } from "../atoms";
@@ -13,18 +13,15 @@ export default class PartyGroupPage extends AbstractCustomPage {
     return "PartyGroup";
   }
 
-  get supertitle() {
+  get breadcrumbs() {
     const { partyGroup, countryEnt } = this.state;
     if (!partyGroup) {
       return null;
     }
-    return (
-      <Breadcrumbs aria-label="breadcrumb">
-        <EntLink ent={countryEnt} shortFormat={true} />
-
-        <PartyGroupLink partyGroupID={partyGroup.id} />
-      </Breadcrumbs>
-    );
+    return [
+      <EntLink ent={countryEnt} shortFormat={true} />,
+      <PartyGroupLink partyGroupID={partyGroup.id} />,
+    ];
   }
   get title() {
     const { partyGroupID } = this.state;

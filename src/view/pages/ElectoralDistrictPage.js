@@ -1,4 +1,4 @@
-import { Box, Breadcrumbs, CircularProgress } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import { Ent } from "../../nonview/base";
 
 import { WikiSummaryView, EntLink } from "../atoms";
@@ -22,19 +22,15 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
       pdEntsChildren,
     });
   }
-  get supertitle() {
+  get breadcrumbs() {
     const { edEnt, countryEnt } = this.state;
-
-    if (!countryEnt) {
+    if (!edEnt) {
       return null;
     }
-
-    return (
-      <Breadcrumbs aria-label="breadcrumb">
-        <EntLink ent={countryEnt} shortFormat={true} />
-        <EntLink ent={edEnt} shortFormat={true} />
-      </Breadcrumbs>
-    );
+    return [
+      <EntLink ent={countryEnt} shortFormat={true} />,
+      <EntLink ent={edEnt} shortFormat={true} />,
+    ];
   }
   get title() {
     const { edEnt, edID } = this.state;

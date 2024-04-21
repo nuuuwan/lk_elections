@@ -64,6 +64,10 @@ export default class Election extends ElectionBase {
 
   static async fromDate(date) {
     const elections = await Election.listAll();
+    return Election.findFromDate(elections, date);
+  }
+
+  static findFromDate(elections, date) {
     return elections.find(function (election) {
       return election.date === date;
     });

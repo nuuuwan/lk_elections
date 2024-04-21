@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Box } from "@mui/material";
+import { Box, Breadcrumbs } from "@mui/material";
 import { VERSION } from "../../nonview/constants";
 import { Header } from "../atoms";
 import { MainMenu } from "../organisms";
@@ -33,6 +33,12 @@ export default class AbstractCustomPage extends Component {
     return newState;
   }
 
+  renderBreadcrumbs() {
+    return (
+      <Breadcrumbs aria-label="breadcrumb">{this.breadcrumbs}</Breadcrumbs>
+    );
+  }
+
   renderLeft() {
     return (
       <Box
@@ -61,7 +67,7 @@ export default class AbstractCustomPage extends Component {
           background: "#fcfcfc",
         })}
       >
-        <Header level={3}>{this.supertitle}</Header>
+        <Header level={3}>{this.renderBreadcrumbs()}</Header>
         <Header level={1}>{this.title}</Header>
         {this.subtitle}
         <Box sx={{ paddingTop: 2 }}>{this.renderBodyMiddle()}</Box>

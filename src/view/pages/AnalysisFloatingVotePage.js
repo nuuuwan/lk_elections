@@ -1,5 +1,3 @@
-import { Ent, EntType } from "../../nonview/base";
-import { Election, PartyGroup } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
 import { EntLink, SectionBox, WikiSummaryView } from "../atoms";
 
@@ -11,15 +9,6 @@ export default class AnalysisFloatingVotePage extends AbstractCustomPage {
     return "AnalysisFloatingVote";
   }
 
-  async componentDidMount() {
-    const elections = await Election.listAll();
-
-    const pdEnts = await Ent.listFromType(EntType.PD);
-    const edEnts = await Ent.listFromType(EntType.ED);
-    const partyGroups = PartyGroup.listAll();
-    const countryEnt = await Ent.fromID("LK");
-    this.setState({ elections, countryEnt, pdEnts, edEnts, partyGroups });
-  }
   get supertitle() {
     const { countryEnt } = this.state;
     if (!countryEnt) {

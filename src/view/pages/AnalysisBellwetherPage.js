@@ -1,5 +1,4 @@
-import { Ent, EntType } from "../../nonview/base";
-import { AnalysisBellwether, Election } from "../../nonview/core";
+import { AnalysisBellwether } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
 import { SectionBox, WikiSummaryView, Header, EntLink } from "../atoms";
 
@@ -11,14 +10,6 @@ export default class AnalysisBellwetherPage extends AbstractCustomPage {
     return "AnalysisBellwether";
   }
 
-  async componentDidMount() {
-    const elections = await Election.listAll();
-
-    const pdEnts = await Ent.listFromType(EntType.PD);
-    const edEnts = await Ent.listFromType(EntType.ED);
-    const countryEnt = await Ent.fromID("LK");
-    this.setState({ elections, countryEnt, pdEnts, edEnts });
-  }
   get supertitle() {
     const { countryEnt } = this.state;
     if (!countryEnt) {

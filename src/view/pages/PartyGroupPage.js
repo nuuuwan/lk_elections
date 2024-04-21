@@ -1,6 +1,5 @@
 import { Box, Breadcrumbs, CircularProgress } from "@mui/material";
-import { Ent } from "../../nonview/base";
-import { PartyGroup, Election, Party } from "../../nonview/core";
+
 import AbstractCustomPage from "./AbstractCustomPage";
 import { EntLink, PartyGroupLink, PartyLink } from "../atoms";
 import {
@@ -12,29 +11,6 @@ import {
 export default class PartyGroupPage extends AbstractCustomPage {
   static getPageID() {
     return "PartyGroup";
-  }
-
-  async componentDidMount() {
-    const { partyGroupID } = this.state;
-    const partyGroup = PartyGroup.fromID(partyGroupID);
-
-    const elections = await Election.listAll();
-
-    const countryEnt = await Ent.fromID("LK");
-
-    const partyGroups = PartyGroup.listAll();
-
-    const partyList = partyGroup.partyIDList.map((partyID) =>
-      Party.fromID(partyID)
-    );
-
-    this.setState({
-      partyGroup,
-      elections,
-      partyList,
-      countryEnt,
-      partyGroups,
-    });
   }
 
   get supertitle() {

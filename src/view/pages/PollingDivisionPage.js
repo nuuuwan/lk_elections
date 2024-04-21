@@ -1,6 +1,5 @@
 import { Box, Breadcrumbs, CircularProgress, Typography } from "@mui/material";
-import { Ent, EntType } from "../../nonview/base";
-import { Election, PartyGroup } from "../../nonview/core";
+import { Ent } from "../../nonview/base";
 
 import { EntLink } from "../atoms";
 import { CommonEntAnalysisView } from "../molecules";
@@ -13,26 +12,17 @@ export default class PollingDivisionPage extends AbstractCustomPage {
   }
 
   async componentDidMount() {
+    await super.componentDidMount();
     const { pdID } = this.state;
     const pdEnt = await Ent.fromID(pdID);
     const edID = pdID.substring(0, 5);
     const edEnt = await Ent.fromID(edID);
-    const countryEnt = await Ent.fromID("LK");
-
-    const pdEnts = await Ent.listFromType(EntType.PD);
-
-    const elections = await Election.listAll();
-
-    const partyGroups = PartyGroup.listAll();
 
     this.setState({
+      pdID,
       pdEnt,
+      edID,
       edEnt,
-      countryEnt,
-      elections,
-
-      pdEnts,
-      partyGroups,
     });
   }
 

@@ -3,7 +3,8 @@ import { Box } from "@mui/material";
 import { VERSION } from "../../nonview/constants";
 import { Header } from "../atoms";
 import { MainMenu } from "../organisms";
-import { URLContext } from "../../nonview/base";
+import { Ent, EntType, URLContext } from "../../nonview/base";
+import { Election, Party, PartyGroup } from "../../nonview/core";
 
 const commonStyles = {
   position: "fixed",
@@ -20,6 +21,34 @@ export default class AbstractCustomPage extends Component {
     super(props);
     const context = URLContext.get();
     this.state = { ...context };
+  }
+
+  async componentDidMount() {
+    // Elections
+    const elections = await Election.listAll();
+
+    // Ents
+    const countryEnt = await Ent.fromID("LK");
+    const edEnts = await Ent.listFromType(EntType.ED);
+    const pdEnts = await Ent.listFromType(EntType.PD);
+
+    // Parties
+    const partyList = Party.listAll();
+
+    // Party Group
+    const partyGroups = PartyGroup.listAll();
+
+    const newState = {
+      elections,
+      countryEnt,
+      edEnts,
+      pdEnts,
+      partyList,
+      partyGroups,
+    };
+
+    this.setState(newState);
+    return newState;
   }
 
   get browserTitle() {

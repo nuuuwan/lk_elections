@@ -1,6 +1,5 @@
 import { Box, CircularProgress } from "@mui/material";
-import { Ent, EntType } from "../../nonview/base";
-import { Election, PartyGroup } from "../../nonview/core";
+
 import { WikiSummaryView, EntLink } from "../atoms";
 import {
   EntListView,
@@ -13,18 +12,6 @@ import AbstractCustomPage from "./AbstractCustomPage";
 export default class ElectoralDistrictPage extends AbstractCustomPage {
   static getPageID() {
     return "Country";
-  }
-
-  async componentDidMount() {
-    const countryEnt = await Ent.fromID("LK");
-
-    const elections = await Election.listAll();
-
-    const edEnts = await Ent.listFromType(EntType.ED);
-
-    const partyGroups = PartyGroup.listAll();
-
-    this.setState({ countryEnt, elections, edEnts, partyGroups });
   }
 
   get title() {

@@ -1,6 +1,6 @@
 import { Box, Breadcrumbs, CircularProgress } from "@mui/material";
-import { Ent, EntType } from "../../nonview/base";
-import { Election, PartyGroup } from "../../nonview/core";
+import { Ent } from "../../nonview/base";
+
 import { WikiSummaryView, EntLink } from "../atoms";
 import { EntListView, CommonEntAnalysisView } from "../molecules";
 import { GeoMap } from "../organisms";
@@ -12,24 +12,14 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
   }
 
   async componentDidMount() {
+    const { pdEnts } = await super.componentDidMount();
     const { edID } = this.state;
     const edEnt = await Ent.fromID(edID);
+    const pdEntsChildren = pdEnts.filter((pdEnt) => pdEnt.id.startsWith(edID));
 
-    const pdEntsAll = await Ent.listFromType(EntType.PD);
-    const pdEnts = pdEntsAll.filter((pdEnt) => pdEnt.id.startsWith(edID));
-    const edEnts = await Ent.listFromType(EntType.ED);
-    const countryEnt = await Ent.fromID("LK");
-    const elections = await Election.listAll();
-
-    const partyGroups = PartyGroup.listAll();
     this.setState({
       edEnt,
-      pdEnts,
-      countryEnt,
-      elections,
-
-      edEnts,
-      partyGroups,
+      pdEntsChildren,
     });
   }
   get supertitle() {

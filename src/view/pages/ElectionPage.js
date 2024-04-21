@@ -5,8 +5,8 @@ import {
   Typography,
   Alert,
 } from "@mui/material";
-import { Ent, EntType } from "../../nonview/base";
-import { Election, PartyGroup } from "../../nonview/core";
+
+import { Election } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
 import {
   ElectionListView,
@@ -21,29 +21,20 @@ export default class ElectionPage extends AbstractCustomPage {
   }
 
   async componentDidMount() {
-    let { date } = this.state;
+    let { elections } = await super.componentDidMount();
+    const { date } = this.state;
+
     const election = await Election.fromDate(date);
-    const elections = await Election.listAll();
 
     const { prevElection, nextElection } = Election.getNextAndPrevious(
       elections,
       election
     );
 
-    const pdEnts = await Ent.listFromType(EntType.PD);
-    const edEnts = await Ent.listFromType(EntType.ED);
-    const countryEnt = await Ent.fromID("LK");
-    const partyGroups = PartyGroup.listAll();
-
     this.setState({
       election,
-      countryEnt,
-      edEnts,
-      pdEnts,
-      elections,
       prevElection,
       nextElection,
-      partyGroups,
     });
   }
 
@@ -83,8 +74,8 @@ export default class ElectionPage extends AbstractCustomPage {
   }
 
   renderBodyMiddle() {
-    const { countryEnt, election } = this.state;
-    if (!countryEnt) {
+    const { election } = this.state;
+    if (!election) {
       return <CircularProgress />;
     }
     return (
@@ -100,7 +91,7 @@ export default class ElectionPage extends AbstractCustomPage {
   renderBodyRight() {
     const { partyGroups, countryEnt, election, prevElection, edEnts, pdEnts } =
       this.state;
-    if (!countryEnt) {
+    if (!election) {
       return <CircularProgress />;
     }
 

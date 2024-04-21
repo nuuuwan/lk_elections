@@ -1,5 +1,4 @@
-import { Ent } from "../../nonview/base";
-import { Party, Election, PartyGroup } from "../../nonview/core";
+import { Party } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
 import { WikiSummaryView, PartyLink, PartyGroupLink, EntLink } from "../atoms";
 import { Box, Breadcrumbs, CircularProgress } from "@mui/material";
@@ -11,12 +10,10 @@ export default class PartyPage extends AbstractCustomPage {
   }
 
   async componentDidMount() {
+    await super.componentDidMount();
     const { partyID } = this.state;
     const party = Party.fromID(partyID);
-    const elections = await Election.listAll();
-    const partyGroups = PartyGroup.listFromPartyID(party.id);
-    const countryEnt = await Ent.fromID("LK");
-    this.setState({ party, elections, partyGroups, countryEnt });
+    this.setState({ partyID, party });
   }
 
   get supertitle() {

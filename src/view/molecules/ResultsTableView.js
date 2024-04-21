@@ -18,55 +18,77 @@ function getMajorPartyIDs(election) {
     });
 }
 
-function getSparseMatrix(election, ents) {
-  let matrix = new SparseMatrix();
-  const majorPartyIDs = getMajorPartyIDs(election);
+function getVote(ent, partyID, result, winningPartyID, color, noSum) {
+  const fraction = new Fraction(
+    result.partyToVotes.partyToVotes[partyID],
+    result.partyToVotes.totalVotes,
+    winningPartyID === partyID ? color : null,
 
-  ents.forEach(function (ent) {
-    const result = election.getResults(ent.id);
-    if (!result) {
-      return null;
-    }
-    const noSum = ent.id === "LK";
+    noSum
+  );
 
-    const winningPartyID = result.partyToVotes.winningParty;
-    const winningParty = Party.fromID(winningPartyID);
-    const color = winningParty.color;
+  const voteFraction = {
+    Region: ent,
+    Party: Party.fromID(partyID),
+    VoteInfo: fraction,
+  };
+  const votes = fraction.n;
+  return { voteFraction, votes };
+}
 
-    let accountedVotes = 0;
+function getOtherVote(ent, result, accountedVotes, noSum) {
+  const totalVotes = result.partyToVotes.totalVotes;
+  const fractionOther = new Fraction(
+    totalVotes - accountedVotes,
+    totalVotes,
+    null,
+    noSum
+  );
 
-    for (let partyID of majorPartyIDs) {
-      const fraction = new Fraction(
-        result.partyToVotes.partyToVotes[partyID],
-        result.partyToVotes.totalVotes,
-        winningPartyID === partyID ? color : null,
+  return {
+    Region: ent,
+    Party: Party.OTHER,
+    VoteInfo: fractionOther,
+  };
+}
 
-        noSum
-      );
+function pushMatrixRowsForEnt(sparseMatrix, ent, majorPartyIDs, election) {
+  const result = election.getResults(ent.id);
+  if (!result) {
+    return sparseMatrix;
+  }
+  const noSum = ent.id === "LK";
+  const winningPartyID = result.partyToVotes.winningParty;
+  const color = Party.fromID(winningPartyID).color;
 
-      accountedVotes += fraction.n;
-      matrix.push({
-        Region: ent,
-        Party: Party.fromID(partyID),
-        VoteInfo: fraction,
-      });
-    }
-    const totalVotes = result.partyToVotes.totalVotes;
-    const fractionOther = new Fraction(
-      totalVotes - accountedVotes,
-      totalVotes,
-      null,
-      noSum
+  const { accountedVotes, sparseMatrix: sparseMatrixInner } =
+    majorPartyIDs.reduce(
+      function ({ accountedVotes, sparseMatrix }, partyID) {
+        const { voteFraction, votes } = getVote(
+          ent,
+          partyID,
+          result,
+          winningPartyID,
+          color,
+          noSum
+        );
+        accountedVotes += votes;
+        sparseMatrix.push(voteFraction);
+        return { accountedVotes, sparseMatrix };
+      },
+      { accountedVotes: 0, sparseMatrix }
     );
 
-    matrix.push({
-      Region: ent,
-      Party: Party.OTHER,
-      VoteInfo: fractionOther,
-    });
-  });
+  sparseMatrixInner.push(getOtherVote(ent, result, accountedVotes, noSum));
+  return sparseMatrixInner;
+}
 
-  return matrix;
+function getSparseMatrix(election, ents) {
+  const majorPartyIDs = getMajorPartyIDs(election);
+
+  return ents.reduce(function (sparseMatrix, ent) {
+    return pushMatrixRowsForEnt(sparseMatrix, ent, majorPartyIDs, election);
+  }, new SparseMatrix());
 }
 
 export default function ResultsTableView({ election, ents }) {

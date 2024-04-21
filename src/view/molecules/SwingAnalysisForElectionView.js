@@ -4,44 +4,66 @@ import { Header, SectionBox } from "../atoms";
 
 import { MatrixView } from "../molecules";
 
+function getPVotesForElection(ent, partyGroup, election) {
+  const voteInfo = partyGroup.getVoteInfo(election, ent);
+  if (!voteInfo) {
+    return null;
+  }
+  const { pVotes } = voteInfo;
+  return pVotes;
+}
+
+function pushMatrixRowForPartyGroup(
+  ent,
+  partyGroup,
+  election,
+  accountedSwing,
+  sparseMatrixInner,
+  prevElection
+) {
+  const pVotes = getPVotesForElection(ent, partyGroup, election);
+  const pVotesPrev = getPVotesForElection(ent, partyGroup, prevElection);
+  if (!pVotes || !pVotesPrev) {
+    return { accountedSwing, sparseMatrixInner };
+  }
+
+  const swing = pVotes - pVotesPrev;
+  const color = swing > 0.01 ? partyGroup.color : null;
+
+  sparseMatrixInner.push({
+    Region: ent,
+    PartyGroup: partyGroup,
+    Swing: new PercentagePoint(swing, color),
+  });
+  accountedSwing += swing;
+
+  return { accountedSwing, sparseMatrixInner };
+}
+
 function getSparseMatrix(partyGroups, election, prevElection, ents) {
-  let sparseMatrix = new SparseMatrix();
+  return ents.reduce(function (sparseMatrix, ent) {
+    const { accountedSwing, sparseMatrixInner } = partyGroups.reduce(
+      function ({ accountedSwing, sparseMatrixInner }, partyGroup) {
+        return pushMatrixRowForPartyGroup(
+          ent,
+          partyGroup,
+          election,
+          accountedSwing,
+          sparseMatrixInner,
+          prevElection
+        );
+      },
+      { accountedSwing: 0, sparseMatrixInner: sparseMatrix }
+    );
 
-  for (let ent of ents) {
-    let accountedSwing = 0;
-    for (let partyGroup of partyGroups) {
-      const voteInfo = partyGroup.getVoteInfo(election, ent);
-      if (!voteInfo) {
-        continue;
-      }
-      const voteInfoPrev = partyGroup.getVoteInfo(prevElection, ent);
-      if (!voteInfoPrev) {
-        continue;
-      }
-      const { pVotes } = voteInfo;
-      const { pVotes: pVotesPrev } = voteInfoPrev;
-
-      const swing = pVotes - pVotesPrev;
-      accountedSwing += swing;
-      let color = null;
-      if (swing > 0.01) {
-        color = partyGroup.color;
-      }
-
-      sparseMatrix.push({
-        Region: ent,
-        PartyGroup: partyGroup,
-        Swing: new PercentagePoint(swing, color),
-      });
-    }
-
-    sparseMatrix.push({
+    sparseMatrixInner.push({
       Region: ent,
       PartyGroup: PartyGroup.UNGROUPED,
       Swing: new PercentagePoint(-accountedSwing, "#888"),
     });
-  }
-  return sparseMatrix;
+
+    return sparseMatrixInner;
+  }, new SparseMatrix());
 }
 
 export default function SwingAnalysisForElectionView({

@@ -12,23 +12,12 @@ function getStyle(party, noColor) {
   return { foreColor };
 }
 
-export default function PartyLink({
-  partyID,
-  children,
-  noColor,
-
-  longName,
-}) {
-  if (children === " ") {
-    return null;
-  }
+export default function PartyLink({ partyID, noColor, longName }) {
   const party = Party.fromID(partyID);
 
   const { foreColor } = getStyle(party, noColor);
 
   const partyLabel = longName ? party.name : partyID;
-  const defaultInner = <Typography variant="inherit">{partyLabel}</Typography>;
-  const inner = children || defaultInner;
 
   const context = {
     pageID: "Party",
@@ -44,7 +33,7 @@ export default function PartyLink({
           color: foreColor,
         }}
       >
-        {inner}
+        <Typography variant="inherit">{partyLabel}</Typography>
       </Box>
     </LinkContext>
   );

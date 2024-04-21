@@ -20,7 +20,6 @@ export default function CommonEntAnalysisView({
     <Box>
       <ElectoralSummaryView ent={ent} elections={elections} />
       <SimilarRegionsView ent={ent} elections={elections} otherEnts={entsAll} />
-
       {isLK ? null : <BellwetherView ent={ent} elections={elections} />}
 
       <FloatingVoteAnalysisView
@@ -28,7 +27,6 @@ export default function CommonEntAnalysisView({
         elections={elections}
         ents={entsSimilar}
       />
-
       <SwingAnalysisView
         partyGroups={partyGroups}
         elections={elections}

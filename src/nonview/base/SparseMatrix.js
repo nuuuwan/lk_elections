@@ -32,7 +32,7 @@ export default class SparseMatrix {
     return scalar;
   }
 
-  getOrderedScalarList(xKey, yKey, zKey, sortYScalar, sortReverse) {
+  __getOrderedScalarList([xKey, yKey, zKey], [sortYScalar, sortReverse]) {
     const idx = this.getIdx(yKey, xKey, zKey);
     const orderedScalarList = Object.entries(idx)
       .sort(function ([xScalarA, yScalarToZA], [xScalarB, yScalarToZB]) {
@@ -75,40 +75,28 @@ export default class SparseMatrix {
   }
 
   getIdxOrdered(
-    xKey,
-    yKey,
-    zKey,
-    sortXScalar,
-    sortYScalar,
-    sortXReverse,
-    sortYReverse
+    [xKey, yKey, zKey],
+    [sortXScalar, sortXReverse],
+    [sortYScalar, sortYReverse]
   ) {
-    const orderedXScalarList = this.getOrderedScalarList(
-      xKey,
-      yKey,
-      zKey,
-      sortYScalar,
-      sortYReverse
-    );
-
-    const orderedYScalarList = this.getOrderedScalarList(
-      yKey,
-      xKey,
-      zKey,
-      sortXScalar,
-      sortXReverse
-    );
-
     const idx = this.getIdx(xKey, yKey, zKey);
-    let idxOrdered = {};
-    for (let xScalar of orderedXScalarList) {
-      for (let yScalar of orderedYScalarList) {
-        if (!idxOrdered[yScalar]) {
-          idxOrdered[yScalar] = {};
-        }
-        idxOrdered[yScalar][xScalar] = (idx[yScalar] || {})[xScalar];
-      }
-    }
-    return idxOrdered;
+    return this.__getOrderedScalarList(
+      [xKey, yKey, zKey],
+      [sortYScalar, sortYReverse]
+    ).reduce(
+      function (idxOrdered, xScalar) {
+        return this.__getOrderedScalarList(
+          [yKey, xKey, zKey],
+          [sortXScalar, sortXReverse]
+        ).reduce(function (idxOrdered, yScalar) {
+          if (!idxOrdered[yScalar]) {
+            idxOrdered[yScalar] = {};
+          }
+          idxOrdered[yScalar][xScalar] = (idx[yScalar] || {})[xScalar];
+          return idxOrdered;
+        }, idxOrdered);
+      }.bind(this),
+      {}
+    );
   }
 }

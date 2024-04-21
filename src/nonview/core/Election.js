@@ -192,4 +192,10 @@ export default class Election {
       return election.date === date;
     });
   }
+
+  static filterCompleted(elections) {
+    return elections.filter(function (election) {
+      return !election.isFuture;
+    });
+  }
 }

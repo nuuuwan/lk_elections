@@ -3,6 +3,7 @@ import AnalysisBellwether from "./AnalysisBellwether";
 import Comparator from "./Comparator";
 import Election from "./Election";
 import Note from "./Note";
+import PARTY_LIST_TUPLES from "./PARTY_LIST_TUPLES";
 import Party from "./Party";
 import PartyGroup from "./PartyGroup";
 import PartyToVotes from "./PartyToVotes";
@@ -15,6 +16,7 @@ export {
   Comparator,
   Election,
   Note,
+  PARTY_LIST_TUPLES,
   Party,
   PartyGroup,
   PartyToVotes,

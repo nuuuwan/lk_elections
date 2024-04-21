@@ -48,7 +48,6 @@ export default class ElectionPage extends AbstractCustomPage {
     const pdEnts = await Ent.listFromType(EntType.PD);
     const edEnts = await Ent.listFromType(EntType.ED);
     const countryEnt = await Ent.fromID("LK");
-
     const partyGroups = PartyGroup.listAll();
 
     this.setState({

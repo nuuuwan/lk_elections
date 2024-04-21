@@ -1,4 +1,5 @@
 import { MathX, Time } from "../base";
+import Election from "./Election";
 
 export default class PartyGroup {
   static UNGROUPED = new PartyGroup("Ungrouped", [], "#888");
@@ -82,10 +83,30 @@ export default class PartyGroup {
     return { election, votes, pVotes, nParties };
   }
 
-  getBaseAnalysisInfo(elections, ent) {
-    const completedElections = elections.filter(
-      (election) => !election.isFuture
+  static getPVotesListInWindow(infoList, windowYears) {
+    const utNow = Time.now().ut;
+    return infoList.reduce(
+      function ({ pVotesList, pVotesListInWindow }, info) {
+        const { election, pVotes } = info;
+        if (pVotes < 0.01) {
+          return { pVotesList, pVotesListInWindow };
+        }
+        pVotesList.push(pVotes);
+
+        const ut = Time.fromString(election.date).ut;
+        const dut = utNow - ut;
+        const dyears = dut / (1000 * 365.25 * 86400);
+        if (dyears < windowYears) {
+          pVotesListInWindow.push(pVotes);
+        }
+        return { pVotesList, pVotesListInWindow };
+      },
+      { pVotesList: [], pVotesListInWindow: [] }
     );
+  }
+
+  getBaseAnalysisInfo(elections, ent) {
+    const completedElections = Election.filterCompleted(elections);
     const lastElection = completedElections[0];
 
     const electors = lastElection.getResults(ent.id).summary.electors;
@@ -95,23 +116,11 @@ export default class PartyGroup {
       .filter((info) => !!info);
 
     const windowYears = 10;
-    let pVotesList = [];
-    let pVotesListInWindow = [];
-    const utNow = Time.now().ut;
-    for (let info of infoList) {
-      const { election, pVotes } = info;
-      if (pVotes < 0.01) {
-        continue;
-      }
-      pVotesList.push(pVotes);
+    const { pVotesList, pVotesListInWindow } = PartyGroup.getPVotesListInWindow(
+      infoList,
+      windowYears
+    );
 
-      const ut = Time.fromString(election.date).ut;
-      const dut = utNow - ut;
-      const dyears = dut / (1000 * 365.25 * 86400);
-      if (dyears < windowYears) {
-        pVotesListInWindow.push(pVotes);
-      }
-    }
     const n = pVotesList.length;
     const nWindow = pVotesListInWindow.length;
     const minBase = n > 0 ? MathX.min(pVotesList) : null;

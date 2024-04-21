@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, IconButton, Typography } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import SwapVerticalCircleIcon from "@mui/icons-material/SwapVerticalCircle";
 import { Comparator } from "../../nonview/core";
 import { Renderer } from "../molecules";
@@ -92,10 +92,86 @@ function getHeaderKeys(dataList) {
   return colFilteredHeaderKeys;
 }
 
+function getSortedDataList(dataList, sortKey, sortReverse) {
+  const filteredDataList = dataList.filter((data) => data !== null);
+  if (filteredDataList.length === 0) {
+    return null;
+  }
+
+  if (!sortKey) {
+    return filteredDataList;
+  }
+  return filteredDataList.sort(function (a, b) {
+    return Comparator.cmp(b[sortKey], a[sortKey], sortReverse);
+  });
+}
+
+function DataTableViewHead({ headerKeys, setSortKeyInner }) {
+  return (
+    <thead>
+      <DataTableViewHeaderRow
+        headerKeys={headerKeys}
+        setSortKey={setSortKeyInner}
+      />
+    </thead>
+  );
+}
+
+function DataTableViewBody({ sortedDataList, headerKeys }) {
+  return (
+    <tbody>
+      {sortedDataList.map(function (data, iRow) {
+        return (
+          <DataTableViewRow
+            key={"data-row-" + iRow}
+            iRow={iRow}
+            headerKeys={headerKeys}
+            data={data}
+          />
+        );
+      })}
+    </tbody>
+  );
+}
+
+function DataTableViewFoot({ headerKeys, footerData }) {
+  return footerData ? (
+    <tfoot>
+      <DataTableViewFooterRow headerKeys={headerKeys} footerData={footerData} />
+    </tfoot>
+  ) : null;
+}
+
+function DataTableViewTable({
+  sortedDataList,
+  headerKeys,
+  footerData,
+  setSortKeyInner,
+}) {
+  return (
+    <table>
+      <DataTableViewHead
+        headerKeys={headerKeys}
+        setSortKeyInner={setSortKeyInner}
+      />
+      <DataTableViewBody
+        sortedDataList={sortedDataList}
+        headerKeys={headerKeys}
+      />
+      <DataTableViewFoot headerKeys={headerKeys} footerData={footerData} />
+    </table>
+  );
+}
+
 export default function DataTableViewLazy({ dataList, footerData }) {
-  // Init Sorter
   const [sortKey, setSortKey] = useState(null);
   const [sortReverse, setSortReverse] = useState(true);
+
+  const sortedDataList = getSortedDataList(dataList, sortKey, sortReverse);
+  if (!sortedDataList) {
+    return null;
+  }
+
   const setSortKeyInner = function (key) {
     if (sortKey === key) {
       setSortReverse(!sortReverse);
@@ -105,58 +181,11 @@ export default function DataTableViewLazy({ dataList, footerData }) {
     }
   };
 
-  // Filter Null
-  const filteredDataList = dataList.filter((data) => data !== null);
-  if (filteredDataList.length === 0) {
-    return null;
-  }
-
-  // Get HeaderKeys
-  const headerKeys = getHeaderKeys(filteredDataList);
-
-  // Sort
-  let sortedDataList;
-  if (sortKey) {
-    sortedDataList = filteredDataList.sort(function (a, b) {
-      return Comparator.cmp(b[sortKey], a[sortKey], sortReverse);
-    });
-  } else {
-    sortedDataList = filteredDataList;
-  }
+  const headerKeys = getHeaderKeys(sortedDataList);
 
   return (
-    <Box>
-      <table>
-        <thead>
-          <DataTableViewHeaderRow
-            headerKeys={headerKeys}
-            setSortKey={setSortKeyInner}
-          />
-        </thead>
-        <tbody>
-          {sortedDataList.map(function (data, iRow) {
-            return (
-              <DataTableViewRow
-                key={"data-row-" + iRow}
-                iRow={iRow}
-                headerKeys={headerKeys}
-                data={data}
-              />
-            );
-          })}
-        </tbody>
-        {footerData ? (
-          <tfoot>
-            <DataTableViewFooterRow
-              headerKeys={headerKeys}
-              footerData={footerData}
-            />
-          </tfoot>
-        ) : null}
-      </table>
-      <Typography variant="caption">
-        - represents zero. ~ represents small enough to be insignificant.
-      </Typography>
-    </Box>
+    <DataTableViewTable
+      {...{ sortedDataList, headerKeys, footerData, setSortKeyInner }}
+    />
   );
 }

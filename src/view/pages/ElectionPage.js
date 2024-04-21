@@ -1,5 +1,4 @@
 import { Box, CircularProgress, Typography, Alert } from "@mui/material";
-
 import { Election } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
 import {
@@ -22,7 +21,6 @@ export default class ElectionPage extends AbstractCustomPage {
       elections,
       election
     );
-
     this.setState({
       election,
       prevElection,
@@ -77,12 +75,8 @@ export default class ElectionPage extends AbstractCustomPage {
   renderBodyRight() {
     const { partyGroups, countryEnt, election, prevElection, edEnts, pdEnts } =
       this.state;
-    if (!election) {
+    if (!election || election.isFuture) {
       return <CircularProgress />;
-    }
-
-    if (election.isFuture) {
-      return <Alert severity="info">This election has not yet occurred.</Alert>;
     }
 
     const ents = [].concat([countryEnt], edEnts, pdEnts);

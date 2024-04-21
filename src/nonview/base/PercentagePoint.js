@@ -10,4 +10,12 @@ export default class PercentagePoint {
   localeCompare(other) {
     return this.value - other.value;
   }
+
+  add(other) {
+    return new PercentagePoint(this.value + other.value);
+  }
+
+  zero() {
+    return new PercentagePoint(0);
+  }
 }

@@ -1,6 +1,10 @@
-import { Fraction, PercentagePoint } from "../base";
-
 export default class Comparator {
+  static assertSameType(a, b) {
+    if (typeof a !== typeof b) {
+      throw new Error("a & b must be of the same type: " + [a, b]);
+    }
+  }
+
   static cmpInner(a, b) {
     if (!a && !b) {
       return 0;
@@ -12,16 +16,17 @@ export default class Comparator {
       return 1;
     }
 
-    if (typeof a === "number" && typeof b === "number") {
+    Comparator.assertSameType(a, b);
+
+    if (typeof a === "number") {
       return a - b;
     }
 
-    if (typeof a === "object" && typeof b === "object") {
+    if (typeof a === "object") {
       return a.localeCompare(b);
     }
 
-    console.error("Invalid values: " + [a, b]);
-    return 0;
+    throw new Error("Invalid values: " + [a, b]);
   }
 
   static cmp(a, b, sortReverse = true) {
@@ -29,44 +34,32 @@ export default class Comparator {
   }
 
   static zero(value) {
-    if (!value) {
-      return null;
-    }
     if (typeof value === "number") {
       return 0;
     }
-    if (value instanceof Fraction) {
-      return new Fraction(0, 0);
-    }
-    if (value instanceof PercentagePoint) {
-      return new PercentagePoint(0.0);
+    if (typeof value === "object") {
+      return value.zero();
     }
 
     throw new Error("Invalid value: " + value);
   }
 
-  static sumPair(value1, value2) {
-    if (typeof value1 === "number" && typeof value2 === "number") {
-      return value1 + value2;
-    }
-    if (value1 instanceof Fraction && value2 instanceof Fraction) {
-      const d = value1.d === value2.d ? value1.d : value1.d + value2.d;
-      return new Fraction(value1.n + value2.n, d);
-    }
-    if (
-      value1 instanceof PercentagePoint &&
-      value2 instanceof PercentagePoint
-    ) {
-      return new PercentagePoint(value1.value + value2.value);
+  static sumPair(a, b) {
+    Comparator.assertSameType(a, b);
+
+    if (typeof a === "number") {
+      return a + b;
     }
 
-    throw new Error("Invalid values: " + [value1, value2]);
+    if (typeof a === "object") {
+      return a.add(b);
+    }
+
+    throw new Error("Invalid values: " + [a, b]);
   }
 
   static sum(valueList) {
-    const nonTrivialValueLIst = valueList.filter(
-      (x) => x !== null && x !== undefined && !x.noSum
-    );
+    const nonTrivialValueLIst = valueList.filter((x) => !!x);
     if (!nonTrivialValueLIst) {
       return null;
     }

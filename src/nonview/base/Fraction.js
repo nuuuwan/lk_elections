@@ -20,4 +20,12 @@ export default class Fraction {
     }
     return 0;
   }
+
+  add(other) {
+    return new Fraction(this.n + other.n, this.d + other.d);
+  }
+
+  zero() {
+    return new Fraction(0, 0);
+  }
 }

@@ -1,6 +1,6 @@
 import { Box, CircularProgress } from "@mui/material";
 
-import { WikiSummaryView, EntLink } from "../atoms";
+import { WikiSummaryView } from "../atoms";
 import {
   EntListView,
   ElectoralSummaryView,
@@ -15,14 +15,10 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
   }
 
   get breadcrumbs() {
-    const { countryEnt } = this.state;
-    if (!countryEnt) {
-      return ["Sri Lanka"];
-    }
-    return [<EntLink ent={countryEnt} />];
+    return [];
   }
 
-  get browserTitle() {
+  get title() {
     return "Sri Lanka";
   }
 

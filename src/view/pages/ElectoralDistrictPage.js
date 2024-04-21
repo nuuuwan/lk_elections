@@ -49,7 +49,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
   }
 
   renderBodyMiddle() {
-    const { edEnt, pdEnts } = this.state;
+    const { edEnt, pdEntsChildren } = this.state;
     if (!edEnt) {
       return <CircularProgress />;
     }
@@ -58,13 +58,19 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
       <Box>
         <GeoMap geoID={edEnt.id} />
         <WikiSummaryView wikiPageName={edEnt.wikiPageName} />
-        <EntListView ents={pdEnts} shortFormat={true} />
+        <EntListView ents={pdEntsChildren} shortFormat={true} />
       </Box>
     );
   }
   renderBodyRight() {
-    const { edEnt, countryEnt, elections, edEnts, partyGroups, pdEnts } =
-      this.state;
+    const {
+      edEnt,
+      countryEnt,
+      elections,
+      edEnts,
+      partyGroups,
+      pdEntsChildren,
+    } = this.state;
     if (!edEnt) {
       return <CircularProgress />;
     }
@@ -73,7 +79,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
       <Box>
         <CommonEntAnalysisView
           ent={edEnt}
-          entsSimilar={[].concat(pdEnts, [edEnt, countryEnt])}
+          entsSimilar={[].concat(pdEntsChildren, [edEnt, countryEnt])}
           entsAll={entsAll}
           elections={elections}
           partyGroups={partyGroups}

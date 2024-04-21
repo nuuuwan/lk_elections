@@ -1,12 +1,13 @@
 import { Component } from "react";
 import { Box, Breadcrumbs } from "@mui/material";
-import { VERSION } from "../../nonview/constants";
+
 import { Header } from "../atoms";
 import { MainMenu } from "../organisms";
 import { URLContext } from "../../nonview/base";
 import GenericStore from "../../nonview/core/GenericStore";
 
 import AbstractCustomPageStyle from "./AbstractCustomPageStyle";
+import VersionView from "../atoms/VersionView";
 
 export default class AbstractCustomPage extends Component {
   constructor(props) {
@@ -30,7 +31,7 @@ export default class AbstractCustomPage extends Component {
       return null;
     }
     return (
-      <Breadcrumbs aria-label="breadcrumb">
+      <Breadcrumbs>
         {this.breadcrumbs.map(function (breadcrumb, index) {
           return <Box key={index}>{breadcrumb}</Box>;
         })}
@@ -47,10 +48,7 @@ export default class AbstractCustomPage extends Component {
           background: "#f8f8f8",
         })}
       >
-        <Box sx={{ color: "#ccc", paddingBottom: 1 }}>
-          v{VERSION.DATETIME_STR}
-        </Box>
-
+        <VersionView />
         <MainMenu />
       </Box>
     );
@@ -68,8 +66,7 @@ export default class AbstractCustomPage extends Component {
       >
         <Header level={3}>{this.renderBreadcrumbs()}</Header>
         <Header level={1}>{this.title}</Header>
-        {this.subtitle}
-        <Box sx={{ paddingTop: 2 }}>{this.renderBodyMiddle()}</Box>
+        <Box>{this.renderBodyMiddle()}</Box>
       </Box>
     );
   }
@@ -84,7 +81,7 @@ export default class AbstractCustomPage extends Component {
           background: "white",
         })}
       >
-        <Box sx={{ paddingTop: 2 }}>{this.renderBodyRight()}</Box>
+        <Box>{this.renderBodyRight()}</Box>
       </Box>
     );
   }

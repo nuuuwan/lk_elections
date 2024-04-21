@@ -3,21 +3,6 @@ import { MatrixView } from "../molecules";
 import { Header, SectionBox, ElectionLink } from "../atoms";
 import { Party } from "../../nonview/core";
 
-function getMajorPartyIDs(election) {
-  const result = election.getResults("LK");
-  if (!result) {
-    return null;
-  }
-  const partyToPVotes = result.partyToVotes.partyToPVotes;
-  return Object.entries(partyToPVotes)
-    .filter(function ([partyID, pVotes]) {
-      return pVotes > 0.005;
-    })
-    .map(function ([partyID, pVotes]) {
-      return partyID;
-    });
-}
-
 function getVote(ent, partyID, result, winningPartyID, color, noSum) {
   const fraction = new Fraction(
     result.partyToVotes.partyToVotes[partyID],
@@ -84,7 +69,7 @@ function pushMatrixRowsForEnt(sparseMatrix, ent, majorPartyIDs, election) {
 }
 
 function getSparseMatrix(election, ents) {
-  const majorPartyIDs = getMajorPartyIDs(election);
+  const majorPartyIDs = election.getMajorPartyIDs();
 
   return ents.reduce(function (sparseMatrix, ent) {
     return pushMatrixRowsForEnt(sparseMatrix, ent, majorPartyIDs, election);

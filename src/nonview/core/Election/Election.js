@@ -3,8 +3,9 @@ import ELECTION_LIST_TUPLES from "./ELECTION_LIST_TUPLES";
 import Result from "../Result.js";
 import ElectionBase from "./ElectionBase.js";
 import ElectionExpand from "./ElectionExpand.js";
+import ElectionStats from "./ElectionStats.js";
 
-export default class Election extends ElectionBase {
+class Election extends ElectionBase {
   static MIN_RESULTS = 10;
   constructor(electionType, date) {
     super(electionType, date);
@@ -91,3 +92,7 @@ export default class Election extends ElectionBase {
     return { prevElection, nextElection };
   }
 }
+
+Object.assign(Election.prototype, ElectionStats);
+
+export default Election;

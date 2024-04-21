@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import {
   BellwetherView,
   FloatingVoteAnalysisView,
-  SwingAnalysisView,
+  SwingAnalysisForEntView,
   SimilarRegionsView,
   ElectionListView,
   ElectoralSummaryView,
@@ -27,7 +27,7 @@ export default function CommonEntAnalysisView({
         elections={elections}
         ents={entsSimilar}
       />
-      <SwingAnalysisView
+      <SwingAnalysisForEntView
         partyGroups={partyGroups}
         elections={elections}
         ent={ent}

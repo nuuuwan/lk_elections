@@ -21,7 +21,11 @@ function getSparseMatrix(partyGroups, elections, ent) {
   );
 }
 
-export default function SwingAnalysisView({ partyGroups, elections, ent }) {
+export default function SwingAnalysisForEntView({
+  partyGroups,
+  elections,
+  ent,
+}) {
   const sparseMatrix = getSparseMatrix(partyGroups, elections, ent);
   return (
     <SectionBox>

@@ -1,6 +1,6 @@
-import { WWW, Time } from "../base";
+import { WWW, Time } from "../../base/index.js";
 
-import Result from "./Result.js";
+import Result from "../Result.js";
 const URL_BASE =
   "https://raw.githubusercontent.com/nuuuwan/gig-data/master/gig2_custom_ec_only";
 export default class Election {

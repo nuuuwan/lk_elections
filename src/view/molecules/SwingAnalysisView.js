@@ -1,56 +1,97 @@
 import { PercentagePoint, SparseMatrix } from "../../nonview/base";
-import { AnalysisFloatingVote, PartyGroup } from "../../nonview/core";
+import { AnalysisFloatingVote, Election, PartyGroup } from "../../nonview/core";
 import { Header, SectionBox } from "../atoms";
 
 import MatrixView from "./MatrixView";
 
+function getSwingFraction(
+  election,
+  ent,
+  partyGroup,
+  partyGroupToPrevPVotesInner,
+  isFirst
+) {
+  const voteInfo = AnalysisFloatingVote.getVoteInfo(election, ent, partyGroup);
+  if (!voteInfo) {
+    return null;
+  }
+  const { pVotes } = voteInfo;
+  const prevPVotes = partyGroupToPrevPVotesInner[partyGroup.id] || 0.0;
+  const swing = pVotes - prevPVotes;
+  let color = null;
+  if (swing > 0.01) {
+    color = partyGroup.color;
+  }
+
+  const swingFraction = {
+    Election: election,
+    PartyGroup: partyGroup,
+    Swing: new PercentagePoint(swing, color),
+  };
+  return { swingFraction, swing, pVotes };
+}
+
 function getSparseMatrix(partyGroups, elections, ent) {
-  let partyGroupToPrevPVotes = {};
+  const { sparseMatrix } = Election.filterCompleted(elections).reduce(
+    function ({ partyGroupToPrevPVotes, sparseMatrix }, election, iElection) {
+      const isFirst = iElection === 0;
 
-  let sparseMatrix = new SparseMatrix();
+      const { partyGroupToPrevPVotesInner, sparseMatrixInner, accountedSwing } =
+        partyGroups.reduce(
+          function (
+            { partyGroupToPrevPVotesInner, sparseMatrixInner, accountedSwing },
+            partyGroup
+          ) {
+            const swingFractionInfo = getSwingFraction(
+              election,
+              ent,
+              partyGroup,
+              partyGroupToPrevPVotesInner,
+              isFirst
+            );
+            if (!swingFractionInfo) {
+              return {
+                partyGroupToPrevPVotesInner,
+                sparseMatrixInner,
+                accountedSwing,
+              };
+            }
 
-  let isFirst = true;
-  for (let election of elections
-    .filter((election) => !election.isFuture)
-    .reverse()) {
-    let accountedSwing = 0;
-    for (let partyGroup of partyGroups) {
-      const voteInfo = AnalysisFloatingVote.getVoteInfo(
-        election,
-        ent,
-        partyGroup
-      );
-      if (!voteInfo) {
-        continue;
-      }
-      const { pVotes } = voteInfo;
-      const prevPVotes = partyGroupToPrevPVotes[partyGroup.id] || 0.0;
-      const swing = pVotes - prevPVotes;
-      let color = null;
-      if (swing > 0.01) {
-        color = partyGroup.color;
-      }
-      accountedSwing += swing;
+            const { swingFraction, swing, pVotes } = swingFractionInfo;
+
+            if (!isFirst) {
+              sparseMatrixInner.push(swingFraction);
+            }
+            accountedSwing += swing;
+            partyGroupToPrevPVotesInner[partyGroup.id] = pVotes;
+            return {
+              partyGroupToPrevPVotesInner,
+              sparseMatrixInner,
+              accountedSwing,
+            };
+          },
+          {
+            partyGroupToPrevPVotesInner: partyGroupToPrevPVotes,
+            sparseMatrixInner: sparseMatrix,
+            accountedSwing: 0,
+          }
+        );
 
       if (!isFirst) {
-        sparseMatrix.push({
+        sparseMatrixInner.push({
           Election: election,
-          PartyGroup: partyGroup,
-          Swing: new PercentagePoint(swing, color),
+          PartyGroup: PartyGroup.UNGROUPED,
+          Swing: new PercentagePoint(-accountedSwing, "#888"),
         });
       }
 
-      partyGroupToPrevPVotes[partyGroup.id] = pVotes;
-    }
-    if (!isFirst) {
-      sparseMatrix.push({
-        Election: election,
-        PartyGroup: PartyGroup.UNGROUPED,
-        Swing: new PercentagePoint(-accountedSwing, "#888"),
-      });
-    }
-    isFirst = false;
-  }
+      return {
+        partyGroupToPrevPVotes: partyGroupToPrevPVotesInner,
+        sparseMatrix: sparseMatrixInner,
+      };
+    },
+    { partyGroupToPrevPVotes: {}, sparseMatrix: new SparseMatrix() }
+  );
   return sparseMatrix;
 }
 

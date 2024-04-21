@@ -10,7 +10,7 @@ import Party from "./Party";
 import PartyGroup from "./PartyGroup";
 import PartyToVotes from "./PartyToVotes";
 import Result from "./Result";
-import Seats from "./Seats/Seats";
+import Seats from "./Seats";
 import Summary from "./Summary";
 
 export {

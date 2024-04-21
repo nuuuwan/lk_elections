@@ -8,6 +8,7 @@ import LinkContext from "./LinkContext";
 import PartyGroupLink from "./PartyGroupLink";
 import PartyLink from "./PartyLink";
 import SectionBox from "./SectionBox";
+import VersionView from "./VersionView";
 import WikiSummaryView from "./WikiSummaryView";
 
 export {
@@ -20,5 +21,6 @@ export {
   PartyGroupLink,
   PartyLink,
   SectionBox,
+  VersionView,
   WikiSummaryView,
 };

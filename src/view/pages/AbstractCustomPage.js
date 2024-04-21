@@ -3,8 +3,8 @@ import { Box } from "@mui/material";
 import { VERSION } from "../../nonview/constants";
 import { Header } from "../atoms";
 import { MainMenu } from "../organisms";
-import { Ent, EntType, URLContext } from "../../nonview/base";
-import { Election, Party, PartyGroup } from "../../nonview/core";
+import { URLContext } from "../../nonview/base";
+import GenericStore from "../../nonview/core/GenericStore";
 
 const commonStyles = {
   position: "fixed",
@@ -23,45 +23,16 @@ export default class AbstractCustomPage extends Component {
     this.state = { ...context };
   }
 
-  async componentDidMount() {
-    // Elections
-    const elections = await Election.listAll();
-
-    // Ents
-    const countryEnt = await Ent.fromID("LK");
-    const edEnts = await Ent.listFromType(EntType.ED);
-    const pdEnts = await Ent.listFromType(EntType.PD);
-
-    // Parties
-    const partyList = Party.listAll();
-
-    // Party Group
-    const partyGroups = PartyGroup.listAll();
-
-    const newState = {
-      elections,
-      countryEnt,
-      edEnts,
-      pdEnts,
-      partyList,
-      partyGroups,
-    };
-
-    this.setState(newState);
-    return newState;
-  }
-
   get browserTitle() {
     return this.title;
   }
 
-  renderBodyMiddle() {
-    return null;
+  async componentDidMount() {
+    const newState = await GenericStore.get();
+    this.setState(newState);
+    return newState;
   }
 
-  renderBodyRight() {
-    return null;
-  }
   renderLeft() {
     return (
       <Box
@@ -81,7 +52,6 @@ export default class AbstractCustomPage extends Component {
   }
 
   renderMiddle() {
-    window.document.title = this.browserTitle;
     return (
       <Box
         sx={Object.assign({}, commonStyles, {
@@ -114,6 +84,7 @@ export default class AbstractCustomPage extends Component {
     );
   }
   render() {
+    window.document.title = this.browserTitle;
     return (
       <Box>
         {this.renderLeft()}

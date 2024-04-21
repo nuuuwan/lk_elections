@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Typography } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import { Ent } from "../../nonview/base";
 
 import { EntLink } from "../atoms";
@@ -47,24 +47,13 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     }
     return <EntLink ent={pdEnt} />;
   }
+
   get browserTitle() {
     const { pdEnt, pdID } = this.state;
     if (!pdEnt) {
       return pdID;
     }
     return pdEnt.name;
-  }
-  renderBlurb() {
-    const { pdEnt, pdID, edEnt } = this.state;
-    if (!pdEnt) {
-      return null;
-    }
-    return (
-      <Typography variant="body2" sx={{ paddingTop: 1, width: "80%" }}>
-        The {pdEnt.name} Polling Division (Code: {pdID}), is a polling division
-        in the {edEnt.name} Electoral District, of Sri Lanka.`
-      </Typography>
-    );
   }
 
   renderBodyMiddle() {
@@ -73,13 +62,7 @@ export default class PollingDivisionPage extends AbstractCustomPage {
       return <CircularProgress />;
     }
 
-    return (
-      <Box>
-        <GeoMap geoID={pdEnt.id} />
-
-        {this.renderBlurb()}
-      </Box>
-    );
+    return <GeoMap geoID={pdEnt.id} />;
   }
   renderBodyRight() {
     const { pdEnt, edEnt, countryEnt, elections, pdEnts, partyGroups } =

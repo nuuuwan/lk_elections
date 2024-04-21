@@ -5,7 +5,7 @@ export default class Comparator {
     }
   }
 
-  static cmpInner(a, b) {
+  static cmpNull(a, b) {
     if (!a && !b) {
       return 0;
     }
@@ -14,6 +14,12 @@ export default class Comparator {
     }
     if (!b) {
       return 1;
+    }
+  }
+
+  static cmpInner(a, b) {
+    if (!a || !b) {
+      return Comparator.cmpNull(a, b);
     }
 
     Comparator.assertSameType(a, b);

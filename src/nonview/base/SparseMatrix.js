@@ -63,11 +63,6 @@ export default class SparseMatrix {
       if (!idx[yScalar]) {
         idx[yScalar] = {};
       }
-      if (idx[yScalar][xScalar]) {
-        throw new Error(
-          "SparseMatrix: duplicate key: " + xScalar + ", " + yScalar
-        );
-      }
       idx[yScalar][xScalar] = z;
     }
 

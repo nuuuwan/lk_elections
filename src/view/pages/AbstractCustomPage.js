@@ -6,15 +6,7 @@ import { MainMenu } from "../organisms";
 import { URLContext } from "../../nonview/base";
 import GenericStore from "../../nonview/core/GenericStore";
 
-const commonStyles = {
-  position: "fixed",
-  top: 0,
-  bottom: 0,
-  zIndex: 1000,
-  overflow: "scroll",
-  padding: 2,
-  marginRight: 2,
-};
+import AbstractCustomPageStyle from "./AbstractCustomPageStyle";
 
 export default class AbstractCustomPage extends Component {
   constructor(props) {
@@ -49,7 +41,7 @@ export default class AbstractCustomPage extends Component {
   renderLeft() {
     return (
       <Box
-        sx={Object.assign({}, commonStyles, {
+        sx={Object.assign({}, AbstractCustomPageStyle, {
           left: 0,
           width: "10%",
           background: "#f8f8f8",
@@ -67,7 +59,7 @@ export default class AbstractCustomPage extends Component {
   renderMiddle() {
     return (
       <Box
-        sx={Object.assign({}, commonStyles, {
+        sx={Object.assign({}, AbstractCustomPageStyle, {
           left: "10%",
           width: "25%",
           zIndex: 2000,
@@ -85,7 +77,7 @@ export default class AbstractCustomPage extends Component {
   renderRight() {
     return (
       <Box
-        sx={Object.assign({}, commonStyles, {
+        sx={Object.assign({}, AbstractCustomPageStyle, {
           left: "35%",
           right: 0,
           zIndex: 3000,

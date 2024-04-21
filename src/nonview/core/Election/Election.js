@@ -81,13 +81,14 @@ class Election extends ElectionBase {
   }
 
   static getNextAndPrevious(elections, election) {
-    const i = elections.map((e) => e.date).indexOf(election.date);
+    const sortedElections = elections.sort().reverse();
+    const i = sortedElections.map((e) => e.date).indexOf(election.date);
     let prevElection, nextElection;
-    if (i < elections.length - 1) {
-      prevElection = elections[i + 1];
+    if (i < sortedElections.length - 1) {
+      prevElection = sortedElections[i + 1];
     }
     if (i > 0) {
-      nextElection = elections[i - 1];
+      nextElection = sortedElections[i - 1];
     }
     return { prevElection, nextElection };
   }

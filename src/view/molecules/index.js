@@ -17,7 +17,7 @@ import ResultsSeatsTableView from "./ResultsSeatsTableView";
 import ResultsTableView from "./ResultsTableView";
 import SimilarRegionsView from "./SimilarRegionsView";
 import SwingAnalysisForElectionView from "./SwingAnalysisForElectionView";
-import SwingAnalysisView from "./SwingAnalysisView";
+import SwingAnalysisView from "./SwingAnalysisForEntView";
 
 export {
   BellwetherView,

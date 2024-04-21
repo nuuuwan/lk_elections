@@ -1,4 +1,4 @@
-import { Ent, URLContext } from "../../nonview/base";
+import { Ent } from "../../nonview/base";
 import { Party, Election, PartyGroup } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
 import { WikiSummaryView, PartyLink, PartyGroupLink, EntLink } from "../atoms";
@@ -8,16 +8,6 @@ import { GenericListView, PartyElectoralSummaryView } from "../molecules";
 export default class PartyPage extends AbstractCustomPage {
   static getPageID() {
     return "Party";
-  }
-
-  constructor(props) {
-    super(props);
-    const { pageID, partyID } = URLContext.get();
-
-    this.state = {
-      pageID,
-      partyID,
-    };
   }
 
   async componentDidMount() {

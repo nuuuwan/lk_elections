@@ -1,5 +1,5 @@
 import { Box, Breadcrumbs, CircularProgress, Typography } from "@mui/material";
-import { Ent, URLContext, EntType } from "../../nonview/base";
+import { Ent, EntType } from "../../nonview/base";
 import { Election, PartyGroup } from "../../nonview/core";
 
 import { EntLink } from "../atoms";
@@ -10,12 +10,6 @@ import AbstractCustomPage from "./AbstractCustomPage";
 export default class PollingDivisionPage extends AbstractCustomPage {
   static getPageID() {
     return "PollingDivision";
-  }
-
-  constructor(props) {
-    super(props);
-    const { pageID, pdID } = URLContext.get();
-    this.state = { pageID, pdID, pdEnt: null };
   }
 
   async componentDidMount() {

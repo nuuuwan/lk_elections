@@ -5,7 +5,7 @@ import {
   Typography,
   Alert,
 } from "@mui/material";
-import { URLContext, Ent, EntType } from "../../nonview/base";
+import { Ent, EntType } from "../../nonview/base";
 import { Election, PartyGroup } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
 import {
@@ -18,17 +18,6 @@ import { WikiSummaryView, ElectionLink, EntLink } from "../atoms";
 export default class ElectionPage extends AbstractCustomPage {
   static getPageID() {
     return "Election";
-  }
-
-  constructor(props) {
-    super(props);
-    const { pageID, date } = URLContext.get();
-
-    this.state = {
-      pageID: pageID,
-      date: date,
-      election: null,
-    };
   }
 
   async componentDidMount() {

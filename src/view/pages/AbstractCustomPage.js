@@ -3,6 +3,7 @@ import { Box } from "@mui/material";
 import { VERSION } from "../../nonview/constants";
 import { Header } from "../atoms";
 import { MainMenu } from "../organisms";
+import { URLContext } from "../../nonview/base";
 
 const commonStyles = {
   position: "fixed",
@@ -15,6 +16,12 @@ const commonStyles = {
 };
 
 export default class AbstractCustomPage extends Component {
+  constructor(props) {
+    super(props);
+    const context = URLContext.get();
+    this.state = { ...context };
+  }
+
   get browserTitle() {
     return this.title;
   }

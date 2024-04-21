@@ -1,4 +1,4 @@
-import { URLContext, Ent, EntType } from "../../nonview/base";
+import { Ent, EntType } from "../../nonview/base";
 import { Election, PartyGroup } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
 import { EntLink, SectionBox, WikiSummaryView } from "../atoms";
@@ -9,15 +9,6 @@ import { Box, Breadcrumbs, CircularProgress } from "@mui/material";
 export default class AnalysisFloatingVotePage extends AbstractCustomPage {
   static getPageID() {
     return "AnalysisFloatingVote";
-  }
-
-  constructor(props) {
-    super(props);
-    const { pageID } = URLContext.get();
-
-    this.state = {
-      pageID: pageID,
-    };
   }
 
   async componentDidMount() {

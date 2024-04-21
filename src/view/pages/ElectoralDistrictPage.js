@@ -1,5 +1,5 @@
 import { Box, Breadcrumbs, CircularProgress } from "@mui/material";
-import { Ent, EntType, URLContext } from "../../nonview/base";
+import { Ent, EntType } from "../../nonview/base";
 import { Election, PartyGroup } from "../../nonview/core";
 import { WikiSummaryView, EntLink } from "../atoms";
 import { EntListView, CommonEntAnalysisView } from "../molecules";
@@ -9,12 +9,6 @@ import AbstractCustomPage from "./AbstractCustomPage";
 export default class ElectoralDistrictPage extends AbstractCustomPage {
   static getPageID() {
     return "ElectoralDistrict";
-  }
-
-  constructor(props) {
-    super(props);
-    const { pageID, edID } = URLContext.get();
-    this.state = { pageID, edID, edEnt: null };
   }
 
   async componentDidMount() {

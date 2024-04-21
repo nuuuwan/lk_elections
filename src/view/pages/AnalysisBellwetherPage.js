@@ -1,4 +1,4 @@
-import { URLContext, Ent, EntType } from "../../nonview/base";
+import { Ent, EntType } from "../../nonview/base";
 import { AnalysisBellwether, Election } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
 import { SectionBox, WikiSummaryView, Header, EntLink } from "../atoms";
@@ -9,15 +9,6 @@ import { Box, Breadcrumbs, CircularProgress } from "@mui/material";
 export default class AnalysisBellwetherPage extends AbstractCustomPage {
   static getPageID() {
     return "AnalysisBellwether";
-  }
-
-  constructor(props) {
-    super(props);
-    const { pageID } = URLContext.get();
-
-    this.state = {
-      pageID: pageID,
-    };
   }
 
   async componentDidMount() {

@@ -1,5 +1,5 @@
 import { Box, Breadcrumbs, CircularProgress } from "@mui/material";
-import { Ent, URLContext } from "../../nonview/base";
+import { Ent } from "../../nonview/base";
 import { PartyGroup, Election, Party } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
 import { EntLink, PartyGroupLink, PartyLink } from "../atoms";
@@ -12,16 +12,6 @@ import {
 export default class PartyGroupPage extends AbstractCustomPage {
   static getPageID() {
     return "PartyGroup";
-  }
-
-  constructor(props) {
-    super(props);
-    const { pageID, partyGroupID } = URLContext.get();
-
-    this.state = {
-      pageID,
-      partyGroupID,
-    };
   }
 
   async componentDidMount() {

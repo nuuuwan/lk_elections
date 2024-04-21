@@ -7,12 +7,21 @@ import {
   PartyGroupElectoralSummaryView,
   FloatingVoteAnalysisView,
 } from "../molecules";
+import { Party, PartyGroup } from "../../nonview/core";
 
 export default class PartyGroupPage extends AbstractCustomPage {
   static getPageID() {
     return "PartyGroup";
   }
-
+  async componentDidMount() {
+    await super.componentDidMount();
+    const { partyGroupID } = this.state;
+    const partyGroup = PartyGroup.fromID(partyGroupID);
+    const partyListForPartyGroup = partyGroup.partyIDList.map((partyID) =>
+      Party.fromID(partyID)
+    );
+    this.setState({ partyGroup, partyListForPartyGroup });
+  }
   get breadcrumbs() {
     const { partyGroup, countryEnt } = this.state;
     if (!partyGroup) {
@@ -33,8 +42,8 @@ export default class PartyGroupPage extends AbstractCustomPage {
   }
 
   renderPartyList() {
-    const { partyList } = this.state;
-    if (!partyList) {
+    const { partyListForPartyGroup } = this.state;
+    if (!partyListForPartyGroup) {
       return <CircularProgress />;
     }
 
@@ -45,7 +54,7 @@ export default class PartyGroupPage extends AbstractCustomPage {
     return (
       <GenericListView
         title="Component Parties"
-        items={partyList}
+        items={partyListForPartyGroup}
         renderItem={renderItem}
       />
     );
@@ -60,7 +69,8 @@ export default class PartyGroupPage extends AbstractCustomPage {
   }
 
   renderBodyRight() {
-    const { partyGroup, elections, countryEnt, partyGroups } = this.state;
+    const { partyGroup, elections, countryEnt, partyGroups, edEnts } =
+      this.state;
     if (!partyGroup) {
       return <CircularProgress />;
     }
@@ -74,7 +84,7 @@ export default class PartyGroupPage extends AbstractCustomPage {
         <FloatingVoteAnalysisView
           partyGroups={partyGroups}
           elections={elections}
-          ents={[countryEnt]}
+          ents={[].concat([countryEnt], edEnts)}
         />
       </Box>
     );

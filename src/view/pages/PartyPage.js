@@ -1,4 +1,4 @@
-import { Party } from "../../nonview/core";
+import { Party, PartyGroup } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
 import { WikiSummaryView, PartyLink, PartyGroupLink, EntLink } from "../atoms";
 import { Box, CircularProgress } from "@mui/material";
@@ -13,17 +13,18 @@ export default class PartyPage extends AbstractCustomPage {
     await super.componentDidMount();
     const { partyID } = this.state;
     const party = Party.fromID(partyID);
-    this.setState({ partyID, party });
+    const partyGroupsForParty = PartyGroup.listFromPartyID(partyID);
+    this.setState({ partyID, party, partyGroupsForParty });
   }
 
   get breadcrumbs() {
-    const { party, partyGroups, countryEnt } = this.state;
+    const { party, partyGroupsForParty, countryEnt } = this.state;
     if (!party) {
       return null;
     }
     return [].concat(
       [<EntLink ent={countryEnt} shortFormat={true} />],
-      partyGroups.map(function (partyGroup, iPartyGroup) {
+      partyGroupsForParty.map(function (partyGroup, iPartyGroup) {
         return (
           <PartyGroupLink
             key={"partyGroup" + iPartyGroup}
@@ -43,7 +44,7 @@ export default class PartyPage extends AbstractCustomPage {
     return this.state.partyID;
   }
   renderPartyGroups() {
-    const { party, partyGroups } = this.state;
+    const { party, partyGroupsForParty } = this.state;
     if (!party) {
       return <CircularProgress />;
     }
@@ -51,7 +52,7 @@ export default class PartyPage extends AbstractCustomPage {
     return (
       <GenericListView
         title="Party Groups"
-        items={partyGroups}
+        items={partyGroupsForParty}
         renderItem={(partyGroup) => (
           <PartyGroupLink partyGroupID={partyGroup.id} />
         )}

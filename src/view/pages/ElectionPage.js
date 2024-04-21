@@ -36,14 +36,10 @@ export default class ElectionPage extends AbstractCustomPage {
     const election = await Election.fromDate(date);
     const elections = await Election.listAll();
 
-    const i = elections.map((e) => e.date).indexOf(election.date);
-    let prevElection, nextElection;
-    if (i < elections.length - 1) {
-      prevElection = elections[i + 1];
-    }
-    if (i > 0) {
-      nextElection = elections[i - 1];
-    }
+    const { prevElection, nextElection } = Election.getNextAndPrevious(
+      elections,
+      election
+    );
 
     const pdEnts = await Ent.listFromType(EntType.PD);
     const edEnts = await Ent.listFromType(EntType.ED);

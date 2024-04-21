@@ -116,4 +116,16 @@ export default class Election extends ElectionBase {
       return !election.isFuture;
     });
   }
+
+  static getNextAndPrevious(elections, election) {
+    const i = elections.map((e) => e.date).indexOf(election.date);
+    let prevElection, nextElection;
+    if (i < elections.length - 1) {
+      prevElection = elections[i + 1];
+    }
+    if (i > 0) {
+      nextElection = elections[i - 1];
+    }
+    return { prevElection, nextElection };
+  }
 }

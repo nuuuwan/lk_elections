@@ -1,10 +1,11 @@
 import { SectionBox, Header } from "../atoms";
 import { DataTableView } from ".";
 import { Fraction } from "../../nonview/base";
+import { AnalysisFloatingVote } from "../../nonview/core";
 
 function getDataList(partyGroup, elections, ent) {
   return elections.map(function (election) {
-    const info = partyGroup.getVoteInfo(election, ent);
+    const info = AnalysisFloatingVote.getVoteInfo(election, ent, partyGroup);
     if (!info) {
       return null;
     }

@@ -1,5 +1,5 @@
 import { PercentagePoint, SparseMatrix } from "../../nonview/base";
-import { PartyGroup } from "../../nonview/core";
+import { AnalysisFloatingVote, PartyGroup } from "../../nonview/core";
 import { Header, SectionBox } from "../atoms";
 
 import MatrixView from "./MatrixView";
@@ -15,7 +15,11 @@ function getSparseMatrix(partyGroups, elections, ent) {
     .reverse()) {
     let accountedSwing = 0;
     for (let partyGroup of partyGroups) {
-      const voteInfo = partyGroup.getVoteInfo(election, ent);
+      const voteInfo = AnalysisFloatingVote.getVoteInfo(
+        election,
+        ent,
+        partyGroup
+      );
       if (!voteInfo) {
         continue;
       }

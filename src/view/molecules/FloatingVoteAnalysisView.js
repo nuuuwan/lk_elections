@@ -1,4 +1,5 @@
 import { Fraction, SparseMatrix } from "../../nonview/base";
+import AnalysisFloatingVote from "../../nonview/core/AnalysisFloatingVote";
 
 import { Header, SectionBox } from "../atoms";
 
@@ -22,9 +23,10 @@ function getFloating(partyGroups, elections, ent, sumBase) {
 }
 
 function getBase(partyGroup, elections, ent) {
-  const { windowBase, electors } = partyGroup.getBaseAnalysisInfo(
+  const { windowBase, electors } = AnalysisFloatingVote.getBaseAnalysisInfo(
     elections,
-    ent
+    ent,
+    partyGroup
   );
   const base = new Fraction(
     Math.round(windowBase * electors, 0),

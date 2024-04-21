@@ -1,11 +1,11 @@
 import { PercentagePoint, SparseMatrix } from "../../nonview/base";
-import { PartyGroup } from "../../nonview/core";
+import { AnalysisFloatingVote, PartyGroup } from "../../nonview/core";
 import { Header, SectionBox } from "../atoms";
 
 import { MatrixView } from "../molecules";
 
 function getPVotesForElection(ent, partyGroup, election) {
-  const voteInfo = partyGroup.getVoteInfo(election, ent);
+  const voteInfo = AnalysisFloatingVote.getVoteInfo(election, ent, partyGroup);
   if (!voteInfo) {
     return null;
   }

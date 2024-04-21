@@ -58,6 +58,10 @@ export default class ElectionBase {
     return this.date.localeCompare(other.date);
   }
 
+  toString() {
+    return this.date;
+  }
+
   get wikiPageName() {
     return (
       this.year + "_Sri_Lankan_" + this.electionType.toLowerCase() + "_election"

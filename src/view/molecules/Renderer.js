@@ -12,14 +12,6 @@ import {
 
 export default class Renderer {
   static formatCellValueObject(value) {
-    if (Party.isKnownPartyID(value)) {
-      value = Party.fromID(value);
-    }
-
-    if (PartyGroup.isKnownPartyGroupID(value)) {
-      value = PartyGroup.fromID(value);
-    }
-
     if (value instanceof Election) {
       return <ElectionLink election={value} />;
     }
@@ -37,7 +29,7 @@ export default class Renderer {
     return null;
   }
 
-  static formatCellValueNumberInner(value) {
+  static formatCellValueNumberObject(value) {
     if (value instanceof Fraction) {
       return <FractionView fraction={value} />;
     }
@@ -45,7 +37,10 @@ export default class Renderer {
     if (value instanceof PercentagePoint) {
       return Format.percentagePointWithStyle(value.value, value.color);
     }
+    return null;
+  }
 
+  static formatCellValueNumberInner(value) {
     if (typeof value === "number") {
       if (Number.isInteger(value)) {
         return Format.intHumanizeWithStyle(value);
@@ -63,7 +58,8 @@ export default class Renderer {
   static formatCellValueNumber(value) {
     return (
       <Box sx={{ textAlign: "right" }}>
-        {Renderer.formatCellValueNumberInner(value)}
+        {Renderer.formatCellValueNumberObject(value) ||
+          Renderer.formatCellValueNumberInner(value)}
       </Box>
     );
   }

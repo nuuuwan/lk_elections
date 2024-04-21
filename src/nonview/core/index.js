@@ -12,6 +12,7 @@ import PartyToVotes from "./PartyToVotes";
 import Result from "./Result";
 import Seats from "./Seats";
 import Summary from "./Summary";
+import Swing from "./Swing";
 
 export {
   AnalysisBellwether,
@@ -27,4 +28,5 @@ export {
   Result,
   Seats,
   Summary,
+  Swing,
 };

@@ -1,6 +1,6 @@
 import { SparseMatrix, Fraction } from "../../nonview/base";
 import { MatrixView } from "../molecules";
-import { ElectionLink, Header, SectionBox } from "../atoms";
+import { ElectionLink, SectionBox } from "../atoms";
 import { Party } from "../../nonview/core";
 import { Box } from "@mui/material";
 

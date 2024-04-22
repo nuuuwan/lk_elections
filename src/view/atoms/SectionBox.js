@@ -6,7 +6,7 @@ export default function SectionBox({ children, title, description }) {
   return (
     <Box sx={{ marginBottom: 3 }}>
       <Header level={2}>{title}</Header>
-      <Typography variant="body1" sx={{ maxWidth: 360 }}>
+      <Typography variant="body1" sx={{ maxWidth: 480 }}>
         {description}
       </Typography>
       {children}

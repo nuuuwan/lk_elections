@@ -1,4 +1,3 @@
-import { Box, CircularProgress } from "@mui/material";
 import { Ent } from "../../nonview/base";
 
 import { EntLink } from "../atoms";
@@ -56,31 +55,17 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     return pdEnt.name;
   }
 
-  renderBodyMiddle() {
-    const { pdEnt } = this.state;
-    if (!pdEnt) {
-      return <CircularProgress />;
-    }
-
-    return <GeoMap geoID={pdEnt.id} />;
-  }
-  renderBodyRight() {
+  get widgets() {
     const { pdEnt, edEnt, countryEnt, elections, pdEnts, partyGroups } =
       this.state;
     if (!pdEnt) {
-      return <CircularProgress />;
+      return [];
     }
     const ents = [].concat(pdEnts, [edEnt, countryEnt]);
-    return (
-      <Box>
-        <CommonEntAnalysisView
-          ent={pdEnt}
-          entsSimilar={[pdEnt, edEnt, countryEnt]}
-          entsAll={ents}
-          elections={elections}
-          partyGroups={partyGroups}
-        />
-      </Box>
+
+    return [].concat(
+      [<GeoMap geoID={pdEnt.id} />],
+      CommonEntAnalysisView.get(pdEnt, ents, pdEnts, elections, partyGroups)
     );
   }
 }

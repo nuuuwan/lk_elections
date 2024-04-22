@@ -57,42 +57,28 @@ export default class ElectionPage extends AbstractCustomPage {
     );
   }
 
-  renderBodyMiddle() {
-    const { election } = this.state;
+  get widgets() {
+    const { partyGroups, countryEnt, election, prevElection, edEnts, pdEnts } =
+      this.state;
     if (!election) {
-      return <CircularProgress />;
+      return [];
     }
-    return (
+    const ents = [].concat([countryEnt], edEnts, pdEnts);
+    return [
       <Box>
         <Typography variant="body2" sx={{ color: "#888" }}>
           {election.dateFormatted}
         </Typography>
         <WikiSummaryView wikiPageName={election.wikiPageName} />
-      </Box>
-    );
-  }
-
-  renderBodyRight() {
-    const { partyGroups, countryEnt, election, prevElection, edEnts, pdEnts } =
-      this.state;
-    if (!election || election.isFuture) {
-      return <CircularProgress />;
-    }
-
-    const ents = [].concat([countryEnt], edEnts, pdEnts);
-    return (
-      <Box>
-        <ElectoralSummaryView ent={countryEnt} elections={[election]} />
-        <ElectionListView elections={[election]} ents={ents} />
-        {prevElection ? (
-          <SwingAnalysisForElectionView
-            partyGroups={partyGroups}
-            prevElection={prevElection}
-            election={election}
-            ents={ents}
-          />
-        ) : null}
-      </Box>
-    );
+      </Box>,
+      <ElectoralSummaryView ent={countryEnt} elections={[election]} />,
+      <ElectionListView elections={[election]} ents={ents} />,
+      <SwingAnalysisForElectionView
+        partyGroups={partyGroups}
+        prevElection={prevElection}
+        election={election}
+        ents={ents}
+      />,
+    ];
   }
 }

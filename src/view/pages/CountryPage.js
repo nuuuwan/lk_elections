@@ -1,5 +1,3 @@
-import { Box, CircularProgress } from "@mui/material";
-
 import { WikiSummaryView } from "../atoms";
 import {
   EntListView,
@@ -22,37 +20,27 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     return "Sri Lanka";
   }
 
-  renderBodyMiddle() {
-    const { countryEnt, edEnts } = this.state;
-    if (!countryEnt) {
-      return <CircularProgress />;
-    }
-
-    return (
-      <Box>
-        <WikiSummaryView wikiPageName={"Elections_in_Sri_Lanka"} />
-
-        <EntListView ents={edEnts} shortFormat={true} />
-      </Box>
-    );
-  }
-  renderBodyRight() {
+  get widgets() {
+    let widgets = [<WikiSummaryView wikiPageName={"Elections_in_Sri_Lanka"} />];
     const { countryEnt, elections, edEnts, partyGroups } = this.state;
-    if (!countryEnt) {
-      return <CircularProgress />;
-    }
-    const entsAll = [].concat(edEnts, [countryEnt]);
-    return (
-      <Box>
+    if (countryEnt) {
+      widgets.push(<EntListView ents={edEnts} shortFormat={true} />);
+
+      const entsAll = [].concat(edEnts, [countryEnt]);
+      widgets.push(
         <ElectoralSummaryView ent={countryEnt} elections={elections} />
-        <CommonEntAnalysisView
-          ent={countryEnt}
-          entsSimilar={entsAll}
-          entsAll={entsAll}
-          elections={elections}
-          partyGroups={partyGroups}
-        />
-      </Box>
-    );
+      );
+      widgets = [].concat(
+        widgets,
+        CommonEntAnalysisView.get(
+          countryEnt,
+          entsAll,
+          entsAll,
+          elections,
+          partyGroups
+        )
+      );
+    }
+    return widgets;
   }
 }

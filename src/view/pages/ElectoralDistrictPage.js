@@ -1,4 +1,4 @@
-import { Box, CircularProgress } from "@mui/material";
+import { Box } from "@mui/material";
 import { Ent } from "../../nonview/base";
 
 import { WikiSummaryView, EntLink } from "../atoms";
@@ -48,21 +48,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     return edEnt.name;
   }
 
-  renderBodyMiddle() {
-    const { edEnt, pdEntsChildren } = this.state;
-    if (!edEnt) {
-      return <CircularProgress />;
-    }
-
-    return (
-      <Box>
-        <GeoMap geoID={edEnt.id} />
-        <WikiSummaryView wikiPageName={edEnt.wikiPageName} />
-        <EntListView ents={pdEntsChildren} shortFormat={true} />
-      </Box>
-    );
-  }
-  renderBodyRight() {
+  get widgets() {
     const {
       edEnt,
       countryEnt,
@@ -72,19 +58,17 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
       pdEntsChildren,
     } = this.state;
     if (!edEnt) {
-      return <CircularProgress />;
+      return [];
     }
     const entsAll = [].concat(edEnts, [countryEnt]);
-    return (
+    return [
       <Box>
-        <CommonEntAnalysisView
-          ent={edEnt}
-          entsSimilar={[].concat(pdEntsChildren, [edEnt, countryEnt])}
-          entsAll={entsAll}
-          elections={elections}
-          partyGroups={partyGroups}
-        />
-      </Box>
+        <GeoMap geoID={edEnt.id} />
+        <WikiSummaryView wikiPageName={edEnt.wikiPageName} />
+      </Box>,
+      <EntListView ents={pdEntsChildren} shortFormat={true} />,
+    ].concat(
+      CommonEntAnalysisView.get(edEnt, entsAll, entsAll, elections, partyGroups)
     );
   }
 }

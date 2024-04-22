@@ -4,6 +4,7 @@ import { LatLng, Geo } from "../../nonview/base";
 
 import "./GeoMap.css";
 import { CircularProgress } from "@mui/material";
+import { SectionBox } from "../atoms";
 
 const URL_FORMAT = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 
@@ -39,10 +40,12 @@ export default class GeoMap extends Component {
     const bounds = LatLng.bounds(geo);
 
     return (
-      <MapContainer bounds={bounds} zoomControl={false}>
-        <TileLayer url={URL_FORMAT} />
-        <Polygon positions={positions} pathOptions={pathOptions} />
-      </MapContainer>
+      <SectionBox>
+        <MapContainer bounds={bounds} zoomControl={false}>
+          <TileLayer url={URL_FORMAT} />
+          <Polygon positions={positions} pathOptions={pathOptions} />
+        </MapContainer>
+      </SectionBox>
     );
   }
 }

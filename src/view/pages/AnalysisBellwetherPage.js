@@ -3,7 +3,6 @@ import AbstractCustomPage from "./AbstractCustomPage";
 import { SectionBox, WikiSummaryView, Header, EntLink } from "../atoms";
 
 import { DataTableView } from "../molecules";
-import { CircularProgress } from "@mui/material";
 
 export default class AnalysisBellwetherPage extends AbstractCustomPage {
   static getPageID() {
@@ -46,16 +45,16 @@ export default class AnalysisBellwetherPage extends AbstractCustomPage {
       .sort((a, b) => a.Diff - b.Diff);
   }
 
-  renderBodyRight() {
+  get widgets() {
     const { elections } = this.state;
     if (!elections) {
-      return <CircularProgress />;
+      return null;
     }
-    return (
+    return [
       <SectionBox>
         <Header level={2}>Best to Worst Bellwethers</Header>
         <DataTableView dataList={this.getDataList()} />
-      </SectionBox>
-    );
+      </SectionBox>,
+    ];
   }
 }

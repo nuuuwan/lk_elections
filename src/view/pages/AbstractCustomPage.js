@@ -1,19 +1,18 @@
 import { Component } from "react";
-import { Box, Breadcrumbs } from "@mui/material";
+import { Box, Breadcrumbs, Drawer, Grid, IconButton } from "@mui/material";
 
 import { Header } from "../atoms";
 import { MainMenu } from "../organisms";
 import { URLContext } from "../../nonview/base";
 import GenericStore from "../../nonview/core/GenericStore";
-
-import AbstractCustomPageStyle from "./AbstractCustomPageStyle";
+import MenuIcon from "@mui/icons-material/Menu";
 import VersionView from "../atoms/VersionView";
 
 export default class AbstractCustomPage extends Component {
   constructor(props) {
     super(props);
     const context = URLContext.get();
-    this.state = { ...context };
+    this.state = { ...context, drawerOpen: false };
   }
 
   get browserTitle() {
@@ -24,6 +23,35 @@ export default class AbstractCustomPage extends Component {
     const newState = await GenericStore.get();
     this.setState(newState);
     return newState;
+  }
+
+  setDrawerOpen(drawerOpen) {
+    this.setState({ drawerOpen: drawerOpen });
+  }
+
+  renderDrawer() {
+    const onClick = function () {
+      this.setDrawerOpen(!this.state.drawerOpen);
+    }.bind(this);
+    return (
+      <Box>
+        <Drawer
+          anchor="left"
+          open={this.state.drawerOpen}
+          onClose={() => this.setDrawerOpen(false)}
+        >
+          <Box sx={{ m: 1, p: 1 }}>
+            <VersionView />
+            <MainMenu />
+          </Box>
+        </Drawer>
+        <Box sx={{ position: "fixed", bottom: 10, right: 10 }}>
+          <IconButton>
+            <MenuIcon onClick={onClick} />
+          </IconButton>
+        </Box>
+      </Box>
+    );
   }
 
   renderBreadcrumbs() {
@@ -38,60 +66,35 @@ export default class AbstractCustomPage extends Component {
       </Breadcrumbs>
     );
   }
-
-  renderLeft() {
+  renderTitleWidget() {
     return (
-      <Box
-        sx={Object.assign({}, AbstractCustomPageStyle, {
-          left: 0,
-          width: "10%",
-          background: "#f8f8f8",
-        })}
-      >
-        <VersionView />
-        <MainMenu />
-      </Box>
-    );
-  }
-
-  renderMiddle() {
-    return (
-      <Box
-        sx={Object.assign({}, AbstractCustomPageStyle, {
-          left: "10%",
-          width: "25%",
-          zIndex: 2000,
-          background: "#fcfcfc",
-        })}
-      >
+      <Box>
         <Header level={3}>{this.renderBreadcrumbs()}</Header>
         <Header level={1}>{this.title}</Header>
-        <Box>{this.renderBodyMiddle()}</Box>
       </Box>
     );
   }
 
-  renderRight() {
-    return (
-      <Box
-        sx={Object.assign({}, AbstractCustomPageStyle, {
-          left: "35%",
-          right: 0,
-          zIndex: 3000,
-          background: "white",
-        })}
-      >
-        <Box>{this.renderBodyRight()}</Box>
-      </Box>
-    );
+  renderWidgets() {
+    return []
+      .concat([this.renderTitleWidget()], this.widgets)
+      .map(function (widget, index) {
+        return (
+          <Grid item key={index} sx={{ m: 2, p: 2 }}>
+            {widget}
+          </Grid>
+        );
+      });
   }
+
   render() {
     window.document.title = this.browserTitle;
     return (
       <Box>
-        {this.renderLeft()}
-        {this.renderMiddle()}
-        {this.renderRight()}
+        {this.renderDrawer()}
+        <Grid container spacing={2}>
+          {this.renderWidgets()}
+        </Grid>
       </Box>
     );
   }

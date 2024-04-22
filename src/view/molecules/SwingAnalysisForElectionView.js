@@ -6,6 +6,9 @@ import { Header, SectionBox } from "../atoms";
 import { MatrixView } from "../molecules";
 
 function getSparseMatrix(partyGroups, election, prevElection, ents) {
+  if (!prevElection) {
+    return null;
+  }
   const swingTuples = Swing.getSwingTuplesForElection(
     election,
     prevElection,

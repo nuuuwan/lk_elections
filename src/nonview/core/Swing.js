@@ -49,17 +49,16 @@ export default class Swing {
     const completedElections = Election.filterCompleted(elections)
       .sort()
       .reverse();
-    const nElections = completedElections.length;
-    return completedElections.reduce(function (
-      swingTuples,
-      election,
-      iElection
-    ) {
-      const isFirst = iElection === nElections - 1;
-      if (isFirst) {
+
+    return completedElections.reduce(function (swingTuples, election) {
+      const prevElection = Election.getPreviousOfType(
+        completedElections,
+        election
+      );
+      if (!prevElection) {
         return swingTuples;
       }
-      const prevElection = completedElections[iElection + 1];
+
       const swingTuplesForElection = Swing.getSwingTuplesForElection(
         election,
         prevElection,
@@ -67,7 +66,6 @@ export default class Swing {
         [ent]
       );
       return swingTuples.concat(swingTuplesForElection);
-    },
-    []);
+    }, []);
   }
 }

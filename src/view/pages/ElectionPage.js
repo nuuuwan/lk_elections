@@ -21,10 +21,16 @@ export default class ElectionPage extends AbstractCustomPage {
       elections,
       election
     );
+    const {
+      prevElection: prevElectionOfType,
+      nextElection: nextElectionOfType,
+    } = Election.getNextAndPreviousOfType(elections, election);
     this.setState({
       election,
       prevElection,
       nextElection,
+      prevElectionOfType,
+      nextElectionOfType,
     });
   }
 
@@ -73,8 +79,15 @@ export default class ElectionPage extends AbstractCustomPage {
   }
 
   get widgets() {
-    const { partyGroups, countryEnt, election, prevElection, edEnts, pdEnts } =
-      this.state;
+    const {
+      partyGroups,
+      countryEnt,
+      election,
+      prevElectionOfType,
+
+      edEnts,
+      pdEnts,
+    } = this.state;
     if (!election) {
       return [];
     }
@@ -84,7 +97,7 @@ export default class ElectionPage extends AbstractCustomPage {
 
       <SwingAnalysisForElectionView
         partyGroups={partyGroups}
-        prevElection={prevElection}
+        prevElection={prevElectionOfType}
         election={election}
         ents={ents}
       />,

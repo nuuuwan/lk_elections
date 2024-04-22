@@ -36,6 +36,9 @@ export default function SwingAnalysisForElectionView({
   prevElection,
   ents,
 }) {
+  if (!prevElection) {
+    return null;
+  }
   const sparseMatrix = getSparseMatrix(
     partyGroups,
     election,

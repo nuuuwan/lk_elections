@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Polygon } from "react-leaflet";
 import { LatLng, Geo } from "../../nonview/base";
 
 import "./GeoMap.css";
-import { Skeleton } from "@mui/material";
+import { CircularProgress, Skeleton } from "@mui/material";
 import { SectionBox } from "../atoms";
 
 const URL_FORMAT = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
@@ -30,7 +30,7 @@ export default class GeoMap extends Component {
     }
     const { geo } = this.state;
     if (!geo) {
-      return <Skeleton variant="rectangular" width={480} height={270} />;
+      return <CircularProgress />;
     }
 
     const pathOptions = { fillColor: "#888", color: "#000" };

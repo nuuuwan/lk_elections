@@ -1,3 +1,4 @@
+import { CircularProgress } from "@mui/material";
 import { Ent } from "../../nonview/base";
 
 import { EntLink } from "../atoms";
@@ -58,7 +59,7 @@ export default class PollingDivisionPage extends AbstractCustomPage {
   get titleWidget() {
     const { pdEnt } = this.state;
     if (!pdEnt) {
-      return null;
+      return <CircularProgress />;
     }
     return <GeoMap geoID={pdEnt.id} />;
   }

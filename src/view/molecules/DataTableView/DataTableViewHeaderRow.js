@@ -17,7 +17,7 @@ export default function DataTableViewHeaderRow({ headerKeys, setSortKey }) {
             <Box alignItems="center">
               {Renderer.formatCellValue(headerKey, false)}
               <IconButton onClick={onClickSort}>
-                <CommonIcons.SortVertical sx={{ fontSize: "80%" }} />
+                <CommonIcons.SortVertical sx={CommonIcons.Style.Sort} />
               </IconButton>
             </Box>
           </th>

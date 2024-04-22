@@ -10,7 +10,7 @@ export default function MatrixViewRowHeaderCell({
     <th key="label">{Renderer.formatCellValue(y)}</th>,
     <th key="button">
       <IconButton onClick={setSortYScalarAndOrderInner}>
-        <CommonIcons.SortHorizontal sx={{ fontSize: "80%" }} />
+        <CommonIcons.SortHorizontal sx={CommonIcons.Style.Sort} />
       </IconButton>
     </th>,
   ];

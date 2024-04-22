@@ -10,4 +10,8 @@ export default class CommonIcons {
 
   static ExpandExpand = OpenInFullIcon;
   static ExpandCollapse = CloseFullscreenIcon;
+
+  static Style = {
+    Sort: { fontSize: "50%", color: "#ccc" },
+  };
 }

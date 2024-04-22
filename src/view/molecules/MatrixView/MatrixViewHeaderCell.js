@@ -18,7 +18,7 @@ export default function MatrixViewHeaderCell({
       <Box alignItems="center">
         {Renderer.formatCellValue(x, false)}{" "}
         <IconButton onClick={setSortXScalarInner}>
-          <CommonIcons.SortVertical sx={{ fontSize: "80%" }} />
+          <CommonIcons.SortVertical sx={CommonIcons.Style.Sort} />
         </IconButton>
       </Box>
     </th>

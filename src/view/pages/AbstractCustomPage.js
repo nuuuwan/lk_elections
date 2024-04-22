@@ -100,7 +100,7 @@ export default class AbstractCustomPage extends Component {
       .map(function (widget, index) {
         return (
           <Grid item key={index}>
-            <Box sx={{ p: 1, background: "#fcfcfc" }}>{widget}</Box>
+            <Box sx={{ p: 3, background: "#fcfcfc" }}>{widget}</Box>
           </Grid>
         );
       });
@@ -111,7 +111,7 @@ export default class AbstractCustomPage extends Component {
     return (
       <Box sx={{ marginTop: 15, zIndex: 1000 }}>
         {this.renderDrawer()}
-        <Grid container spacing={2} sx={{ m: 0.5 }}>
+        <Grid container spacing={3} sx={{ m: 0.5 }}>
           {this.renderWidgets()}
         </Grid>
       </Box>

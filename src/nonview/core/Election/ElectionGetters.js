@@ -7,7 +7,7 @@ const ElectionStats = {
     const partyToPVotes = result.partyToVotes.partyToPVotes;
     return Object.entries(partyToPVotes)
       .filter(function ([partyID, pVotes]) {
-        return pVotes > 0.005;
+        return pVotes > 0.001;
       })
       .map(function ([partyID, pVotes]) {
         return partyID;

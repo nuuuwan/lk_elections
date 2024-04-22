@@ -12,7 +12,7 @@ table {
 
 td {
   font-weight: 300;
-  border: 1px solid #eee;
+  border-bottom: 1px solid #eee;
   padding: 3px;
 }
 

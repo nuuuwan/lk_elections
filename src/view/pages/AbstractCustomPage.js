@@ -100,7 +100,9 @@ export default class AbstractCustomPage extends Component {
       .map(function (widget, index) {
         return (
           <Grid item key={index}>
-            <Box sx={{ p: 3, background: "#fcfcfc" }}>{widget}</Box>
+            <Box id="lk-elections-widget" sx={{ p: 3, background: "#fcfcfc" }}>
+              {widget}
+            </Box>
           </Grid>
         );
       });

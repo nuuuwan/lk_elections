@@ -21,7 +21,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
   }
 
   get widgets() {
-    const { countryEnt, elections, edEnts, partyGroups } = this.state;
+    const { countryEnt, elections, edEnts, partyGroupList } = this.state;
     if (!countryEnt) {
       return null;
     }
@@ -37,7 +37,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
         entsAll,
         entsAll,
         elections,
-        partyGroups
+        partyGroupList
       )
     );
 

@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { Ent } from "../../nonview/base";
+import { Ent, Random, URLContext } from "../../nonview/base";
 
 import { WikiSummaryView, EntLink } from "../atoms";
 import { EntListView, CommonEntAnalysisView } from "../molecules";
@@ -12,8 +12,14 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
   }
 
   async componentDidMount() {
-    const { pdEnts } = await super.componentDidMount();
-    const { edID } = this.state;
+    const { pdEnts, edEnts } = await super.componentDidMount();
+    let { edID } = this.state;
+
+    if (!edID) {
+      edID = Random.choice(edEnts).id;
+    }
+    URLContext.set({ pageID: ElectoralDistrictPage.getPageID(), edID });
+
     const edEnt = await Ent.fromID(edID);
     const pdEntsChildren = pdEnts.filter((pdEnt) => pdEnt.id.startsWith(edID));
 
@@ -67,7 +73,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
       countryEnt,
       elections,
       edEnts,
-      partyGroups,
+      partyGroupList,
       pdEntsChildren,
     } = this.state;
     if (!edEnt) {
@@ -81,7 +87,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
         entsSimilar,
         entsAll,
         elections,
-        partyGroups
+        partyGroupList
       )
     );
   }

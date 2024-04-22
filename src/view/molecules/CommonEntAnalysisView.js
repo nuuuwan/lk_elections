@@ -8,7 +8,7 @@ import {
 } from "../molecules";
 
 export default class CommonEntAnalysisView {
-  static get(ent, entsSimilar, entsAll, elections, partyGroups) {
+  static get(ent, entsSimilar, entsAll, elections, partyGroupList) {
     return [
       <ElectoralSummaryView ent={ent} elections={elections} />,
       <SimilarRegionsView
@@ -19,12 +19,12 @@ export default class CommonEntAnalysisView {
       <BellwetherView ent={ent} elections={elections} />,
 
       <FloatingVoteAnalysisView
-        partyGroups={partyGroups}
+        partyGroupList={partyGroupList}
         elections={elections}
         ents={entsSimilar}
       />,
       <SwingAnalysisForEntView
-        partyGroups={partyGroups}
+        partyGroupList={partyGroupList}
         elections={elections}
         ent={ent}
       />,

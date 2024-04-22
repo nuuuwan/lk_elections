@@ -1,5 +1,5 @@
 import { CircularProgress } from "@mui/material";
-import { Ent } from "../../nonview/base";
+import { Ent, Random, URLContext } from "../../nonview/base";
 
 import { EntLink } from "../atoms";
 import { CommonEntAnalysisView } from "../molecules";
@@ -12,8 +12,15 @@ export default class PollingDivisionPage extends AbstractCustomPage {
   }
 
   async componentDidMount() {
-    await super.componentDidMount();
-    const { pdID } = this.state;
+    const { pdEnts } = await super.componentDidMount();
+    let { pdID } = this.state;
+
+    if (!pdID) {
+      pdID = Random.choice(pdEnts).id;
+    }
+    console.debug({ pdID });
+    URLContext.set({ pageID: PollingDivisionPage.getPageID(), pdID });
+
     const pdEnt = await Ent.fromID(pdID);
     const edID = pdID.substring(0, 5);
     const edEnt = await Ent.fromID(edID);
@@ -64,7 +71,7 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     return <GeoMap geoID={pdEnt.id} />;
   }
   get widgets() {
-    const { pdEnt, edEnt, countryEnt, elections, pdEnts, partyGroups } =
+    const { pdEnt, edEnt, countryEnt, elections, pdEnts, partyGroupList } =
       this.state;
     if (!pdEnt) {
       return [];
@@ -77,7 +84,7 @@ export default class PollingDivisionPage extends AbstractCustomPage {
       entsSimilar,
       entsAll,
       elections,
-      partyGroups
+      partyGroupList
     );
   }
 }

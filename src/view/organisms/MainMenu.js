@@ -45,7 +45,7 @@ export default class MainMenu extends Component {
   }
 
   renderPartyGroupsMenu() {
-    const partyGroups = PartyGroup.listAll();
+    const partyGroupList = PartyGroup.listAll();
 
     const renderItem = function (partyGroup) {
       return (
@@ -55,7 +55,7 @@ export default class MainMenu extends Component {
     return (
       <GenericListView
         title="Party Groups"
-        items={partyGroups}
+        items={partyGroupList}
         renderItem={renderItem}
       />
     );

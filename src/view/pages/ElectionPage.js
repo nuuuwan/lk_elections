@@ -7,6 +7,7 @@ import {
   SwingAnalysisForElectionView,
 } from "../molecules";
 import { WikiSummaryView, ElectionLink, EntLink } from "../atoms";
+import { Random, URLContext } from "../../nonview/base";
 
 export default class ElectionPage extends AbstractCustomPage {
   static getPageID() {
@@ -16,7 +17,10 @@ export default class ElectionPage extends AbstractCustomPage {
   async componentDidMount() {
     let { elections } = await super.componentDidMount();
     const { date } = this.state;
-    const election = Election.findFromDate(elections, date);
+    const election =
+      Election.findFromDate(elections, date) || Random.choice(elections);
+    URLContext.set({ pageID: ElectionPage.getPageID(), date: election.date });
+
     const { prevElection, nextElection } = Election.getNextAndPrevious(
       elections,
       election
@@ -80,7 +84,7 @@ export default class ElectionPage extends AbstractCustomPage {
 
   get widgets() {
     const {
-      partyGroups,
+      partyGroupList,
       countryEnt,
       election,
       prevElectionOfType,
@@ -96,7 +100,7 @@ export default class ElectionPage extends AbstractCustomPage {
       <ElectoralSummaryView ent={countryEnt} elections={[election]} />,
 
       <SwingAnalysisForElectionView
-        partyGroups={partyGroups}
+        partyGroupList={partyGroupList}
         prevElection={prevElectionOfType}
         election={election}
         ents={ents}

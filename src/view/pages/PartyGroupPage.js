@@ -6,14 +6,20 @@ import {
   FloatingVoteAnalysisView,
 } from "../molecules";
 import { Party, PartyGroup } from "../../nonview/core";
+import { Random, URLContext } from "../../nonview/base";
 
 export default class PartyGroupPage extends AbstractCustomPage {
   static getPageID() {
     return "PartyGroup";
   }
   async componentDidMount() {
-    await super.componentDidMount();
-    const { partyGroupID } = this.state;
+    const { partyGroupList } = await super.componentDidMount();
+    let { partyGroupID } = this.state;
+    if (!partyGroupID) {
+      partyGroupID = Random.choice(partyGroupList).id;
+      URLContext.set({ pageID: PartyGroupPage.getPageID(), partyGroupID });
+    }
+
     const partyGroup = PartyGroup.fromID(partyGroupID);
     const partyListForPartyGroup = partyGroup.partyIDList.map((partyID) =>
       Party.fromID(partyID)
@@ -67,7 +73,7 @@ export default class PartyGroupPage extends AbstractCustomPage {
   }
 
   get widgets() {
-    const { partyGroup, elections, countryEnt, partyGroups, edEnts } =
+    const { partyGroup, elections, countryEnt, partyGroupList, edEnts } =
       this.state;
     if (!partyGroup) {
       return [];
@@ -79,7 +85,7 @@ export default class PartyGroupPage extends AbstractCustomPage {
         ent={countryEnt}
       />,
       <FloatingVoteAnalysisView
-        partyGroups={partyGroups}
+        partyGroupList={partyGroupList}
         elections={elections}
         ents={[].concat([countryEnt], edEnts)}
       />,

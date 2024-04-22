@@ -3,6 +3,7 @@ import AbstractCustomPage from "./AbstractCustomPage";
 import { WikiSummaryView, PartyLink, PartyGroupLink, EntLink } from "../atoms";
 import { Box } from "@mui/material";
 import { GenericListView, PartyElectoralSummaryView } from "../molecules";
+import { Random, URLContext } from "../../nonview/base";
 
 export default class PartyPage extends AbstractCustomPage {
   static getPageID() {
@@ -10,21 +11,26 @@ export default class PartyPage extends AbstractCustomPage {
   }
 
   async componentDidMount() {
-    await super.componentDidMount();
-    const { partyID } = this.state;
+    const { partyList } = await super.componentDidMount();
+    let { partyID } = this.state;
+    if (!partyID) {
+      partyID = Random.choice(partyList).id;
+      URLContext.set({ pageID: PartyPage.getPageID(), partyID });
+    }
+
     const party = Party.fromID(partyID);
-    const partyGroupsForParty = PartyGroup.listFromPartyID(partyID);
-    this.setState({ partyID, party, partyGroupsForParty });
+    const partyGroupListForParty = PartyGroup.listFromPartyID(partyID);
+    this.setState({ partyID, party, partyGroupListForParty });
   }
 
   get breadcrumbs() {
-    const { party, partyGroupsForParty, countryEnt } = this.state;
+    const { party, partyGroupListForParty, countryEnt } = this.state;
     if (!party) {
       return null;
     }
     return [].concat(
       [<EntLink ent={countryEnt} shortFormat={true} />],
-      partyGroupsForParty.map(function (partyGroup, iPartyGroup) {
+      partyGroupListForParty.map(function (partyGroup, iPartyGroup) {
         return (
           <PartyGroupLink
             key={"partyGroup" + iPartyGroup}
@@ -44,7 +50,7 @@ export default class PartyPage extends AbstractCustomPage {
     return this.state.partyID;
   }
   renderPartyGroups() {
-    const { party, partyGroupsForParty } = this.state;
+    const { party, partyGroupListForParty } = this.state;
     if (!party) {
       return null;
     }
@@ -52,7 +58,7 @@ export default class PartyPage extends AbstractCustomPage {
     return (
       <GenericListView
         title="Party Groups"
-        items={partyGroupsForParty}
+        items={partyGroupListForParty}
         renderItem={(partyGroup) => (
           <PartyGroupLink partyGroupID={partyGroup.id} />
         )}

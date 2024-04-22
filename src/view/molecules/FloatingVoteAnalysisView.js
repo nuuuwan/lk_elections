@@ -24,7 +24,7 @@ function getBase(partyGroup, elections, ent) {
   return { baseFraction, windowBase };
 }
 
-function getFloating(partyGroups, elections, ent, sumBase) {
+function getFloating(partyGroupList, elections, ent, sumBase) {
   const electors = elections.filter((e) => !e.isFuture)[0].getResults(ent.id)
     .summary.electors;
 
@@ -40,14 +40,14 @@ function getFloating(partyGroups, elections, ent, sumBase) {
   };
 }
 
-function getSparseMatrix(partyGroups, elections, ents) {
+function getSparseMatrix(partyGroupList, elections, ents) {
   return ents.reduce(function (sparseMatrix, ent) {
     const {
       sumBase,
 
       maxBasePartyGroup,
       sparseMatrix: sparseMatrixInner,
-    } = partyGroups.reduce(
+    } = partyGroupList.reduce(
       function (
         { sumBase, maxBase, maxBasePartyGroup, sparseMatrix },
         partyGroup
@@ -85,26 +85,28 @@ function getSparseMatrix(partyGroups, elections, ents) {
       return data;
     });
 
-    sparseMatrixInner.push(getFloating(partyGroups, elections, ent, sumBase));
+    sparseMatrixInner.push(
+      getFloating(partyGroupList, elections, ent, sumBase)
+    );
 
     return sparseMatrixInner;
   }, new SparseMatrix());
 }
 
-function getDescription(partyGroups, elections, ents) {
+function getDescription(partyGroupList, elections, ents) {
   return `This table presents the base vote for each party group in each region.`;
 }
 
 export default function FloatingVoteAnalysisView({
-  partyGroups,
+  partyGroupList,
   elections,
   ents,
 }) {
-  const sparseMatrix = getSparseMatrix(partyGroups, elections, ents);
+  const sparseMatrix = getSparseMatrix(partyGroupList, elections, ents);
   return (
     <SectionBox
       title="Base/Floating Vote Analysis"
-      description={getDescription(partyGroups, elections, ents)}
+      description={getDescription(partyGroupList, elections, ents)}
     >
       <MatrixView
         sparseMatrix={sparseMatrix}

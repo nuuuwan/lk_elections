@@ -6,8 +6,12 @@ import { EntLink, SectionBox } from "../atoms";
 
 import MatrixView from "./MatrixView";
 
-function getSparseMatrix(partyGroups, elections, ent) {
-  const swingTuples = Swing.getSwingTuplesForEnt(ent, elections, partyGroups);
+function getSparseMatrix(partyGroupList, elections, ent) {
+  const swingTuples = Swing.getSwingTuplesForEnt(
+    ent,
+    elections,
+    partyGroupList
+  );
   return new SparseMatrix(
     swingTuples
       .map(function ([partyGroup, ent, election, swing]) {
@@ -22,7 +26,7 @@ function getSparseMatrix(partyGroups, elections, ent) {
   );
 }
 
-function getDescription(partyGroups, elections, ent) {
+function getDescription(partyGroupList, elections, ent) {
   return (
     <Box>
       This table summarizes the swing in vote share for each party group in the{" "}
@@ -32,15 +36,15 @@ function getDescription(partyGroups, elections, ent) {
 }
 
 export default function SwingAnalysisForEntView({
-  partyGroups,
+  partyGroupList,
   elections,
   ent,
 }) {
-  const sparseMatrix = getSparseMatrix(partyGroups, elections, ent);
+  const sparseMatrix = getSparseMatrix(partyGroupList, elections, ent);
   return (
     <SectionBox
       title="Swing Analysis"
-      description={getDescription(partyGroups, elections, ent)}
+      description={getDescription(partyGroupList, elections, ent)}
     >
       <MatrixView
         sparseMatrix={sparseMatrix}

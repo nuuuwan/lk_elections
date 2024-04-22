@@ -15,7 +15,7 @@ export default class GenericStore {
     const partyList = Party.listAll();
 
     // Party Group
-    const partyGroups = PartyGroup.listAll();
+    const partyGroupList = PartyGroup.listAll();
 
     const newState = {
       elections,
@@ -23,7 +23,7 @@ export default class GenericStore {
       edEnts,
       pdEnts,
       partyList,
-      partyGroups,
+      partyGroupList,
     };
     return newState;
   }

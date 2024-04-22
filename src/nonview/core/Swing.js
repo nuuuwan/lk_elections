@@ -30,8 +30,13 @@ export default class Swing {
     return [partyGroup, ent, election, swing];
   }
 
-  static getSwingTuplesForElection(election, prevElection, partyGroups, ents) {
-    return partyGroups.reduce(function (swingTuples, partyGroup) {
+  static getSwingTuplesForElection(
+    election,
+    prevElection,
+    partyGroupList,
+    ents
+  ) {
+    return partyGroupList.reduce(function (swingTuples, partyGroup) {
       return ents.reduce(function (swingTuples, ent) {
         const swingTuple = Swing.getSwingTupleSingle(
           partyGroup,
@@ -45,7 +50,7 @@ export default class Swing {
     }, []);
   }
 
-  static getSwingTuplesForEnt(ent, elections, partyGroups) {
+  static getSwingTuplesForEnt(ent, elections, partyGroupList) {
     const completedElections = Election.filterCompleted(elections)
       .sort()
       .reverse();
@@ -62,7 +67,7 @@ export default class Swing {
       const swingTuplesForElection = Swing.getSwingTuplesForElection(
         election,
         prevElection,
-        partyGroups,
+        partyGroupList,
         [ent]
       );
       return swingTuples.concat(swingTuplesForElection);

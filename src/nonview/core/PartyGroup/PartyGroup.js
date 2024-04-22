@@ -34,8 +34,8 @@ export default class PartyGroup {
   }
 
   static isKnownPartyGroupID(partyID) {
-    const partyGroups = PartyGroup.listAll();
-    const partyGroupIDs = partyGroups.map((pg) => pg.id);
+    const partyGroupList = PartyGroup.listAll();
+    const partyGroupIDs = partyGroupList.map((pg) => pg.id);
     return partyGroupIDs.includes(partyID);
   }
 

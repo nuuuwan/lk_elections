@@ -29,7 +29,8 @@ export default class AnalysisFloatingVotePage extends AbstractCustomPage {
   }
 
   get widgets() {
-    const { elections, edEnts, pdEnts, countryEnt, partyGroups } = this.state;
+    const { elections, edEnts, pdEnts, countryEnt, partyGroupList } =
+      this.state;
     if (!elections) {
       return [];
     }
@@ -38,7 +39,7 @@ export default class AnalysisFloatingVotePage extends AbstractCustomPage {
       <FloatingVoteAnalysisView
         elections={elections}
         ents={ents}
-        partyGroups={partyGroups}
+        partyGroupList={partyGroupList}
       />,
     ];
   }

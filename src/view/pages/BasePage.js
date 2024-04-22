@@ -10,6 +10,7 @@ import {
   AnalysisFloatingVotePage,
   PartyPage,
   PartyGroupPage,
+  RandomPage,
 } from "../pages";
 
 export default class BasePage extends Component {
@@ -33,7 +34,12 @@ export default class BasePage extends Component {
     ];
   }
   render() {
-    const { pageID } = this.state;
+    let { pageID } = this.state;
+
+    if (!pageID) {
+      pageID = RandomPage.open();
+    }
+
     const activePageID = pageID;
     let ActivePage = CountryPage;
     for (let Page of this.pageList) {
@@ -42,6 +48,7 @@ export default class BasePage extends Component {
         break;
       }
     }
+
     return <ActivePage />;
   }
 }

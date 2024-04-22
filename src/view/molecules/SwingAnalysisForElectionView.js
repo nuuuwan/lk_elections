@@ -6,14 +6,14 @@ import { ElectionLink, SectionBox } from "../atoms";
 
 import { MatrixView } from "../molecules";
 
-function getSparseMatrix(partyGroups, election, prevElection, ents) {
+function getSparseMatrix(partyGroupList, election, prevElection, ents) {
   if (!prevElection) {
     return null;
   }
   const swingTuples = Swing.getSwingTuplesForElection(
     election,
     prevElection,
-    partyGroups,
+    partyGroupList,
     ents
   );
 
@@ -31,7 +31,7 @@ function getSparseMatrix(partyGroups, election, prevElection, ents) {
   );
 }
 
-function getDescription(partyGroups, election, prevElection, ents) {
+function getDescription(partyGroupList, election, prevElection, ents) {
   return (
     <Box>
       This table summarizes the swing in vote share for each party group in the{" "}
@@ -42,7 +42,7 @@ function getDescription(partyGroups, election, prevElection, ents) {
 }
 
 export default function SwingAnalysisForElectionView({
-  partyGroups,
+  partyGroupList,
   election,
   prevElection,
   ents,
@@ -51,7 +51,7 @@ export default function SwingAnalysisForElectionView({
     return null;
   }
   const sparseMatrix = getSparseMatrix(
-    partyGroups,
+    partyGroupList,
     election,
     prevElection,
     ents
@@ -59,7 +59,7 @@ export default function SwingAnalysisForElectionView({
   return (
     <SectionBox
       title="Swing Analysis for Election"
-      description={getDescription(partyGroups, election, prevElection, ents)}
+      description={getDescription(partyGroupList, election, prevElection, ents)}
     >
       <MatrixView
         sparseMatrix={sparseMatrix}

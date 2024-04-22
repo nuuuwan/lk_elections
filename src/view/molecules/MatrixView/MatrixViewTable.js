@@ -29,7 +29,7 @@ export default function MatrixViewTable({
 
   const label = showExpanded
     ? "Collapse"
-    : `Expand all (${nRows} x ${nCols}) cells`;
+    : `Expand (${nRows} x ${nCols}) cells`;
 
   return (
     <Box>

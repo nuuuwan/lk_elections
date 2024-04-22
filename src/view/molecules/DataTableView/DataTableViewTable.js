@@ -22,7 +22,7 @@ export default function DataTableViewTable({
     : CommonIcons.ExpandExpand;
 
   const nRows = sortedDataList.length;
-  const label = showExpanded ? "Collapse" : `Expand all ${nRows} rows`;
+  const label = showExpanded ? "Collapse" : `Expand ${nRows} rows`;
 
   const needsExpand = nRows > DataTable.DEFAULT_DISPLAY_MAX_ROWS;
 

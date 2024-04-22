@@ -1,4 +1,4 @@
-import { SectionBox, Header } from "../atoms";
+import { SectionBox } from "../atoms";
 import { DataTableView } from ".";
 import { Fraction } from "../../nonview/base";
 import { AnalysisFloatingVote } from "../../nonview/core";
@@ -28,8 +28,7 @@ export default function PartyGroupElectoralSummaryView({
 }) {
   const dataList = getDataList(partyGroup, elections, ent);
   return (
-    <SectionBox>
-      <Header level={2}>Electoral Summary</Header>
+    <SectionBox title="Electoral Summary">
       <DataTableView dataList={dataList} />
     </SectionBox>
   );

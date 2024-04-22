@@ -1,7 +1,8 @@
+import { Box } from "@mui/material";
 import { SparseMatrix } from "../../nonview/base";
 import { Party, Seats } from "../../nonview/core";
 
-import { ElectionLink, Header, SectionBox } from "../atoms";
+import { ElectionLink, SectionBox } from "../atoms";
 import { MatrixView } from "../molecules";
 
 function getSparseMatrix(election, ents) {
@@ -29,12 +30,14 @@ export default function ResultsSeatsTableView({ election, ents }) {
   const sparseMatrix = getSparseMatrix(election, ents);
 
   return (
-    <SectionBox>
-      <Header level={3}>
-        <ElectionLink election={election} />
-        {" (Seats)"}
-      </Header>
-
+    <SectionBox
+      title={
+        <Box>
+          <ElectionLink election={election} />
+          {" (Seats)"}
+        </Box>
+      }
+    >
       <MatrixView
         sparseMatrix={sparseMatrix}
         zKey="Seats"

@@ -3,8 +3,7 @@ import { MapContainer, TileLayer, Polygon } from "react-leaflet";
 import { LatLng, Geo } from "../../nonview/base";
 
 import "./GeoMap.css";
-import { CircularProgress, Skeleton } from "@mui/material";
-import { SectionBox } from "../atoms";
+import { CircularProgress } from "@mui/material";
 
 const URL_FORMAT = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 
@@ -40,12 +39,10 @@ export default class GeoMap extends Component {
     const bounds = LatLng.bounds(geo);
 
     return (
-      <SectionBox>
-        <MapContainer bounds={bounds} zoomControl={false}>
-          <TileLayer url={URL_FORMAT} />
-          <Polygon positions={positions} pathOptions={pathOptions} />
-        </MapContainer>
-      </SectionBox>
+      <MapContainer bounds={bounds} zoomControl={false}>
+        <TileLayer url={URL_FORMAT} />
+        <Polygon positions={positions} pathOptions={pathOptions} />
+      </MapContainer>
     );
   }
 }

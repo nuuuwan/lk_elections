@@ -1,6 +1,6 @@
 import { Fraction } from "../../nonview/base";
 import { Party } from "../../nonview/core";
-import { SectionBox, Header } from "../atoms";
+import { SectionBox } from "../atoms";
 import { DataTableView } from "../molecules";
 
 function getDataList(ent, elections) {
@@ -34,7 +34,6 @@ function getDataList(ent, elections) {
 export default function ElectoralSummaryView({ ent, elections }) {
   return (
     <SectionBox title="Electoral Summary">
-      <Header level={2}>Electoral Summary</Header>
       <DataTableView dataList={getDataList(ent, elections)} />
     </SectionBox>
   );

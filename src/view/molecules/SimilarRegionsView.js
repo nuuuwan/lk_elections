@@ -1,5 +1,5 @@
 import { AnalysisBellwether } from "../../nonview/core";
-import { Header, SectionBox } from "../atoms";
+import { SectionBox } from "../atoms";
 
 import DataTableView from "./DataTableView";
 
@@ -15,8 +15,7 @@ function getDataList(elections, ent, otherEnts) {
 
 export default function SimilarRegionsView({ elections, ent, otherEnts }) {
   return (
-    <SectionBox>
-      <Header level={2}>Similar Voting Behaviour</Header>
+    <SectionBox title="Similar Voting Behaviour">
       <DataTableView dataList={getDataList(elections, ent, otherEnts)} />
     </SectionBox>
   );

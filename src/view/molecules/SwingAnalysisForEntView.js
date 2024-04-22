@@ -1,7 +1,7 @@
 import { PercentagePoint, SparseMatrix } from "../../nonview/base";
 
 import Swing from "../../nonview/core/Swing";
-import { Header, SectionBox } from "../atoms";
+import { SectionBox } from "../atoms";
 
 import MatrixView from "./MatrixView";
 
@@ -28,8 +28,7 @@ export default function SwingAnalysisForEntView({
 }) {
   const sparseMatrix = getSparseMatrix(partyGroups, elections, ent);
   return (
-    <SectionBox>
-      <Header level={2}>Swing Analysis</Header>
+    <SectionBox title="Swing Analysis">
       <MatrixView
         sparseMatrix={sparseMatrix}
         xKey="PartyGroup"

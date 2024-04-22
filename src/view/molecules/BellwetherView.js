@@ -1,7 +1,7 @@
 import { MathX } from "../../nonview/base";
 import { Party, AnalysisBellwether } from "../../nonview/core";
 
-import { Header, SectionBox } from "../atoms";
+import { SectionBox } from "../atoms";
 import { DataTableView } from "../molecules";
 
 function getDataList(elections, ent) {
@@ -41,8 +41,7 @@ export default function BellwetherView({ elections, ent }) {
   const dataList = getDataList(elections, ent);
   const footerData = getFooterData(dataList);
   return (
-    <SectionBox>
-      <Header level={2}>Bellwether Analysis</Header>
+    <SectionBox title="Bellwether Analysis">
       <DataTableView dataList={dataList} footerData={footerData} />
     </SectionBox>
   );

@@ -1,7 +1,7 @@
 import { PercentagePoint, SparseMatrix } from "../../nonview/base";
 import Swing from "../../nonview/core/Swing";
 
-import { Header, SectionBox } from "../atoms";
+import { SectionBox } from "../atoms";
 
 import { MatrixView } from "../molecules";
 
@@ -46,8 +46,7 @@ export default function SwingAnalysisForElectionView({
     ents
   );
   return (
-    <SectionBox>
-      <Header level={2}>Swing Analysis for Election</Header>
+    <SectionBox title="Swing Analysis for Election">
       <MatrixView
         sparseMatrix={sparseMatrix}
         zKey="Swing"

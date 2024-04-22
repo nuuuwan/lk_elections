@@ -1,7 +1,7 @@
 import { Fraction, SparseMatrix } from "../../nonview/base";
 import AnalysisFloatingVote from "../../nonview/core/AnalysisFloatingVote";
 
-import { Header, SectionBox } from "../atoms";
+import { SectionBox } from "../atoms";
 
 import MatrixView from "./MatrixView";
 
@@ -98,8 +98,7 @@ export default function FloatingVoteAnalysisView({
 }) {
   const sparseMatrix = getSparseMatrix(partyGroups, elections, ents);
   return (
-    <SectionBox>
-      <Header level={2}>Base/Floating Vote Analysis</Header>
+    <SectionBox title="Base/Floating Vote Analysis">
       <MatrixView
         sparseMatrix={sparseMatrix}
         xKey="PartyGroup"

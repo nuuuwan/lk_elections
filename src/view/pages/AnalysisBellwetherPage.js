@@ -1,6 +1,6 @@
 import { AnalysisBellwether } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
-import { SectionBox, WikiSummaryView, Header, EntLink } from "../atoms";
+import { SectionBox, WikiSummaryView, EntLink } from "../atoms";
 
 import { DataTableView } from "../molecules";
 
@@ -56,8 +56,7 @@ export default class AnalysisBellwetherPage extends AbstractCustomPage {
     }
 
     return [
-      <SectionBox>
-        <Header level={2}>Best to Worst Bellwethers</Header>
+      <SectionBox title="Best to Worst Bellwethers">
         <DataTableView dataList={this.getDataList()} />
       </SectionBox>,
     ];

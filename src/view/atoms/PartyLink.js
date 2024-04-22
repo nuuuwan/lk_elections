@@ -27,14 +27,15 @@ export default function PartyLink({ partyID, noColor, longName }) {
   return (
     <LinkContext context={context}>
       <Box
-        display="flex"
         alignItems="center"
         sx={{
           color: foreColor,
         }}
         component="span"
       >
-        <Typography variant="inherit">{partyLabel}</Typography>
+        <Typography variant="inherit" component="span">
+          {partyLabel}
+        </Typography>
       </Box>
     </LinkContext>
   );

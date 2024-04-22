@@ -3,9 +3,9 @@ import DataTableViewHead from "./DataTableViewHead";
 import DataTableViewBody from "./DataTableViewBody";
 import DataTableViewFoot from "./DataTableViewFoot";
 import { Box, IconButton, Typography } from "@mui/material";
-import CloseFullscreenIcon from "@mui/icons-material/CloseFullscreen";
-import OpenInFullIcon from "@mui/icons-material/OpenInFull";
+
 import { DataTable } from "../../../nonview/core";
+import CommonIcons from "../CommonIcons";
 
 export default function DataTableViewTable({
   sortedDataList,
@@ -17,7 +17,9 @@ export default function DataTableViewTable({
   const onClickExpand = function () {
     setShowExpanded(!showExpanded);
   };
-  const Icon = showExpanded ? CloseFullscreenIcon : OpenInFullIcon;
+  const Icon = showExpanded
+    ? CommonIcons.ExpandCollapse
+    : CommonIcons.ExpandExpand;
 
   const nRows = sortedDataList.length;
   const label = showExpanded ? "Collapse" : `Expand all ${nRows} rows`;

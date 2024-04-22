@@ -2,9 +2,9 @@ import React from "react";
 import MatrixViewHeader from "./MatrixViewHeader";
 import MatrixViewBody from "./MatrixViewBody";
 import { Box, IconButton, Typography } from "@mui/material";
-import CloseFullscreenIcon from "@mui/icons-material/CloseFullscreen";
-import OpenInFullIcon from "@mui/icons-material/OpenInFull";
+
 import { DataTable } from "../../../nonview/core";
+import CommonIcons from "../CommonIcons";
 export default function MatrixViewTable({
   idx,
   handleToggleXY,
@@ -16,7 +16,9 @@ export default function MatrixViewTable({
   const onClickExpand = function () {
     setShowExpanded(!showExpanded);
   };
-  const Icon = showExpanded ? CloseFullscreenIcon : OpenInFullIcon;
+  const Icon = showExpanded
+    ? CommonIcons.ExpandCollapse
+    : CommonIcons.ExpandExpand;
 
   const nRows = Object.keys(idx).length;
   const nCols = Object.keys(Object.values(idx)[0]).length;

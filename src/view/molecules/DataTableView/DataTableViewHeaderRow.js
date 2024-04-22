@@ -1,8 +1,8 @@
 import React from "react";
 import { Box, IconButton } from "@mui/material";
 
-import SwapVertIcon from "@mui/icons-material/SwapVert";
 import { Renderer } from "..";
+import CommonIcons from "../CommonIcons";
 
 export default function DataTableViewHeaderRow({ headerKeys, setSortKey }) {
   return (
@@ -17,7 +17,7 @@ export default function DataTableViewHeaderRow({ headerKeys, setSortKey }) {
             <Box alignItems="center">
               {Renderer.formatCellValue(headerKey, false)}
               <IconButton onClick={onClickSort}>
-                <SwapVertIcon sx={{ fontSize: "80%" }} />
+                <CommonIcons.SortVertical sx={{ fontSize: "80%" }} />
               </IconButton>
             </Box>
           </th>

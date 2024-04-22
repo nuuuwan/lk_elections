@@ -1,6 +1,7 @@
 import { IconButton } from "@mui/material";
-import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
+
 import { Renderer } from "..";
+import CommonIcons from "../CommonIcons";
 export default function MatrixViewRowHeaderCell({
   setSortYScalarAndOrderInner,
   y,
@@ -9,7 +10,7 @@ export default function MatrixViewRowHeaderCell({
     <th key="label">{Renderer.formatCellValue(y)}</th>,
     <th key="button">
       <IconButton onClick={setSortYScalarAndOrderInner}>
-        <SwapHorizIcon sx={{ fontSize: "80%" }} />
+        <CommonIcons.SortHorizontal sx={{ fontSize: "80%" }} />
       </IconButton>
     </th>,
   ];

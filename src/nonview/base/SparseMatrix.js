@@ -50,9 +50,7 @@ export default class SparseMatrix {
   }
 
   getIdx(xKey, yKey, zKey) {
-    let idx = {};
-
-    for (let data of this.dataList) {
+    return this.dataList.reduce(function (idx, data) {
       const x = data[xKey];
       const y = data[yKey];
       const z = data[zKey];
@@ -64,9 +62,8 @@ export default class SparseMatrix {
         idx[yScalar] = {};
       }
       idx[yScalar][xScalar] = z;
-    }
-
-    return idx;
+      return idx;
+    }, {});
   }
 
   getIdxOrdered(

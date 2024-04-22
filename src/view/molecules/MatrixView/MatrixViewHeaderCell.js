@@ -16,7 +16,7 @@ export default function MatrixViewHeaderCell({
   return (
     <th>
       <Box alignItems="center">
-        {Renderer.formatCellValue(x, false)}
+        {Renderer.formatCellValue(x, false)}{" "}
         <IconButton onClick={setSortXScalarInner}>
           <SwapVertIcon sx={{ fontSize: "80%" }} />
         </IconButton>

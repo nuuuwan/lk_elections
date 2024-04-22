@@ -23,11 +23,10 @@ export default function MatrixViewHeaderRow({
   }
   return (
     <tr>
-      <HiddenHeaderCell />
       <HiddenHeaderCell>
         <ToggleButton handleToggleXY={handleToggleXY} />
       </HiddenHeaderCell>
-
+      <HiddenHeaderCell />
       {colEntriesList.map(function (xScalar, iX) {
         return (
           <MatrixViewHeaderCell

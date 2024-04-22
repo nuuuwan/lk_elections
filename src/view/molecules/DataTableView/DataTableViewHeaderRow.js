@@ -7,7 +7,6 @@ import { Renderer } from "..";
 export default function DataTableViewHeaderRow({ headerKeys, setSortKey }) {
   return (
     <tr>
-      <td className="td-row-num"></td>
       {headerKeys.map(function (headerKey, iCol) {
         const onClickSort = function () {
           setSortKey(headerKey);

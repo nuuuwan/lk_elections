@@ -1,5 +1,5 @@
 import React from "react";
-import MatrixViewHeaderColNumRow from "./MatrixViewHeaderColNumRow";
+
 import MatrixViewHeaderRow from "./MatrixViewHeaderRow";
 
 export default function MatrixViewHeader({
@@ -12,7 +12,6 @@ export default function MatrixViewHeader({
 }) {
   return (
     <thead>
-      <MatrixViewHeaderColNumRow idx={idx} showExpanded={showExpanded} />
       <MatrixViewHeaderRow
         idx={idx}
         handleToggleXY={handleToggleXY}

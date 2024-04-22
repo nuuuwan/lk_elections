@@ -1,6 +1,6 @@
 .leaflet-container {
   z-index: 0;
-  width: calc(min(90%, 800px));
+  width: calc(min(90%, 480px));
   aspect-ratio: 1.78;
 }
 

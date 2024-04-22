@@ -18,14 +18,13 @@ td {
 
 th {
   font-weight: 300;
-  font-size: 67%;
+
   text-align: center;
 
-  border: 1px solid #eee;
+  border: none;
   padding: 1px;
 
   background: #fcfcfc;
-  border: 1px solid #ddd;
 }
 
 .th-sum {

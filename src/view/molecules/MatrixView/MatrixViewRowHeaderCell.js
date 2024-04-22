@@ -5,14 +5,12 @@ export default function MatrixViewRowHeaderCell({
   setSortYScalarAndOrderInner,
   y,
 }) {
-  return (
-    <th>
-      <Box alignItems="center">
-        {Renderer.formatCellValue(y)}
-        <IconButton onClick={setSortYScalarAndOrderInner}>
-          <SwapHorizIcon sx={{ fontSize: "80%" }} />
-        </IconButton>
-      </Box>
-    </th>
-  );
+  return [
+    <th key="label">{Renderer.formatCellValue(y)}</th>,
+    <th key="button">
+      <IconButton onClick={setSortYScalarAndOrderInner}>
+        <SwapHorizIcon sx={{ fontSize: "80%" }} />
+      </IconButton>
+    </th>,
+  ];
 }

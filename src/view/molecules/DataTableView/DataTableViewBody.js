@@ -1,6 +1,6 @@
 import React from "react";
 import DataTableViewRow from "./DataTableViewRow";
-import DataTableViewStyle from "./DataTableViewStyle";
+import { DataTable } from "../../../nonview/core";
 
 export default function DataTableViewBody({
   sortedDataList,
@@ -10,7 +10,7 @@ export default function DataTableViewBody({
   if (!showExpanded) {
     sortedDataList = sortedDataList.slice(
       0,
-      DataTableViewStyle.DEFAULT_DISPLAY_MAX_ROWS
+      DataTable.DEFAULT_DISPLAY_MAX_ROWS
     );
   }
   return (

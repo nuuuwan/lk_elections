@@ -5,7 +5,7 @@ import DataTableViewFoot from "./DataTableViewFoot";
 import { Box, IconButton, Typography } from "@mui/material";
 import CloseFullscreenIcon from "@mui/icons-material/CloseFullscreen";
 import OpenInFullIcon from "@mui/icons-material/OpenInFull";
-import DataTableViewStyle from "./DataTableViewStyle";
+import { DataTable } from "../../../nonview/core";
 
 export default function DataTableViewTable({
   sortedDataList,
@@ -22,7 +22,7 @@ export default function DataTableViewTable({
   const nRows = sortedDataList.length;
   const label = showExpanded ? "Collapse" : `Expand all ${nRows} rows`;
 
-  const needsExpand = nRows > DataTableViewStyle.DEFAULT_DISPLAY_MAX_ROWS;
+  const needsExpand = nRows > DataTable.DEFAULT_DISPLAY_MAX_ROWS;
 
   return (
     <Box>

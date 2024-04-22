@@ -1,5 +1,5 @@
 import HiddenHeaderCell from "./HiddenHeaderCell";
-import MatrixViewStyle from "./MatrixViewStyle";
+import { DataTable } from "../../../nonview/core";
 function numberToLetter(number) {
   return String.fromCharCode(64 + number);
 }
@@ -8,11 +8,11 @@ export default function MatrixViewHeaderColNumRow({ idx, showExpanded }) {
   let colEntriesList = Object.keys(Object.values(idx)[0]);
   if (
     !showExpanded &&
-    colEntriesList.length > MatrixViewStyle.DEFAULT_DISPLAY_MAX_COLS
+    colEntriesList.length > DataTable.DEFAULT_DISPLAY_MAX_COLS
   ) {
     colEntriesList = colEntriesList.slice(
       0,
-      MatrixViewStyle.DEFAULT_DISPLAY_MAX_COLS
+      DataTable.DEFAULT_DISPLAY_MAX_COLS
     );
   }
   return (

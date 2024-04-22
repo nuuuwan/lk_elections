@@ -2,7 +2,7 @@ import React from "react";
 import HiddenHeaderCell from "./HiddenHeaderCell";
 import ToggleButton from "./ToggleButton";
 import MatrixViewHeaderCell from "./MatrixViewHeaderCell";
-import MatrixViewStyle from "./MatrixViewStyle";
+import { DataTable } from "../../../nonview/core";
 
 export default function MatrixViewHeaderRow({
   idx,
@@ -14,11 +14,11 @@ export default function MatrixViewHeaderRow({
   let colEntriesList = Object.keys(Object.values(idx)[0]);
   if (
     !showExpanded &&
-    colEntriesList.length > MatrixViewStyle.DEFAULT_DISPLAY_MAX_COLS
+    colEntriesList.length > DataTable.DEFAULT_DISPLAY_MAX_COLS
   ) {
     colEntriesList = colEntriesList.slice(
       0,
-      MatrixViewStyle.DEFAULT_DISPLAY_MAX_COLS
+      DataTable.DEFAULT_DISPLAY_MAX_COLS
     );
   }
   return (

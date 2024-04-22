@@ -2,7 +2,7 @@ import React from "react";
 
 import MatrixViewRowHeaderCell from "./MatrixViewRowHeaderCell";
 import MatrixViewBodyCell from "./MatrixViewBodyCell";
-import MatrixViewStyle from "./MatrixViewStyle";
+import { DataTable } from "../../../nonview/core";
 
 export default function MatrixViewBodyRow({
   setSortYScalarAndOrder,
@@ -19,11 +19,11 @@ export default function MatrixViewBodyRow({
 
   if (
     !showExpanded &&
-    firstYXScalarList.length >= MatrixViewStyle.DEFAULT_DISPLAY_MAX_COLS
+    firstYXScalarList.length >= DataTable.DEFAULT_DISPLAY_MAX_COLS
   ) {
     firstYXScalarList = firstYXScalarList.slice(
       0,
-      MatrixViewStyle.DEFAULT_DISPLAY_MAX_COLS
+      DataTable.DEFAULT_DISPLAY_MAX_COLS
     );
   }
 

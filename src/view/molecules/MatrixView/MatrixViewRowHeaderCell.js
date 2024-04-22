@@ -7,7 +7,7 @@ export default function MatrixViewRowHeaderCell({
   y,
 }) {
   return [
-    <th key="label">{Renderer.formatCellValue(y)}</th>,
+    <td key="label">{Renderer.formatCellValue(y)}</td>,
     <th key="button">
       <IconButton onClick={setSortYScalarAndOrderInner}>
         <CommonIcons.SortHorizontal sx={CommonIcons.Style.Sort} />

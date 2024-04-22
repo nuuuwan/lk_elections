@@ -10,8 +10,7 @@ function getDataList(elections, ent, otherEnts) {
       return { Region: pdEnt, Diff: l1Error };
     })
     .sort((a, b) => a.Diff - b.Diff)
-    .filter((a) => a.Region.id !== ent.id)
-    .splice(0, 10);
+    .filter((a) => a.Region.id !== ent.id);
 }
 
 export default function SimilarRegionsView({ elections, ent, otherEnts }) {

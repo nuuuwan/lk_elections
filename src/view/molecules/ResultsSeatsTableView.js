@@ -1,7 +1,7 @@
 import { SparseMatrix } from "../../nonview/base";
 import { Party, Seats } from "../../nonview/core";
 
-import { Header, SectionBox } from "../atoms";
+import { ElectionLink, Header, SectionBox } from "../atoms";
 import { MatrixView } from "../molecules";
 
 function getSparseMatrix(election, ents) {
@@ -31,6 +31,10 @@ export default function ResultsSeatsTableView({ election, ents }) {
   return (
     <SectionBox>
       <Header level={4}>Seats</Header>
+
+      <Header level={3}>
+        <ElectionLink election={election} />
+      </Header>
 
       <MatrixView
         sparseMatrix={sparseMatrix}

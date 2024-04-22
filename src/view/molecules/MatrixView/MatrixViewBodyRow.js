@@ -23,11 +23,11 @@ export default function MatrixViewBodyRow({
 
   if (
     !showExpanded &&
-    firstYXScalarList.length >= MatrixViewStyle.DEFAULT_DISPLAY_MAX_ROWS
+    firstYXScalarList.length >= MatrixViewStyle.DEFAULT_DISPLAY_MAX_COLS
   ) {
     firstYXScalarList = firstYXScalarList.slice(
       0,
-      MatrixViewStyle.DEFAULT_DISPLAY_MAX_ROWS
+      MatrixViewStyle.DEFAULT_DISPLAY_MAX_COLS
     );
   }
 

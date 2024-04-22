@@ -46,17 +46,20 @@ export default class Swing {
   }
 
   static getSwingTuplesForEnt(ent, elections, partyGroups) {
-    const completedElections = Election.filterCompleted(elections).sort();
+    const completedElections = Election.filterCompleted(elections)
+      .sort()
+      .reverse();
+    const nElections = completedElections.length;
     return completedElections.reduce(function (
       swingTuples,
       election,
       iElection
     ) {
-      const isFirst = iElection === 0;
+      const isFirst = iElection === nElections - 1;
       if (isFirst) {
         return swingTuples;
       }
-      const prevElection = completedElections[iElection - 1];
+      const prevElection = completedElections[iElection + 1];
       const swingTuplesForElection = Swing.getSwingTuplesForElection(
         election,
         prevElection,

@@ -72,13 +72,13 @@ export default class ElectionPage extends AbstractCustomPage {
         <WikiSummaryView wikiPageName={election.wikiPageName} />
       </Box>,
       <ElectoralSummaryView ent={countryEnt} elections={[election]} />,
-      <ElectionListView elections={[election]} ents={ents} />,
+
       <SwingAnalysisForElectionView
         partyGroups={partyGroups}
         prevElection={prevElection}
         election={election}
         ents={ents}
       />,
-    ];
+    ].concat(ElectionListView.get({ elections: [election], ents }));
   }
 }

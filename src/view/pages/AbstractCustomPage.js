@@ -46,8 +46,8 @@ export default class AbstractCustomPage extends Component {
           </Box>
         </Drawer>
         <Box sx={{ position: "fixed", bottom: 10, right: 10 }}>
-          <IconButton>
-            <MenuIcon onClick={onClick} />
+          <IconButton onClick={onClick}>
+            <MenuIcon />
           </IconButton>
         </Box>
       </Box>

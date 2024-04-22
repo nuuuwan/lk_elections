@@ -1,27 +1,18 @@
-import { Box } from "@mui/material";
-import { Header } from "../atoms";
-
 import ResultsTableView from "./ResultsTableView";
 import ResultsSeatsTableView from "./ResultsSeatsTableView";
 
-export default function ElectionListView({ elections, ents }) {
-  return (
-    <Box sx={{ marginTop: 2 }}>
-      <Header level={2}>Electoral History</Header>
-      {elections.map(function (election, iElection) {
-        const key = "election-" + iElection;
-        if (election.isFuture) {
-          return null;
-        }
-        return (
-          <Box key={key} sx={{ p: 1 }}>
-            <ResultsTableView election={election} ents={ents} />
-            {election.electionType === "Parliamentary" ? (
-              <ResultsSeatsTableView election={election} ents={ents} />
-            ) : null}
-          </Box>
-        );
-      })}
-    </Box>
-  );
+export default class ElectionListView {
+  static get({ elections, ents }) {
+    return elections.reduce(function (widgets, election, iElection) {
+      if (election.isFuture) {
+        return widgets;
+      }
+
+      widgets.push(<ResultsTableView election={election} ents={ents} />);
+      if (election.electionType === "Parliamentary") {
+        widgets.push(<ResultsSeatsTableView election={election} ents={ents} />);
+      }
+      return widgets;
+    }, []);
+  }
 }

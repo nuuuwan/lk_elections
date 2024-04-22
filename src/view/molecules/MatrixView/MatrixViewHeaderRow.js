@@ -14,11 +14,11 @@ export default function MatrixViewHeaderRow({
   let colEntriesList = Object.keys(Object.values(idx)[0]);
   if (
     !showExpanded &&
-    colEntriesList.length > MatrixViewStyle.DEFAULT_DISPLAY_MAX_ROWS
+    colEntriesList.length > MatrixViewStyle.DEFAULT_DISPLAY_MAX_COLS
   ) {
     colEntriesList = colEntriesList.slice(
       0,
-      MatrixViewStyle.DEFAULT_DISPLAY_MAX_ROWS
+      MatrixViewStyle.DEFAULT_DISPLAY_MAX_COLS
     );
   }
   return (

@@ -1,9 +1,5 @@
 import { WikiSummaryView } from "../atoms";
-import {
-  EntListView,
-  ElectoralSummaryView,
-  CommonEntAnalysisView,
-} from "../molecules";
+import { EntListView, CommonEntAnalysisView } from "../molecules";
 
 import AbstractCustomPage from "./AbstractCustomPage";
 
@@ -27,9 +23,6 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
       widgets.push(<EntListView ents={edEnts} shortFormat={true} />);
 
       const entsAll = [].concat(edEnts, [countryEnt]);
-      widgets.push(
-        <ElectoralSummaryView ent={countryEnt} elections={elections} />
-      );
       widgets = [].concat(
         widgets,
         CommonEntAnalysisView.get(

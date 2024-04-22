@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import {
   BellwetherView,
   FloatingVoteAnalysisView,
@@ -29,8 +28,6 @@ export default class CommonEntAnalysisView {
         elections={elections}
         ent={ent}
       />,
-
-      <ElectionListView elections={elections} ents={entsSimilar} />,
-    ];
+    ].concat(ElectionListView.get({ elections, ents: entsAll }));
   }
 }

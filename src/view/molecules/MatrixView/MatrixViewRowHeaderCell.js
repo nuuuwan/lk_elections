@@ -1,4 +1,4 @@
-import { Box, IconButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import { Renderer } from "..";
 export default function MatrixViewRowHeaderCell({

@@ -95,17 +95,15 @@ export default class AbstractCustomPage extends Component {
   }
 
   renderWidgets() {
-    return []
-      .concat([this.renderTitleWidget()], this.widgets)
-      .map(function (widget, index) {
-        return (
-          <Grid item key={index}>
-            <Box id="lk-elections-widget" sx={{ p: 3, background: "#fcfcfc" }}>
-              {widget}
-            </Box>
-          </Grid>
-        );
-      });
+    return this.widgets.map(function (widget, index) {
+      return (
+        <Grid item key={index}>
+          <Box id="lk-elections-widget" sx={{ p: 3, background: "#fcfcfc" }}>
+            {widget}
+          </Box>
+        </Grid>
+      );
+    });
   }
 
   render() {
@@ -114,6 +112,7 @@ export default class AbstractCustomPage extends Component {
       <Box sx={{ marginTop: 15, zIndex: 1000 }}>
         {this.renderDrawer()}
         <Grid container spacing={3} sx={{ m: 0.5 }}>
+          <Grid item>{this.renderTitleWidget()}</Grid>
           {this.renderWidgets()}
         </Grid>
       </Box>

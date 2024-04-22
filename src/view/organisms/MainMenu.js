@@ -2,7 +2,7 @@ import { Component } from "react";
 import { Box } from "@mui/material";
 import { Ent, EntType } from "../../nonview/base";
 import { Election, PartyGroup } from "../../nonview/core";
-import { LinkContext } from "../atoms";
+import { LinkContext, PartyGroupLink } from "../atoms";
 
 import {
   EntListView,
@@ -49,11 +49,7 @@ export default class MainMenu extends Component {
 
     const renderItem = function (partyGroup) {
       return (
-        <LinkContext
-          context={{ pageID: "PartyGroup", partyGroupID: partyGroup.id }}
-        >
-          {partyGroup.id}
-        </LinkContext>
+        <PartyGroupLink partyGroupID={partyGroup.id} key={partyGroup.id} />
       );
     };
     return (

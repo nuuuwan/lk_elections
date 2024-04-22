@@ -1,18 +1,17 @@
 import { Box, IconButton } from "@mui/material";
-import SwapHorizontalCircleIcon from "@mui/icons-material/SwapHorizontalCircle";
+import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import { Renderer } from "..";
-
 export default function MatrixViewRowHeaderCell({
   setSortYScalarAndOrderInner,
   y,
 }) {
   return (
     <th>
-      <Box display="flex" alignItems="center">
-        <IconButton onClick={setSortYScalarAndOrderInner}>
-          <SwapHorizontalCircleIcon sx={{ fontSize: "80%" }} />
-        </IconButton>
+      <Box alignItems="center">
         {Renderer.formatCellValue(y)}
+        <IconButton onClick={setSortYScalarAndOrderInner}>
+          <SwapHorizIcon sx={{ fontSize: "80%" }} />
+        </IconButton>
       </Box>
     </th>
   );

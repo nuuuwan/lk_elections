@@ -6,7 +6,7 @@ export default function FractionView({ fraction }) {
   return (
     <Box sx={{ color, margin: 0, padding: 0 }}>
       <Box>{Format.percentWithStyle(fraction.p)}</Box>
-      <Box sx={{ fontSize: "80%" }}>
+      <Box sx={{ fontSize: "80%", opacity: "50%" }}>
         {Format.intHumanizeWithStyle(fraction.n, [100, 1_000_000], [6, 12])}
       </Box>
     </Box>

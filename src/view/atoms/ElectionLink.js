@@ -2,6 +2,7 @@ import { Box, Typography } from "@mui/material";
 import { LinkContext } from "../atoms";
 import PersonIcon from "@mui/icons-material/Person";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import { Party } from "../../nonview/core";
 
 export default function ElectionLink({ election }) {
   const Icon =
@@ -13,12 +14,18 @@ export default function ElectionLink({ election }) {
   };
 
   const emoji = election.isFuture ? "⏳" : "";
-
+  const results = election.getResults("LK");
+  let color = null;
+  if (results) {
+    const winningPartyID = results.partyToVotes.winningParty;
+    const winningParty = Party.fromID(winningPartyID);
+    color = winningParty.color;
+  }
   return (
     <LinkContext context={context}>
-      <Box display="flex" alignItems="center">
+      <Box display="flex" alignItems="center" component="span">
         <Icon sx={{ color: "#ccc", marginRight: 1, fontSize: "80%" }} />
-        <Typography variant="inherit">
+        <Typography variant="inherit" sx={{ color }} component="span">
           {election.titleShort}
           {emoji}
         </Typography>

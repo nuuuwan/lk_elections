@@ -41,5 +41,5 @@ let FormatGeneric = {
     );
   },
 };
-FormatGeneric.DEFAULT_FONT_SIZE_RANGE = [12, 24];
+FormatGeneric.DEFAULT_FONT_SIZE_RANGE = [12, 18];
 export default FormatGeneric;

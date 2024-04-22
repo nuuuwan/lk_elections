@@ -39,8 +39,9 @@ export default class AbstractCustomPage extends Component {
           anchor="right"
           open={this.state.drawerOpen}
           onClose={() => this.setDrawerOpen(false)}
+          sx={{ zIndex: 3000, position: "fixed", top: 0, right: 0 }}
         >
-          <Box sx={{ m: 1, p: 1 }}>
+          <Box sx={{ m: 2, p: 2 }}>
             <VersionView />
             <MainMenu />
           </Box>

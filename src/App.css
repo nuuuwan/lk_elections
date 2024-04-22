@@ -18,8 +18,11 @@ td {
 
 th {
   font-weight: 300;
+  font-size: 67%;
+  text-align: center;
+
   border: 1px solid #eee;
-  padding: 3px;
+  padding: 1px;
 
   background: #fcfcfc;
   border: 1px solid #ddd;
@@ -38,15 +41,15 @@ th {
 
 .no-expand-info {
   border: none;
-  text-align: center;
+
 }
 
 .number {
-  text-align: right;
+
 }
 
 .hidden {
   background: none;
   border: none;
-  text-align: center;
+
 }

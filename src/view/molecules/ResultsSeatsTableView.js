@@ -30,10 +30,9 @@ export default function ResultsSeatsTableView({ election, ents }) {
 
   return (
     <SectionBox>
-      <Header level={4}>🪑Seats</Header>
-
       <Header level={3}>
         <ElectionLink election={election} />
+        {" (Seats)"}
       </Header>
 
       <MatrixView

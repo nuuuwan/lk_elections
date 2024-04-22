@@ -1,5 +1,4 @@
-import SwapVerticalCircleIcon from "@mui/icons-material/SwapVerticalCircle";
-
+import SwapVertIcon from "@mui/icons-material/SwapVert";
 import { Box, IconButton } from "@mui/material";
 
 import { Renderer } from "..";
@@ -16,11 +15,11 @@ export default function MatrixViewHeaderCell({
   const x = scalarToOriginal[xScalar];
   return (
     <th>
-      <Box display="flex" alignItems="center">
+      <Box alignItems="center">
+        {Renderer.formatCellValue(x, false)}
         <IconButton onClick={setSortXScalarInner}>
-          <SwapVerticalCircleIcon sx={{ fontSize: "80%" }} />
+          <SwapVertIcon sx={{ fontSize: "80%" }} />
         </IconButton>
-        {Renderer.formatCellValue(x)}
       </Box>
     </th>
   );

@@ -55,16 +55,18 @@ export default class Renderer {
     return value;
   }
 
-  static formatCellValueNumber(value) {
+  static formatCellValueNumber(value, align = true) {
+    const sx = align ? { textAlign: "right" } : {};
+
     return (
-      <Box sx={{ textAlign: "right" }}>
+      <Box sx={sx}>
         {Renderer.formatCellValueNumberObject(value) ||
           Renderer.formatCellValueNumberInner(value)}
       </Box>
     );
   }
 
-  static formatCellValue(value) {
+  static formatCellValue(value, align = true) {
     if (!value) {
       return "-";
     }
@@ -74,7 +76,7 @@ export default class Renderer {
 
     return (
       Renderer.formatCellValueObject(value) ||
-      Renderer.formatCellValueNumber(value)
+      Renderer.formatCellValueNumber(value, align)
     );
   }
 }

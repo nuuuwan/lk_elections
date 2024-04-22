@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, IconButton } from "@mui/material";
-import SwapVerticalCircleIcon from "@mui/icons-material/SwapVerticalCircle";
+
+import SwapVertIcon from "@mui/icons-material/SwapVert";
 import { Renderer } from "..";
 
 export default function DataTableViewHeaderRow({ headerKeys, setSortKey }) {
@@ -11,13 +12,14 @@ export default function DataTableViewHeaderRow({ headerKeys, setSortKey }) {
         const onClickSort = function () {
           setSortKey(headerKey);
         };
+
         return (
           <th key={"header-" + iCol}>
-            <Box display="flex" alignItems="center">
+            <Box alignItems="center">
+              {Renderer.formatCellValue(headerKey, false)}
               <IconButton onClick={onClickSort}>
-                <SwapVerticalCircleIcon sx={{ fontSize: "80%" }} />
+                <SwapVertIcon sx={{ fontSize: "80%" }} />
               </IconButton>
-              {Renderer.formatCellValue(headerKey)}
             </Box>
           </th>
         );

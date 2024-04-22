@@ -2,6 +2,7 @@ import React from "react";
 import MatrixViewRowNumCell from "./MatrixViewRowNumCell";
 import MatrixViewRowHeaderCell from "./MatrixViewRowHeaderCell";
 import MatrixViewBodyCell from "./MatrixViewBodyCell";
+import MatrixViewStyle from "./MatrixViewStyle";
 
 export default function MatrixViewBodyRow({
   setSortYScalarAndOrder,
@@ -10,6 +11,7 @@ export default function MatrixViewBodyRow({
   iY,
   firstYXScalarList,
   xScalarToZ,
+  showExpanded,
 }) {
   const setSortYScalarAndOrderInner = function () {
     setSortYScalarAndOrder(yScalar);
@@ -18,6 +20,16 @@ export default function MatrixViewBodyRow({
   // const rowValues = Object.values(xScalarToZ);
   // const rowSum = Comparator.sum(rowValues);
   // <th  className="th-sum">{Renderer.formatCellValue(rowSum)}</th>
+
+  if (
+    !showExpanded &&
+    firstYXScalarList.length >= MatrixViewStyle.DEFAULT_DISPLAY_MAX_ROWS
+  ) {
+    firstYXScalarList = firstYXScalarList.slice(
+      0,
+      MatrixViewStyle.DEFAULT_DISPLAY_MAX_ROWS
+    );
+  }
 
   return (
     <tr>

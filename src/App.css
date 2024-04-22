@@ -33,6 +33,12 @@ th {
   border: none;
 }
 
+.no-expand-info {
+  border: none;
+  text-align: center;
+
+}
+
 .number {
   text-align: right;
 }

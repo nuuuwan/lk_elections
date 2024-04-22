@@ -1,5 +1,5 @@
 import React from "react";
-import MatrixViewColNumHeaderRow from "./MatrixViewColNumHeaderRow";
+import MatrixViewHeaderColNumRow from "./MatrixViewHeaderColNumRow";
 import MatrixViewHeaderRow from "./MatrixViewHeaderRow";
 
 export default function MatrixViewHeader({
@@ -8,15 +8,18 @@ export default function MatrixViewHeader({
   handleToggleXY,
   setSortXScalar,
   scalarToOriginal,
+  showExpanded,
 }) {
-  return [
-    <MatrixViewColNumHeaderRow idx={idx} key="1" />,
-    <MatrixViewHeaderRow
-      idx={idx}
-      handleToggleXY={handleToggleXY}
-      setSortXScalar={setSortXScalar}
-      scalarToOriginal={scalarToOriginal}
-      key="2"
-    />,
-  ];
+  return (
+    <thead>
+      <MatrixViewHeaderColNumRow idx={idx} showExpanded={showExpanded} />
+      <MatrixViewHeaderRow
+        idx={idx}
+        handleToggleXY={handleToggleXY}
+        setSortXScalar={setSortXScalar}
+        scalarToOriginal={scalarToOriginal}
+        showExpanded={showExpanded}
+      />
+    </thead>
+  );
 }

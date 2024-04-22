@@ -1,6 +1,7 @@
+import { Box } from "@mui/material";
 import { Fraction } from "../../nonview/base";
 import { Party } from "../../nonview/core";
-import { SectionBox } from "../atoms";
+import { EntLink, SectionBox } from "../atoms";
 import { DataTableView } from "../molecules";
 
 function getDataList(ent, elections) {
@@ -31,9 +32,21 @@ function getDataList(ent, elections) {
     });
 }
 
+function getDescription(ent, elections) {
+  return (
+    <Box>
+      This table summarizes electoral results for <EntLink ent={ent} />, across
+      historical elections.
+    </Box>
+  );
+}
+
 export default function ElectoralSummaryView({ ent, elections }) {
   return (
-    <SectionBox title="Electoral Summary">
+    <SectionBox
+      title="Electoral Summary"
+      description={getDescription(ent, elections)}
+    >
       <DataTableView dataList={getDataList(ent, elections)} />
     </SectionBox>
   );

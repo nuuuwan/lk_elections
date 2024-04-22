@@ -91,6 +91,10 @@ function getSparseMatrix(partyGroups, elections, ents) {
   }, new SparseMatrix());
 }
 
+function getDescription(partyGroups, elections, ents) {
+  return `This table presents the base vote for each party group in each region.`;
+}
+
 export default function FloatingVoteAnalysisView({
   partyGroups,
   elections,
@@ -98,7 +102,10 @@ export default function FloatingVoteAnalysisView({
 }) {
   const sparseMatrix = getSparseMatrix(partyGroups, elections, ents);
   return (
-    <SectionBox title="Base/Floating Vote Analysis">
+    <SectionBox
+      title="Base/Floating Vote Analysis"
+      description={getDescription(partyGroups, elections, ents)}
+    >
       <MatrixView
         sparseMatrix={sparseMatrix}
         xKey="PartyGroup"

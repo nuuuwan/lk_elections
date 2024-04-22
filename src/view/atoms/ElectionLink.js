@@ -23,7 +23,7 @@ export default function ElectionLink({ election }) {
   }
   return (
     <LinkContext context={context}>
-      <Box display="flex" alignItems="center" component="span">
+      <Box alignItems="center" component="span">
         <Icon sx={{ color: "#ccc", marginRight: 1, fontSize: "80%" }} />
         <Typography variant="inherit" sx={{ color }} component="span">
           {election.titleShort}

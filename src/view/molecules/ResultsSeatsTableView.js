@@ -26,6 +26,15 @@ function getSparseMatrix(election, ents) {
   return sparseMatrix;
 }
 
+function getDescription(election, ents) {
+  return (
+    <Box>
+      This table summarizes seats won by various parties in the{" "}
+      <ElectionLink election={election} /> Election.
+    </Box>
+  );
+}
+
 export default function ResultsSeatsTableView({ election, ents }) {
   const sparseMatrix = getSparseMatrix(election, ents);
 
@@ -37,6 +46,7 @@ export default function ResultsSeatsTableView({ election, ents }) {
           {" (Seats)"}
         </Box>
       }
+      description={getDescription(election, ents)}
     >
       <MatrixView
         sparseMatrix={sparseMatrix}

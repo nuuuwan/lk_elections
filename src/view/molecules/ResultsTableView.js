@@ -1,7 +1,8 @@
 import { SparseMatrix, Fraction } from "../../nonview/base";
 import { MatrixView } from "../molecules";
-import { Header, SectionBox } from "../atoms";
+import { ElectionLink, Header, SectionBox } from "../atoms";
 import { Party } from "../../nonview/core";
+import { Box } from "@mui/material";
 
 function getVote(ent, partyID, result, winningPartyID, color, noSum) {
   const fraction = new Fraction(
@@ -75,12 +76,23 @@ function getSparseMatrix(election, ents) {
     return pushMatrixRowsForEnt(sparseMatrix, ent, majorPartyIDs, election);
   }, new SparseMatrix());
 }
+function getDescription(election, ents) {
+  return (
+    <Box>
+      This table summarizes votes won by various parties in the{" "}
+      <ElectionLink election={election} /> Election.
+    </Box>
+  );
+}
 
 export default function ResultsTableView({ election, ents }) {
   const matrix = getSparseMatrix(election, ents);
 
   return (
-    <SectionBox title={<Header level={3}></Header>}>
+    <SectionBox
+      title={<ElectionLink election={election} />}
+      description={getDescription(election, ents)}
+    >
       <MatrixView
         sparseMatrix={matrix}
         xKey="Party"

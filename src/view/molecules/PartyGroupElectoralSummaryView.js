@@ -1,7 +1,8 @@
-import { SectionBox } from "../atoms";
+import { EntLink, PartyGroupLink, SectionBox } from "../atoms";
 import { DataTableView } from ".";
 import { Fraction } from "../../nonview/base";
 import { AnalysisFloatingVote } from "../../nonview/core";
+import { Box } from "@mui/material";
 
 function getDataList(partyGroup, elections, ent) {
   return elections
@@ -21,6 +22,16 @@ function getDataList(partyGroup, elections, ent) {
     });
 }
 
+function getDescription(partyGroup, elections, ent) {
+  return (
+    <Box>
+      This table summarizes the electoral results for the{" "}
+      <PartyGroupLink partyGroupID={partyGroup.id} /> in{" "}
+      <EntLink ent={ent} shortName={true} />, across historical elections.
+    </Box>
+  );
+}
+
 export default function PartyGroupElectoralSummaryView({
   partyGroup,
   elections,
@@ -28,7 +39,10 @@ export default function PartyGroupElectoralSummaryView({
 }) {
   const dataList = getDataList(partyGroup, elections, ent);
   return (
-    <SectionBox title="Electoral Summary">
+    <SectionBox
+      title="Electoral Summary"
+      description={getDescription(partyGroup, elections, ent)}
+    >
       <DataTableView dataList={dataList} />
     </SectionBox>
   );

@@ -1,7 +1,8 @@
+import { Box } from "@mui/material";
 import { PercentagePoint, SparseMatrix } from "../../nonview/base";
 import Swing from "../../nonview/core/Swing";
 
-import { SectionBox } from "../atoms";
+import { ElectionLink, SectionBox } from "../atoms";
 
 import { MatrixView } from "../molecules";
 
@@ -30,6 +31,16 @@ function getSparseMatrix(partyGroups, election, prevElection, ents) {
   );
 }
 
+function getDescription(partyGroups, election, prevElection, ents) {
+  return (
+    <Box>
+      This table summarizes the swing in vote share for each party group in the{" "}
+      <ElectionLink election={election} /> Election compared to the{" "}
+      <ElectionLink election={prevElection} /> Election.
+    </Box>
+  );
+}
+
 export default function SwingAnalysisForElectionView({
   partyGroups,
   election,
@@ -46,7 +57,10 @@ export default function SwingAnalysisForElectionView({
     ents
   );
   return (
-    <SectionBox title="Swing Analysis for Election">
+    <SectionBox
+      title="Swing Analysis for Election"
+      description={getDescription(partyGroups, election, prevElection, ents)}
+    >
       <MatrixView
         sparseMatrix={sparseMatrix}
         zKey="Swing"

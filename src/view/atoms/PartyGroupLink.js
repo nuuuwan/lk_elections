@@ -14,11 +14,10 @@ export default function PartyGroupLink({ partyGroupID }) {
   return (
     <LinkContext context={context}>
       <Box
-        display="flex"
-        alignItems="center"
         sx={{
           color,
         }}
+        component="span"
       >
         {partyGroupID}
       </Box>

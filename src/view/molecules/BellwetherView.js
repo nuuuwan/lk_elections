@@ -1,7 +1,8 @@
+import { Box } from "@mui/material";
 import { MathX } from "../../nonview/base";
 import { Party, AnalysisBellwether } from "../../nonview/core";
 
-import { SectionBox } from "../atoms";
+import { EntLink, SectionBox } from "../atoms";
 import { DataTableView } from "../molecules";
 
 function getDataList(elections, ent) {
@@ -37,11 +38,23 @@ function getFooterData(dataList) {
   };
 }
 
+function getDescription(elections, ent) {
+  return (
+    <Box>
+      This table shows how the electoral result in <EntLink ent={ent} />,
+      compared to the final result nationwide.
+    </Box>
+  );
+}
+
 export default function BellwetherView({ elections, ent }) {
   const dataList = getDataList(elections, ent);
   const footerData = getFooterData(dataList);
   return (
-    <SectionBox title="Bellwether Analysis">
+    <SectionBox
+      title="Bellwether Analysis"
+      description={getDescription(elections, ent)}
+    >
       <DataTableView dataList={dataList} footerData={footerData} />
     </SectionBox>
   );

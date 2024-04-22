@@ -1,6 +1,7 @@
-import { SectionBox } from "../atoms";
+import { PartyLink, SectionBox } from "../atoms";
 import { DataTableView } from ".";
 import { Fraction } from "../../nonview/base";
+import { Box } from "@mui/material";
 
 function getDataList(party, elections) {
   return elections
@@ -34,9 +35,21 @@ function getDataList(party, elections) {
     });
 }
 
+function getDescription(party, elections) {
+  return (
+    <Box>
+      This table summarizes electoral results for the{" "}
+      <PartyLink partyID={party.id} />, across historical elections.
+    </Box>
+  );
+}
+
 export default function PartyElectoralSummaryView({ party, elections }) {
   return (
-    <SectionBox title="Electoral Summary">
+    <SectionBox
+      title="Electoral Summary"
+      description={getDescription(party, elections)}
+    >
       <DataTableView dataList={getDataList(party, elections)} />
     </SectionBox>
   );

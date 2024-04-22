@@ -11,10 +11,10 @@ export default function ElectionLink({ ent, shortFormat = false }) {
   };
   return (
     <LinkContext context={context}>
-      <Box sx={{ whiteSpace: "nowrap" }}>
-        <Typography variant="inherit">
+      <Box sx={{ whiteSpace: "nowrap" }} component="span">
+        <Typography variant="inherit" component="span">
           {ent.name}
-          <Box sx={{ opacity: 0.5 }} component={"span"}>
+          <Box sx={{ opacity: 0.5 }} component="span">
             {" "}
             {shortFormat ? entType.shortName : entType.longName}
           </Box>

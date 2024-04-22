@@ -32,6 +32,7 @@ export default function PartyLink({ partyID, noColor, longName }) {
         sx={{
           color: foreColor,
         }}
+        component="span"
       >
         <Typography variant="inherit">{partyLabel}</Typography>
       </Box>

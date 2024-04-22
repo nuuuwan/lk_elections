@@ -37,7 +37,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     if (!edEnt) {
       return edID;
     }
-    return <EntLink ent={edEnt} shortFormat={true} />;
+    return <EntLink ent={edEnt} shortFormat={false} />;
   }
 
   get browserTitle() {

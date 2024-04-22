@@ -37,7 +37,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     if (!edEnt) {
       return edID;
     }
-    return <EntLink ent={edEnt} />;
+    return <EntLink ent={edEnt} shortFormat={true} />;
   }
 
   get browserTitle() {
@@ -46,6 +46,19 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
       return edID;
     }
     return edEnt.name;
+  }
+
+  get titleWidget() {
+    const { edEnt } = this.state;
+    if (!edEnt) {
+      return null;
+    }
+    return (
+      <Box>
+        <GeoMap geoID={edEnt.id} />
+        <WikiSummaryView wikiPageName={edEnt.wikiPageName} />
+      </Box>
+    );
   }
 
   get widgets() {
@@ -60,15 +73,16 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     if (!edEnt) {
       return [];
     }
+    const entsSimilar = [].concat(edEnt, pdEntsChildren);
     const entsAll = [].concat(edEnts, [countryEnt]);
-    return [
-      <Box>
-        <GeoMap geoID={edEnt.id} />
-        <WikiSummaryView wikiPageName={edEnt.wikiPageName} />
-      </Box>,
-      <EntListView ents={pdEntsChildren} shortFormat={true} />,
-    ].concat(
-      CommonEntAnalysisView.get(edEnt, entsAll, entsAll, elections, partyGroups)
+    return [<EntListView ents={pdEntsChildren} shortFormat={true} />].concat(
+      CommonEntAnalysisView.get(
+        edEnt,
+        entsSimilar,
+        entsAll,
+        elections,
+        partyGroups
+      )
     );
   }
 }

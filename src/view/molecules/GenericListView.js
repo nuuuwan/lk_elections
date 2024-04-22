@@ -1,4 +1,4 @@
-import { Box, CircularProgress } from "@mui/material";
+import { Skeleton } from "@mui/material";
 import React, { Suspense } from "react";
 
 const GenericListViewLazy = React.lazy(() => import("./GenericListViewLazy"));
@@ -6,11 +6,7 @@ const GenericListViewLazy = React.lazy(() => import("./GenericListViewLazy"));
 export default function GenericListView({ title, items, renderItem }) {
   return (
     <Suspense
-      fallback={
-        <Box>
-          <CircularProgress />
-        </Box>
-      }
+      fallback={<Skeleton variant="rectangular" width={480} height={270} />}
     >
       <GenericListViewLazy
         title={title}

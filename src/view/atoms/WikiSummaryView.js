@@ -13,6 +13,7 @@ export default function WikiSummaryView({ wikiPageName }) {
         marginBottom: 1,
         marginRight: 1,
         paddingBottom: 2,
+        maxWidth: 480,
       }}
     >
       {wiki.summaryLines.map(function (paragraph, i) {

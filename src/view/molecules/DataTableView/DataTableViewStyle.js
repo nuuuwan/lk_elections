@@ -1,3 +1,3 @@
 export default class DataTableViewStyle {
-  static DEFAULT_DISPLAY_MAX_ROWS = 7;
+  static DEFAULT_DISPLAY_MAX_ROWS = 10;
 }

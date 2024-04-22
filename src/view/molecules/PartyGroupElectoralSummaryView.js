@@ -4,18 +4,21 @@ import { Fraction } from "../../nonview/base";
 import { AnalysisFloatingVote } from "../../nonview/core";
 
 function getDataList(partyGroup, elections, ent) {
-  return elections.map(function (election) {
-    const info = AnalysisFloatingVote.getVoteInfo(election, ent, partyGroup);
-    if (!info) {
-      return null;
-    }
-    const { votes, pVotes, nParties } = info;
-    return {
-      Election: election,
-      Parties: nParties,
-      Votes: new Fraction(votes, Math.round(votes / pVotes, 0)),
-    };
-  });
+  return elections
+    .sort()
+    .reverse()
+    .map(function (election) {
+      const info = AnalysisFloatingVote.getVoteInfo(election, ent, partyGroup);
+      if (!info) {
+        return null;
+      }
+      const { votes, pVotes, nParties } = info;
+      return {
+        Election: election,
+        Parties: nParties,
+        Votes: new Fraction(votes, Math.round(votes / pVotes, 0)),
+      };
+    });
 }
 
 export default function PartyGroupElectoralSummaryView({

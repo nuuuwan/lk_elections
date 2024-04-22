@@ -3,31 +3,35 @@ import { DataTableView } from ".";
 import { Fraction } from "../../nonview/base";
 
 function getDataList(party, elections) {
-  return elections.map(function (election) {
-    const resultsForLK = election.getResults("LK");
-    if (!resultsForLK) {
-      return null;
-    }
-    const partyToVotes = resultsForLK.partyToVotes;
-    const votes = partyToVotes.partyToVotes[party.id];
-    if (!votes) {
-      return null;
-    }
-    const pVotes = partyToVotes.partyToPVotes[party.id];
+  return elections
+    .sort()
+    .reverse()
+    .map(function (election) {
+      const resultsForLK = election.getResults("LK");
+      if (!resultsForLK) {
+        return null;
+      }
+      const partyToVotes = resultsForLK.partyToVotes;
+      const votes = partyToVotes.partyToVotes[party.id];
+      if (!votes) {
+        return null;
+      }
+      const pVotes = partyToVotes.partyToPVotes[party.id];
 
-    let position = Object.keys(partyToVotes.partyToVotes).indexOf(party.id) + 1;
-    if (position === 1) {
-      position = "✔️";
-    }
+      let position =
+        Object.keys(partyToVotes.partyToVotes).indexOf(party.id) + 1;
+      if (position === 1) {
+        position = "✔️";
+      }
 
-    const fraction = new Fraction(votes, Math.round(votes / pVotes, 0));
+      const fraction = new Fraction(votes, Math.round(votes / pVotes, 0));
 
-    return {
-      Election: election,
-      Position: position,
-      Votes: fraction,
-    };
-  });
+      return {
+        Election: election,
+        Position: position,
+        Votes: fraction,
+      };
+    });
 }
 
 export default function PartyElectoralSummaryView({ party, elections }) {

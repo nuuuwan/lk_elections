@@ -1,12 +1,14 @@
 import React, { Suspense } from "react";
 
-import { CircularProgress } from "@mui/material";
+import { Skeleton } from "@mui/material";
 
 const MatrixViewLazy = React.lazy(() => import("./MatrixViewLazy"));
 
 export default function MatrixView({ sparseMatrix, zKey, xKey, yKey }) {
   return (
-    <Suspense fallback={<CircularProgress />}>
+    <Suspense
+      fallback={<Skeleton variant="rectangular" width={480} height={270} />}
+    >
       <MatrixViewLazy
         sparseMatrix={sparseMatrix}
         zKey={zKey}

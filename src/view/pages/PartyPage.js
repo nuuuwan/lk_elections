@@ -1,7 +1,7 @@
 import { Party, PartyGroup } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
 import { WikiSummaryView, PartyLink, PartyGroupLink, EntLink } from "../atoms";
-import { CircularProgress } from "@mui/material";
+import { Box } from "@mui/material";
 import { GenericListView, PartyElectoralSummaryView } from "../molecules";
 
 export default class PartyPage extends AbstractCustomPage {
@@ -46,7 +46,7 @@ export default class PartyPage extends AbstractCustomPage {
   renderPartyGroups() {
     const { party, partyGroupsForParty } = this.state;
     if (!party) {
-      return <CircularProgress />;
+      return null;
     }
 
     return (
@@ -60,15 +60,24 @@ export default class PartyPage extends AbstractCustomPage {
     );
   }
 
+  get titleWidget() {
+    const { party } = this.state;
+    if (!party) {
+      return null;
+    }
+    return (
+      <Box>
+        <WikiSummaryView wikiPageName={party.wikiPageName} />
+        {this.renderPartyGroups()}
+      </Box>
+    );
+  }
+
   get widgets() {
     const { party, elections } = this.state;
     if (!party) {
       return [];
     }
-    return [
-      <WikiSummaryView wikiPageName={party.wikiPageName} />,
-      this.renderPartyGroups(),
-      <PartyElectoralSummaryView party={party} elections={elections} />,
-    ];
+    return [<PartyElectoralSummaryView party={party} elections={elections} />];
   }
 }

@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Box, CircularProgress } from "@mui/material";
+import { Box } from "@mui/material";
 import { Ent, EntType } from "../../nonview/base";
 import { Election, PartyGroup } from "../../nonview/core";
 import { LinkContext } from "../atoms";
@@ -68,7 +68,7 @@ export default class MainMenu extends Component {
   render() {
     const { elections, edEnts, pdEnts } = this.state;
     if (!elections || !edEnts || !pdEnts) {
-      return <CircularProgress />;
+      return null;
     }
     return (
       <Box sx={{ minWidth: 240 }}>

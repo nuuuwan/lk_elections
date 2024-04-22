@@ -36,7 +36,7 @@ export default class AbstractCustomPage extends Component {
     return (
       <Box>
         <Drawer
-          anchor="left"
+          anchor="right"
           open={this.state.drawerOpen}
           onClose={() => this.setDrawerOpen(false)}
         >
@@ -66,11 +66,29 @@ export default class AbstractCustomPage extends Component {
       </Breadcrumbs>
     );
   }
+
+  get titleWidget() {
+    return null;
+  }
   renderTitleWidget() {
     return (
       <Box>
-        <Header level={3}>{this.renderBreadcrumbs()}</Header>
-        <Header level={1}>{this.title}</Header>
+        <Box
+          sx={{
+            position: "fixed",
+            top: 0,
+            height: 60,
+            left: 0,
+            right: 0,
+            padding: 3,
+            background: "#eee",
+            zIndex: 2000,
+          }}
+        >
+          <Header level={3}>{this.renderBreadcrumbs()}</Header>
+          <Header level={1}>{this.title}</Header>
+        </Box>
+        {this.titleWidget}
       </Box>
     );
   }
@@ -80,8 +98,8 @@ export default class AbstractCustomPage extends Component {
       .concat([this.renderTitleWidget()], this.widgets)
       .map(function (widget, index) {
         return (
-          <Grid item key={index} sx={{ m: 2, p: 2 }}>
-            {widget}
+          <Grid item key={index}>
+            <Box sx={{ p: 1 }}>{widget}</Box>
           </Grid>
         );
       });
@@ -90,9 +108,9 @@ export default class AbstractCustomPage extends Component {
   render() {
     window.document.title = this.browserTitle;
     return (
-      <Box>
+      <Box sx={{ marginTop: 15, zIndex: 1000 }}>
         {this.renderDrawer()}
-        <Grid container spacing={2}>
+        <Grid container spacing={2} sx={{ m: 0.5 }}>
           {this.renderWidgets()}
         </Grid>
       </Box>

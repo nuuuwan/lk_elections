@@ -24,19 +24,22 @@ export default class AnalysisFloatingVotePage extends AbstractCustomPage {
     return "Floating Votes";
   }
 
+  get titleWidget() {
+    return <WikiSummaryView wikiPageName={"Swing_vote"} />;
+  }
+
   get widgets() {
-    let widgets = [<WikiSummaryView wikiPageName={"Swing_vote"} />];
     const { elections, edEnts, pdEnts, countryEnt, partyGroups } = this.state;
-    if (elections) {
-      const ents = [].concat(countryEnt, edEnts, pdEnts);
-      widgets.push(
-        <FloatingVoteAnalysisView
-          elections={elections}
-          ents={ents}
-          partyGroups={partyGroups}
-        />
-      );
+    if (!elections) {
+      return [];
     }
-    return widgets;
+    const ents = [].concat(countryEnt, edEnts, pdEnts);
+    return [
+      <FloatingVoteAnalysisView
+        elections={elections}
+        ents={ents}
+        partyGroups={partyGroups}
+      />,
+    ];
   }
 }

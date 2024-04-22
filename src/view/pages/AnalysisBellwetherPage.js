@@ -45,11 +45,16 @@ export default class AnalysisBellwetherPage extends AbstractCustomPage {
       .sort((a, b) => a.Diff - b.Diff);
   }
 
+  get titleWidget() {
+    return <WikiSummaryView wikiPageName={"Bellwether"} />;
+  }
+
   get widgets() {
     const { elections } = this.state;
     if (!elections) {
-      return null;
+      return [];
     }
+
     return [
       <SectionBox>
         <Header level={2}>Best to Worst Bellwethers</Header>

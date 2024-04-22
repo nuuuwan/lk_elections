@@ -50,20 +50,23 @@ export default class SparseMatrix {
   }
 
   getIdx(xKey, yKey, zKey) {
-    return this.dataList.reduce(function (idx, data) {
-      const x = data[xKey];
-      const y = data[yKey];
-      const z = data[zKey];
+    return this.dataList.reduce(
+      function (idx, data) {
+        const x = data[xKey];
+        const y = data[yKey];
+        const z = data[zKey];
 
-      const xScalar = this.toScalar(x);
-      const yScalar = this.toScalar(y);
+        const xScalar = this.toScalar(x);
+        const yScalar = this.toScalar(y);
 
-      if (!idx[yScalar]) {
-        idx[yScalar] = {};
-      }
-      idx[yScalar][xScalar] = z;
-      return idx;
-    }, {});
+        if (!idx[yScalar]) {
+          idx[yScalar] = {};
+        }
+        idx[yScalar][xScalar] = z;
+        return idx;
+      }.bind(this),
+      {}
+    );
   }
 
   getIdxOrdered(

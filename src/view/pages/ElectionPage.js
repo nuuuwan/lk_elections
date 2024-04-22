@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { Election } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
 import {
@@ -31,7 +31,7 @@ export default class ElectionPage extends AbstractCustomPage {
   get title() {
     const { election } = this.state;
     if (!election) {
-      return <CircularProgress />;
+      return null;
     }
     return <ElectionLink election={election} />;
   }
@@ -57,6 +57,21 @@ export default class ElectionPage extends AbstractCustomPage {
     );
   }
 
+  get titleWidget() {
+    const { election } = this.state;
+    if (!election) {
+      return null;
+    }
+    return (
+      <Box>
+        <Typography variant="body2" sx={{ color: "#888" }}>
+          {election.dateFormatted}
+        </Typography>
+        <WikiSummaryView wikiPageName={election.wikiPageName} />
+      </Box>
+    );
+  }
+
   get widgets() {
     const { partyGroups, countryEnt, election, prevElection, edEnts, pdEnts } =
       this.state;
@@ -65,12 +80,6 @@ export default class ElectionPage extends AbstractCustomPage {
     }
     const ents = [].concat([countryEnt], edEnts, pdEnts);
     return [
-      <Box>
-        <Typography variant="body2" sx={{ color: "#888" }}>
-          {election.dateFormatted}
-        </Typography>
-        <WikiSummaryView wikiPageName={election.wikiPageName} />
-      </Box>,
       <ElectoralSummaryView ent={countryEnt} elections={[election]} />,
 
       <SwingAnalysisForElectionView

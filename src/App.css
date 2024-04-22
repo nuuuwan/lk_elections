@@ -10,15 +10,18 @@ table {
   border-collapse: collapse;
 }
 
-td,
-th {
+td {
   font-weight: 300;
   border: 1px solid #eee;
-  padding: 2px;
+  padding: 3px;
 }
 
 th {
-  background: #eee;
+  font-weight: 300;
+  border: 1px solid #eee;
+  padding: 3px;
+
+  background: #fcfcfc;
   border: 1px solid #ddd;
 }
 

@@ -1,5 +1,3 @@
-import { CircularProgress } from "@mui/material";
-
 import AbstractCustomPage from "./AbstractCustomPage";
 import { EntLink, PartyGroupLink, PartyLink } from "../atoms";
 import {
@@ -44,7 +42,7 @@ export default class PartyGroupPage extends AbstractCustomPage {
   renderPartyList() {
     const { partyListForPartyGroup } = this.state;
     if (!partyListForPartyGroup) {
-      return <CircularProgress />;
+      return null;
     }
 
     const renderItem = function (party) {
@@ -60,6 +58,14 @@ export default class PartyGroupPage extends AbstractCustomPage {
     );
   }
 
+  get titleWidget() {
+    const { partyGroup } = this.state;
+    if (!partyGroup) {
+      return null;
+    }
+    return this.renderPartyList();
+  }
+
   get widgets() {
     const { partyGroup, elections, countryEnt, partyGroups, edEnts } =
       this.state;
@@ -67,7 +73,6 @@ export default class PartyGroupPage extends AbstractCustomPage {
       return [];
     }
     return [
-      this.renderPartyList(),
       <PartyGroupElectoralSummaryView
         partyGroup={partyGroup}
         elections={elections}

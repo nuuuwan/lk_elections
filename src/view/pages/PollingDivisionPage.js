@@ -44,7 +44,7 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     if (!pdEnt) {
       return pdID;
     }
-    return <EntLink ent={pdEnt} />;
+    return <EntLink ent={pdEnt} shortFormat={true} />;
   }
 
   get browserTitle() {
@@ -55,6 +55,13 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     return pdEnt.name;
   }
 
+  get titleWidget() {
+    const { pdEnt } = this.state;
+    if (!pdEnt) {
+      return null;
+    }
+    return <GeoMap geoID={pdEnt.id} />;
+  }
   get widgets() {
     const { pdEnt, edEnt, countryEnt, elections, pdEnts, partyGroups } =
       this.state;
@@ -64,15 +71,12 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     const entsSimilar = [pdEnt, edEnt, countryEnt];
     const entsAll = [].concat(pdEnts, [edEnt, countryEnt]);
 
-    return [].concat(
-      [<GeoMap geoID={pdEnt.id} />],
-      CommonEntAnalysisView.get(
-        pdEnt,
-        entsSimilar,
-        entsAll,
-        elections,
-        partyGroups
-      )
+    return CommonEntAnalysisView.get(
+      pdEnt,
+      entsSimilar,
+      entsAll,
+      elections,
+      partyGroups
     );
   }
 }

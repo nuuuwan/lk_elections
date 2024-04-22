@@ -16,24 +16,31 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     return "Sri Lanka";
   }
 
-  get widgets() {
-    let widgets = [<WikiSummaryView wikiPageName={"Elections_in_Sri_Lanka"} />];
-    const { countryEnt, elections, edEnts, partyGroups } = this.state;
-    if (countryEnt) {
-      widgets.push(<EntListView ents={edEnts} shortFormat={true} />);
+  get titleWidget() {
+    return <WikiSummaryView wikiPageName={"Elections_in_Sri_Lanka"} />;
+  }
 
-      const entsAll = [].concat(edEnts, [countryEnt]);
-      widgets = [].concat(
-        widgets,
-        CommonEntAnalysisView.get(
-          countryEnt,
-          entsAll,
-          entsAll,
-          elections,
-          partyGroups
-        )
-      );
+  get widgets() {
+    const { countryEnt, elections, edEnts, partyGroups } = this.state;
+    if (!countryEnt) {
+      return null;
     }
+
+    let widgets = [];
+    widgets.push(<EntListView ents={edEnts} shortFormat={true} />);
+
+    const entsAll = [].concat(edEnts, [countryEnt]);
+    widgets = [].concat(
+      widgets,
+      CommonEntAnalysisView.get(
+        countryEnt,
+        entsAll,
+        entsAll,
+        elections,
+        partyGroups
+      )
+    );
+
     return widgets;
   }
 }

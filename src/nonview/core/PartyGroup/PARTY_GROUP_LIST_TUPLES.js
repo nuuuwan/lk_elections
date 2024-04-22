@@ -9,7 +9,7 @@ const PARTY_GROUP_LIST_TUPLES = [
     "orange",
   ],
   ["Muslim", ["SLMC", "ACMC", "MNA", "NUA", "ACMC", "NC"], "teal"],
-  ["Sinhala-Buddhist", ["JHU", "SU", "OPPP"], "#f80"],
+  ["Sinhala", ["JHU", "SU", "OPPP"], "#f80"],
 ];
 
 export default PARTY_GROUP_LIST_TUPLES;

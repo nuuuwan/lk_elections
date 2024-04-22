@@ -33,7 +33,7 @@ function getDataList(ent, elections) {
 
 export default function ElectoralSummaryView({ ent, elections }) {
   return (
-    <SectionBox>
+    <SectionBox title="Electoral Summary">
       <Header level={2}>Electoral Summary</Header>
       <DataTableView dataList={getDataList(ent, elections)} />
     </SectionBox>

@@ -32,7 +32,6 @@ export default class Ent {
 
   get entType() {
     if (this.id === "NationalList") {
-      console.debug(this.id);
       return EntType.COUNTRY;
     }
     return EntType.fromID(this.id);

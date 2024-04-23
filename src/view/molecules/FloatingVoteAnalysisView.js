@@ -108,7 +108,6 @@ function getDescription(partyGroupList, elections, ents, focusSmallest) {
   if (focusSmallest) {
     sortedEnts.reverse();
   }
-  console.debug(sortedEnts);
 
   const firstEnt = sortedEnts[0];
   const infoList = AnalysisFloatingVote.getBaseAnalysisInfoForPartyGroupList(

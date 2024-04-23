@@ -19,7 +19,6 @@ export default class ElectionListView {
           />
         );
         if (election.electionType === "Parliamentary") {
-          console.debug("showing ResultsSeatsTableView");
           widgets.push(
             <ResultsSeatsTableView election={election} ents={ents} />
           );

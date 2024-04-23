@@ -4,7 +4,7 @@ import { IconButton } from "@mui/material";
 export default function ToggleButton({ handleToggleXY }) {
   return (
     <IconButton onClick={handleToggleXY}>
-      <ScreenRotationIcon sx={{ fontSize: "80%" }} />
+      <ScreenRotationIcon sx={{ fontSize: "80%", opacity: 0.25 }} />
     </IconButton>
   );
 }

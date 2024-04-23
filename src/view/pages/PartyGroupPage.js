@@ -87,7 +87,7 @@ export default class PartyGroupPage extends AbstractCustomPage {
       <FloatingVoteAnalysisView
         partyGroupList={partyGroupList}
         elections={elections}
-        ents={[].concat([countryEnt], edEnts)}
+        ents={[countryEnt, ...edEnts]}
       />,
     ];
   }

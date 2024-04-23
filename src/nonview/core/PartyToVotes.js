@@ -2,7 +2,7 @@ import Summary from "./Summary.js";
 import { MathX } from "../base";
 
 export default class PartyToVotes {
-  static NON_PARTY_KEYS = [].concat(Summary.KEYS, "entity_id");
+  static NON_PARTY_KEYS = [...Summary.KEYS, "entity_id"];
   constructor(partyToVotes) {
     this.partyToVotes = partyToVotes;
   }

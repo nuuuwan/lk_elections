@@ -3,6 +3,7 @@ import AnalysisBellwether from "./AnalysisBellwether";
 import AnalysisFloatingVote from "./AnalysisFloatingVote";
 import Comparator from "./Comparator";
 import DataTable from "./DataTable";
+import DemographicGroup from "./DemographicGroup";
 import Demographics from "./Demographics";
 import Election from "./Election";
 import GenericStore from "./GenericStore";
@@ -21,6 +22,7 @@ export {
   AnalysisFloatingVote,
   Comparator,
   DataTable,
+  DemographicGroup,
   Demographics,
   Election,
   GenericStore,

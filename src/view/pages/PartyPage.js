@@ -28,9 +28,9 @@ export default class PartyPage extends AbstractCustomPage {
     if (!party) {
       return null;
     }
-    return [].concat(
-      [<EntLink ent={countryEnt} shortFormat={true} />],
-      partyGroupListForParty.map(function (partyGroup, iPartyGroup) {
+    return [
+      <EntLink ent={countryEnt} shortFormat={true} />,
+      ...partyGroupListForParty.map(function (partyGroup, iPartyGroup) {
         return (
           <PartyGroupLink
             key={"partyGroup" + iPartyGroup}
@@ -38,8 +38,8 @@ export default class PartyPage extends AbstractCustomPage {
           />
         );
       }),
-      [<PartyLink partyID={party.id} />]
-    );
+      <PartyLink partyID={party.id} />,
+    ];
   }
   get title() {
     const { partyID } = this.state;

@@ -59,12 +59,12 @@ export default class ElectionPage extends AbstractCustomPage {
     if (!elections) {
       return null;
     }
-    return [].concat(
-      [<EntLink ent={countryEnt} shortFormat={true} />],
-      [prevElection, nextElection]
+    return [
+      <EntLink ent={countryEnt} shortFormat={true} />,
+      ...[prevElection, nextElection]
         .filter((x) => !!x)
-        .map((e) => <ElectionLink key={e.date} election={e} />)
-    );
+        .map((e) => <ElectionLink key={e.date} election={e} />),
+    ];
   }
 
   get titleWidget() {
@@ -98,7 +98,7 @@ export default class ElectionPage extends AbstractCustomPage {
     if (election.isFuture) {
       return [];
     }
-    const ents = [].concat([countryEnt], edEnts, pdEnts);
+    const ents = [countryEnt, ...edEnts, ...pdEnts];
     return [
       <ElectoralSummaryView ent={countryEnt} elections={[election]} />,
 

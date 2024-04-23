@@ -32,7 +32,7 @@ export default class AnalysisBellwetherPage extends AbstractCustomPage {
 
   getDataList() {
     const { pdEnts, edEnts, elections } = this.state;
-    const ents = [].concat(edEnts, pdEnts);
+    const ents = [...edEnts, ...pdEnts];
 
     return ents
       .map((ent) => {

@@ -84,7 +84,7 @@ export default class PollingDivisionPage extends AbstractCustomPage {
       return [];
     }
     const entsSimilar = [pdEnt];
-    const entsAll = [].concat(pdEnts, [edEnt, countryEnt]);
+    const entsAll = [...pdEnts, edEnt, countryEnt];
 
     return CommonEntAnalysisView.get({
       ent: pdEnt,

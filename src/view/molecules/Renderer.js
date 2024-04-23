@@ -1,6 +1,11 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { Ent, Format, Fraction, PercentagePoint } from "../../nonview/base";
-import { Election, Party, PartyGroup } from "../../nonview/core";
+import {
+  DemographicGroup,
+  Election,
+  Party,
+  PartyGroup,
+} from "../../nonview/core";
 
 import {
   ElectionLink,
@@ -24,6 +29,14 @@ export default class Renderer {
 
     if (value instanceof PartyGroup) {
       return <PartyGroupLink partyGroupID={value.id} />;
+    }
+
+    if (value instanceof DemographicGroup) {
+      return (
+        <Typography component="span" sx={{ color: value.color }}>
+          {value.name}
+        </Typography>
+      );
     }
 
     return null;

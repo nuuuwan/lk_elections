@@ -53,8 +53,28 @@ export default class Demographics {
     return parseInt(this.dEthnicity["total_population"]);
   }
 
+  get groupToN() {
+    return Object.fromEntries(
+      Object.entries({
+        sinhala: this.nSinhala,
+        tamil: this.nTamil,
+        muslim: this.nMuslim,
+        buddhist: this.nBuddhist,
+        hindu: this.nHindu,
+        islam: this.nIslam,
+        christian: this.nChristian,
+      }).sort(function (a, b) {
+        return b[1] - a[1];
+      })
+    );
+  }
+
+  get largestGroupID() {
+    return Object.keys(this.groupToN)[0];
+  }
+
   // Loaders
-  async load(religionIdx, ethnicityIdx) {
+  load(religionIdx, ethnicityIdx) {
     if (this.isLoaded) {
       return;
     }

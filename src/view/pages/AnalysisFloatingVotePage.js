@@ -34,7 +34,7 @@ export default class AnalysisFloatingVotePage extends AbstractCustomPage {
     if (!elections) {
       return [];
     }
-    const ents = [].concat(countryEnt, edEnts, pdEnts);
+    const ents = [countryEnt, ...edEnts, ...pdEnts];
     return [
       <FloatingVoteAnalysisView
         elections={elections}

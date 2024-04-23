@@ -3,6 +3,7 @@ import { Fraction, SparseMatrix } from "../../nonview/base";
 
 import MatrixView from "./MatrixView";
 import { SectionBox } from "../atoms";
+import { DemographicGroup } from "../../nonview/core";
 
 function getSparseMatrix(demographicsList) {
   return new SparseMatrix(
@@ -14,27 +15,27 @@ function getSparseMatrix(demographicsList) {
         return b.n - a.n;
       })
       .reduce(function (dataList, demographics) {
-        const fractionsIdx = {
-          Sinhalese: demographics.nSinhala,
-          Tamil: demographics.nTamil,
-          Muslim: demographics.nMuslim,
-          Buddhist: demographics.nBuddhist,
-          Hindu: demographics.nHindu,
-          Islam: demographics.nIslam,
-          Christian: demographics.nChristian,
-        };
-        return Object.entries(fractionsIdx)
-          .sort(function (a, b) {
-            return b[1] - a[1];
-          })
-          .reduce(function (dataList, [demographicGroup, nDemographicGroup]) {
-            dataList.push({
-              Region: demographics.ent,
-              DemographicGroup: demographicGroup,
-              Fraction: new Fraction(nDemographicGroup, demographics.n),
-            });
-            return dataList;
-          }, dataList);
+        const largestGroupID = demographics.largestGroupID;
+        return Object.entries(demographics.groupToN).reduce(function (
+          dataList,
+          [demographicGroupID, nDemographicGroup]
+        ) {
+          const demographicGroup = new DemographicGroup(demographicGroupID);
+
+          dataList.push({
+            Region: demographics.ent,
+            DemographicGroup: demographicGroup,
+            Fraction: new Fraction(
+              nDemographicGroup,
+              demographics.n,
+              demographicGroupID === largestGroupID
+                ? demographicGroup.color
+                : null
+            ),
+          });
+          return dataList;
+        },
+        dataList);
       }, [])
   );
 }

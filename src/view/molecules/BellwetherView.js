@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import { Format, MathX } from "../../nonview/base";
 import { Party, AnalysisBellwether } from "../../nonview/core";
 

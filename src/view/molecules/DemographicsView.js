@@ -117,7 +117,7 @@ function getDescription(demographicsList, demographicType, focusSmallest) {
 
   return (
     <Box component="span">
-      <EntLink ent={demographics.ent} /> {majorityDescription}{" "}
+      The <EntLink ent={demographics.ent} /> {majorityDescription}{" "}
       {minorityDescription}.
     </Box>
   );

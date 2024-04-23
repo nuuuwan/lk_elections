@@ -1,9 +1,16 @@
 import { AnalysisBellwether } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
-import { SectionBox, WikiSummaryView, EntLink } from "../atoms";
+import {
+  SectionBox,
+  WikiSummaryView,
+  EntLink,
+  Essay,
+  CommaListView,
+} from "../atoms";
 
 import { DataTableView } from "../molecules";
-import { Box } from "@mui/material";
+
+import { Format } from "../../nonview/base";
 
 export default class AnalysisBellwetherPage extends AbstractCustomPage {
   static getPageID() {
@@ -53,21 +60,31 @@ export default class AnalysisBellwetherPage extends AbstractCustomPage {
     return <WikiSummaryView wikiPageName={"Bellwether"} />;
   }
 
+  getDescription(dataList) {
+    const best = dataList[0];
+    return (
+      <Essay>
+        <>
+          The <EntLink ent={best.Region} /> is the best Bellwether Polling
+          Division in Sri Lanka, both in terms of how its results match (
+          {best.Matches}) and their difference from ({Format.percent(best.Diff)}
+          ) the nationwide result.
+        </>
+      </Essay>
+    );
+  }
+
   get widgets() {
     const { elections } = this.state;
     if (!elections) {
       return [];
     }
 
-    const description = (
-      <Box>
-        Bellwether analysis for various regions, across historical elections.
-      </Box>
-    );
-
+    const dataList = this.getDataList();
+    const description = this.getDescription(dataList);
     return [
-      <SectionBox title="Best and Worst Bellwethers" description={description}>
-        <DataTableView dataList={this.getDataList()} />
+      <SectionBox title="Best Bellwethers" description={description}>
+        <DataTableView dataList={dataList} />
       </SectionBox>,
     ];
   }

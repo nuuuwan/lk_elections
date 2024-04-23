@@ -21,12 +21,9 @@ export default class CommonEntAnalysisView {
     return [
       <DemographicsView
         demographicsList={demographicsList}
-        demographicType="ethnicity"
+        demographicType="ethnicity-and-religion"
       />,
-      <DemographicsView
-        demographicsList={demographicsList}
-        demographicType="religion"
-      />,
+
       <ElectoralSummaryView ent={ent} elections={elections} />,
       <SimilarRegionsView
         ent={ent}

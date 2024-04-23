@@ -16,6 +16,9 @@ function getSparseMatrix(demographicsList, demographicType) {
         return b.n - a.n;
       })
       .reduce(function (dataList, demographics) {
+        if (demographics.noData) {
+          return dataList;
+        }
         const largestGroupID = demographics.getLargestGroup(demographicType);
         return Object.entries(demographics.getGroupToN(demographicType)).reduce(
           function (dataList, [demographicGroupID, nDemographicGroup]) {
@@ -41,7 +44,17 @@ function getSparseMatrix(demographicsList, demographicType) {
 }
 
 function getDescription(demographicsList, demographicType) {
-  const demographics = demographicsList[0];
+  const demographics = demographicsList
+    .filter(function (a) {
+      return !a.noData;
+    })
+    .sort(function (a, b) {
+      return b.n - a.n;
+    })[0];
+  if (demographics.noData) {
+    return null;
+  }
+
   const largestGroupID = demographics.getLargestGroup(demographicType);
   const largestGroup = new DemographicGroup(largestGroupID);
   const groupToN = demographics.getGroupToN(demographicType);
@@ -61,9 +74,9 @@ function getDescription(demographicsList, demographicType) {
   let majorityDescription;
   if (largestGroupP > 0.5) {
     let majorityLabel = "majority";
-    if (largestGroupP > 0.95) {
+    if (largestGroupP > 0.9) {
       majorityLabel = " almost entirely ";
-    } else if (largestGroupP > 0.8) {
+    } else if (largestGroupP > 0.75) {
       majorityLabel = " predominently ";
     }
 
@@ -83,14 +96,14 @@ function getDescription(demographicsList, demographicType) {
   if (sigMinorityGroupIDs.length > 0) {
     minorityDescription = (
       <Box component="span">
-        , with significant{" "}
+        , with sizable{" "}
         <CommaListView>
           {sigMinorityGroupIDs.map(function (groupID) {
             const group = new DemographicGroup(groupID);
             const groupP = groupToN[groupID] / total;
 
             return (
-              <Box component="span">
+              <Box component="span" key={groupID}>
                 {Renderer.formatCellValueObject(group)} (
                 {Format.percent(groupP)})
               </Box>
@@ -114,6 +127,9 @@ export default function DemographicsView({
   demographicsList,
   demographicType,
 }) {
+  if (demographicsList.length === 1 && demographicsList[0].noData) {
+    return null;
+  }
   const title = Format.titleCase(demographicType);
   const description = getDescription(demographicsList, demographicType);
   const sparseMatrix = getSparseMatrix(demographicsList, demographicType);

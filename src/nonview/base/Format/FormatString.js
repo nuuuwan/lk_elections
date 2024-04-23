@@ -3,7 +3,10 @@ let FormatString = {
     if (!x) {
       return null;
     }
-    return x.substring(0, 1).toUpperCase() + x.substring(1);
+    return x
+      .split("-")
+      .map((x) => x.charAt(0).toUpperCase() + x.slice(1))
+      .join(" ");
   },
 };
 

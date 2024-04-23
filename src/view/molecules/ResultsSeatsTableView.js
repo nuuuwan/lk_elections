@@ -1,15 +1,19 @@
 import { Box } from "@mui/material";
-import { SparseMatrix } from "../../nonview/base";
+import { EntType, SparseMatrix } from "../../nonview/base";
 import { Party, Seats } from "../../nonview/core";
 
 import { ElectionLink, SectionBox } from "../atoms";
 import { MatrixView } from "../molecules";
 
 function getSparseMatrix(election, ents) {
+  const sortedValidEnts = election
+    .sortEntsByValid(ents)
+    .filter((ent) => ent.entType !== EntType.PD);
+
   let dataListParts = [];
   const seats = new Seats(election);
   let partyToSeatsAll = {};
-  election.sortEntsByValid(ents).forEach(function (ent) {
+  sortedValidEnts.forEach(function (ent) {
     const partyToSeats = seats.getPartyToSeats(ent.id);
     if (!partyToSeats) {
       return null;
@@ -28,12 +32,14 @@ function getSparseMatrix(election, ents) {
   });
 
   let dataListSum = [];
-  for (let [partyID, seats] of Object.entries(partyToSeatsAll)) {
-    dataListSum.push({
-      Region: "Aggregate",
-      Party: Party.fromID(partyID),
-      Seats: seats,
-    });
+  if (sortedValidEnts.length > 1) {
+    for (let [partyID, seats] of Object.entries(partyToSeatsAll)) {
+      dataListSum.push({
+        Region: "Aggregate",
+        Party: Party.fromID(partyID),
+        Seats: seats,
+      });
+    }
   }
 
   return new SparseMatrix([...dataListSum, ...dataListParts]);
@@ -48,6 +54,9 @@ function getDescription(election, ents) {
 }
 
 export default function ResultsSeatsTableView({ election, ents }) {
+  if (ents.length === 1 && ents[0].entType === EntType.PD) {
+    return null;
+  }
   const sparseMatrix = getSparseMatrix(election, ents);
 
   return (

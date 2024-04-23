@@ -20,9 +20,6 @@ function getDataList(party, elections) {
 
       let position =
         Object.keys(partyToVotes.partyToVotes).indexOf(party.id) + 1;
-      if (position === 1) {
-        position = "✔️";
-      }
 
       const fraction = new Fraction(votes, Math.round(votes / pVotes, 0));
 
@@ -38,7 +35,7 @@ function getDataList(party, elections) {
 function getDescription(party, elections, dataList) {
   const nAll = elections.length;
   const n = dataList.length;
-  const best = dataList.sort((a, b) => b.fraction.p - a.fraction.p)[0];
+  const best = dataList.sort((a, b) => b.Votes.p - a.Votes.p)[0];
   return (
     <Essay>
       <>

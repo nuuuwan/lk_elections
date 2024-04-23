@@ -98,7 +98,7 @@ export default class ElectionPage extends AbstractCustomPage {
     if (election.isFuture) {
       return [];
     }
-    const ents = [countryEnt, ...edEnts, ...pdEnts];
+    const ents = [countryEnt, ...edEnts];
     return [
       <ElectoralSummaryView ent={countryEnt} elections={[election]} />,
 

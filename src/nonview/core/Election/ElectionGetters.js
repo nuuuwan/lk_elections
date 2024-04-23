@@ -18,13 +18,19 @@ const ElectionStats = {
   },
 
   sortEntsByValid(ents) {
-    return ents.sort(
-      function (a, b) {
-        const vA = this.getResults(a.id).summary.valid;
-        const vB = this.getResults(b.id).summary.valid;
-        return vB - vA;
-      }.bind(this)
-    );
+    return ents
+      .filter(
+        function (a) {
+          return this.getResults(a.id);
+        }.bind(this)
+      )
+      .sort(
+        function (a, b) {
+          const vA = this.getResults(a.id).summary.valid;
+          const vB = this.getResults(b.id).summary.valid;
+          return vB - vA;
+        }.bind(this)
+      );
   },
 };
 

@@ -41,8 +41,6 @@ const ElectionStats = {
       .map((r) => r.summary);
     return Summary.aggregate(summaryList);
   },
-
-  
 };
 
 export default ElectionStats;

@@ -7,14 +7,12 @@ export default function SectionBox({ children, title, description }) {
   return (
     <Box sx={{ marginBottom: 3 }}>
       <Header level={2}>{title}</Header>
-      <Typography
-        variant="body1"
-        sx={{ maxWidth: 480, paddingBottom: 3 }}
+      <Box
+        sx={{ maxWidth: 600, paddingBottom: 3 }}
         id="lk-elections-widget-text"
-        component="span"
       >
         {description}
-      </Typography>
+      </Box>
       {children}
     </Box>
   );

@@ -1,7 +1,14 @@
+import { Box } from "@mui/material";
 import { Ent, Format, PercentagePoint, SparseMatrix } from "../../nonview/base";
 import Swing from "../../nonview/core/Swing";
 
-import { ElectionLink, Essay, PartyGroupLink, SectionBox } from "../atoms";
+import {
+  CommaListView,
+  ElectionLink,
+  Essay,
+  PartyGroupLink,
+  SectionBox,
+} from "../atoms";
 
 import { MatrixView } from "../molecules";
 
@@ -36,11 +43,13 @@ function getDescription(partyGroupList, election, prevElection, ents) {
     prevElection,
     partyGroupList,
     [Ent.LK]
-  ).sort(function (a, b) {
-    return b.swing - a.swing;
-  });
-  const maxSwing = swingTuples[0];
-  const minSwing = swingTuples[swingTuples.length - 1];
+  )
+    .filter(function (a) {
+      return Math.abs(a.swing) > 0.01;
+    })
+    .sort(function (a, b) {
+      return b.swing - a.swing;
+    });
 
   return (
     <Essay>
@@ -50,10 +59,18 @@ function getDescription(partyGroupList, election, prevElection, ents) {
         <ElectionLink election={prevElection} /> Election.
       </>
       <>
-        Nationwide, there was a {Format.percentagePoint(maxSwing.swing)} swing
-        for the {<PartyGroupLink partyGroupID={maxSwing.partyGroup.id} />}, and
-        a {Format.percentagePoint(minSwing.swing)} swing for the{" "}
-        {<PartyGroupLink partyGroupID={minSwing.partyGroup.id} />}.
+        Nationwide, there was{" "}
+        <CommaListView>
+          {swingTuples.map(function ({ partyGroup, swing }) {
+            return (
+              <Box key={partyGroup.id} component="span">
+                a <strong>{Format.percentagePoint(swing)}</strong> swing for the{" "}
+                {<PartyGroupLink partyGroupID={partyGroup.id} />}
+              </Box>
+            );
+          })}
+        </CommaListView>
+        .
       </>
     </Essay>
   );

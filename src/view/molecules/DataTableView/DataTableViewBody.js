@@ -25,11 +25,6 @@ export default function DataTableViewBody({
           />
         );
       })}
-      {!showExpanded ? (
-        <tr>
-          <td className="no-expand-info">...</td>
-        </tr>
-      ) : null}
     </tbody>
   );
 }

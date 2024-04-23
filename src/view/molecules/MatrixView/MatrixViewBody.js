@@ -36,11 +36,6 @@ export default function MatrixViewBody({
           />
         );
       })}
-      {!showExpanded ? (
-        <tr>
-          <td className="no-expand-info">...</td>
-        </tr>
-      ) : null}
     </tbody>
   );
 }

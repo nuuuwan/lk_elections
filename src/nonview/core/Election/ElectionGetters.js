@@ -4,7 +4,6 @@ const ElectionStats = {
       return null;
     }
 
-    console.debug(ents);
     const largestEnt = this.sortEntsByValid(ents)[0];
 
     const result = this.getResults(largestEnt.id);

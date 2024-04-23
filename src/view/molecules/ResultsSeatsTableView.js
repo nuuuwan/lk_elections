@@ -6,14 +6,10 @@ import { ElectionLink, SectionBox } from "../atoms";
 import { MatrixView } from "../molecules";
 
 function getSparseMatrix(election, ents) {
-  const sortedValidEnts = election
-    .sortEntsByValid(ents)
-    .filter((ent) => ent.entType !== EntType.PD);
-
   let dataListParts = [];
   const seats = new Seats(election);
   let partyToSeatsAll = {};
-  sortedValidEnts.forEach(function (ent) {
+  ents.forEach(function (ent) {
     const partyToSeats = seats.getPartyToSeats(ent.id);
     if (!partyToSeats) {
       return null;
@@ -32,7 +28,7 @@ function getSparseMatrix(election, ents) {
   });
 
   let dataListSum = [];
-  if (sortedValidEnts.length > 1) {
+  if (ents.length > 1) {
     for (let [partyID, seats] of Object.entries(partyToSeatsAll)) {
       dataListSum.push({
         Region: "Aggregate",
@@ -54,13 +50,13 @@ function getDescription(election, ents) {
 }
 
 export default function ResultsSeatsTableView({ election, ents }) {
-  for (let ent of ents) {
-    if (ent.entType === EntType.PD) {
-      return null;
-    }
+  const sortedValidEnts = election
+    .sortEntsByValid(ents)
+    .filter((ent) => ent.entType !== EntType.PD);
+  if (sortedValidEnts.length === 0) {
+    return null;
   }
-
-  const sparseMatrix = getSparseMatrix(election, ents);
+  const sparseMatrix = getSparseMatrix(election, sortedValidEnts);
 
   return (
     <SectionBox
@@ -70,7 +66,7 @@ export default function ResultsSeatsTableView({ election, ents }) {
           {" (Seats)"}
         </Box>
       }
-      description={getDescription(election, ents)}
+      description={getDescription(election, sortedValidEnts)}
     >
       <MatrixView
         sparseMatrix={sparseMatrix}

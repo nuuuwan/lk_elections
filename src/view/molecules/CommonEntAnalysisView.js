@@ -38,6 +38,7 @@ export default class CommonEntAnalysisView {
         partyGroupList={partyGroupList}
         elections={elections}
         ents={entsSimilar}
+        focusSmallest={demographicsViewFocusSmallest}
       />,
       <SwingAnalysisForEntView
         partyGroupList={partyGroupList}

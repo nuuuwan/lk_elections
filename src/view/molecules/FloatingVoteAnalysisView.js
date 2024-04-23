@@ -102,8 +102,15 @@ function getSparseMatrix(partyGroupList, elections, ents) {
   }, new SparseMatrix());
 }
 
-function getDescription(partyGroupList, elections, ents) {
-  const firstEnt = ents[0];
+function getDescription(partyGroupList, elections, ents, focusSmallest) {
+  const lastElection = Election.filterCompleted(elections).sort()[0];
+  let sortedEnts = lastElection.sortEntsByValid(ents);
+  if (focusSmallest) {
+    sortedEnts.reverse();
+  }
+  console.debug(sortedEnts);
+
+  const firstEnt = sortedEnts[0];
   const infoList = AnalysisFloatingVote.getBaseAnalysisInfoForPartyGroupList(
     elections,
     firstEnt,
@@ -146,13 +153,19 @@ export default function FloatingVoteAnalysisView({
   partyGroupList,
   elections,
   ents,
+  focusSmallest,
 }) {
   ents = Election.filterCompleted(elections)[0].sortEntsByValid(ents);
   const sparseMatrix = getSparseMatrix(partyGroupList, elections, ents);
   return (
     <SectionBox
       title="Base/Floating Vote Analysis"
-      description={getDescription(partyGroupList, elections, ents)}
+      description={getDescription(
+        partyGroupList,
+        elections,
+        ents,
+        focusSmallest
+      )}
     >
       <MatrixView
         sparseMatrix={sparseMatrix}

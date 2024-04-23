@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
-import { Fraction } from "../../nonview/base";
-import { Party } from "../../nonview/core";
-import { EntLink, SectionBox } from "../atoms";
+import { Format, Fraction } from "../../nonview/base";
+import { Election, Party } from "../../nonview/core";
+import { ElectionLink, EntLink, Essay, SectionBox } from "../atoms";
 import { DataTableView } from "../molecules";
 
 function getDataList(ent, elections) {
@@ -33,10 +33,24 @@ function getDataList(ent, elections) {
 }
 
 function getDescription(ent, elections) {
+  const { pTurnout, pRejected } = Election.aggregateSummaryForEnt(
+    elections,
+    ent
+  );
+  const lastElection = Election.filterCompleted(elections).sort().reverse()[0];
+  const electors = lastElection.getResults(ent.id).summary.electors;
   return (
-    <Box>
-      Election Results for the <EntLink ent={ent} shortName={false} />.
-    </Box>
+    <Essay>
+      <>
+        Results for the <EntLink ent={ent} shortName={false} />.
+      </>
+      <>
+        As of the <ElectionLink election={lastElection} />, {ent.name} had{" "}
+        {Format.int(electors)} registered voters. Avg. Turnout was{" "}
+        {Format.percent(pTurnout)}. Avg. Rejected Votes was{" "}
+        {Format.percent(pRejected)}.
+      </>
+    </Essay>
   );
 }
 

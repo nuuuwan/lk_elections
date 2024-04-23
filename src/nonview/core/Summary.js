@@ -40,6 +40,25 @@ export default class Summary {
     );
   }
 
+  static aggregate(summaryList) {
+    let summary = {};
+    for (const key of Summary.KEYS) {
+      summary[key] = 0;
+    }
+
+    for (const s of summaryList) {
+      for (const key of Summary.KEYS) {
+        summary[key] += s[key];
+      }
+    }
+    return new Summary(
+      summary["valid"],
+      summary["rejected"],
+      summary["polled"],
+      summary["electors"]
+    );
+  }
+
   get pTurnout() {
     return this.polled / this.electors;
   }

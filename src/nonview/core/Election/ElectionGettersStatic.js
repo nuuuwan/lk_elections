@@ -1,3 +1,5 @@
+import Summary from "../Summary";
+
 const ElectionStats = {
   getNextAndPrevious(elections, election) {
     const sortedElections = elections.sort().reverse();
@@ -30,6 +32,14 @@ const ElectionStats = {
       election
     );
     return prevElection;
+  },
+
+  aggregateSummaryForEnt(elections, ent) {
+    const summaryList = elections
+      .map((e) => e.getResults(ent.id))
+      .filter((r) => r !== null)
+      .map((r) => r.summary);
+    return Summary.aggregate(summaryList);
   },
 };
 

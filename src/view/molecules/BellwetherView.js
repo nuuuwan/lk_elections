@@ -43,15 +43,12 @@ function getDescription(elections, ent) {
   return (
     <Essay>
       <>
-        Election Results in the <EntLink ent={ent} shortName={false} />,
-        compared to the final result nationwide.
+        In the last {n} elections, the <EntLink ent={ent} shortName={false} />
+        {"'s "}
+        result matched the nationwide result, in <strong>{nMatch}</strong>{" "}
+        elections, making it a <strong>{bellwetherType}</strong> Bellwether.
       </>
-      <>
-        Of the last {n} elections, the {ent.name} Result matches the nationwide
-        result in <strong>{nMatch}</strong> elections, making it a{" "}
-        <strong>{bellwetherType}</strong> Bellwether. Party results on average
-        vary by {Format.percent(meanError)}.
-      </>
+      <>Party results on average vary by {Format.percent(meanError)}.</>
     </Essay>
   );
 }

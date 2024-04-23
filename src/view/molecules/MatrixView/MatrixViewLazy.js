@@ -86,7 +86,7 @@ export default function MatrixViewLazy({ sparseMatrix, zKey, xKey, yKey }) {
   }
   if (!hasAutoToggled) {
     const nCols = Object.keys(Object.values(idx)[0]).length;
-    if (nCols > nRows * 1.5) {
+    if (nCols > nRows * 1.333) {
       handleToggleXY();
       setHasAutoToggled(true);
     }

@@ -19,19 +19,17 @@ function getDescription(elections, ent, otherEnts, dataList) {
   return (
     <Essay>
       <>
-        Election Results in the <EntLink ent={ent} /> compared to other regions
-      </>
-      <>
+        In voting behaviour, the <EntLink ent={ent} /> was most similar to{" "}
         <CommaListView>
           {closestEnts.map(function (ent, iEnt) {
             return (
               <Box component="span" key={"item-" + iEnt}>
-                <EntLink ent={ent} shortFormat={true} />
+                {"the "} <EntLink ent={ent} />
               </Box>
             );
           })}
         </CommaListView>
-        had the closest in voting behaviour.
+        .
       </>
     </Essay>
   );

@@ -31,6 +31,10 @@ export default class Ent {
   }
 
   get entType() {
+    if (this.id === "NationalList") {
+      console.debug(this.id);
+      return EntType.COUNTRY;
+    }
     return EntType.fromID(this.id);
   }
 
@@ -39,6 +43,9 @@ export default class Ent {
   }
 
   get shortName() {
+    if (this.id === "LK") {
+      return "Country";
+    }
     return this.name + " " + this.entType.shortName;
   }
 

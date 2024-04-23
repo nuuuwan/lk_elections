@@ -53,12 +53,25 @@ export default class Demographics {
     return parseInt(this.dEthnicity["total_population"]);
   }
 
-  get groupToN() {
+  get ethnicGroupToN() {
     return Object.fromEntries(
       Object.entries({
         sinhala: this.nSinhala,
         tamil: this.nTamil,
         muslim: this.nMuslim,
+      }).sort(function (a, b) {
+        return b[1] - a[1];
+      })
+    );
+  }
+
+  get largestEthnicGroupID() {
+    return Object.keys(this.ethnicGroupToN)[0];
+  }
+
+  get religiousGroupToN() {
+    return Object.fromEntries(
+      Object.entries({
         buddhist: this.nBuddhist,
         hindu: this.nHindu,
         islam: this.nIslam,
@@ -69,8 +82,28 @@ export default class Demographics {
     );
   }
 
-  get largestGroupID() {
-    return Object.keys(this.groupToN)[0];
+  get largestReligiousGroupID() {
+    return Object.keys(this.religiousGroupToN)[0];
+  }
+
+  getGroupToN(demographicType) {
+    if (demographicType === "ethnicity") {
+      return this.ethnicGroupToN;
+    }
+    if (demographicType === "religion") {
+      return this.religiousGroupToN;
+    }
+    throw new Error(`Unknown demographicType: ${demographicType}`);
+  }
+
+  getLargestGroup(demographicType) {
+    if (demographicType === "ethnicity") {
+      return this.largestEthnicGroupID;
+    }
+    if (demographicType === "religion") {
+      return this.largestReligiousGroupID;
+    }
+    throw new Error(`Unknown demographicType: ${demographicType}`);
   }
 
   // Loaders

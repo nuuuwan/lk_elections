@@ -10,7 +10,16 @@ export default function LinkContext({ context, children }) {
     URLContext.refresh();
   };
   return (
-    <Box sx={{ cursor: "pointer" }} onClick={onClick} component={"span"}>
+    <Box
+      sx={{
+        cursor: "pointer",
+        background: "#00000008",
+        borderRadius: 2,
+        padding: 0.5,
+      }}
+      onClick={onClick}
+      component={"span"}
+    >
       {children}
     </Box>
   );

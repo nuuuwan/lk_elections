@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 
 export default function Essay({ children }) {
+  children = Array.isArray(children) ? children : [children];
   return (
     <Box>
       {children.map(function (child, iChild) {

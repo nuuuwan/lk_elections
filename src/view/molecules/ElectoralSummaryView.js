@@ -52,13 +52,10 @@ function getDescription(ent, elections) {
   return (
     <Essay>
       <>
-        Results for the <EntLink ent={ent} shortName={false} />.
-      </>
-      <>
-        As of the <ElectionLink election={lastElection} />, {ent.name} had{" "}
-        {Format.int(electors)} registered voters. Avg. Turnout was{" "}
-        {Format.percent(pTurnout)}. Avg. Rejected Votes was{" "}
-        {Format.percent(pRejected)}.
+        As of the <ElectionLink election={lastElection} />, the{" "}
+        <EntLink ent={ent} shortName={false} /> had {Format.int(electors)}{" "}
+        registered voters. Avg. Turnout was {Format.percent(pTurnout)}. Avg.
+        Rejected Votes was {Format.percent(pRejected)}.
       </>
     </Essay>
   );

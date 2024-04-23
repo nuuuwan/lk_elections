@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { Format, Fraction, SparseMatrix } from "../../nonview/base";
+import { Format, Fraction, MathX, SparseMatrix } from "../../nonview/base";
 import { Election } from "../../nonview/core";
 import AnalysisFloatingVote from "../../nonview/core/AnalysisFloatingVote";
 
@@ -108,25 +108,36 @@ function getDescription(partyGroupList, elections, ents) {
     elections,
     firstEnt,
     partyGroupList
-  ).filter((a) => a.windowBase > 0.025);
+  );
+  const displayInfoList = infoList.filter((a) => a.windowBase > 0.05);
+  const pFloating = 1 - MathX.sum(infoList.map((x) => x.windowBase));
+  const maxInfo = displayInfoList[0];
+  const leanType = AnalysisFloatingVote.getLeanType(maxInfo.windowBase);
 
   return (
     <Essay>
-      <>Base vote for each party group in each region.</>
       <>
-        In <EntLink ent={firstEnt} shortFormat={true} />, party bases were{" "}
+        In the <EntLink ent={firstEnt} shortFormat={true} />, party bases were{" "}
         <CommaListView>
-          {infoList.map(function ({ partyGroup, windowBase }, i) {
+          {displayInfoList.map(function ({ partyGroup, windowBase }, i) {
+            const leanTypeForPartyGroup =
+              AnalysisFloatingVote.getLeanTypeForPartyGroup(
+                windowBase,
+                pFloating
+              );
             return (
               <Box key={"party-group" + i} component="span">
-                <PartyGroupLink partyGroupID={partyGroup.id} />
-                {` (${Format.percent(windowBase)})`}
+                {Format.percent(windowBase)}
+                {" for "} <PartyGroupLink partyGroupID={partyGroup.id} />
+                {leanTypeForPartyGroup}
               </Box>
             );
           })}
         </CommaListView>
-        .
+        , making it a "{leanType + " "}
+        <PartyGroupLink partyGroupID={maxInfo.partyGroup.id} />" region.
       </>
+      <>The Floating Vote is {Format.percent(pFloating)}.</>
     </Essay>
   );
 }

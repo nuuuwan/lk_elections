@@ -6,22 +6,37 @@ import { ElectionLink, SectionBox } from "../atoms";
 import { MatrixView } from "../molecules";
 
 function getSparseMatrix(election, ents) {
-  let sparseMatrix = new SparseMatrix();
+  let dataListParts = [];
   const seats = new Seats(election);
+  let partyToSeatsAll = {};
   election.sortEntsByValid(ents).forEach(function (ent) {
     const partyToSeats = seats.getPartyToSeats(ent.id);
     if (!partyToSeats) {
       return null;
     }
     for (let [partyID, seats] of Object.entries(partyToSeats)) {
-      sparseMatrix.push({
+      dataListParts.push({
         Region: ent,
         Party: Party.fromID(partyID),
         Seats: seats,
       });
+      if (!partyToSeatsAll[partyID]) {
+        partyToSeatsAll[partyID] = 0;
+      }
+      partyToSeatsAll[partyID] += seats;
     }
   });
-  return sparseMatrix;
+
+  let dataListSum = [];
+  for (let [partyID, seats] of Object.entries(partyToSeatsAll)) {
+    dataListSum.push({
+      Region: "Aggregate",
+      Party: Party.fromID(partyID),
+      Seats: seats,
+    });
+  }
+
+  return new SparseMatrix([...dataListSum, ...dataListParts]);
 }
 
 function getDescription(election, ents) {

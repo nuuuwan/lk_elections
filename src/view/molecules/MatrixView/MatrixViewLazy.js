@@ -23,7 +23,14 @@ function BuildKeyState(xKey, yKey) {
     setXKeyInner(yKeyInner);
     setYKeyInner(xKeyInner);
   };
-  return { xKeyInner, yKeyInner, handleToggleXY };
+  const [hasAutoToggled, setHasAutoToggled] = useState(false);
+  return {
+    xKeyInner,
+    yKeyInner,
+    handleToggleXY,
+    hasAutoToggled,
+    setHasAutoToggled,
+  };
 }
 
 function BuildScalarState() {
@@ -39,6 +46,7 @@ function BuildScalarState() {
     [sortYScalar, setSortYScalar],
     [sortYReverse, setSortYReverse]
   );
+
   return {
     sortXScalar,
     sortXReverse,
@@ -50,7 +58,13 @@ function BuildScalarState() {
 }
 
 export default function MatrixViewLazy({ sparseMatrix, zKey, xKey, yKey }) {
-  const { xKeyInner, yKeyInner, handleToggleXY } = BuildKeyState(xKey, yKey);
+  const {
+    xKeyInner,
+    yKeyInner,
+    handleToggleXY,
+    hasAutoToggled,
+    setHasAutoToggled,
+  } = BuildKeyState(xKey, yKey);
   const {
     sortXScalar,
     sortXReverse,
@@ -60,11 +74,23 @@ export default function MatrixViewLazy({ sparseMatrix, zKey, xKey, yKey }) {
     setSortYScalarAndOrder,
   } = BuildScalarState();
 
-  const idx = sparseMatrix.getIdxOrdered(
+  let idx = sparseMatrix.getIdxOrdered(
     [xKeyInner, yKeyInner, zKey],
     [sortXScalar, sortXReverse],
     [sortYScalar, sortYReverse]
   );
+
+  const nRows = Object.keys(idx).length;
+  if (nRows === 0) {
+    return null;
+  }
+  if (!hasAutoToggled) {
+    const nCols = Object.keys(Object.values(idx)[0]).length;
+    if (nCols > nRows * 1.5) {
+      handleToggleXY();
+      setHasAutoToggled(true);
+    }
+  }
 
   return (
     <MatrixViewTable

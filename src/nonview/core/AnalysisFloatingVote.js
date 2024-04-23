@@ -49,7 +49,7 @@ export default class AnalysisFloatingVote {
     );
   }
 
-  static getBaseAnalysisInfo(elections, ent, partyGroup) {
+  static getBaseAnalysisInfoForPartyGroup(elections, ent, partyGroup) {
     const completedElections = Election.filterCompleted(elections);
     const lastElection = completedElections[0];
 
@@ -69,14 +69,21 @@ export default class AnalysisFloatingVote {
     const nWindow = pVotesListInWindow.length;
     const minBase = n > 0 ? MathX.min(pVotesList) : null;
     const windowBase = nWindow > 0 ? MathX.min(pVotesListInWindow) : null;
-    return { n, minBase, nWindow, windowBase, electors };
+    return { partyGroup, n, minBase, nWindow, windowBase, electors };
   }
 
-  static multigetBaseAnalysisInfo(elections, ents, partyGroupList) {
-    return ents.reduce((ent) =>
-      partyGroupList.map((partyGroup) =>
-        AnalysisFloatingVote.getBaseAnalysisInfo(elections, ent, partyGroup)
-      )
-    );
+  static getBaseAnalysisInfoForPartyGroupList(elections, ent, partyGroupList) {
+    return partyGroupList
+      .map(function (partyGroup) {
+        return AnalysisFloatingVote.getBaseAnalysisInfoForPartyGroup(
+          elections,
+          ent,
+          partyGroup
+        );
+      })
+
+      .sort(function (a, b) {
+        return b.windowBase - a.windowBase;
+      });
   }
 }

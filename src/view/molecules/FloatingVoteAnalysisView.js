@@ -1,16 +1,25 @@
-import { Fraction, SparseMatrix } from "../../nonview/base";
+import { Box } from "@mui/material";
+import { Format, Fraction, SparseMatrix } from "../../nonview/base";
+import { Election } from "../../nonview/core";
 import AnalysisFloatingVote from "../../nonview/core/AnalysisFloatingVote";
 
-import { SectionBox } from "../atoms";
+import {
+  CommaListView,
+  EntLink,
+  Essay,
+  PartyGroupLink,
+  SectionBox,
+} from "../atoms";
 
 import MatrixView from "./MatrixView";
 
 function getBase(partyGroup, elections, ent) {
-  const { windowBase, electors } = AnalysisFloatingVote.getBaseAnalysisInfo(
-    elections,
-    ent,
-    partyGroup
-  );
+  const { windowBase, electors } =
+    AnalysisFloatingVote.getBaseAnalysisInfoForPartyGroup(
+      elections,
+      ent,
+      partyGroup
+    );
   const base = new Fraction(
     Math.round(windowBase * electors, 0),
     electors,
@@ -94,7 +103,32 @@ function getSparseMatrix(partyGroupList, elections, ents) {
 }
 
 function getDescription(partyGroupList, elections, ents) {
-  return `Base vote for each party group in each region.`;
+  const firstEnt = ents[0];
+  const infoList = AnalysisFloatingVote.getBaseAnalysisInfoForPartyGroupList(
+    elections,
+    firstEnt,
+    partyGroupList
+  ).filter((a) => a.windowBase > 0.025);
+
+  return (
+    <Essay>
+      <>Base vote for each party group in each region.</>
+      <>
+        In <EntLink ent={firstEnt} shortFormat={true} />, party bases were{" "}
+        <CommaListView>
+          {infoList.map(function ({ partyGroup, windowBase }, i) {
+            return (
+              <Box key={"party-group" + i} component="span">
+                <PartyGroupLink partyGroupID={partyGroup.id} />
+                {` (${Format.percent(windowBase)})`}
+              </Box>
+            );
+          })}
+        </CommaListView>
+        .
+      </>
+    </Essay>
+  );
 }
 
 export default function FloatingVoteAnalysisView({
@@ -102,6 +136,7 @@ export default function FloatingVoteAnalysisView({
   elections,
   ents,
 }) {
+  ents = Election.filterCompleted(elections)[0].sortEntsByValid(ents);
   const sparseMatrix = getSparseMatrix(partyGroupList, elections, ents);
   return (
     <SectionBox

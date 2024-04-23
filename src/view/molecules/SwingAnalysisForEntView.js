@@ -14,7 +14,7 @@ function getSparseMatrix(partyGroupList, elections, ent) {
   );
   return new SparseMatrix(
     swingTuples
-      .map(function ([partyGroup, ent, election, swing]) {
+      .map(function ({ partyGroup, ent, election, swing }) {
         const color = swing > 0 ? partyGroup.color : null;
         return {
           PartyGroup: partyGroup,

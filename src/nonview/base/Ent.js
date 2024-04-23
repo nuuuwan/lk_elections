@@ -38,6 +38,17 @@ export default class Ent {
     return this.name.replaceAll(" ", "_");
   }
 
+  get shortName() {
+    return this.name + " " + this.entType.shortName;
+  }
+
+  get longName() {
+    if (this.id === "LK") {
+      return "Country (Sri Lanka)";
+    }
+    return this.name + " " + this.entType.longName;
+  }
+
   // Wikipedia
 
   get wikiPageName() {

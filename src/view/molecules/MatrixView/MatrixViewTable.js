@@ -21,6 +21,7 @@ export default function MatrixViewTable({
     : CommonIcons.ExpandExpand;
 
   const nRows = Object.keys(idx).length;
+
   const nCols = Object.keys(Object.values(idx)[0]).length;
 
   const needsExpand =

@@ -1,13 +1,16 @@
 const ElectionStats = {
-  getMajorPartyIDs() {
-    const result = this.getResults("LK");
+  getMajorPartyIDs(ents) {
+    if (!ents) {
+      return null;
+    }
+    const result = this.getResults(ents[0].id);
     if (!result) {
       return null;
     }
     const partyToPVotes = result.partyToVotes.partyToPVotes;
     return Object.entries(partyToPVotes)
       .filter(function ([partyID, pVotes]) {
-        return pVotes > 0.001;
+        return pVotes > 0.0025;
       })
       .map(function ([partyID, pVotes]) {
         return partyID;

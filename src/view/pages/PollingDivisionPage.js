@@ -18,7 +18,7 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     if (!pdID) {
       pdID = Random.choice(pdEnts).id;
     }
-    console.debug({ pdID });
+
     URLContext.set({ pageID: PollingDivisionPage.getPageID(), pdID });
 
     const pdEnt = await Ent.fromID(pdID);
@@ -76,7 +76,7 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     if (!pdEnt) {
       return [];
     }
-    const entsSimilar = [pdEnt, edEnt, countryEnt];
+    const entsSimilar = [pdEnt];
     const entsAll = [].concat(pdEnts, [edEnt, countryEnt]);
 
     return CommonEntAnalysisView.get(

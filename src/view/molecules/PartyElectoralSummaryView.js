@@ -1,6 +1,6 @@
-import { PartyLink, SectionBox } from "../atoms";
+import { ElectionLink, Essay, PartyLink, SectionBox } from "../atoms";
 import { DataTableView } from ".";
-import { Fraction } from "../../nonview/base";
+import { Format, Fraction } from "../../nonview/base";
 import { Box } from "@mui/material";
 
 function getDataList(party, elections) {
@@ -32,25 +32,35 @@ function getDataList(party, elections) {
         Position: position,
         Votes: fraction,
       };
-    });
+    })
+    .filter((x) => x);
 }
 
-function getDescription(party, elections) {
+function getDescription(party, elections, dataList) {
+  const nAll = elections.length;
+  const n = dataList.length;
+  const best = dataList.sort((a, b) => b.fraction.p - a.fraction.p)[0];
   return (
-    <Box>
-      Election results for the <PartyLink partyID={party.id} longName={true} />,
-      across elections.
-    </Box>
+    <Essay>
+      <>
+        The <PartyLink partyID={party.id} longName={true} /> has participated in{" "}
+        {n} of the last {nAll} elections.
+      </>
+      <>
+        Its best showing was in the <ElectionLink election={best.Election} />{" "}
+        Election, when it got {Format.percent(best.Votes.p)} of the vote, and
+        came {Format.position(best.Position)}.
+      </>
+    </Essay>
   );
 }
 
 export default function PartyElectoralSummaryView({ party, elections }) {
+  const dataList = getDataList(party, elections);
+  const description = getDescription(party, elections, dataList);
   return (
-    <SectionBox
-      title="Electoral Summary"
-      description={getDescription(party, elections)}
-    >
-      <DataTableView dataList={getDataList(party, elections)} />
+    <SectionBox title="Electoral Summary" description={description}>
+      <DataTableView dataList={dataList} />
     </SectionBox>
   );
 }

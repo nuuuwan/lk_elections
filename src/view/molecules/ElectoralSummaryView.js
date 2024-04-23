@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import { Format, Fraction } from "../../nonview/base";
 import { Election, Party } from "../../nonview/core";
 import { ElectionLink, EntLink, Essay, SectionBox } from "../atoms";

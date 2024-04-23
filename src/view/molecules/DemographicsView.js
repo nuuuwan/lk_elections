@@ -43,13 +43,13 @@ function getSparseMatrix(demographicsList, demographicType) {
   );
 }
 
-function getDescription(demographicsList, demographicType) {
+function getDescription(demographicsList, demographicType, focusSmallest) {
   const demographics = demographicsList
     .filter(function (a) {
       return !a.noData;
     })
     .sort(function (a, b) {
-      return b.n - a.n;
+      return focusSmallest ? a.n - b.n : b.n - a.n;
     })[0];
   if (demographics.noData) {
     return null;
@@ -126,12 +126,17 @@ function getDescription(demographicsList, demographicType) {
 export default function DemographicsView({
   demographicsList,
   demographicType,
+  focusSmallest,
 }) {
   if (demographicsList.length === 1 && demographicsList[0].noData) {
     return null;
   }
   const title = Format.titleCase(demographicType);
-  const description = getDescription(demographicsList, demographicType);
+  const description = getDescription(
+    demographicsList,
+    demographicType,
+    focusSmallest
+  );
   const sparseMatrix = getSparseMatrix(demographicsList, demographicType);
   return (
     <SectionBox title={title} description={description}>

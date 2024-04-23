@@ -16,12 +16,14 @@ export default class CommonEntAnalysisView {
     elections,
     partyGroupList,
     demographicsIdx,
+    demographicsViewFocusSmallest,
   }) {
     const demographicsList = entsSimilar.map((ent) => demographicsIdx[ent.id]);
     return [
       <DemographicsView
         demographicsList={demographicsList}
         demographicType="ethnicity-and-religion"
+        focusSmallest={demographicsViewFocusSmallest}
       />,
 
       <ElectoralSummaryView ent={ent} elections={elections} />,

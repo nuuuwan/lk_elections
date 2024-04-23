@@ -73,7 +73,8 @@ export default class PollingDivisionPage extends AbstractCustomPage {
   get widgets() {
     const {
       pdEnt,
-
+      edEnt,
+      countryEnt,
       elections,
       pdEnts,
       partyGroupList,
@@ -82,7 +83,7 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     if (!pdEnt) {
       return [];
     }
-    const entsSimilar = [pdEnt];
+    const entsSimilar = [pdEnt, edEnt, countryEnt];
     const entsAll = pdEnts;
 
     return CommonEntAnalysisView.get({
@@ -92,6 +93,7 @@ export default class PollingDivisionPage extends AbstractCustomPage {
       elections,
       partyGroupList,
       demographicsIdx,
+      demographicsViewFocusSmallest: true,
     });
   }
 }

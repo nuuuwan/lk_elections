@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import { Format, Fraction } from "../../nonview/base";
 import { Election, Party } from "../../nonview/core";
 import { ElectionLink, EntLink, Essay, SectionBox } from "../atoms";
@@ -32,6 +33,16 @@ function getDataList(ent, elections) {
 }
 
 function getDescription(ent, elections) {
+  if (elections.length === 1) {
+    const election = elections[0];
+    return (
+      <Box>
+        Summary Statistics for the <ElectionLink election={election} />{" "}
+        Election.
+      </Box>
+    );
+  }
+
   const { pTurnout, pRejected } = Election.aggregateSummaryForEnt(
     elections,
     ent

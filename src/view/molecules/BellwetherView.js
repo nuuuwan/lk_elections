@@ -1,8 +1,8 @@
 import { Box } from "@mui/material";
-import { MathX } from "../../nonview/base";
+import { Format, MathX } from "../../nonview/base";
 import { Party, AnalysisBellwether } from "../../nonview/core";
 
-import { EntLink, SectionBox } from "../atoms";
+import { EntLink, SectionBox, Essay } from "../atoms";
 import { DataTableView } from "../molecules";
 
 function getDataList(elections, ent) {
@@ -39,11 +39,21 @@ function getFooterData(dataList) {
 }
 
 function getDescription(elections, ent) {
+  const { n, nMatch, meanError, bellwetherType } =
+    AnalysisBellwether.statsForElectionsAndEnt(elections, ent);
   return (
-    <Box>
-      Election Results in the <EntLink ent={ent} shortName={false} />, compared
-      to the final result nationwide.
-    </Box>
+    <Essay>
+      <>
+        Election Results in the <EntLink ent={ent} shortName={false} />,
+        compared to the final result nationwide.
+      </>
+      <>
+        Of the last {n} elections, the {ent.name} Result matches the nationwide
+        result in <strong>{nMatch}</strong> elections, making it a{" "}
+        <strong>{bellwetherType}</strong> Bellwether. Party results on average
+        vary by {Format.percent(meanError)}.
+      </>
+    </Essay>
   );
 }
 

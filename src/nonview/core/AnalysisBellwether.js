@@ -1,4 +1,16 @@
 export default class AnalysisBellwether {
+  static getBellwetherType(n, nMatch) {
+    if (n === nMatch) {
+      return "Perfect";
+    }
+    if (nMatch > n * 0.75) {
+      return "Strong";
+    }
+    if (nMatch > n * 0.5) {
+      return "Weak";
+    }
+    return "Negative";
+  }
   static statsForElectionAndEnt(election, ent) {
     const resultsForEnt = election.getResults(ent.id);
     if (!resultsForEnt) {
@@ -34,7 +46,9 @@ export default class AnalysisBellwether {
     );
 
     const meanError = errorSum / n;
-    return { n, nMatch, meanError, mismatches };
+    const bellwetherType = AnalysisBellwether.getBellwetherType(n, nMatch);
+
+    return { n, nMatch, meanError, mismatches, bellwetherType };
   }
 
   static getL1Error(pdEnt1, pdEnt2, election) {

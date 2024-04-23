@@ -13,7 +13,11 @@ export default class GenericStore {
     const pdEnts = await Ent.listFromType(EntType.PD);
 
     // Demographics
-    const demographicsList = await Demographics.fromEnts(pdEnts);
+    const demographicsIdx = await Demographics.idxFromEnts([
+      countryEnt,
+      ...edEnts,
+      ...pdEnts,
+    ]);
 
     // Parties
     const partyList = Party.listAll();
@@ -28,7 +32,7 @@ export default class GenericStore {
       pdEnts,
       partyList,
       partyGroupList,
-      demographicsList,
+      demographicsIdx,
     };
     return newState;
   }

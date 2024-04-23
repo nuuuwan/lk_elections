@@ -21,7 +21,8 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
   }
 
   get widgets() {
-    const { countryEnt, elections, edEnts, partyGroupList } = this.state;
+    const { countryEnt, elections, edEnts, partyGroupList, demographicsIdx } =
+      this.state;
     if (!countryEnt) {
       return [];
     }
@@ -30,15 +31,17 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     widgets.push(<EntListView ents={edEnts} shortFormat={true} />);
 
     const entsAll = [].concat(edEnts, [countryEnt]);
+
     widgets = [].concat(
       widgets,
-      CommonEntAnalysisView.get(
-        countryEnt,
-        entsAll,
-        entsAll,
+      CommonEntAnalysisView.get({
+        ent: countryEnt,
+        entsSimilar: entsAll,
+        entsAll: entsAll,
         elections,
-        partyGroupList
-      )
+        partyGroupList,
+        demographicsIdx,
+      })
     );
 
     return widgets;

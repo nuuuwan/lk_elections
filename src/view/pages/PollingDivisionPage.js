@@ -71,20 +71,28 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     return <GeoMap geoID={pdEnt.id} />;
   }
   get widgets() {
-    const { pdEnt, edEnt, countryEnt, elections, pdEnts, partyGroupList } =
-      this.state;
+    const {
+      pdEnt,
+      edEnt,
+      countryEnt,
+      elections,
+      pdEnts,
+      partyGroupList,
+      demographicsIdx,
+    } = this.state;
     if (!pdEnt) {
       return [];
     }
     const entsSimilar = [pdEnt];
     const entsAll = [].concat(pdEnts, [edEnt, countryEnt]);
 
-    return CommonEntAnalysisView.get(
-      pdEnt,
+    return CommonEntAnalysisView.get({
+      ent: pdEnt,
       entsSimilar,
       entsAll,
       elections,
-      partyGroupList
-    );
+      partyGroupList,
+      demographicsIdx,
+    });
   }
 }

@@ -5,11 +5,21 @@ import {
   SimilarRegionsView,
   ElectionListView,
   ElectoralSummaryView,
+  DemographicsView,
 } from "../molecules";
 
 export default class CommonEntAnalysisView {
-  static get(ent, entsSimilar, entsAll, elections, partyGroupList) {
+  static get({
+    ent,
+    entsSimilar,
+    entsAll,
+    elections,
+    partyGroupList,
+    demographicsIdx,
+  }) {
+    const demographicsList = entsSimilar.map((ent) => demographicsIdx[ent.id]);
     return [
+      <DemographicsView demographicsList={demographicsList} />,
       <ElectoralSummaryView ent={ent} elections={elections} />,
       <SimilarRegionsView
         ent={ent}

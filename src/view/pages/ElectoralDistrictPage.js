@@ -75,20 +75,23 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
       edEnts,
       partyGroupList,
       pdEntsChildren,
+      demographicsIdx,
     } = this.state;
     if (!edEnt) {
       return [];
     }
     const entsSimilar = [].concat(edEnt, pdEntsChildren);
     const entsAll = [].concat(edEnts, [countryEnt]);
+
     return [<EntListView ents={pdEntsChildren} shortFormat={true} />].concat(
-      CommonEntAnalysisView.get(
-        edEnt,
+      CommonEntAnalysisView.get({
+        ent: edEnt,
         entsSimilar,
         entsAll,
         elections,
-        partyGroupList
-      )
+        partyGroupList,
+        demographicsIdx,
+      })
     );
   }
 }

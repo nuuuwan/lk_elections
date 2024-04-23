@@ -11,6 +11,49 @@ export default class Demographics {
     this.dEthnicity = null;
   }
 
+  // Getters
+  get noData() {
+    return !this.dEthnicity || !this.dReligion || !this.isLoaded;
+  }
+  get nSinhala() {
+    return parseInt(this.dEthnicity["sinhalese"]);
+  }
+
+  get nTamil() {
+    return (
+      parseInt(this.dEthnicity["sl_tamil"]) +
+      parseInt(this.dEthnicity["ind_tamil"])
+    );
+  }
+
+  get nMuslim() {
+    return parseInt(this.dEthnicity["sl_moor"] + this.dEthnicity["malay"]);
+  }
+
+  get nBuddhist() {
+    return parseInt(this.dReligion["buddhist"]);
+  }
+
+  get nHindu() {
+    return parseInt(this.dReligion["hindu"]);
+  }
+
+  get nChristian() {
+    return (
+      parseInt(this.dReligion["roman_catholic"]) +
+      parseInt(this.dReligion["other_christian"])
+    );
+  }
+
+  get nIslam() {
+    return parseInt(this.dReligion["islam"]);
+  }
+
+  get n() {
+    return parseInt(this.dEthnicity["total_population"]);
+  }
+
+  // Loaders
   async load(religionIdx, ethnicityIdx) {
     if (this.isLoaded) {
       return;
@@ -26,7 +69,7 @@ export default class Demographics {
     return Object.fromEntries(rawList.map((d) => [d.entity_id, d]));
   }
 
-  static async fromEnts(ents) {
+  static async listFromEnts(ents) {
     const demographicsList = ents.map((ent) => new Demographics(ent));
 
     const religionIdx = await Demographics.loadDataIdx(
@@ -40,5 +83,11 @@ export default class Demographics {
       demographics.load(religionIdx, ethnicityIdx);
       return demographicsList;
     }, demographicsList);
+  }
+
+  static async idxFromEnts(ents) {
+    const demographicsList = await Demographics.listFromEnts(ents);
+
+    return Object.fromEntries(demographicsList.map((d) => [d.ent.id, d]));
   }
 }

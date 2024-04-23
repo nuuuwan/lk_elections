@@ -33,14 +33,6 @@ export default function MatrixViewTable({
 
   return (
     <Box>
-      {needsExpand ? (
-        <Box>
-          <IconButton onClick={onClickExpand}>
-            <Icon />
-          </IconButton>
-          <Typography variant="caption">{label}</Typography>
-        </Box>
-      ) : null}
       <table>
         <MatrixViewHeader
           idx={idx}
@@ -57,6 +49,14 @@ export default function MatrixViewTable({
           showExpanded={showExpanded}
         />
       </table>
+      {needsExpand ? (
+        <Box>
+          <IconButton onClick={onClickExpand}>
+            <Icon />
+          </IconButton>
+          <Typography variant="caption">{label}</Typography>
+        </Box>
+      ) : null}
     </Box>
   );
 }

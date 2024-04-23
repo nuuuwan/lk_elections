@@ -28,14 +28,6 @@ export default function DataTableViewTable({
 
   return (
     <Box>
-      {needsExpand ? (
-        <Box>
-          <IconButton onClick={onClickExpand}>
-            <Icon />
-          </IconButton>
-          <Typography variant="caption">{label}</Typography>
-        </Box>
-      ) : null}
       <table>
         <DataTableViewHead
           headerKeys={headerKeys}
@@ -48,6 +40,14 @@ export default function DataTableViewTable({
         />
         <DataTableViewFoot headerKeys={headerKeys} footerData={footerData} />
       </table>
+      {needsExpand ? (
+        <Box>
+          <IconButton onClick={onClickExpand}>
+            <Icon />
+          </IconButton>
+          <Typography variant="caption">{label}</Typography>
+        </Box>
+      ) : null}
     </Box>
   );
 }

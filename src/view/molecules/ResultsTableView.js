@@ -1,6 +1,6 @@
-import { SparseMatrix, Fraction } from "../../nonview/base";
+import { SparseMatrix, Fraction, Format } from "../../nonview/base";
 import { MatrixView } from "../molecules";
-import { ElectionLink, SectionBox } from "../atoms";
+import { ElectionLink, EntLink, PartyLink, SectionBox } from "../atoms";
 import { Party } from "../../nonview/core";
 import { Box } from "@mui/material";
 
@@ -76,21 +76,33 @@ function getSparseMatrix(election, ents) {
     return pushMatrixRowsForEnt(sparseMatrix, ent, majorPartyIDs, election);
   }, new SparseMatrix());
 }
-function getDescription(election, ents) {
+function getDescription(election, ents, focusSmallest) {
+  let sortedEnts = election.sortEntsByValid(ents);
+  if (focusSmallest) {
+    sortedEnts.reverse();
+  }
+  const ent = sortedEnts[0];
+
+  const result = election.getResults(ent.id);
+  const partyToVotes = result.partyToVotes;
+  const winningPartyID = partyToVotes.winningParty;
+
   return (
     <Box>
-      Votes won in the <ElectionLink election={election} /> Election.
+      In the <EntLink ent={ent} />, <PartyLink partyID={winningPartyID} /> got
+      the most votes (
+      {Format.percent(partyToVotes.partyToPVotes[winningPartyID])}).
     </Box>
   );
 }
 
-export default function ResultsTableView({ election, ents }) {
+export default function ResultsTableView({ election, ents, focusSmallest }) {
   const matrix = getSparseMatrix(election, ents);
 
   return (
     <SectionBox
       title={<ElectionLink election={election} />}
-      description={getDescription(election, ents)}
+      description={getDescription(election, ents, focusSmallest)}
     >
       <MatrixView
         sparseMatrix={matrix}

@@ -1,12 +1,6 @@
 import { AnalysisBellwether } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
-import {
-  SectionBox,
-  WikiSummaryView,
-  EntLink,
-  Essay,
-  CommaListView,
-} from "../atoms";
+import { SectionBox, WikiSummaryView, EntLink, Essay } from "../atoms";
 
 import { DataTableView } from "../molecules";
 

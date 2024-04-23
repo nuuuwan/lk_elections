@@ -1,7 +1,6 @@
 import { ElectionLink, Essay, PartyLink, SectionBox } from "../atoms";
 import { DataTableView } from ".";
 import { Format, Fraction } from "../../nonview/base";
-import { Box } from "@mui/material";
 
 function getDataList(party, elections) {
   return elections

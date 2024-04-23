@@ -44,6 +44,12 @@ export default class CommonEntAnalysisView {
         elections={elections}
         ent={ent}
       />,
-    ].concat(ElectionListView.get({ elections, ents: entsSimilar }));
+    ].concat(
+      ElectionListView.get({
+        elections,
+        ents: entsSimilar,
+        focusSmallest: demographicsViewFocusSmallest,
+      })
+    );
   }
 }

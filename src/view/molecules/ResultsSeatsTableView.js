@@ -54,9 +54,12 @@ function getDescription(election, ents) {
 }
 
 export default function ResultsSeatsTableView({ election, ents }) {
-  if (ents.length === 1 && ents[0].entType === EntType.PD) {
-    return null;
+  for (let ent of ents) {
+    if (ent.entType === EntType.PD) {
+      return null;
+    }
   }
+
   const sparseMatrix = getSparseMatrix(election, ents);
 
   return (

@@ -36,8 +36,9 @@ export default class Swing {
     partyGroupList,
     ents
   ) {
+    const sortedEnts = election.sortEntsByValid(ents);
     return partyGroupList.reduce(function (swingTuples, partyGroup) {
-      return ents.reduce(function (swingTuples, ent) {
+      return sortedEnts.reduce(function (swingTuples, ent) {
         const swingTuple = Swing.getSwingTupleSingle(
           partyGroup,
           ent,

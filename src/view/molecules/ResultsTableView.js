@@ -72,7 +72,7 @@ function pushMatrixRowsForEnt(sparseMatrix, ent, majorPartyIDs, election) {
 function getSparseMatrix(election, ents) {
   const majorPartyIDs = election.getMajorPartyIDs();
 
-  return ents.reduce(function (sparseMatrix, ent) {
+  return election.sortEntsByValid(ents).reduce(function (sparseMatrix, ent) {
     return pushMatrixRowsForEnt(sparseMatrix, ent, majorPartyIDs, election);
   }, new SparseMatrix());
 }

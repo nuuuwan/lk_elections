@@ -23,11 +23,11 @@ const Style = {
   },
 };
 
-export default function Header({ level, children }) {
+export default function Header({ level, children, id }) {
   const { variant, color, marginBottom } = Style[level];
 
   return (
-    <Box>
+    <Box id={id}>
       <Typography variant={variant} sx={{ color, marginBottom }}>
         {children}
       </Typography>

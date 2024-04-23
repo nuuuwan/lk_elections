@@ -6,10 +6,12 @@ export default function SectionBox({ children, title, description }) {
 
   return (
     <Box sx={{ marginBottom: 3 }}>
-      <Header level={2}>{title}</Header>
+      <Header level={2} id="lk-elections-widget-text-title">
+        {title}
+      </Header>
       <Box
         sx={{ maxWidth: 600, paddingBottom: 2 }}
-        id="lk-elections-widget-text"
+        id="lk-elections-widget-text-body"
       >
         {description}
       </Box>

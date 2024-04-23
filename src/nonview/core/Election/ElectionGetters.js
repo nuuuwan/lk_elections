@@ -3,7 +3,11 @@ const ElectionStats = {
     if (!ents) {
       return null;
     }
-    const result = this.getResults(ents[0].id);
+
+    console.debug(ents);
+    const largestEnt = this.sortEntsByValid(ents)[0];
+
+    const result = this.getResults(largestEnt.id);
     if (!result) {
       return null;
     }

@@ -29,8 +29,8 @@ function getSparseMatrix(partyGroupList, elections, ent) {
 function getDescription(partyGroupList, elections, ent) {
   return (
     <Box>
-      This table summarizes the swing in vote share for each party group in the{" "}
-      <EntLink ent={ent} /> across elections.
+      Swing in vote share for each party group in the <EntLink ent={ent} />{" "}
+      across elections.
     </Box>
   );
 }

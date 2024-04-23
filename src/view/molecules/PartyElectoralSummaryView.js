@@ -38,8 +38,8 @@ function getDataList(party, elections) {
 function getDescription(party, elections) {
   return (
     <Box>
-      This table summarizes electoral results for the{" "}
-      <PartyLink partyID={party.id} />, across historical elections.
+      Election results for the <PartyLink partyID={party.id} longName={true} />,
+      across elections.
     </Box>
   );
 }

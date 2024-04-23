@@ -8,7 +8,7 @@ import { DataTableView } from "../molecules";
 function getDataList(elections, ent) {
   return elections
     .map(function (election) {
-      const stats = AnalysisBellwether.statsForElection(election, ent);
+      const stats = AnalysisBellwether.statsForElectionAndEnt(election, ent);
       if (!stats) {
         return null;
       }
@@ -41,8 +41,8 @@ function getFooterData(dataList) {
 function getDescription(elections, ent) {
   return (
     <Box>
-      This table shows how the electoral result in <EntLink ent={ent} />,
-      compared to the final result nationwide.
+      Election Results in the <EntLink ent={ent} shortName={false} />, compared
+      to the final result nationwide.
     </Box>
   );
 }

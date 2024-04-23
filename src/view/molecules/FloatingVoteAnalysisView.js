@@ -94,7 +94,7 @@ function getSparseMatrix(partyGroupList, elections, ents) {
 }
 
 function getDescription(partyGroupList, elections, ents) {
-  return `This table presents the base vote for each party group in each region.`;
+  return `Base vote for each party group in each region.`;
 }
 
 export default function FloatingVoteAnalysisView({

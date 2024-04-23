@@ -3,6 +3,7 @@ import AbstractCustomPage from "./AbstractCustomPage";
 import { SectionBox, WikiSummaryView, EntLink } from "../atoms";
 
 import { DataTableView } from "../molecules";
+import { Box } from "@mui/material";
 
 export default class AnalysisBellwetherPage extends AbstractCustomPage {
   static getPageID() {
@@ -35,7 +36,10 @@ export default class AnalysisBellwetherPage extends AbstractCustomPage {
 
     return ents
       .map((ent) => {
-        const stats = AnalysisBellwether.statsForElections(elections, ent);
+        const stats = AnalysisBellwether.statsForElectionsAndEnt(
+          elections,
+          ent
+        );
         if (!stats) {
           return null;
         }
@@ -55,8 +59,14 @@ export default class AnalysisBellwetherPage extends AbstractCustomPage {
       return [];
     }
 
+    const description = (
+      <Box>
+        Bellwether analysis for various regions, across historical elections.
+      </Box>
+    );
+
     return [
-      <SectionBox title="Best to Worst Bellwethers">
+      <SectionBox title="Best and Worst Bellwethers" description={description}>
         <DataTableView dataList={this.getDataList()} />
       </SectionBox>,
     ];

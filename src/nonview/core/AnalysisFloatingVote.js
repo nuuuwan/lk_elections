@@ -71,4 +71,12 @@ export default class AnalysisFloatingVote {
     const windowBase = nWindow > 0 ? MathX.min(pVotesListInWindow) : null;
     return { n, minBase, nWindow, windowBase, electors };
   }
+
+  static multigetBaseAnalysisInfo(elections, ents, partyGroupList) {
+    return ents.reduce((ent) =>
+      partyGroupList.map((partyGroup) =>
+        AnalysisFloatingVote.getBaseAnalysisInfo(elections, ent, partyGroup)
+      )
+    );
+  }
 }

@@ -8,7 +8,7 @@ export default function SectionBox({ children, title, description }) {
       <Header level={2}>{title}</Header>
       <Typography
         variant="body1"
-        sx={{ maxWidth: 480 }}
+        sx={{ maxWidth: 480, paddingBottom: 3 }}
         id="lk-elections-widget-text"
       >
         {description}

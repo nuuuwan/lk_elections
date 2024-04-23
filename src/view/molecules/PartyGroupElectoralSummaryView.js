@@ -25,9 +25,8 @@ function getDataList(partyGroup, elections, ent) {
 function getDescription(partyGroup, elections, ent) {
   return (
     <Box>
-      This table summarizes the electoral results for the{" "}
-      <PartyGroupLink partyGroupID={partyGroup.id} /> in{" "}
-      <EntLink ent={ent} shortName={true} />, across historical elections.
+      Election for the <PartyGroupLink partyGroupID={partyGroup.id} /> in{" "}
+      <EntLink ent={ent} shortName={false} />, across elections.
     </Box>
   );
 }

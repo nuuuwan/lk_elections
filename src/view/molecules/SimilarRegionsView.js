@@ -17,8 +17,7 @@ function getDataList(elections, ent, otherEnts) {
 function getDescription(elections, ent, otherEnts) {
   return (
     <Box>
-      This table shows how the electoral results in the <EntLink ent={ent} />{" "}
-      compared to other regions.
+      Election Results in the <EntLink ent={ent} /> compared to other regions.
     </Box>
   );
 }

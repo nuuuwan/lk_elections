@@ -1,5 +1,5 @@
 export default class AnalysisBellwether {
-  static statsForElection(election, ent) {
+  static statsForElectionAndEnt(election, ent) {
     const resultsForEnt = election.getResults(ent.id);
     if (!resultsForEnt) {
       return null;
@@ -15,24 +15,24 @@ export default class AnalysisBellwether {
     return { winningPartyEnt, winningPartyLK, l1Error, isMatch };
   }
 
-  static statsForElections(elections, ent) {
-    let n = 0;
-    let nMatch = 0;
-    let errorSum = 0;
-    let mismatches = [];
-    for (let election of elections) {
-      const stats = AnalysisBellwether.statsForElection(election, ent);
-      if (!stats) {
-        continue;
-      }
-      const { l1Error, isMatch } = stats;
-      n += 1;
-      if (isMatch) {
-        nMatch++;
-      }
-      mismatches.push([isMatch, election]);
-      errorSum += l1Error;
-    }
+  static statsForElectionsAndEnt(elections, ent) {
+    const { n, nMatch, errorSum, mismatches } = elections.reduce(
+      function ({ n, nMatch, errorSum, mismatches }, election) {
+        const stats = AnalysisBellwether.statsForElectionAndEnt(election, ent);
+        if (stats) {
+          const { l1Error, isMatch } = stats;
+          n += 1;
+          if (isMatch) {
+            nMatch++;
+          }
+          mismatches.push([isMatch, election]);
+          errorSum += l1Error;
+        }
+        return { n, nMatch, errorSum, mismatches };
+      },
+      { n: 0, nMatch: 0, errorSum: 0, mismatches: [] }
+    );
+
     const meanError = errorSum / n;
     return { n, nMatch, meanError, mismatches };
   }

@@ -29,8 +29,7 @@ function getSparseMatrix(election, ents) {
 function getDescription(election, ents) {
   return (
     <Box>
-      This table summarizes seats won by various parties in the{" "}
-      <ElectionLink election={election} /> Election.
+      Seats won in the <ElectionLink election={election} /> Election.
     </Box>
   );
 }

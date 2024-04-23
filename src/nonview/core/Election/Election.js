@@ -2,7 +2,7 @@ import { WWW } from "../../base/index.js";
 import ELECTION_LIST_TUPLES from "./ELECTION_LIST_TUPLES";
 import Result from "../Result.js";
 import ElectionBase from "./ElectionBase.js";
-import ElectionExpand from "./ElectionExpand.js";
+
 import ElectionGetters from "./ElectionGetters.js";
 import ElectionGettersStatic from "./ElectionGettersStatic.js";
 
@@ -30,7 +30,7 @@ class Election extends ElectionBase {
   }
 
   async getRawDataList() {
-    return WWW.tsv(this.urlData);
+    return await WWW.tsv(this.urlData);
   }
 
   async getResultsList() {
@@ -42,10 +42,11 @@ class Election extends ElectionBase {
     const resultsList = filteredRawData.map(function (d) {
       return Result.fromDict(d);
     });
-    const expandedResultsList = ElectionExpand.expand(resultsList);
-    const sortedResultsList = expandedResultsList.sort(function (a, b) {
+
+    const sortedResultsList = resultsList.sort(function (a, b) {
       return a.summary.valid - b.summary.valid;
     });
+
     return sortedResultsList;
   }
 

@@ -1,5 +1,6 @@
 import { Ent, EntType } from "../base";
 import { Election, Party, PartyGroup } from "../core";
+import Demographics from "./Demographics";
 
 export default class GenericStore {
   static async get() {
@@ -10,6 +11,9 @@ export default class GenericStore {
     const countryEnt = await Ent.fromID("LK");
     const edEnts = await Ent.listFromType(EntType.ED);
     const pdEnts = await Ent.listFromType(EntType.PD);
+
+    // Demographics
+    const demographicsList = await Demographics.fromEnts(pdEnts);
 
     // Parties
     const partyList = Party.listAll();
@@ -24,6 +28,7 @@ export default class GenericStore {
       pdEnts,
       partyList,
       partyGroupList,
+      demographicsList,
     };
     return newState;
   }

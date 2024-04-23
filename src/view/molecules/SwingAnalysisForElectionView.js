@@ -1,8 +1,7 @@
-import { Box } from "@mui/material";
-import { PercentagePoint, SparseMatrix } from "../../nonview/base";
+import { Ent, Format, PercentagePoint, SparseMatrix } from "../../nonview/base";
 import Swing from "../../nonview/core/Swing";
 
-import { ElectionLink, SectionBox } from "../atoms";
+import { ElectionLink, Essay, PartyGroupLink, SectionBox } from "../atoms";
 
 import { MatrixView } from "../molecules";
 
@@ -19,7 +18,7 @@ function getSparseMatrix(partyGroupList, election, prevElection, ents) {
 
   return new SparseMatrix(
     swingTuples
-      .map(function ([partyGroup, ent, election, swing]) {
+      .map(function ({ partyGroup, ent, election, swing }) {
         const color = swing > 0 ? partyGroup.color : null;
         return {
           PartyGroup: partyGroup,
@@ -32,12 +31,31 @@ function getSparseMatrix(partyGroupList, election, prevElection, ents) {
 }
 
 function getDescription(partyGroupList, election, prevElection, ents) {
+  const swingTuples = Swing.getSwingTuplesForElection(
+    election,
+    prevElection,
+    partyGroupList,
+    [Ent.LK]
+  ).sort(function (a, b) {
+    return b.swing - a.swing;
+  });
+  const maxSwing = swingTuples[0];
+  const minSwing = swingTuples[swingTuples.length - 1];
+
   return (
-    <Box>
-      Swing in vote share for each party group in the{" "}
-      <ElectionLink election={election} /> Election, compared to the{" "}
-      <ElectionLink election={prevElection} /> Election.
-    </Box>
+    <Essay>
+      <>
+        Swing in vote share for each party group in the{" "}
+        <ElectionLink election={election} /> Election, compared to the{" "}
+        <ElectionLink election={prevElection} /> Election.
+      </>
+      <>
+        Nationwide, there was a {Format.percentagePoint(maxSwing.swing)} swing
+        for the {<PartyGroupLink partyGroupID={maxSwing.partyGroup.id} />}, and
+        a {Format.percentagePoint(minSwing.swing)} swing for the{" "}
+        {<PartyGroupLink partyGroupID={minSwing.partyGroup.id} />}.
+      </>
+    </Essay>
   );
 }
 

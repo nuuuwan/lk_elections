@@ -75,4 +75,6 @@ export default class Ent {
     }
     return ent;
   }
+
+  static LK = new Ent({ id: "LK", name: "Sri Lanka" });
 }

@@ -27,7 +27,7 @@ export default class Swing {
       swing = pVotes - pVotesPrev;
     }
 
-    return [partyGroup, ent, election, swing];
+    return { partyGroup, ent, election, swing };
   }
 
   static getSwingTuplesForElection(

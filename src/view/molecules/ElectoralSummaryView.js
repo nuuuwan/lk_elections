@@ -35,8 +35,7 @@ function getDataList(ent, elections) {
 function getDescription(ent, elections) {
   return (
     <Box>
-      Election Results for the <EntLink ent={ent} shortName={false} />, across
-      historical elections.
+      Election Results for the <EntLink ent={ent} shortName={false} />.
     </Box>
   );
 }

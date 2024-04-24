@@ -7,7 +7,7 @@ import "./App.css";
 import { BasePage } from "./view/pages";
 
 const screenWidth = window.innerWidth;
-const fontSize = screenWidth < 600 ? 9 : 14;
+const fontSize = screenWidth < 600 ? 11 : 14;
 
 const THEME = createTheme({
   palette: {

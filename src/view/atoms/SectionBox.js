@@ -6,12 +6,21 @@ export default function SectionBox({ children, title, description, source }) {
   source = source || "elections.gov.lk";
 
   return (
-    <Box sx={{ marginBottom: 3 }}>
+    <Box
+      sx={{
+        marginBottom: 3,
+        width: "600px",
+        overflow: "scroll",
+      }}
+    >
       <Header level={2} id="lk-elections-widget-text-title">
         {title}
       </Header>
       <Box
-        sx={{ maxWidth: 600, paddingBottom: 2 }}
+        sx={{
+          paddingBottom: 3,
+          paddingTop: 3,
+        }}
         id="lk-elections-widget-text-body"
       >
         {description}

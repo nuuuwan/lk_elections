@@ -3,6 +3,7 @@ import AbstractCustomPage from "./AbstractCustomPage";
 import AnalysisBellwetherPage from "./AnalysisBellwetherPage";
 import AnalysisFloatingVotePage from "./AnalysisFloatingVotePage";
 import AnalysisTurnoutPage from "./AnalysisTurnoutPage";
+import AnalysisRejectedPage from "./AnalysisRejectedPage";
 import BasePage from "./BasePage";
 import CountryPage from "./CountryPage";
 import ElectionPage from "./ElectionPage";
@@ -17,6 +18,7 @@ export {
   AnalysisBellwetherPage,
   AnalysisFloatingVotePage,
   AnalysisTurnoutPage,
+  AnalysisRejectedPage,
   BasePage,
   CountryPage,
   ElectionPage,

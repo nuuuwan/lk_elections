@@ -4,4 +4,5 @@ def get_misc_wiki_page_name_list():
         'Bellwether',
         'Swing_vote',
         'Voter_turnout',
+        'Spoilt_vote',
     ]

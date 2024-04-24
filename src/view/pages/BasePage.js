@@ -9,6 +9,7 @@ import {
   AnalysisBellwetherPage,
   AnalysisFloatingVotePage,
   AnalysisTurnoutPage,
+  AnalysisRejectedPage,
   PartyPage,
   PartyGroupPage,
   RandomPage,
@@ -31,6 +32,7 @@ export default class BasePage extends Component {
       AnalysisBellwetherPage,
       AnalysisFloatingVotePage,
       AnalysisTurnoutPage,
+      AnalysisRejectedPage,
       PartyPage,
       PartyGroupPage,
     ];

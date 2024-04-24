@@ -1,12 +1,18 @@
 import { Box, Typography } from "@mui/material";
 import Header from "./Header";
 
-export default function SectionBox({ children, title, description, source }) {
+export default function SectionBox({
+  children,
+  title,
+  description,
+  source,
+  noMaxWidth = false,
+}) {
   description = description || "Description TODO";
   source = source || "elections.gov.lk";
 
   const isSmallWindow = window.innerWidth < 600;
-  const width = isSmallWindow ? "320px" : "720px";
+  const width = noMaxWidth ? null : isSmallWindow ? "320px" : "720px";
 
   return (
     <Box

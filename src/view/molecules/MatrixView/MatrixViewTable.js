@@ -11,8 +11,9 @@ export default function MatrixViewTable({
   setSortXScalarAndOrder,
   setSortYScalarAndOrder,
   scalarToOriginal,
+  showExpanded: showExpandedInitial = false,
 }) {
-  const [showExpanded, setShowExpanded] = React.useState(false);
+  const [showExpanded, setShowExpanded] = React.useState(showExpandedInitial);
   const onClickExpand = function () {
     setShowExpanded(!showExpanded);
   };

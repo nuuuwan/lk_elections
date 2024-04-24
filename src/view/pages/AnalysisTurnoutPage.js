@@ -1,10 +1,7 @@
-import { AnalysisTurnout } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
-import { SectionBox, WikiSummaryView, EntLink, Essay } from "../atoms";
-
-import { DataTableView } from "../molecules";
-
-import { Format } from "../../nonview/base";
+import { SectionBox, WikiSummaryView, EntLink } from "../atoms";
+import MatrixView from "../molecules/MatrixView/MatrixView";
+import { Ent, Fraction, SparseMatrix } from "../../nonview/base";
 
 export default class AnalysisTurnoutPage extends AbstractCustomPage {
   static getPageID() {
@@ -23,44 +20,8 @@ export default class AnalysisTurnoutPage extends AbstractCustomPage {
     return "Turnout";
   }
 
-  renderBodyMiddle() {
-    return <WikiSummaryView wikiPageName={"Turnout"} />;
-  }
-
-  getDataList() {
-    const { pdEnts, edEnts, elections } = this.state;
-    const ents = [...edEnts, ...pdEnts];
-
-    return ents
-      .map((ent) => {
-        const stats = AnalysisTurnout.statsForElectionsAndEnt(elections, ent);
-        if (!stats) {
-          return null;
-        }
-        const { nMatch, meanError } = stats;
-        return { Region: ent, Matches: nMatch, Diff: meanError };
-      })
-      .sort((a, b) => a.Diff - b.Diff);
-  }
-
   get titleWidget() {
-    return <WikiSummaryView wikiPageName={"Turnout"} />;
-  }
-
-  getTitleAndDescription(dataList) {
-    const best = dataList[0];
-    const title = "What are the Best #Turnouts?";
-    const description = (
-      <Essay>
-        <>
-          The <EntLink ent={best.Region} /> is the best #Turnout Polling
-          Division in Sri Lanka, both in terms of how its results match (
-          {best.Matches}) and their difference from ({Format.percent(best.Diff)}
-          ) the nationwide result.
-        </>
-      </Essay>
-    );
-    return { title, description };
+    return <WikiSummaryView wikiPageName={"Voter_turnout"} />;
   }
 
   get widgets() {
@@ -69,12 +30,45 @@ export default class AnalysisTurnoutPage extends AbstractCustomPage {
       return [];
     }
 
-    const dataList = this.getDataList();
-    const { title, description } = this.getTitleAndDescription(dataList);
-    return [
-      <SectionBox title={title} description={description}>
-        <DataTableView dataList={dataList} />
-      </SectionBox>,
-    ];
+    return [this.renderTurnoutTable()];
+  }
+
+  getTurnoutTableSparseMatrix() {
+    const { completedElections, countryEnt, edEnts } = this.state;
+    const ents = [countryEnt, ...edEnts];
+    return completedElections.reduce(function (sparseMatrix, election) {
+      const resultsLK = election.getResults(Ent.LK.id);
+      if (!resultsLK || !resultsLK.summary.polled) {
+        return sparseMatrix;
+      }
+      return ents.reduce(function (sparseMatrix, ent) {
+        const results = election.getResults(ent.id);
+        const summary = results.summary;
+
+        sparseMatrix.push({
+          Election: election,
+          Region: ent,
+          Turnout: new Fraction(summary.polled, summary.electors),
+        });
+        return sparseMatrix;
+      }, sparseMatrix);
+    }, new SparseMatrix());
+  }
+
+  renderTurnoutTable() {
+    const title = "Turnout by Election and Region";
+    const description = "";
+
+    return (
+      <SectionBox title={title} description={description} noMaxWidth={true}>
+        <MatrixView
+          sparseMatrix={this.getTurnoutTableSparseMatrix()}
+          xKey="Election"
+          yKey="Region"
+          zKey="Turnout"
+          showExpanded={true}
+        />
+      </SectionBox>
+    );
   }
 }

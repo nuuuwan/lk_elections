@@ -38,6 +38,7 @@ export default class MainMenu extends Component {
         items={[
           { pageID: "AnalysisBellwether", title: "Bellwethers" },
           { pageID: "AnalysisFloatingVote", title: "Floating Votes" },
+          { pageID: "AnalysisTurnout", title: "Turnout" },
         ]}
         renderItem={renderItem}
       />

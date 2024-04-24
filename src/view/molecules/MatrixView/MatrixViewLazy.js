@@ -57,7 +57,13 @@ function BuildScalarState() {
   };
 }
 
-export default function MatrixViewLazy({ sparseMatrix, zKey, xKey, yKey }) {
+export default function MatrixViewLazy({
+  sparseMatrix,
+  zKey,
+  xKey,
+  yKey,
+  showExpanded,
+}) {
   const {
     xKeyInner,
     yKeyInner,
@@ -99,6 +105,7 @@ export default function MatrixViewLazy({ sparseMatrix, zKey, xKey, yKey }) {
       setSortXScalarAndOrder={setSortXScalarAndOrder}
       setSortYScalarAndOrder={setSortYScalarAndOrder}
       scalarToOriginal={sparseMatrix.scalarToOriginal}
+      showExpanded={showExpanded}
     />
   );
 }

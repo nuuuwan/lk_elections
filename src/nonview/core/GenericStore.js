@@ -6,6 +6,10 @@ export default class GenericStore {
   static async get() {
     // Elections
     const elections = await Election.listAll();
+    const completedElections = Election.filterCompleted(elections);
+    const parliamentaryELections = elections.filter(
+      (election) => election.electionType === "parliamentary"
+    );
 
     // Ents
     const countryEnt = await Ent.fromID("LK");
@@ -27,6 +31,8 @@ export default class GenericStore {
 
     const newState = {
       elections,
+      completedElections,
+      parliamentaryELections,
       countryEnt,
       edEnts,
       pdEnts,

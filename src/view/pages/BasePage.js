@@ -8,6 +8,7 @@ import {
   CountryPage,
   AnalysisBellwetherPage,
   AnalysisFloatingVotePage,
+  AnalysisTurnoutPage,
   PartyPage,
   PartyGroupPage,
   RandomPage,
@@ -29,6 +30,7 @@ export default class BasePage extends Component {
       CountryPage,
       AnalysisBellwetherPage,
       AnalysisFloatingVotePage,
+      AnalysisTurnoutPage,
       PartyPage,
       PartyGroupPage,
     ];

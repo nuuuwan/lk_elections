@@ -90,7 +90,6 @@ export default class ElectionPage extends AbstractCustomPage {
       prevElectionOfType,
 
       edEnts,
-      pdEnts,
     } = this.state;
     if (!election) {
       return [];

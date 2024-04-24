@@ -74,7 +74,7 @@ function getDescription(demographicsList, demographicType, focusSmallest) {
   let majorityDescription;
   if (largestGroupP > 0.5) {
     let majorityLabel = "majority";
-    if (largestGroupP > 0.9) {
+    if (largestGroupP > 0.98) {
       majorityLabel = " almost entirely ";
     } else if (largestGroupP > 0.75) {
       majorityLabel = " predominently ";

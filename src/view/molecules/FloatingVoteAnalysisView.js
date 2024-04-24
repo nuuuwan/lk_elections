@@ -102,7 +102,12 @@ function getSparseMatrix(partyGroupList, elections, ents) {
   }, new SparseMatrix());
 }
 
-function getDescription(partyGroupList, elections, ents, focusSmallest) {
+function getTitleAndDescription(
+  partyGroupList,
+  elections,
+  ents,
+  focusSmallest
+) {
   const lastElection = Election.filterCompleted(elections).sort()[0];
   let sortedEnts = lastElection.sortEntsByValid(ents);
   if (focusSmallest) {
@@ -120,10 +125,17 @@ function getDescription(partyGroupList, elections, ents, focusSmallest) {
   const maxInfo = displayInfoList[0];
   const leanType = AnalysisFloatingVote.getLeanType(maxInfo.windowBase);
 
-  return (
+  const title = (
+    <>
+      How big is the #FloatingVote in the{" "}
+      <EntLink ent={firstEnt} short={true} />?
+    </>
+  );
+
+  const description = (
     <Essay>
       <>
-        In the <EntLink ent={firstEnt} short={true} />, party bases were{" "}
+        In the <EntLink ent={firstEnt} short={false} />, party bases were{" "}
         <CommaListView>
           {displayInfoList.map(function ({ partyGroup, windowBase }, i) {
             const leanTypeForPartyGroup =
@@ -143,9 +155,10 @@ function getDescription(partyGroupList, elections, ents, focusSmallest) {
         , making it a "{leanType + " "}
         <PartyGroupLink partyGroupID={maxInfo.partyGroup.id} />" region.
       </>
-      <>The Floating Vote is {Format.percent(pFloating)}.</>
+      <>The #FloatingVote is {Format.percent(pFloating)}.</>
     </Essay>
   );
+  return { title, description };
 }
 
 export default function FloatingVoteAnalysisView({
@@ -156,16 +169,14 @@ export default function FloatingVoteAnalysisView({
 }) {
   ents = Election.filterCompleted(elections)[0].sortEntsByValid(ents);
   const sparseMatrix = getSparseMatrix(partyGroupList, elections, ents);
+  const { title, description } = getTitleAndDescription(
+    partyGroupList,
+    elections,
+    ents,
+    focusSmallest
+  );
   return (
-    <SectionBox
-      title="Base/Floating Vote Analysis"
-      description={getDescription(
-        partyGroupList,
-        elections,
-        ents,
-        focusSmallest
-      )}
-    >
+    <SectionBox title={title} description={description}>
       <MatrixView
         sparseMatrix={sparseMatrix}
         xKey="PartyGroup"

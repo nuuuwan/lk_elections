@@ -35,6 +35,7 @@ export default class AbstractCustomPage extends Component {
       this.setDrawerOpen(!drawerOpen);
     }.bind(this);
     const Icon = drawerOpen ? CloseIcon : MenuIcon;
+
     return (
       <Box>
         <Drawer
@@ -91,16 +92,24 @@ export default class AbstractCustomPage extends Component {
           <Header level={3}>{this.renderBreadcrumbs()}</Header>
           <Header level={1}>{this.title}</Header>
         </Box>
-        {this.titleWidget}
+        <Box
+          sx={{
+            padding: 3,
+          }}
+        >
+          {this.titleWidget}
+        </Box>
       </Box>
     );
   }
 
   renderWidgets() {
+    const isSmallWindow = window.innerWidth < 600;
+    const padding = isSmallWindow ? 1 : 5;
     return this.widgets.map(function (widget, index) {
       return (
         <Grid item key={index}>
-          <Box id="lk-elections-widget" sx={{ p: 3, background: "#fcfcfc" }}>
+          <Box id="lk-elections-widget" sx={{ padding, background: "#fcfcfc" }}>
             {widget}
           </Box>
         </Grid>

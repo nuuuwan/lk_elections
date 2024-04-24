@@ -5,12 +5,12 @@ export default function SectionBox({ children, title, description, source }) {
   description = description || "Description TODO";
   source = source || "elections.gov.lk";
 
-  const width = window.innerWidth < 500 ? "320px" : "720px";
+  const isSmallWindow = window.innerWidth < 600;
+  const width = isSmallWindow ? "320px" : "720px";
 
   return (
     <Box
       sx={{
-        marginBottom: 3,
         width,
         overflow: "scroll",
       }}

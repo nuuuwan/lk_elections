@@ -22,13 +22,15 @@ function getDataList(partyGroup, elections, ent) {
     });
 }
 
-function getDescription(partyGroup, elections, ent) {
-  return (
+function getTitleAndDescription(partyGroup, elections, ent) {
+  const title = (
     <Box>
-      Election for the <PartyGroupLink partyGroupID={partyGroup.id} /> in{" "}
-      <EntLink ent={ent} short={false} />, across elections.
+      <PartyGroupLink partyGroupID={partyGroup.id} />
+      's Performance in the <EntLink ent={ent} short={true} />
     </Box>
   );
+  const description = <Box></Box>;
+  return { title, description };
 }
 
 export default function PartyGroupElectoralSummaryView({
@@ -37,11 +39,13 @@ export default function PartyGroupElectoralSummaryView({
   ent,
 }) {
   const dataList = getDataList(partyGroup, elections, ent);
+  const { title, description } = getTitleAndDescription(
+    partyGroup,
+    elections,
+    ent
+  );
   return (
-    <SectionBox
-      title="Electoral Summary"
-      description={getDescription(partyGroup, elections, ent)}
-    >
+    <SectionBox title={title} description={description}>
       <DataTableView dataList={dataList} />
     </SectionBox>
   );

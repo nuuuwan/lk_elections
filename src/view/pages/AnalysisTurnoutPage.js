@@ -36,7 +36,19 @@ export default class AnalysisTurnoutPage extends AbstractCustomPage {
   getTurnoutTableSparseMatrix() {
     const { completedElections, countryEnt, edEnts } = this.state;
     const ents = [countryEnt, ...edEnts];
-    return completedElections.reduce(function (sparseMatrix, election) {
+
+    const sortedValidElections = completedElections
+      .filter(function (election) {
+        const resultsLK = election.getResults(Ent.LK.id);
+        return resultsLK && resultsLK.summary.polled;
+      })
+      .sort(function (a, b) {
+        const resultsLKA = a.getResults(Ent.LK.id);
+        const resultsLKB = b.getResults(Ent.LK.id);
+        return resultsLKB.summary.pTurnout - resultsLKA.summary.pTurnout;
+      });
+
+    return sortedValidElections.reduce(function (sparseMatrix, election) {
       const resultsLK = election.getResults(Ent.LK.id);
       if (!resultsLK || !resultsLK.summary.polled) {
         return sparseMatrix;

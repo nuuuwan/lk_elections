@@ -54,18 +54,20 @@ export default class AnalysisBellwetherPage extends AbstractCustomPage {
     return <WikiSummaryView wikiPageName={"Bellwether"} />;
   }
 
-  getDescription(dataList) {
+  getTitleAndDescription(dataList) {
     const best = dataList[0];
-    return (
+    const title = "What are the Best #Bellwethers?";
+    const description = (
       <Essay>
         <>
-          The <EntLink ent={best.Region} /> is the best Bellwether Polling
+          The <EntLink ent={best.Region} /> is the best #Bellwether Polling
           Division in Sri Lanka, both in terms of how its results match (
           {best.Matches}) and their difference from ({Format.percent(best.Diff)}
           ) the nationwide result.
         </>
       </Essay>
     );
+    return { title, description };
   }
 
   get widgets() {
@@ -75,9 +77,9 @@ export default class AnalysisBellwetherPage extends AbstractCustomPage {
     }
 
     const dataList = this.getDataList();
-    const description = this.getDescription(dataList);
+    const { title, description } = this.getTitleAndDescription(dataList);
     return [
-      <SectionBox title="Best Bellwethers" description={description}>
+      <SectionBox title={title} description={description}>
         <DataTableView dataList={dataList} />
       </SectionBox>,
     ];

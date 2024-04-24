@@ -1,8 +1,14 @@
 import { Box } from "@mui/material";
-import { PercentagePoint, SparseMatrix } from "../../nonview/base";
+import { Format, PercentagePoint, SparseMatrix } from "../../nonview/base";
 
 import Swing from "../../nonview/core/Swing";
-import { EntLink, SectionBox } from "../atoms";
+import {
+  CommaListView,
+  ElectionLink,
+  EntLink,
+  PartyGroupLink,
+  SectionBox,
+} from "../atoms";
 
 import MatrixView from "./MatrixView";
 
@@ -26,13 +32,36 @@ function getSparseMatrix(partyGroupList, elections, ent) {
   );
 }
 
-function getDescription(partyGroupList, elections, ent) {
-  return (
+function getTitleAndDescription(partyGroupList, elections, ent, sparseMatrix) {
+  const sortedDataList = sparseMatrix.dataList.sort(function (a, b) {
+    return b.Swing.value - a.Swing.value;
+  });
+  const title = (
     <Box>
-      Swing in vote share for each party group in the <EntLink ent={ent} />{" "}
-      across elections.
+      <EntLink ent={ent} short={true} /> #VoteSwing History
     </Box>
   );
+  const description = (
+    <Box>
+      The biggest historical swings in the <EntLink ent={ent} short={true} />,
+      were in
+      <CommaListView>
+        {sortedDataList
+          .splice(0, 3)
+          .map(function ({ PartyGroup, Election, Swing }, i) {
+            return (
+              <Box key={"item-" + i} component="span">
+                {" "}
+                {Format.percentagePoint(Swing.value)} for the{" "}
+                <PartyGroupLink partyGroupID={PartyGroup.id} short={true} /> in{" "}
+                <ElectionLink election={Election} />.
+              </Box>
+            );
+          })}
+      </CommaListView>
+    </Box>
+  );
+  return { title, description };
 }
 
 export default function SwingAnalysisForEntView({
@@ -41,11 +70,14 @@ export default function SwingAnalysisForEntView({
   ent,
 }) {
   const sparseMatrix = getSparseMatrix(partyGroupList, elections, ent);
+  const { title, description } = getTitleAndDescription(
+    partyGroupList,
+    elections,
+    ent,
+    sparseMatrix
+  );
   return (
-    <SectionBox
-      title="Swing Analysis"
-      description={getDescription(partyGroupList, elections, ent)}
-    >
+    <SectionBox title={title} description={description}>
       <MatrixView
         sparseMatrix={sparseMatrix}
         xKey="PartyGroup"

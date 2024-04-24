@@ -16,7 +16,7 @@ export default function EntLink({ ent, short = false }) {
     <LinkContext context={context}>
       <Box sx={{ whiteSpace: "nowrap" }} component="span">
         <Typography variant="inherit" component="span">
-          #{label}
+          #{label.replaceAll(" ", "")}
         </Typography>
       </Box>
     </LinkContext>

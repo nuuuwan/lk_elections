@@ -76,7 +76,7 @@ function getSparseMatrix(election, ents) {
     return pushMatrixRowsForEnt(sparseMatrix, ent, majorPartyIDs, election);
   }, new SparseMatrix());
 }
-function getDescription(election, ents, focusSmallest) {
+function getTitleAndDescription(election, ents, focusSmallest) {
   let sortedEnts = election.sortEntsByValid(ents);
   if (focusSmallest) {
     sortedEnts.reverse();
@@ -87,23 +87,32 @@ function getDescription(election, ents, focusSmallest) {
   const partyToVotes = result.partyToVotes;
   const winningPartyID = partyToVotes.winningParty;
 
-  return (
+  const title = (
+    <Box>
+      <ElectionLink election={election} /> Results
+    </Box>
+  );
+  const description = (
     <Box>
       In the <EntLink ent={ent} />, <PartyLink partyID={winningPartyID} /> got
       the most votes (
       {Format.percent(partyToVotes.partyToPVotes[winningPartyID])}).
     </Box>
   );
+  return { title, description };
 }
 
 export default function ResultsTableView({ election, ents, focusSmallest }) {
   const matrix = getSparseMatrix(election, ents);
 
+  const { title, description } = getTitleAndDescription(
+    election,
+    ents,
+    focusSmallest
+  );
+
   return (
-    <SectionBox
-      title={<ElectionLink election={election} />}
-      description={getDescription(election, ents, focusSmallest)}
-    >
+    <SectionBox title={title} description={description}>
       <MatrixView
         sparseMatrix={matrix}
         xKey="Party"

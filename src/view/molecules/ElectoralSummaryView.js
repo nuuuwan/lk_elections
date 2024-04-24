@@ -33,16 +33,6 @@ function getDataList(ent, elections) {
 }
 
 function getTitleAndDescription(ent, elections) {
-  if (elections.length === 1) {
-    const election = elections[0];
-    return (
-      <Box>
-        Summary Statistics for the <ElectionLink election={election} />{" "}
-        Election.
-      </Box>
-    );
-  }
-
   const { pTurnout, pRejected } = Election.aggregateSummaryForEnt(
     elections,
     ent
@@ -50,9 +40,9 @@ function getTitleAndDescription(ent, elections) {
   const lastElection = Election.filterCompleted(elections).sort().reverse()[0];
   const electors = lastElection.getResults(ent.id).summary.electors;
   const title = (
-    <>
-      <EntLink ent={ent} short={false} /> Election Snapshot
-    </>
+    <Box>
+      <EntLink ent={ent} short={true} /> Election History
+    </Box>
   );
   const description = (
     <Essay>

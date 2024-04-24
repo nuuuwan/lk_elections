@@ -30,7 +30,7 @@ export default class Party {
   get handle() {
     return (
       {
-        UNP: "@officialunp",
+        UNP: "@OfficialUNP",
         SLPP: "@PodujanaParty",
         SLFP: "@SLFreedomParty",
         JVP: "@JVPnews",

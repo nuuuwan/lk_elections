@@ -1,4 +1,4 @@
-import { Format, MathX } from "../../nonview/base";
+import { MathX } from "../../nonview/base";
 import { Party, AnalysisBellwether } from "../../nonview/core";
 
 import { EntLink, SectionBox, Essay } from "../atoms";
@@ -37,30 +37,33 @@ function getFooterData(dataList) {
   };
 }
 
-function getDescription(elections, ent) {
-  const { n, nMatch, meanError, bellwetherType } =
+function getTitleAndDescription(elections, ent) {
+  const { n, nMatch, bellwetherType } =
     AnalysisBellwether.statsForElectionsAndEnt(elections, ent);
-  return (
+  const title = (
+    <>
+      Is <EntLink ent={ent} short={true} /> a good Bellwether?
+    </>
+  );
+  const description = (
     <Essay>
       <>
-        In the last {n} elections, the <EntLink ent={ent} shortName={false} />
+        In the last {n} elections, the <EntLink ent={ent} short={false} />
         {"'s "}
         result matched the nationwide result, in <strong>{nMatch}</strong>{" "}
         elections, making it a <strong>{bellwetherType}</strong> Bellwether.
       </>
-      <>Party results on average vary by {Format.percent(meanError)}.</>
     </Essay>
   );
+  return { title, description };
 }
 
 export default function BellwetherView({ elections, ent }) {
   const dataList = getDataList(elections, ent);
   const footerData = getFooterData(dataList);
+  const { title, description } = getTitleAndDescription(elections, ent);
   return (
-    <SectionBox
-      title="Bellwether Analysis"
-      description={getDescription(elections, ent)}
-    >
+    <SectionBox title={title} description={description}>
       <DataTableView dataList={dataList} footerData={footerData} />
     </SectionBox>
   );

@@ -29,7 +29,7 @@ export default class PartyPage extends AbstractCustomPage {
       return null;
     }
     return [
-      <EntLink ent={countryEnt} shortFormat={true} />,
+      <EntLink ent={countryEnt} short={true} />,
       ...partyGroupListForParty.map(function (partyGroup, iPartyGroup) {
         return (
           <PartyGroupLink

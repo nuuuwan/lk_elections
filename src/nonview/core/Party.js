@@ -27,6 +27,20 @@ export default class Party {
     return this.id.localeCompare(other.id);
   }
 
+  get handle() {
+    return (
+      {
+        UNP: "@officialunp",
+        SLPP: "@PodujanaParty",
+        SLFP: "@SLFreedomParty",
+        JVP: "@JVPnews",
+        ITAK: "@TNAmediaoffice",
+        SJB: "@SJBSriLanka",
+        UPFA: "@UPFASriLanka",
+      }[this.id] || "#" + this.id
+    );
+  }
+
   // static getters
   static listAll() {
     return PARTY_LIST_TUPLES.map(function ([id, name]) {

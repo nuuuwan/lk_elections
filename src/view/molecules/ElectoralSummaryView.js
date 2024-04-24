@@ -53,7 +53,7 @@ function getDescription(ent, elections) {
     <Essay>
       <>
         As of the <ElectionLink election={lastElection} />, the{" "}
-        <EntLink ent={ent} shortName={false} /> had {Format.int(electors)}{" "}
+        <EntLink ent={ent} short={false} /> had {Format.int(electors)}{" "}
         registered voters. Avg. Turnout was {Format.percent(pTurnout)}. Avg.
         Rejected Votes was {Format.percent(pRejected)}.
       </>

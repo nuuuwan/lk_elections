@@ -43,7 +43,11 @@ function getSparseMatrix(demographicsList, demographicType) {
   );
 }
 
-function getDescription(demographicsList, demographicType, focusSmallest) {
+function getTitleAndDescription(
+  demographicsList,
+  demographicType,
+  focusSmallest
+) {
   const demographics = demographicsList
     .filter(function (a) {
       return !a.noData;
@@ -73,22 +77,22 @@ function getDescription(demographicsList, demographicType, focusSmallest) {
 
   let majorityDescription;
   if (largestGroupP > 0.5) {
-    let majorityLabel = "majority";
+    let majorityLabel = "Majority";
     if (largestGroupP > 0.98) {
-      majorityLabel = " almost entirely ";
+      majorityLabel = " Almost entirely ";
     } else if (largestGroupP > 0.75) {
-      majorityLabel = " predominently ";
+      majorityLabel = "Predominently ";
     }
 
     majorityDescription = (
       <Box component="span">
-        is {majorityLabel} {Renderer.formatCellValueObject(largestGroup)} (
+        {majorityLabel} {Renderer.formatCellValueObject(largestGroup)} (
         {Format.percent(largestGroupP)})
       </Box>
     );
   } else {
     majorityDescription = (
-      <Box component="span"> has no group with a clear majority</Box>
+      <Box component="span"> No group with a clear majority</Box>
     );
   }
 
@@ -115,12 +119,20 @@ function getDescription(demographicsList, demographicType, focusSmallest) {
     );
   }
 
-  return (
+  const description = (
     <Box component="span">
-      The <EntLink ent={demographics.ent} /> {majorityDescription}{" "}
-      {minorityDescription}.
+      {majorityDescription} {minorityDescription}.
     </Box>
   );
+
+  const title = (
+    <Box>
+      What is the ethinic & religious makeup of{" "}
+      <EntLink ent={demographics.ent} short={true} />
+      {"?"}
+    </Box>
+  );
+  return { title, description };
 }
 
 export default function DemographicsView({
@@ -131,8 +143,8 @@ export default function DemographicsView({
   if (demographicsList.length === 1 && demographicsList[0].noData) {
     return null;
   }
-  const title = Format.titleCase(demographicType);
-  const description = getDescription(
+
+  const { title, description } = getTitleAndDescription(
     demographicsList,
     demographicType,
     focusSmallest

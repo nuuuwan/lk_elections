@@ -19,7 +19,7 @@ export default function PartyGroupLink({ partyGroupID }) {
         }}
         component="span"
       >
-        {partyGroupID}
+        #{partyGroupID}
       </Box>
     </LinkContext>
   );

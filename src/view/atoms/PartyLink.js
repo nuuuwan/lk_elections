@@ -17,7 +17,7 @@ export default function PartyLink({ partyID, noColor, longName }) {
 
   const { foreColor } = getStyle(party, noColor);
 
-  const partyLabel = longName ? party.name : partyID;
+  const partyLabel = longName ? party.name : party.handle;
 
   const context = {
     pageID: "Party",

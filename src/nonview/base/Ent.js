@@ -41,11 +41,11 @@ export default class Ent {
     return this.name.replaceAll(" ", "_");
   }
 
-  get shortName() {
+  get short() {
     if (this.id === "LK") {
       return "Country";
     }
-    return this.name + " " + this.entType.shortName;
+    return this.name + " " + this.entType.short;
   }
 
   get longName() {

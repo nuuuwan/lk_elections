@@ -34,8 +34,8 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
       return null;
     }
     return [
-      <EntLink ent={countryEnt} shortFormat={true} />,
-      <EntLink ent={edEnt} shortFormat={true} />,
+      <EntLink ent={countryEnt} short={true} />,
+      <EntLink ent={edEnt} short={true} />,
     ];
   }
   get title() {
@@ -43,7 +43,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     if (!edEnt) {
       return edID;
     }
-    return <EntLink ent={edEnt} shortFormat={false} />;
+    return <EntLink ent={edEnt} short={false} />;
   }
 
   get browserTitle() {
@@ -83,7 +83,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     const entsSimilar = [edEnt, ...pdEntsChildren];
     const entsAll = [...edEnts, countryEnt];
 
-    return [<EntListView ents={pdEntsChildren} shortFormat={true} />].concat(
+    return [<EntListView ents={pdEntsChildren} short={true} />].concat(
       CommonEntAnalysisView.get({
         ent: edEnt,
         entsSimilar,

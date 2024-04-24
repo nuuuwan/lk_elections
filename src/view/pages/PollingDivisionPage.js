@@ -41,9 +41,9 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     }
 
     return [
-      <EntLink ent={countryEnt} shortFormat={true} />,
-      <EntLink ent={edEnt} shortFormat={true} />,
-      <EntLink ent={pdEnt} shortFormat={true} />,
+      <EntLink ent={countryEnt} short={true} />,
+      <EntLink ent={edEnt} short={true} />,
+      <EntLink ent={pdEnt} short={true} />,
     ];
   }
 
@@ -52,7 +52,7 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     if (!pdEnt) {
       return pdID;
     }
-    return <EntLink ent={pdEnt} shortFormat={false} />;
+    return <EntLink ent={pdEnt} short={false} />;
   }
 
   get browserTitle() {

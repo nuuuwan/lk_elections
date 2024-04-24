@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import { EntType } from "../../nonview/base";
 import { LinkContext } from "../atoms";
 
-export default function EntLink({ ent, shortFormat = false }) {
+export default function EntLink({ ent, short = false }) {
   const entType = EntType.fromID(ent.id);
 
   const context = {
@@ -10,13 +10,13 @@ export default function EntLink({ ent, shortFormat = false }) {
     [entType.idKey]: ent.id,
   };
 
-  const label = shortFormat ? ent.shortName : ent.longName;
+  const label = short ? ent.short : ent.longName;
 
   return (
     <LinkContext context={context}>
       <Box sx={{ whiteSpace: "nowrap" }} component="span">
         <Typography variant="inherit" component="span">
-          {label}
+          #{label}
         </Typography>
       </Box>
     </LinkContext>

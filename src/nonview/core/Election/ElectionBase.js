@@ -19,8 +19,15 @@ export default class ElectionBase {
     return "General";
   }
 
+  get electionTypeHashtag() {
+    if (this.electionType === "Presidential") {
+      return "#PresPollSL";
+    }
+    return "#GenElecSL";
+  }
+
   get titleShort() {
-    return this.year + " " + this.electionTypeTitle;
+    return this.electionTypeHashtag + this.year;
   }
 
   get year() {

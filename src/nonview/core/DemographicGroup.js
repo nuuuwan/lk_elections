@@ -13,6 +13,10 @@ export default class DemographicGroup {
     return Format.titleCase(this.id);
   }
 
+  get handle() {
+    return "#" + this.name.replace(" ", "");
+  }
+
   static getColor(demographicGroupID) {
     return {
       // ethnicity

@@ -26,7 +26,7 @@ function getDescription(partyGroup, elections, ent) {
   return (
     <Box>
       Election for the <PartyGroupLink partyGroupID={partyGroup.id} /> in{" "}
-      <EntLink ent={ent} shortName={false} />, across elections.
+      <EntLink ent={ent} short={false} />, across elections.
     </Box>
   );
 }

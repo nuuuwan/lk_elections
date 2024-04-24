@@ -123,7 +123,7 @@ function getDescription(partyGroupList, elections, ents, focusSmallest) {
   return (
     <Essay>
       <>
-        In the <EntLink ent={firstEnt} shortFormat={true} />, party bases were{" "}
+        In the <EntLink ent={firstEnt} short={true} />, party bases were{" "}
         <CommaListView>
           {displayInfoList.map(function ({ partyGroup, windowBase }, i) {
             const leanTypeForPartyGroup =

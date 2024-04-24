@@ -14,7 +14,7 @@ export default class AnalysisFloatingVotePage extends AbstractCustomPage {
       return null;
     }
     return [
-      <EntLink ent={countryEnt} shortFormat={true} />,
+      <EntLink ent={countryEnt} short={true} />,
       "Analysis",
       "Floating Votes",
     ];

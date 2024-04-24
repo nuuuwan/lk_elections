@@ -11,7 +11,7 @@ export default class EntType {
     }[this.name];
   }
 
-  get shortName() {
+  get short() {
     return {
       country: "",
       pd: "PD",

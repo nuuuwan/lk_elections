@@ -21,7 +21,7 @@ export default class Renderer {
       return <ElectionLink election={value} />;
     }
     if (value instanceof Ent) {
-      return <EntLink ent={value} shortFormat={true} />;
+      return <EntLink ent={value} short={true} />;
     }
     if (value instanceof Party) {
       return <PartyLink partyID={value.id} />;
@@ -34,7 +34,7 @@ export default class Renderer {
     if (value instanceof DemographicGroup) {
       return (
         <Typography component="span" sx={{ color: value.color }}>
-          {value.name}
+          {value.handle}
         </Typography>
       );
     }

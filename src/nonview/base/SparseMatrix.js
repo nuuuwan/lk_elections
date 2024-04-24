@@ -25,7 +25,7 @@ export default class SparseMatrix {
       return x.p;
     }
     if (typeof x === "object") {
-      return x.id;
+      return x.name;
     }
     throw new Error("SparseMatrix: invalid scalar: " + x);
   }

@@ -13,14 +13,14 @@ import {
 export default class RandomPage {
   static getContextList() {
     return [
-      [ElectionPage, 2],
-      [ElectoralDistrictPage, 2],
-      [PollingDivisionPage, 4],
-      [CountryPage, 1],
+      [ElectionPage, 20],
+      [ElectoralDistrictPage, 20],
+      [PollingDivisionPage, 40],
+      [CountryPage, 10],
       [AnalysisBellwetherPage, 1],
       [AnalysisFloatingVotePage, 1],
-      [PartyPage, 1],
-      [PartyGroupPage, 1],
+      [PartyPage, 10],
+      [PartyGroupPage, 10],
     ].reduce(function (contextList, [Page, n]) {
       for (let i = 0; i < n; i++) {
         contextList.push({ pageID: Page.getPageID() });

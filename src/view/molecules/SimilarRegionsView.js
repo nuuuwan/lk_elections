@@ -14,17 +14,23 @@ function getDataList(elections, ent, otherEnts) {
     .filter((a) => a.Region.id !== ent.id);
 }
 
-function getDescription(elections, ent, otherEnts, dataList) {
+function getTitleAndDescription(ent, dataList) {
   const closestEnts = dataList.slice(0, 3).map((d) => d.Region);
-  return (
+  const title = (
+    <Box>
+      Who else votes like the <EntLink ent={ent} short={true} />?
+    </Box>
+  );
+  const description = (
     <Essay>
       <>
-        In voting behaviour, the <EntLink ent={ent} /> was most similar to{" "}
+        In voting behaviour, the <EntLink ent={ent} short={true} /> was most
+        similar to{" "}
         <CommaListView>
           {closestEnts.map(function (ent, iEnt) {
             return (
               <Box component="span" key={"item-" + iEnt}>
-                {"the "} <EntLink ent={ent} />
+                {"the "} <EntLink ent={ent} short={true} />
               </Box>
             );
           })}
@@ -33,15 +39,14 @@ function getDescription(elections, ent, otherEnts, dataList) {
       </>
     </Essay>
   );
+  return { title, description };
 }
 
 export default function SimilarRegionsView({ elections, ent, otherEnts }) {
   const dataList = getDataList(elections, ent, otherEnts);
+  const { title, description } = getTitleAndDescription(ent, dataList);
   return (
-    <SectionBox
-      title="Similar Voting Behaviour"
-      description={getDescription(elections, ent, otherEnts, dataList)}
-    >
+    <SectionBox title={title} description={description}>
       <DataTableView dataList={dataList} />
     </SectionBox>
   );

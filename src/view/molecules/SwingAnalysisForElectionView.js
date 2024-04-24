@@ -37,7 +37,7 @@ function getSparseMatrix(partyGroupList, election, prevElection, ents) {
   );
 }
 
-function getDescription(partyGroupList, election, prevElection, ents) {
+function getTitleAndDescription(partyGroupList, election, prevElection, ents) {
   const swingTuples = Swing.getSwingTuplesForElection(
     election,
     prevElection,
@@ -51,13 +51,14 @@ function getDescription(partyGroupList, election, prevElection, ents) {
       return b.swing - a.swing;
     });
 
-  return (
+  const title = (
+    <Box>
+      How did voting swing between <ElectionLink election={prevElection} /> and{" "}
+      <ElectionLink election={election} />
+    </Box>
+  );
+  const description = (
     <Essay>
-      <>
-        Swing in vote share for each party group in the{" "}
-        <ElectionLink election={election} /> Election, compared to the{" "}
-        <ElectionLink election={prevElection} /> Election.
-      </>
       <>
         Nationwide, there was{" "}
         <CommaListView>
@@ -74,6 +75,7 @@ function getDescription(partyGroupList, election, prevElection, ents) {
       </>
     </Essay>
   );
+  return { title, description };
 }
 
 export default function SwingAnalysisForElectionView({
@@ -91,11 +93,14 @@ export default function SwingAnalysisForElectionView({
     prevElection,
     ents
   );
+  const { title, description } = getTitleAndDescription(
+    partyGroupList,
+    election,
+    prevElection,
+    ents
+  );
   return (
-    <SectionBox
-      title="Swing Analysis for Election"
-      description={getDescription(partyGroupList, election, prevElection, ents)}
-    >
+    <SectionBox title={title} description={description}>
       <MatrixView
         sparseMatrix={sparseMatrix}
         zKey="Swing"

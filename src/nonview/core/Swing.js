@@ -9,7 +9,7 @@ export default class Swing {
       partyGroup
     );
     if (!voteInfo) {
-      return null;
+      return 0.0;
     }
     const { pVotes } = voteInfo;
     return pVotes;
@@ -22,9 +22,11 @@ export default class Swing {
       partyGroup,
       prevElection
     );
-    let swing = null;
+    let swing = 0.0;
     if (pVotes && pVotesPrev) {
       swing = pVotes - pVotesPrev;
+    } else if (pVotes) {
+      swing = pVotes;
     }
 
     return { partyGroup, ent, election, swing };

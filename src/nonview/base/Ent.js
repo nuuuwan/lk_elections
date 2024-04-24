@@ -43,14 +43,14 @@ export default class Ent {
 
   get short() {
     if (this.id === "LK") {
-      return "Country";
+      return "Sri Lanka";
     }
     return this.name + " " + this.entType.short;
   }
 
   get longName() {
     if (this.id === "LK") {
-      return "Country (Sri Lanka)";
+      return "Sri Lanka";
     }
     return this.name + " " + this.entType.longName;
   }

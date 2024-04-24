@@ -32,7 +32,7 @@ function getDataList(ent, elections) {
     });
 }
 
-function getDescription(ent, elections) {
+function getTitleAndDescription(ent, elections) {
   if (elections.length === 1) {
     const election = elections[0];
     return (
@@ -49,24 +49,28 @@ function getDescription(ent, elections) {
   );
   const lastElection = Election.filterCompleted(elections).sort().reverse()[0];
   const electors = lastElection.getResults(ent.id).summary.electors;
-  return (
+  const title = (
+    <>
+      <EntLink ent={ent} short={false} /> Election Snapshot
+    </>
+  );
+  const description = (
     <Essay>
       <>
         As of the <ElectionLink election={lastElection} />, the{" "}
-        <EntLink ent={ent} short={false} /> had {Format.int(electors)}{" "}
-        registered voters. Avg. Turnout was {Format.percent(pTurnout)}. Avg.
-        Rejected Votes was {Format.percent(pRejected)}.
+        <EntLink ent={ent} short={true} /> had {Format.int(electors)} registered
+        voters. Avg. Turnout was {Format.percent(pTurnout)}. Avg. Rejected Votes
+        was {Format.percent(pRejected)}.
       </>
     </Essay>
   );
+  return { title, description };
 }
 
 export default function ElectoralSummaryView({ ent, elections }) {
+  const { title, description } = getTitleAndDescription(ent, elections);
   return (
-    <SectionBox
-      title="Electoral Summary"
-      description={getDescription(ent, elections)}
-    >
+    <SectionBox title={title} description={description}>
       <DataTableView dataList={getDataList(ent, elections)} />
     </SectionBox>
   );

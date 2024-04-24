@@ -2,7 +2,7 @@ import ResultsTableView from "./ResultsTableView";
 import ResultsSeatsTableView from "./ResultsSeatsTableView";
 
 export default class ElectionListView {
-  static get({ elections, ents, focusSmallest }) {
+  static get({ elections, ents, focusSmallest, noSeats }) {
     return elections
       .sort()
       .reverse()
@@ -18,7 +18,7 @@ export default class ElectionListView {
             focusSmallest={focusSmallest}
           />
         );
-        if (election.electionType === "Parliamentary") {
+        if (election.electionType === "Parliamentary" && !noSeats) {
           widgets.push(
             <ResultsSeatsTableView election={election} ents={ents} />
           );

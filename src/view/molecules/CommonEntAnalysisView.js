@@ -1,3 +1,4 @@
+import { EntType } from "../../nonview/base";
 import {
   BellwetherView,
   FloatingVoteAnalysisView,
@@ -21,6 +22,7 @@ export default class CommonEntAnalysisView {
     demographicsViewFocusSmallest,
   }) {
     const demographicsList = entsSimilar.map((ent) => demographicsIdx[ent.id]);
+    const noSeats = ent.entType === EntType.PD || ent.entType === EntType.ED;
     return [
       <DemographicsView
         demographicsList={demographicsList}
@@ -58,6 +60,7 @@ export default class CommonEntAnalysisView {
         elections,
         ents: entsSimilar,
         focusSmallest: demographicsViewFocusSmallest,
+        noSeats,
       })
     );
   }

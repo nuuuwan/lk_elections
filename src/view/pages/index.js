@@ -2,8 +2,8 @@
 import AbstractCustomPage from "./AbstractCustomPage";
 import AnalysisBellwetherPage from "./AnalysisBellwetherPage";
 import AnalysisFloatingVotePage from "./AnalysisFloatingVotePage";
-import AnalysisTurnoutPage from "./AnalysisTurnoutPage";
 import AnalysisRejectedPage from "./AnalysisRejectedPage";
+import AnalysisTurnoutPage from "./AnalysisTurnoutPage";
 import BasePage from "./BasePage";
 import CountryPage from "./CountryPage";
 import ElectionPage from "./ElectionPage";
@@ -17,8 +17,8 @@ export {
   AbstractCustomPage,
   AnalysisBellwetherPage,
   AnalysisFloatingVotePage,
-  AnalysisTurnoutPage,
   AnalysisRejectedPage,
+  AnalysisTurnoutPage,
   BasePage,
   CountryPage,
   ElectionPage,

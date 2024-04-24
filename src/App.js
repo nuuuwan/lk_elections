@@ -6,6 +6,9 @@ import "./App.css";
 
 import { BasePage } from "./view/pages";
 
+const screenWidth = window.innerWidth;
+const fontSize = screenWidth < 600 ? 9 : 14;
+
 const THEME = createTheme({
   palette: {
     primary: {
@@ -26,7 +29,7 @@ const THEME = createTheme({
   },
   typography: {
     fontFamily: "Afacad",
-    fontSize: 14,
+    fontSize: fontSize,
   },
 });
 

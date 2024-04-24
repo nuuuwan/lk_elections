@@ -41,5 +41,10 @@ let FormatGeneric = {
     );
   },
 };
-FormatGeneric.DEFAULT_FONT_SIZE_RANGE = [14, 28];
+
+FormatGeneric.DEFAULT_FONT_SIZE = window.innerWidth < 600 ? 9 : 14;
+FormatGeneric.DEFAULT_FONT_SIZE_RANGE = [
+  FormatGeneric.DEFAULT_FONT_SIZE,
+  FormatGeneric.DEFAULT_FONT_SIZE * 2,
+];
 export default FormatGeneric;

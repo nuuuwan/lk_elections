@@ -67,7 +67,7 @@ export default class MainMenu extends Component {
       return null;
     }
     return (
-      <Box sx={{ minWidth: 240 }}>
+      <Box>
         <LinkContext context={{ pageID: "Country" }}>
           Elections in Sri Lanka
         </LinkContext>

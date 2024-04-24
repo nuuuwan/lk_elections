@@ -7,7 +7,7 @@ import { URLContext } from "../../nonview/base";
 import GenericStore from "../../nonview/core/GenericStore";
 import MenuIcon from "@mui/icons-material/Menu";
 import VersionView from "../atoms/VersionView";
-
+import CloseIcon from "@mui/icons-material/Close";
 export default class AbstractCustomPage extends Component {
   constructor(props) {
     super(props);
@@ -30,9 +30,11 @@ export default class AbstractCustomPage extends Component {
   }
 
   renderDrawer() {
+    const drawerOpen = this.state.drawerOpen;
     const onClick = function () {
-      this.setDrawerOpen(!this.state.drawerOpen);
+      this.setDrawerOpen(!drawerOpen);
     }.bind(this);
+    const Icon = drawerOpen ? CloseIcon : MenuIcon;
     return (
       <Box>
         <Drawer
@@ -46,9 +48,9 @@ export default class AbstractCustomPage extends Component {
             <MainMenu />
           </Box>
         </Drawer>
-        <Box sx={{ position: "fixed", bottom: 48, right: 48 }}>
+        <Box sx={{ position: "fixed", top: 32, right: 48, zIndex: 4000 }}>
           <IconButton onClick={onClick}>
-            <MenuIcon />
+            <Icon />
           </IconButton>
         </Box>
       </Box>
@@ -111,7 +113,7 @@ export default class AbstractCustomPage extends Component {
     return (
       <Box sx={{ marginTop: 15, zIndex: 1000 }}>
         {this.renderDrawer()}
-        <Grid container spacing={3} sx={{ m: 0.5 }}>
+        <Grid container spacing={1} sx={{ m: 0.5 }}>
           <Grid item>{this.renderTitleWidget()}</Grid>
           {this.renderWidgets()}
         </Grid>

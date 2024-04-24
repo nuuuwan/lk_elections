@@ -1,4 +1,5 @@
 import { Comparator } from "../core";
+import Fraction from "./Fraction";
 
 export default class SparseMatrix {
   constructor(dataList = []) {
@@ -19,6 +20,9 @@ export default class SparseMatrix {
     }
     if (typeof x === "number") {
       return x.toFixed(3);
+    }
+    if (x instanceof Fraction) {
+      return x.p;
     }
     if (typeof x === "object") {
       return x.id;
@@ -63,6 +67,26 @@ export default class SparseMatrix {
           idx[yScalar] = {};
         }
         idx[yScalar][xScalar] = z;
+        return idx;
+      }.bind(this),
+      {}
+    );
+  }
+
+  getIdxScalar(xKey, yKey, zKey) {
+    return this.dataList.reduce(
+      function (idx, data) {
+        const x = data[xKey];
+        const y = data[yKey];
+        const z = data[zKey];
+
+        const xScalar = this.toScalar(x);
+        const yScalar = this.toScalar(y);
+
+        if (!idx[yScalar]) {
+          idx[yScalar] = {};
+        }
+        idx[yScalar][xScalar] = this.toScalar(z);
         return idx;
       }.bind(this),
       {}

@@ -1,8 +1,9 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Header from "./Header";
 
-export default function SectionBox({ children, title, description }) {
+export default function SectionBox({ children, title, description, source }) {
   description = description || "Description TODO";
+  source = source || "elections.gov.lk";
 
   return (
     <Box sx={{ marginBottom: 3 }}>
@@ -15,7 +16,12 @@ export default function SectionBox({ children, title, description }) {
       >
         {description}
       </Box>
-      {children}
+      <Box>{children}</Box>
+      <Box>
+        <Typography variant="caption" sx={{ color: "#888" }}>
+          data source: {source}
+        </Typography>
+      </Box>
     </Box>
   );
 }

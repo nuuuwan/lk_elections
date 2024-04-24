@@ -151,7 +151,11 @@ export default function DemographicsView({
   );
   const sparseMatrix = getSparseMatrix(demographicsList, demographicType);
   return (
-    <SectionBox title={title} description={description}>
+    <SectionBox
+      title={title}
+      description={description}
+      source="2012 census (statistics.gov.lk)"
+    >
       <MatrixView
         sparseMatrix={sparseMatrix}
         zKey={"Fraction"}

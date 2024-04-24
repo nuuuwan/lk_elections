@@ -67,6 +67,7 @@ export default class Seats {
 
   getAggregatePartyToSeats(ents) {
     const entToPartyToSeats = this.getEntToPartyToSeats(ents);
+
     const aggregatePartyToSeats = Object.values(entToPartyToSeats).reduce(
       function (aggregatePartyToSeats, partyToSeats) {
         return Object.entries(partyToSeats).reduce(function (
@@ -83,6 +84,31 @@ export default class Seats {
     );
     return Object.fromEntries(
       Object.entries(aggregatePartyToSeats).sort(function (a, b) {
+        return b[1] - a[1];
+      })
+    );
+  }
+
+  getPartyGroupToSeats(ents, partyGroupList) {
+    const aggregatePartyToSeats = this.getAggregatePartyToSeats(ents);
+
+    const partyGroupToSeats = partyGroupList.reduce(function (
+      partyGroupToSeats,
+      partyGroup
+    ) {
+      return partyGroup.partyIDList.reduce(function (partyGroupToSeats, party) {
+        const seats = aggregatePartyToSeats[party];
+        if (!seats) {
+          return partyGroupToSeats;
+        }
+        partyGroupToSeats[partyGroup.id] =
+          (partyGroupToSeats[partyGroup.id] || 0) + (seats || 0);
+        return partyGroupToSeats;
+      }, partyGroupToSeats);
+    },
+    {});
+    return Object.fromEntries(
+      Object.entries(partyGroupToSeats).sort(function (a, b) {
         return b[1] - a[1];
       })
     );

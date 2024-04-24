@@ -17,6 +17,7 @@ import PartyGroupElectoralSummaryView from "./PartyGroupElectoralSummaryView";
 import Renderer from "./Renderer";
 import ResultsSeatsTableView from "./ResultsSeatsTableView";
 import ResultsTableView from "./ResultsTableView";
+import SeatsHistoryView from "./SeatsHistoryView";
 import SimilarRegionsView from "./SimilarRegionsView";
 import SwingAnalysisForElectionView from "./SwingAnalysisForElectionView";
 import SwingAnalysisForEntView from "./SwingAnalysisForEntView";
@@ -40,6 +41,7 @@ export {
   Renderer,
   ResultsSeatsTableView,
   ResultsTableView,
+  SeatsHistoryView,
   SimilarRegionsView,
   SwingAnalysisForElectionView,
   SwingAnalysisForEntView,

@@ -31,6 +31,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     widgets.push(<EntListView ents={edEnts} short={true} />);
 
     const entsAll = [...edEnts, countryEnt];
+    const entsAllAll = entsAll;
 
     widgets = [
       ...widgets,
@@ -38,6 +39,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
         ent: countryEnt,
         entsSimilar: entsAll,
         entsAll: entsAll,
+        entsAllAll: entsAllAll,
         elections,
         partyGroupList,
         demographicsIdx,

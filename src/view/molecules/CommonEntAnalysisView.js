@@ -6,6 +6,7 @@ import {
   ElectionListView,
   ElectoralSummaryView,
   DemographicsView,
+  SeatsHistoryView,
 } from "../molecules";
 
 export default class CommonEntAnalysisView {
@@ -13,6 +14,7 @@ export default class CommonEntAnalysisView {
     ent,
     entsSimilar,
     entsAll,
+    entsAllAll,
     elections,
     partyGroupList,
     demographicsIdx,
@@ -27,6 +29,12 @@ export default class CommonEntAnalysisView {
       />,
 
       <ElectoralSummaryView ent={ent} elections={elections} />,
+
+      <SeatsHistoryView
+        ents={entsAllAll}
+        elections={elections}
+        partyGroupList={partyGroupList}
+      />,
       <SimilarRegionsView
         ent={ent}
         elections={elections}

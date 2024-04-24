@@ -82,12 +82,14 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     }
     const entsSimilar = [edEnt, ...pdEntsChildren];
     const entsAll = [...edEnts, countryEnt];
+    const entsAllAll = [edEnt];
 
     return [<EntListView ents={pdEntsChildren} short={true} />].concat(
       CommonEntAnalysisView.get({
         ent: edEnt,
         entsSimilar,
         entsAll,
+        entsAllAll,
         elections,
         partyGroupList,
         demographicsIdx,

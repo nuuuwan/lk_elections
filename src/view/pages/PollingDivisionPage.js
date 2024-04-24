@@ -85,11 +85,13 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     }
     const entsSimilar = [pdEnt, edEnt, countryEnt];
     const entsAll = pdEnts;
+    const entsAllAll = [pdEnt];
 
     return CommonEntAnalysisView.get({
       ent: pdEnt,
       entsSimilar,
       entsAll,
+      entsAllAll,
       elections,
       partyGroupList,
       demographicsIdx,

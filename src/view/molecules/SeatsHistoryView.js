@@ -47,13 +47,12 @@ function getTitleAndDescription(ent, elections, partyGroupList) {
   const { totalSeats } = new Seats(lastElection).isEntValid(ent.id);
   const title = (
     <Box>
-      <EntLink ent={ent} short={true}></EntLink> Seat History
+      <EntLink ent={ent}></EntLink> Seat History
     </Box>
   );
   const description = (
     <Box>
-      As of <ElectionLink election={lastElection} /> the{" "}
-      <EntLink ent={ent} short={true} />
+      As of <ElectionLink election={lastElection} /> the <EntLink ent={ent} />
       had {totalSeats} seats assigned to it.
     </Box>
   );

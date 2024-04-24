@@ -42,13 +42,13 @@ function getTitleAndDescription(elections, ent) {
     AnalysisBellwether.statsForElectionsAndEnt(elections, ent);
   const title = (
     <>
-      Is <EntLink ent={ent} short={true} /> a good Bellwether?
+      Is <EntLink ent={ent} /> a good Bellwether?
     </>
   );
   const description = (
     <Essay>
       <>
-        In the last {n} elections, the <EntLink ent={ent} short={false} />
+        In the last {n} elections, <EntLink ent={ent} />
         {"'s "}
         result matched the nationwide result, in <strong>{nMatch}</strong>{" "}
         elections, making it a <strong>{bellwetherType}</strong> Bellwether.

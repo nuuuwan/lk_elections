@@ -60,7 +60,7 @@ export default class ElectionPage extends AbstractCustomPage {
       return null;
     }
     return [
-      <EntLink ent={countryEnt} short={true} />,
+      <EntLink ent={countryEnt} />,
       ...[prevElection, nextElection]
         .filter((x) => !!x)
         .map((e) => <ElectionLink key={e.date} election={e} />),

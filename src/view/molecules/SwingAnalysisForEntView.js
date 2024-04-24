@@ -38,13 +38,12 @@ function getTitleAndDescription(partyGroupList, elections, ent, sparseMatrix) {
   });
   const title = (
     <Box>
-      <EntLink ent={ent} short={true} /> #VoteSwing History
+      <EntLink ent={ent} /> #VoteSwing History
     </Box>
   );
   const description = (
     <Box>
-      The biggest historical swings in the <EntLink ent={ent} short={true} />,
-      were in
+      The biggest historical swings in <EntLink ent={ent} />, were in
       <CommaListView>
         {sortedDataList
           .splice(0, 3)
@@ -53,7 +52,7 @@ function getTitleAndDescription(partyGroupList, elections, ent, sparseMatrix) {
               <Box key={"item-" + i} component="span">
                 {" "}
                 {Format.percentagePoint(Swing.value)} for the{" "}
-                <PartyGroupLink partyGroupID={PartyGroup.id} short={true} /> in{" "}
+                <PartyGroupLink partyGroupID={PartyGroup.id} /> in{" "}
                 <ElectionLink election={Election} />.
               </Box>
             );

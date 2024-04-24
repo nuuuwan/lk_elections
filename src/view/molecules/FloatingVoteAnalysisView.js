@@ -127,15 +127,14 @@ function getTitleAndDescription(
 
   const title = (
     <>
-      How big is the #FloatingVote in the{" "}
-      <EntLink ent={firstEnt} short={true} />?
+      How big is the #FloatingVote in the <EntLink ent={firstEnt} />?
     </>
   );
 
   const description = (
     <Essay>
       <>
-        In the <EntLink ent={firstEnt} short={false} />, party bases were{" "}
+        In <EntLink ent={firstEnt} />, party bases were{" "}
         <CommaListView>
           {displayInfoList.map(function ({ partyGroup, windowBase }, i) {
             const leanTypeForPartyGroup =

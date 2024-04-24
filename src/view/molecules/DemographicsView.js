@@ -128,7 +128,7 @@ function getTitleAndDescription(
   const title = (
     <Box>
       What is the ethinic & religious makeup of{" "}
-      <EntLink ent={demographics.ent} short={true} />
+      <EntLink ent={demographics.ent} />
       {"?"}
     </Box>
   );

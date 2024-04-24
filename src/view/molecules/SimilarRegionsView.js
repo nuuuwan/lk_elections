@@ -18,19 +18,18 @@ function getTitleAndDescription(ent, dataList) {
   const closestEnts = dataList.slice(0, 3).map((d) => d.Region);
   const title = (
     <Box>
-      Who else votes like the <EntLink ent={ent} short={true} />?
+      Who else votes like <EntLink ent={ent} />?
     </Box>
   );
   const description = (
     <Essay>
       <>
-        In voting behaviour, the <EntLink ent={ent} short={true} /> was most
-        similar to{" "}
+        In voting behaviour, <EntLink ent={ent} /> was most similar to{" "}
         <CommaListView>
           {closestEnts.map(function (ent, iEnt) {
             return (
               <Box component="span" key={"item-" + iEnt}>
-                {"the "} <EntLink ent={ent} short={true} />
+                <EntLink ent={ent} />
               </Box>
             );
           })}

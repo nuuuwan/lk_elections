@@ -16,11 +16,7 @@ export default class AnalysisBellwetherPage extends AbstractCustomPage {
     if (!countryEnt) {
       return null;
     }
-    return [
-      <EntLink ent={countryEnt} short={true} />,
-      "Analysis",
-      "Bellwether",
-    ];
+    return [<EntLink ent={countryEnt} />, "Analysis", "Bellwether"];
   }
 
   get title() {

@@ -78,8 +78,8 @@ export default class MainMenu extends Component {
 
         <ElectionListViewSmall elections={elections} />
 
-        <EntListView ents={edEnts} short={true} />
-        <EntListView ents={pdEnts} short={true} />
+        <EntListView ents={edEnts} />
+        <EntListView ents={pdEnts} />
       </Box>
     );
   }

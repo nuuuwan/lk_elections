@@ -28,7 +28,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     }
 
     let widgets = [];
-    widgets.push(<EntListView ents={edEnts} short={true} />);
+    widgets.push(<EntListView ents={edEnts} />);
 
     const entsAll = [...edEnts, countryEnt];
     const entsAllAll = entsAll;

@@ -41,16 +41,16 @@ function getTitleAndDescription(ent, elections) {
   const electors = lastElection.getResults(ent.id).summary.electors;
   const title = (
     <Box>
-      <EntLink ent={ent} short={true} /> Election History
+      <EntLink ent={ent} /> Election History
     </Box>
   );
   const description = (
     <Essay>
       <>
         As of the <ElectionLink election={lastElection} />, the{" "}
-        <EntLink ent={ent} short={true} /> had {Format.int(electors)} registered
-        voters. Avg. Turnout was {Format.percent(pTurnout)}. Avg. Rejected Votes
-        was {Format.percent(pRejected)}.
+        <EntLink ent={ent} /> had {Format.int(electors)} registered voters. Avg.
+        Turnout was {Format.percent(pTurnout)}. Avg. Rejected Votes was{" "}
+        {Format.percent(pRejected)}.
       </>
     </Essay>
   );

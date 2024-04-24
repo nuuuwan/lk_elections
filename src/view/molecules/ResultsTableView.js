@@ -94,9 +94,8 @@ function getTitleAndDescription(election, ents, focusSmallest) {
   );
   const description = (
     <Box>
-      In the <EntLink ent={ent} />, <PartyLink partyID={winningPartyID} /> got
-      the most votes (
-      {Format.percent(partyToVotes.partyToPVotes[winningPartyID])}).
+      In <EntLink ent={ent} />, <PartyLink partyID={winningPartyID} /> got the
+      most votes ({Format.percent(partyToVotes.partyToPVotes[winningPartyID])}).
     </Box>
   );
   return { title, description };

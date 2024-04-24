@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import { EntType } from "../../nonview/base";
 import { LinkContext } from "../atoms";
 
-export default function EntLink({ ent, short = false }) {
+export default function EntLink({ ent, short = true }) {
   const entType = EntType.fromID(ent.id);
 
   const context = {

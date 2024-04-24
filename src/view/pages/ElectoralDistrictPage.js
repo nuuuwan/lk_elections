@@ -33,10 +33,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     if (!edEnt) {
       return null;
     }
-    return [
-      <EntLink ent={countryEnt} short={true} />,
-      <EntLink ent={edEnt} short={true} />,
-    ];
+    return [<EntLink ent={countryEnt} />, <EntLink ent={edEnt} />];
   }
   get title() {
     const { edEnt, edID } = this.state;
@@ -84,7 +81,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     const entsAll = [...edEnts, countryEnt];
     const entsAllAll = [edEnt];
 
-    return [<EntListView ents={pdEntsChildren} short={true} />].concat(
+    return [<EntListView ents={pdEntsChildren} />].concat(
       CommonEntAnalysisView.get({
         ent: edEnt,
         entsSimilar,

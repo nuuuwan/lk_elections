@@ -21,7 +21,7 @@ export default class Renderer {
       return <ElectionLink election={value} />;
     }
     if (value instanceof Ent) {
-      return <EntLink ent={value} short={true} />;
+      return <EntLink ent={value} />;
     }
     if (value instanceof Party) {
       return <PartyLink partyID={value.id} />;

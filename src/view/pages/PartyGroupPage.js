@@ -32,7 +32,7 @@ export default class PartyGroupPage extends AbstractCustomPage {
       return null;
     }
     return [
-      <EntLink ent={countryEnt} short={true} />,
+      <EntLink ent={countryEnt} />,
       <PartyGroupLink partyGroupID={partyGroup.id} />,
     ];
   }

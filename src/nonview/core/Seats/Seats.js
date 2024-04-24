@@ -64,4 +64,27 @@ export default class Seats {
       ents.map((ent) => [ent.id, this.getPartyToSeats(ent.id)])
     );
   }
+
+  getAggregatePartyToSeats(ents) {
+    const entToPartyToSeats = this.getEntToPartyToSeats(ents);
+    const aggregatePartyToSeats = Object.values(entToPartyToSeats).reduce(
+      function (aggregatePartyToSeats, partyToSeats) {
+        return Object.entries(partyToSeats).reduce(function (
+          aggregatePartyToSeats,
+          [party, seats]
+        ) {
+          aggregatePartyToSeats[party] =
+            (aggregatePartyToSeats[party] || 0) + seats;
+          return aggregatePartyToSeats;
+        },
+        aggregatePartyToSeats);
+      },
+      {}
+    );
+    return Object.fromEntries(
+      Object.entries(aggregatePartyToSeats).sort(function (a, b) {
+        return b[1] - a[1];
+      })
+    );
+  }
 }

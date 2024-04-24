@@ -1,6 +1,6 @@
-import { EntLink, PartyGroupLink, SectionBox } from "../atoms";
+import { ElectionLink, Essay, PartyGroupLink, SectionBox } from "../atoms";
 import { DataTableView } from ".";
-import { Fraction } from "../../nonview/base";
+import { Format, Fraction } from "../../nonview/base";
 import { AnalysisFloatingVote } from "../../nonview/core";
 import { Box } from "@mui/material";
 
@@ -22,14 +22,30 @@ function getDataList(partyGroup, elections, ent) {
     });
 }
 
-function getTitleAndDescription(partyGroup, elections, ent) {
+function getTitleAndDescription(partyGroup, elections, dataList) {
+  const nAll = elections.length;
+  const n = dataList.length;
+  const best = dataList
+    .filter((x) => x)
+    .sort((a, b) => b.Votes.p - a.Votes.p)[0];
   const title = (
     <Box>
       <PartyGroupLink partyGroupID={partyGroup.id} />
-      's Performance in the <EntLink ent={ent} short={true} />
+      's History
     </Box>
   );
-  const description = <Box></Box>;
+  const description = (
+    <Essay>
+      <>
+        The <PartyGroupLink partyGroupID={partyGroup.id} longName={true} />{" "}
+        parties have run in {n} of the last {nAll} elections.
+      </>
+      <>
+        Best showing (% wise) was in <ElectionLink election={best.Election} /> ,
+        when it got {Format.percent(best.Votes.p)} of the vote.
+      </>
+    </Essay>
+  );
   return { title, description };
 }
 
@@ -42,7 +58,7 @@ export default function PartyGroupElectoralSummaryView({
   const { title, description } = getTitleAndDescription(
     partyGroup,
     elections,
-    ent
+    dataList
   );
   return (
     <SectionBox title={title} description={description}>

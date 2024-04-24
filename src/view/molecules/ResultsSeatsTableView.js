@@ -1,14 +1,14 @@
 import { Box } from "@mui/material";
-import { EntType, SparseMatrix } from "../../nonview/base";
+import { EntType, MathX, SparseMatrix } from "../../nonview/base";
 import { Party, Seats } from "../../nonview/core";
 
-import { ElectionLink, SectionBox } from "../atoms";
+import { ElectionLink, PartyLink, SectionBox } from "../atoms";
 import { MatrixView } from "../molecules";
 
 function getSparseMatrix(election, ents) {
   let dataListParts = [];
   const seats = new Seats(election);
-  let partyToSeatsAll = {};
+
   ents.forEach(function (ent) {
     const partyToSeats = seats.getPartyToSeats(ent.id);
     if (!partyToSeats) {
@@ -20,16 +20,13 @@ function getSparseMatrix(election, ents) {
         Party: Party.fromID(partyID),
         Seats: seats,
       });
-      if (!partyToSeatsAll[partyID]) {
-        partyToSeatsAll[partyID] = 0;
-      }
-      partyToSeatsAll[partyID] += seats;
     }
   });
-
+  const aggregatePartyToSeats = seats.getAggregatePartyToSeats(ents);
   let dataListSum = [];
+
   if (ents.length > 1) {
-    for (let [partyID, seats] of Object.entries(partyToSeatsAll)) {
+    for (let [partyID, seats] of Object.entries(aggregatePartyToSeats)) {
       dataListSum.push({
         Region: "Aggregate",
         Party: Party.fromID(partyID),
@@ -41,12 +38,36 @@ function getSparseMatrix(election, ents) {
   return new SparseMatrix([...dataListSum, ...dataListParts]);
 }
 
-function getDescription(election, ents) {
-  return (
+function getTitleAndDescription(election, ents) {
+  const seats = new Seats(election);
+  const aggregatePartyToSeats = seats.getAggregatePartyToSeats(ents);
+  const nWithSeats = Object.keys(aggregatePartyToSeats).length;
+
+  const winningPartyID = Object.keys(aggregatePartyToSeats)[0];
+  const winningPartySeats = aggregatePartyToSeats[winningPartyID];
+  const totalSeats = MathX.sum(Object.values(aggregatePartyToSeats));
+
+  let winDescription = "Plurality, but no Majority";
+  if (winningPartySeats >= 150) {
+    winDescription = "⅔ Majority";
+  } else if (winningPartySeats >= 112) {
+    winDescription = "Majority";
+  }
+
+  const title = (
     <Box>
-      Seats won in the <ElectionLink election={election} /> Election.
+      <ElectionLink election={election} />
+      {" (Seats)"}
     </Box>
   );
+  const description = (
+    <Box>
+      {nWithSeats} parties won at least one seat. Most seats were won by the{" "}
+      <PartyLink partyID={winningPartyID} /> ({winningPartySeats}/{totalSeats}),
+      giving it a {winDescription} in parliament.
+    </Box>
+  );
+  return { title, description };
 }
 
 export default function ResultsSeatsTableView({ election, ents }) {
@@ -57,17 +78,13 @@ export default function ResultsSeatsTableView({ election, ents }) {
     return null;
   }
   const sparseMatrix = getSparseMatrix(election, sortedValidEnts);
+  const { title, description } = getTitleAndDescription(
+    election,
+    sortedValidEnts
+  );
 
   return (
-    <SectionBox
-      title={
-        <Box>
-          <ElectionLink election={election} />
-          {" (Seats)"}
-        </Box>
-      }
-      description={getDescription(election, sortedValidEnts)}
-    >
+    <SectionBox title={title} description={description}>
       <MatrixView
         sparseMatrix={sparseMatrix}
         zKey="Seats"

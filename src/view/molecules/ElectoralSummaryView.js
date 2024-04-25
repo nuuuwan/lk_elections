@@ -51,7 +51,7 @@ function getTitleAndDescription(ent, elections) {
   const description = (
     <Essay>
       <>
-        As of the <ElectionLink election={lastElection} />, had{" "}
+        As of <ElectionLink election={lastElection} />, had{" "}
         {Format.int(electors)} registered voters. Avg. #Turnout was{" "}
         {Format.percent(pTurnout)}. Avg. #RejectedVotes was{" "}
         {Format.percent(pRejected)}.

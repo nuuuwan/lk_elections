@@ -45,7 +45,7 @@ function getTitleAndDescription(ent, elections) {
 
   const title = (
     <Box>
-      {innerTitle} Election Summary - <EntLink ent={ent} />
+      <EntLink ent={ent} /> {innerTitle} Summary
     </Box>
   );
   const description = (

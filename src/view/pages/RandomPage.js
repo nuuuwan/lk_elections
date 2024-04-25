@@ -19,7 +19,7 @@ export default class RandomPage {
       [CountryPage, 10],
       [AnalysisBellwetherPage, 1],
       [AnalysisFloatingVotePage, 1],
-      [PartyPage, 10],
+      [PartyPage, 0],
       [PartyGroupPage, 10],
     ].reduce(function (contextList, [Page, n]) {
       for (let i = 0; i < n; i++) {

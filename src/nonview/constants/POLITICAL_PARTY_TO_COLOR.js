@@ -12,7 +12,7 @@ const COLOR_TO_POLITICAL_PARTIES = {
   purple: ["SLMP"],
   lightgray: ["Other"],
   "#042": ["DUNF"],
-  "#eee": ["INDI", "IND1", "IND2"],
+  "#888": ["INDI", "IND1", "IND2"],
 };
 
 const POLITICAL_PARTY_TO_COLOR = Object.entries(

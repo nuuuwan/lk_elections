@@ -39,11 +39,11 @@ function getTitleAndDescription(ent, elections) {
   );
   const lastElection = Election.filterCompleted(elections).sort().reverse()[0];
   const electors = lastElection.getResults(ent.id).summary.electors;
-  const title = (
-    <Box>
-      <EntLink ent={ent} /> Election History
-    </Box>
-  );
+
+  const innerTitle =
+    elections.length === 1 ? <ElectionLink election={lastElection} /> : null;
+
+  const title = <Box>{innerTitle} Election Summary</Box>;
   const description = (
     <Essay>
       <>

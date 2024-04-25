@@ -42,8 +42,9 @@ export default class CommonEntAnalysisView {
         elections={elections}
         otherEnts={entsAll}
       />,
-      <BellwetherView ent={ent} elections={elections} />,
-
+      ent.id !== "LK" ? (
+        <BellwetherView ent={ent} elections={elections} />
+      ) : null,
       <FloatingVoteAnalysisView
         partyGroupList={partyGroupList}
         elections={elections}

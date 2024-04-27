@@ -4,7 +4,6 @@ import { MathX } from "../../nonview/base";
 import { ElectionLink, PartyLink, SectionBox } from "../atoms";
 
 function ParliBlocksView({ partyGroupToPartyToSeats }) {
-  console.debug(partyGroupToPartyToSeats);
   const limitBreakSeats = 0;
   const inner = Object.entries(partyGroupToPartyToSeats).reduce(function (
     inner,

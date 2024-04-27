@@ -70,7 +70,7 @@ export default function SeatsHistoryView({ ents, elections, partyGroupList }) {
     return null;
   }
   const sparseMatrix = getSparseMatrix(ents, elections, partyGroupList);
-  console.debug(sparseMatrix);
+
   const { title, description } = getTitleAndDescription(
     ent,
     elections,

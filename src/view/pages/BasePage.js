@@ -40,19 +40,21 @@ export default class BasePage extends Component {
   render() {
     let { pageID } = this.state;
 
-    if (!pageID) {
+    if (pageID === "random") {
       pageID = RandomPage.open();
+    }
+    if (!pageID) {
+      pageID = CountryPage;
     }
 
     const activePageID = pageID;
-    let ActivePage = CountryPage;
+
     for (let Page of this.pageList) {
       if (activePageID === Page.getPageID()) {
-        ActivePage = Page;
-        break;
+        return <Page />;
       }
     }
 
-    return <ActivePage />;
+    return <CountryPage />;
   }
 }

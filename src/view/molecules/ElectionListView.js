@@ -1,5 +1,6 @@
 import ResultsTableView from "./ResultsTableView";
 import ResultsSeatsTableView from "./ResultsSeatsTableView";
+import ParliView from "./ParliView";
 
 export default class ElectionListView {
   static get({ elections, ents, focusSmallest, noSeats }) {
@@ -22,6 +23,7 @@ export default class ElectionListView {
           widgets.push(
             <ResultsSeatsTableView election={election} ents={ents} />
           );
+          widgets.push(<ParliView election={election} ents={ents} />);
         }
         return widgets;
       }, []);

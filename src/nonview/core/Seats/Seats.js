@@ -1,4 +1,6 @@
+import { MathX } from "../../base";
 import { YEAR_TO_REGION_TO_SEATS } from "../../constants";
+import PartyGroup from "../PartyGroup";
 import SeatsBase from "./SeatsBase";
 
 export default class Seats {
@@ -87,6 +89,34 @@ export default class Seats {
         return b[1] - a[1];
       })
     );
+  }
+
+  getAggregatePartyGroupToPartyToSeats(ents) {
+    const aggregatePartyToSeats = this.getAggregatePartyToSeats(ents);
+    const idx = Object.entries(aggregatePartyToSeats).reduce(function (
+      idx,
+      [partyID, seats]
+    ) {
+      const partyGroup = PartyGroup.listFromPartyID(partyID)[0];
+
+      if (!partyGroup) {
+        return idx;
+      }
+      const partyGroupID = partyGroup.id;
+      idx[partyGroupID] = idx[partyGroupID] || {};
+      idx[partyGroupID][partyID] = seats;
+      return idx;
+    },
+    {});
+
+    const sortedIdx = Object.fromEntries(
+      Object.entries(idx).sort(function (a, b) {
+        const totalA = MathX.sum(Object.values(a[1]));
+        const totalB = MathX.sum(Object.values(b[1]));
+        return totalB - totalA;
+      })
+    );
+    return sortedIdx;
   }
 
   getPartyGroupToSeats(ents, partyGroupList) {

@@ -12,7 +12,7 @@ import FloatingVoteAnalysisView from "./FloatingVoteAnalysisView";
 import GenericListView from "./GenericListView";
 import GenericListViewLazy from "./GenericListViewLazy";
 import MatrixView from "./MatrixView";
-import ParliView from "./ParliView";
+import ParliView from "./ParliView/ParliView";
 import PartyElectoralSummaryView from "./PartyElectoralSummaryView";
 import PartyGroupElectoralSummaryView from "./PartyGroupElectoralSummaryView";
 import Renderer from "./Renderer";

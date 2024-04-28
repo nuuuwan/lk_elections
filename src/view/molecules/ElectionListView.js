@@ -1,6 +1,6 @@
 import ResultsTableView from "./ResultsTableView";
 import ResultsSeatsTableView from "./ResultsSeatsTableView";
-import ParliView from "./ParliView";
+import ParliView from "./ParliView/ParliView";
 
 export default class ElectionListView {
   static get({ elections, ents, focusSmallest, noSeats }) {

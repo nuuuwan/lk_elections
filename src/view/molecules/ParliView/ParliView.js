@@ -1,7 +1,8 @@
 import { Box, Typography } from "@mui/material";
-import { Party, Seats } from "../../nonview/core";
-import { MathX } from "../../nonview/base";
-import { ElectionLink, PartyLink, SectionBox } from "../atoms";
+import { Party, Seats } from "../../../nonview/core";
+import { MathX } from "../../../nonview/base";
+import { ElectionLink, PartyLink, SectionBox } from "../../atoms";
+import ParliViewStyle from "./ParliViewStyle";
 
 function ParliBlocksView({ partyGroupToPartyToSeats }) {
   const limitBreakSeats = 0;
@@ -25,22 +26,14 @@ function ParliBlocksView({ partyGroupToPartyToSeats }) {
         inner.push(
           <Box
             key={"seat-" + partyID + "-" + iSeat}
-            sx={{
-              background: party.color,
-              padding: 1,
-              margin: 0.1,
-              width: 4,
-              height: 4,
-              borderRadius: 6,
-              display: "inline-block",
-              textAlign: "center",
-            }}
+            sx={Object.assign({}, ParliViewStyle.SEAT, {
+              backgroundColor: party.color,
+            })}
             component="span"
           ></Box>
         );
         return inner;
       }, inner);
-
       return inner;
     },
     inner);

@@ -7,6 +7,10 @@ export default class MathX {
     }, 0);
   }
 
+  static sumValues(d) {
+    return MathX.sum(Object.values(d));
+  }
+
   static mean(numList) {
     return MathX.sum(numList) / numList.length;
   }

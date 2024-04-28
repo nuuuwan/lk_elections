@@ -18,20 +18,18 @@ export default function SwingAnalysisForElectionViewDescription({
 
   return (
     <Essay>
-      <>
-        Nationwide, there was{" "}
-        <CommaListView>
-          {swingTuples.map(function ({ partyGroup, swing }) {
-            return (
-              <Box key={partyGroup.id} component="span">
-                a <strong>{Format.percentagePoint(swing)}</strong> swing for the{" "}
-                {<PartyGroupLink partyGroupID={partyGroup.id} />}
-              </Box>
-            );
-          })}
-        </CommaListView>
-        .
-      </>
+      Nationwide, there was{" "}
+      <CommaListView>
+        {swingTuples.map(function ({ partyGroup, swing }) {
+          return (
+            <Box key={partyGroup.id} component="span">
+              a <strong>{Format.percentagePoint(swing)}</strong> swing for the{" "}
+              {<PartyGroupLink partyGroupID={partyGroup.id} />}
+            </Box>
+          );
+        })}
+      </CommaListView>
+      .
     </Essay>
   );
 }

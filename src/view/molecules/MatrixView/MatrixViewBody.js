@@ -11,11 +11,8 @@ export default function MatrixViewBody({
   const firstYXScalarList = Object.keys(Object.values(idx)[0]);
   let rowEntriesList = Object.entries(idx);
   const totalRows = rowEntriesList.length;
-  if (!showExpanded && totalRows > DataTable.DEFAULT_DISPLAY_MAX_ROWS) {
-    rowEntriesList = rowEntriesList.slice(
-      0,
-      DataTable.DEFAULT_DISPLAY_MAX_ROWS
-    );
+  if (!showExpanded && totalRows > DataTable.MAX_ROWS) {
+    rowEntriesList = rowEntriesList.slice(0, DataTable.MAX_ROWS);
   }
 
   return (

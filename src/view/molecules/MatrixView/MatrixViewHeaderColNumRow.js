@@ -6,14 +6,8 @@ function numberToLetter(number) {
 
 export default function MatrixViewHeaderColNumRow({ idx, showExpanded }) {
   let colEntriesList = Object.keys(Object.values(idx)[0]);
-  if (
-    !showExpanded &&
-    colEntriesList.length > DataTable.DEFAULT_DISPLAY_MAX_COLS
-  ) {
-    colEntriesList = colEntriesList.slice(
-      0,
-      DataTable.DEFAULT_DISPLAY_MAX_COLS
-    );
+  if (!showExpanded && colEntriesList.length > DataTable.MAX_COLS) {
+    colEntriesList = colEntriesList.slice(0, DataTable.MAX_COLS);
   }
   return (
     <tr>

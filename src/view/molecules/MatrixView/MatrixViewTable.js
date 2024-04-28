@@ -64,9 +64,7 @@ export default function MatrixViewTable({
   const nRows = Object.keys(idx).length;
   const nCols = Object.keys(Object.values(idx)[0]).length;
 
-  const needsExpand =
-    nRows > DataTable.DEFAULT_DISPLAY_MAX_ROWS ||
-    nCols > DataTable.DEFAULT_DISPLAY_MAX_COLS;
+  const needsExpand = nRows > DataTable.MAX_ROWS || nCols > DataTable.MAX_COLS;
 
   const label = showExpanded
     ? "Collapse"

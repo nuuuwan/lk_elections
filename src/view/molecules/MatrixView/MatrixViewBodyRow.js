@@ -17,14 +17,8 @@ export default function MatrixViewBodyRow({
     setSortYScalarAndOrder(yScalar);
   };
 
-  if (
-    !showExpanded &&
-    firstYXScalarList.length >= DataTable.DEFAULT_DISPLAY_MAX_COLS
-  ) {
-    firstYXScalarList = firstYXScalarList.slice(
-      0,
-      DataTable.DEFAULT_DISPLAY_MAX_COLS
-    );
+  if (!showExpanded && firstYXScalarList.length >= DataTable.MAX_COLS) {
+    firstYXScalarList = firstYXScalarList.slice(0, DataTable.MAX_COLS);
   }
 
   return (

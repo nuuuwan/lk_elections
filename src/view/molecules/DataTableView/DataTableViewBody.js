@@ -8,10 +8,7 @@ export default function DataTableViewBody({
   showExpanded,
 }) {
   if (!showExpanded) {
-    sortedDataList = sortedDataList.slice(
-      0,
-      DataTable.DEFAULT_DISPLAY_MAX_ROWS
-    );
+    sortedDataList = sortedDataList.slice(0, DataTable.MAX_ROWS);
   }
   return (
     <tbody>

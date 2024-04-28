@@ -1,7 +1,7 @@
 import AbstractCustomPage from "./AbstractCustomPage";
 import { SectionBox, WikiSummaryView, EntLink } from "../atoms";
 import MatrixView from "../molecules/MatrixView/MatrixView";
-import { Ent, Fraction, SparseMatrix } from "../../nonview/base";
+import { Ent, Fraction, SparseMatrix, Sort, Reduce } from "../../nonview/base";
 
 export default class AnalysisRejectedPage extends AbstractCustomPage {
   static getPageID() {
@@ -37,42 +37,33 @@ export default class AnalysisRejectedPage extends AbstractCustomPage {
     const { completedElections, countryEnt, edEnts } = this.state;
     const ents = [countryEnt, ...edEnts];
 
-    const sortedValidElections = completedElections
-      .filter(function (election) {
-        const resultsLK = election.getResults(Ent.LK.id);
-        return resultsLK && resultsLK.summary.polled;
-      })
-      .sort(function (a, b) {
-        const resultsLKA = a.getResults(Ent.LK.id);
-        const resultsLKB = b.getResults(Ent.LK.id);
-        return resultsLKB.summary.pRejected - resultsLKA.summary.pRejected;
-      });
+    const sortedValidElections = completedElections.sort(
+      Sort.cmpDim((a) => -a.getResults(Ent.LK.id).summary.pRejected)
+    );
 
-    return sortedValidElections.reduce(function (sparseMatrix, election) {
-      const resultsLK = election.getResults(Ent.LK.id);
-      if (!resultsLK || !resultsLK.summary.polled) {
-        return sparseMatrix;
-      }
-      return ents.reduce(function (sparseMatrix, ent) {
+    return Reduce.double(
+      new SparseMatrix(),
+      sortedValidElections,
+      ents,
+      function (sparseMatrix, election, ent) {
         const results = election.getResults(ent.id);
         const summary = results.summary;
-
         sparseMatrix.push({
           Election: election,
           Region: ent,
           Rejected: new Fraction(summary.rejected, summary.polled),
         });
         return sparseMatrix;
-      }, sparseMatrix);
-    }, new SparseMatrix());
+      }
+    );
   }
 
   renderRejectedTable() {
-    const title = "Rejected Votes by Election and Region";
-    const description = "";
-
     return (
-      <SectionBox title={title} description={description} noMaxWidth={true}>
+      <SectionBox
+        title={"Rejected Votes by Election and Region"}
+        description={""}
+      >
         <MatrixView
           sparseMatrix={this.getRejectedTableSparseMatrix()}
           xKey="Election"

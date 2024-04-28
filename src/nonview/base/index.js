@@ -12,6 +12,7 @@ import Random from "./Random";
 import Reduce from "./Reduce";
 import Scalar from "./Scalar";
 import SmallWindow from "./SmallWindow";
+import Sort from "./Sort";
 import SparseMatrix from "./SparseMatrix";
 import Time from "./Time";
 import URLContext from "./URLContext";
@@ -32,6 +33,7 @@ export {
   Reduce,
   Scalar,
   SmallWindow,
+  Sort,
   SparseMatrix,
   Time,
   URLContext,

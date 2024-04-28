@@ -48,10 +48,7 @@ export default class ElectionPage extends AbstractCustomPage {
 
   get browserTitle() {
     const { election } = this.state;
-    if (!election) {
-      return "Election";
-    }
-    return election.titleShort;
+    return election?.titleShort || "Election";
   }
 
   get breadcrumbs() {
@@ -74,33 +71,21 @@ export default class ElectionPage extends AbstractCustomPage {
     }
     return (
       <Box>
-        <Typography variant="body2" sx={{ color: "#888" }}>
-          {election.dateFormatted}
-        </Typography>
+        {election.dateFormatted}
         <WikiSummaryView wikiPageName={election.wikiPageName} />
       </Box>
     );
   }
 
   get widgets() {
-    const {
-      partyGroupList,
-      countryEnt,
-      election,
-      prevElectionOfType,
-
-      edEnts,
-    } = this.state;
-    if (!election) {
-      return [];
-    }
-    if (election.isFuture) {
+    const { partyGroupList, countryEnt, election, prevElectionOfType, edEnts } =
+      this.state;
+    if (!election || election.isFuture) {
       return [];
     }
     const ents = [countryEnt, ...edEnts];
     return [
       <ElectoralSummaryView ent={countryEnt} elections={[election]} />,
-
       <SwingAnalysisForElectionView
         partyGroupList={partyGroupList}
         prevElection={prevElectionOfType}

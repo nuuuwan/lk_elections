@@ -7,6 +7,7 @@ import DemographicGroup from "./DemographicGroup";
 import Demographics from "./Demographics";
 import Election from "./Election";
 import GenericStore from "./GenericStore";
+import LeanType from "./LeanType";
 import Note from "./Note";
 import PARTY_LIST_TUPLES from "./PARTY_LIST_TUPLES";
 import Party from "./Party";
@@ -26,6 +27,7 @@ export {
   Demographics,
   Election,
   GenericStore,
+  LeanType,
   Note,
   PARTY_LIST_TUPLES,
   Party,

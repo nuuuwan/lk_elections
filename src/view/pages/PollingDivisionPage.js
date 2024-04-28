@@ -14,7 +14,6 @@ export default class PollingDivisionPage extends AbstractCustomPage {
   async componentDidMount() {
     const { pdEnts } = await super.componentDidMount();
     let { pdID } = this.state;
-
     if (!pdID) {
       pdID = Random.choice(pdEnts).id;
     }
@@ -35,7 +34,6 @@ export default class PollingDivisionPage extends AbstractCustomPage {
 
   get breadcrumbs() {
     const { pdEnt, edEnt, countryEnt } = this.state;
-
     if (!countryEnt) {
       return null;
     }
@@ -70,6 +68,7 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     }
     return <GeoMap geoID={pdEnt.id} />;
   }
+
   get widgets() {
     const {
       pdEnt,
@@ -83,15 +82,12 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     if (!pdEnt) {
       return [];
     }
-    const entsSimilar = [pdEnt, edEnt, countryEnt];
-    const entsAll = pdEnts;
-    const entsAllAll = [pdEnt];
 
     return CommonEntAnalysisView.get({
       ent: pdEnt,
-      entsSimilar,
-      entsAll,
-      entsAllAll,
+      entsSimilar: [pdEnt, edEnt, countryEnt],
+      entsAll: pdEnts,
+      entsAllAll: [pdEnt],
       elections,
       partyGroupList,
       demographicsIdx,

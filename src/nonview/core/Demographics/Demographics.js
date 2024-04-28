@@ -1,6 +1,8 @@
-import { WWW } from "../base";
+import { WWW } from "../../base";
+import DemographicsTypes from "./DemographicsTypes";
+import DemographicsStats from "./DemographicsStats";
 
-export default class Demographics {
+class Demographics {
   static URL_BASE =
     "https://raw.githubusercontent.com/nuuuwan/gig-data/master/gig2_custom_ec_only";
 
@@ -72,36 +74,6 @@ export default class Demographics {
       "muslim-islam": Math.min(this.nMuslim, this.nIslam),
     };
   }
-
-  getGroupListForDemographicType(demographicType) {
-    return {
-      religion: ["buddhist", "hindu", "islam", "christian"],
-      ethnicity: ["sinhala", "tamil", "muslim"],
-      "ethnicity-and-religion": [
-        "sinhala-buddhist",
-        "tamil-hindu",
-        "sinhala-christian",
-        "tamil-christian",
-        "muslim-islam",
-      ],
-    }[demographicType];
-  }
-
-  getGroupToN(demographicType) {
-    const groupList = this.getGroupListForDemographicType(demographicType);
-    return Object.fromEntries(
-      groupList
-        .map((group) => [group, this.groupToNAll[group]])
-        .sort((a, b) => b[1] - a[1])
-    );
-  }
-
-  getLargestGroup(demographicType) {
-    const groupToN = this.getGroupToN(demographicType);
-    return Object.keys(groupToN)[0];
-  }
-
-  // Loaders
   load(religionIdx, ethnicityIdx) {
     if (this.isLoaded) {
       return;
@@ -111,6 +83,7 @@ export default class Demographics {
     this.isLoaded = true;
   }
 
+  // Loaders
   static async loadDataIdx(remoteFileName) {
     const url = `${Demographics.URL_BASE}/${remoteFileName}`;
     const rawList = await WWW.tsv(url);
@@ -138,41 +111,9 @@ export default class Demographics {
 
     return Object.fromEntries(demographicsList.map((d) => [d.ent.id, d]));
   }
-
-  static filterAndSort(demographicsList, focusSmallest = false) {
-    return demographicsList
-      .filter(function (a) {
-        return !a.noData;
-      })
-      .sort(function (a, b) {
-        return focusSmallest ? a.n - b.n : b.n - a.n;
-      });
-  }
-
-  static getMajorityLabel(p) {
-    if (p > 0.98) {
-      return " Almost entirely ";
-    }
-    if (p > 0.75) {
-      return "Predominently ";
-    }
-    return "Majority";
-  }
-
-  static getSignificantMinorityGroupIDs(
-    groupToN,
-    total,
-    largestGroupID,
-    largestGroupP
-  ) {
-    return Object.entries(groupToN)
-      .filter(function ([groupID, n]) {
-        return (
-          (largestGroupP < 0.5 || groupID !== largestGroupID) && n > 0.1 * total
-        );
-      })
-      .map(function ([groupID, n]) {
-        return groupID;
-      });
-  }
 }
+
+Object.assign(Demographics, DemographicsStats);
+Object.assign(Demographics.prototype, DemographicsTypes);
+
+export default Demographics;

@@ -1,6 +1,6 @@
 import { Ent, EntType } from "../base";
 import { Election, Party, PartyGroup } from "../core";
-import Demographics from "./Demographics";
+import Demographics from "./Demographics/Demographics";
 
 export default class GenericStore {
   static async get() {

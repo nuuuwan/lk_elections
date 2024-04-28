@@ -59,9 +59,7 @@ export default class PartyPage extends AbstractCustomPage {
       <GenericListView
         title="Party Groups"
         items={partyGroupListForParty}
-        renderItem={(partyGroup) => (
-          <PartyGroupLink partyGroupID={partyGroup.id} />
-        )}
+        renderItem={(partyGroup) => <PartyGroupLink partyGroup={partyGroup} />}
       />
     );
   }

@@ -1,9 +1,8 @@
 import { Box } from "@mui/material";
-import { PartyGroup } from "../../nonview/core";
 import { LinkContext } from "../atoms";
 
-export default function PartyGroupLink({ partyGroupID }) {
-  const partyGroup = PartyGroup.fromID(partyGroupID);
+export default function PartyGroupLink({ partyGroup }) {
+  const partyGroupID = partyGroup.id;
   const context = {
     pageID: "PartyGroup",
     partyGroupID,

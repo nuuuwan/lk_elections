@@ -24,7 +24,7 @@ export default function SwingAnalysisForElectionViewDescription({
           return (
             <Box key={partyGroup.id} component="span">
               a <strong>{Format.percentagePoint(swing)}</strong> swing for the{" "}
-              {<PartyGroupLink partyGroupID={partyGroup.id} />}
+              {<PartyGroupLink partyGroup={partyGroup} />}
             </Box>
           );
         })}

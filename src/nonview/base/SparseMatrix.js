@@ -9,6 +9,7 @@ export default class SparseMatrix {
 
   push(data) {
     this.dataList.push(data);
+    return this;
   }
 
   __toScalar__(x) {

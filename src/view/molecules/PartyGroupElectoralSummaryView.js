@@ -30,15 +30,15 @@ function getTitleAndDescription(partyGroup, elections, dataList) {
     .sort((a, b) => b.Votes.p - a.Votes.p)[0];
   const title = (
     <Box>
-      <PartyGroupLink partyGroupID={partyGroup.id} />
+      <PartyGroupLink partyGroup={partyGroup} />
       's History
     </Box>
   );
   const description = (
     <Essay>
       <>
-        The <PartyGroupLink partyGroupID={partyGroup.id} longName={true} />{" "}
-        parties have run in {n} of the last {nAll} elections.
+        The <PartyGroupLink partyGroup={partyGroup} longName={true} /> parties
+        have run in {n} of the last {nAll} elections.
       </>
       <>
         Best showing (% wise) was in <ElectionLink election={best.Election} /> ,

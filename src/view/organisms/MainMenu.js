@@ -50,9 +50,7 @@ export default class MainMenu extends Component {
     const partyGroupList = PartyGroup.listAll();
 
     const renderItem = function (partyGroup) {
-      return (
-        <PartyGroupLink partyGroupID={partyGroup.id} key={partyGroup.id} />
-      );
+      return <PartyGroupLink partyGroup={partyGroup} key={partyGroup.id} />;
     };
     return (
       <GenericListView

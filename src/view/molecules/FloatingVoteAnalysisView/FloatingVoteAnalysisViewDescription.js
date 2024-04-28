@@ -59,14 +59,14 @@ export default function FloatingVoteAnalysisViewDescription({
             return (
               <Box key={"party-group" + i} component="span">
                 {Format.percent(windowBase)}
-                {" for "} <PartyGroupLink partyGroupID={partyGroup.id} />
+                {" for "} <PartyGroupLink partyGroup={partyGroup} />
                 {leanTypeForPartyGroup}
               </Box>
             );
           })}
         </CommaListView>
         , making it a "{leanType + " "}
-        <PartyGroupLink partyGroupID={maxInfo.partyGroup.id} />" region.
+        <PartyGroupLink partyGroup={maxInfo.partyGroup} />" region.
       </>
       <>The #FloatingVote is {Format.percent(pFloating)}.</>
     </Essay>

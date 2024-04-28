@@ -28,7 +28,7 @@ export default class Renderer {
     }
 
     if (value instanceof PartyGroup) {
-      return <PartyGroupLink partyGroupID={value.id} />;
+      return <PartyGroupLink partyGroup={value} />;
     }
 
     if (value instanceof DemographicGroup) {

@@ -52,7 +52,7 @@ function getTitleAndDescription(partyGroupList, elections, ent, sparseMatrix) {
               <Box key={"item-" + i} component="span">
                 {" "}
                 {Format.percentagePoint(Swing.value)} for the{" "}
-                <PartyGroupLink partyGroupID={PartyGroup.id} /> in{" "}
+                <PartyGroupLink partyGroup={PartyGroup} /> in{" "}
                 <ElectionLink election={Election} />.
               </Box>
             );

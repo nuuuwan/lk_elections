@@ -13,7 +13,6 @@ class Demographics {
     this.dEthnicity = null;
   }
 
-  // Getters
   get noData() {
     return !this.dEthnicity || !this.dReligion || !this.isLoaded;
   }
@@ -64,7 +63,6 @@ class Demographics {
     this.isLoaded = true;
   }
 
-  // Loaders
   static async loadDataIdx(remoteFileName) {
     const url = `${Demographics.URL_BASE}/${remoteFileName}`;
     const rawList = await WWW.tsv(url);
@@ -89,7 +87,6 @@ class Demographics {
 
   static async idxFromEnts(ents) {
     const demographicsList = await Demographics.listFromEnts(ents);
-
     return Object.fromEntries(demographicsList.map((d) => [d.ent.id, d]));
   }
 }

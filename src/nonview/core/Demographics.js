@@ -138,4 +138,14 @@ export default class Demographics {
 
     return Object.fromEntries(demographicsList.map((d) => [d.ent.id, d]));
   }
+
+  static filterAndSort(demographicsList, focusSmallest = false) {
+    return demographicsList
+      .filter(function (a) {
+        return !a.noData;
+      })
+      .sort(function (a, b) {
+        return focusSmallest ? a.n - b.n : b.n - a.n;
+      });
+  }
 }

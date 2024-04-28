@@ -3,61 +3,41 @@ import { Format, Fraction, SparseMatrix } from "../../nonview/base";
 
 import MatrixView from "./MatrixView";
 import { CommaListView, EntLink, SectionBox } from "../atoms";
-import { DemographicGroup } from "../../nonview/core";
+import { DemographicGroup, Demographics } from "../../nonview/core";
 import { Renderer } from "../molecules";
 
 function getSparseMatrix(demographicsList, demographicType) {
   return new SparseMatrix(
-    demographicsList
-      .filter(function (demographics) {
-        return !demographics.noData;
-      })
-      .sort(function (a, b) {
-        return b.n - a.n;
-      })
-      .reduce(function (dataList, demographics) {
-        if (demographics.noData) {
-          return dataList;
-        }
-        const largestGroupID = demographics.getLargestGroup(demographicType);
-        return Object.entries(demographics.getGroupToN(demographicType)).reduce(
-          function (dataList, [demographicGroupID, nDemographicGroup]) {
-            const demographicGroup = new DemographicGroup(demographicGroupID);
+    demographicsList.reduce(function (dataList, demographics) {
+      if (demographics.noData) {
+        return dataList;
+      }
+      const largestGroupID = demographics.getLargestGroup(demographicType);
+      return Object.entries(demographics.getGroupToN(demographicType)).reduce(
+        function (dataList, [demographicGroupID, nDemographicGroup]) {
+          const demographicGroup = new DemographicGroup(demographicGroupID);
 
-            dataList.push({
-              Region: demographics.ent,
-              DemographicGroup: demographicGroup,
-              Fraction: new Fraction(
-                nDemographicGroup,
-                demographics.n,
-                demographicGroupID === largestGroupID
-                  ? demographicGroup.color
-                  : null
-              ),
-            });
-            return dataList;
-          },
-          dataList
-        );
-      }, [])
+          dataList.push({
+            Region: demographics.ent,
+            DemographicGroup: demographicGroup,
+            Fraction: new Fraction(
+              nDemographicGroup,
+              demographics.n,
+              demographicGroupID === largestGroupID
+                ? demographicGroup.color
+                : null
+            ),
+          });
+          return dataList;
+        },
+        dataList
+      );
+    }, [])
   );
 }
 
-function getTitleAndDescription(
-  demographicsList,
-  demographicType,
-  focusSmallest
-) {
-  const demographics = demographicsList
-    .filter(function (a) {
-      return !a.noData;
-    })
-    .sort(function (a, b) {
-      return focusSmallest ? a.n - b.n : b.n - a.n;
-    })[0];
-  if (demographics.noData) {
-    return null;
-  }
+function getTitleAndDescription(demographicsList, demographicType) {
+  const demographics = demographicsList[0];
 
   const largestGroupID = demographics.getLargestGroup(demographicType);
   const largestGroup = new DemographicGroup(largestGroupID);
@@ -140,14 +120,17 @@ export default function DemographicsView({
   demographicType,
   focusSmallest,
 }) {
-  if (demographicsList.length === 1 && demographicsList[0].noData) {
+  demographicsList = Demographics.filterAndSort(
+    demographicsList,
+    focusSmallest
+  );
+  if (!demographicsList) {
     return null;
   }
 
   const { title, description } = getTitleAndDescription(
     demographicsList,
-    demographicType,
-    focusSmallest
+    demographicType
   );
   const sparseMatrix = getSparseMatrix(demographicsList, demographicType);
   return (

@@ -13,92 +13,36 @@ import {
 
 import MatrixView from "./MatrixView";
 
-function getBase(partyGroup, elections, ent) {
-  const { windowBase, electors } =
-    AnalysisFloatingVote.getBaseAnalysisInfoForPartyGroup(
-      elections,
-      ent,
-      partyGroup
-    );
-  const base = new Fraction(
-    Math.round(windowBase * electors, 0),
-    electors,
-    null
-  );
-  const baseFraction = {
-    Region: ent,
-    PartyGroup: partyGroup,
-    Base: base,
-  };
-  return { baseFraction, windowBase };
-}
-
-function getFloating(partyGroupList, elections, ent, sumBase) {
-  const electors = elections.filter((e) => !e.isFuture)[0].getResults(ent.id)
-    .summary.electors;
-
-  const floating = new Fraction(
-    Math.round((1 - sumBase) * electors, 0),
-    electors,
-    null
-  );
-  return {
-    Region: ent,
-    PartyGroup: "Floating",
-    Base: floating,
-  };
-}
-
 function getSparseMatrix(partyGroupList, elections, ents) {
+  const entToPartyGroupToBaseInfo =
+    AnalysisFloatingVote.getRegionToPartyGroupToBaseInfo(
+      elections,
+      ents,
+      partyGroupList
+    );
+
   return ents.reduce(function (sparseMatrix, ent) {
-    const {
-      sumBase,
-
-      maxBasePartyGroup,
-      sparseMatrix: sparseMatrixInner,
-    } = partyGroupList.reduce(
-      function (
-        { sumBase, maxBase, maxBasePartyGroup, sparseMatrix },
-        partyGroup
-      ) {
-        const { baseFraction, windowBase } = getBase(
-          partyGroup,
-          elections,
-          ent
-        );
-        sparseMatrix.push(baseFraction);
-        if (windowBase) {
-          sumBase += windowBase;
-          if (windowBase > maxBase) {
-            maxBase = windowBase;
-            maxBasePartyGroup = partyGroup;
-          }
-        }
-        return { sumBase, maxBase, maxBasePartyGroup, sparseMatrix };
-      },
-      { sumBase: 0, maxBase: 0, maxBasePartyGroup: undefined, sparseMatrix }
+    const maxPBase = MathX.max(
+      Object.values(entToPartyGroupToBaseInfo[ent.id]).map((x) => x.windowBase)
     );
-    sparseMatrixInner.dataList = sparseMatrixInner.dataList.map(function (
-      data
-    ) {
-      if (
-        data.Region.id === ent.id &&
-        data.PartyGroup.id === maxBasePartyGroup.id
-      ) {
-        data.Base = new Fraction(
-          data.Base.n,
-          data.Base.d,
-          maxBasePartyGroup.color
-        );
-      }
-      return data;
+    sparseMatrix = partyGroupList.reduce(function (sparseMatrix, partyGroup) {
+      const { windowBase, baseVoters, electors } =
+        entToPartyGroupToBaseInfo[ent.id][partyGroup.id];
+      const color = windowBase === maxPBase ? partyGroup.color : undefined;
+      sparseMatrix.push({
+        Region: ent,
+        PartyGroup: partyGroup,
+        Base: new Fraction(baseVoters, electors, color),
+      });
+      return sparseMatrix;
+    }, sparseMatrix);
+    const { baseVoters, electors } = entToPartyGroupToBaseInfo[ent.id].floating;
+    sparseMatrix.push({
+      Region: ent,
+      PartyGroup: "Floating",
+      Base: new Fraction(baseVoters, electors, 1),
     });
-
-    sparseMatrixInner.push(
-      getFloating(partyGroupList, elections, ent, sumBase)
-    );
-
-    return sparseMatrixInner;
+    return sparseMatrix;
   }, new SparseMatrix());
 }
 

@@ -86,8 +86,49 @@ export default class AnalysisFloatingVote {
         return b.windowBase - a.windowBase;
       });
   }
-
   static getLeanType(pBase) {
+    if (pBase > 0.5) {
+      return "Safe for";
+    }
+    if (pBase > 0.45) {
+      return "Likely";
+    }
+    if (pBase > 0.4) {
+      return "Leans to";
+    }
+    return "Tossup, but leans to";
+  }
+  static getRegionToPartyGroupToBaseInfo(elections, ents, partyGroupList) {
+    return ents.reduce(function (idx, ent, iEnt) {
+      idx[ent.id] = {};
+      idx = partyGroupList.reduce(function (idx, partyGroup, iPartyGroup) {
+        const { windowBase, electors } =
+          AnalysisFloatingVote.getBaseAnalysisInfoForPartyGroup(
+            elections,
+            ent,
+            partyGroup
+          );
+        const baseVoters = Math.round(windowBase * electors);
+        idx[ent.id][partyGroup.id] = { windowBase, electors, baseVoters };
+        return idx;
+      }, idx);
+
+      const totalBaseVote = MathX.sum(
+        Object.values(idx[ent.id]).map((x) => x.windowBase)
+      );
+      const electors = Object.values(idx[ent.id])[0].electors;
+      const baseVoters = Math.round((1 - totalBaseVote) * electors);
+      idx[ent.id].floating = {
+        windowBase: 1 - totalBaseVote,
+        electors,
+        baseVoters,
+      };
+      return idx;
+    }, {});
+  }
+
+  static getLea;
+  nType(pBase) {
     if (pBase > 0.5) {
       return "Safe for";
     }

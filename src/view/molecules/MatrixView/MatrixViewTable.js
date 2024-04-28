@@ -5,6 +5,46 @@ import { Box, IconButton, Typography } from "@mui/material";
 
 import { DataTable } from "../../../nonview/core";
 import CommonIcons from "../CommonIcons";
+
+function renderExpand({ needsExpand, onClickExpand, Icon, label }) {
+  return (
+    <Box>
+      <IconButton onClick={onClickExpand}>
+        <Icon />
+      </IconButton>
+      <Typography variant="caption">{label}</Typography>
+    </Box>
+  );
+}
+
+function renderTable({
+  idx,
+  handleToggleXY,
+  setSortXScalarAndOrder,
+  setSortYScalarAndOrder,
+  scalarToOriginal,
+  showExpanded,
+}) {
+  return (
+    <table>
+      <MatrixViewHeader
+        idx={idx}
+        handleToggleXY={handleToggleXY}
+        setSortXScalar={setSortXScalarAndOrder}
+        scalarToOriginal={scalarToOriginal}
+        showExpanded={showExpanded}
+      />
+
+      <MatrixViewBody
+        idx={idx}
+        setSortYScalarAndOrder={setSortYScalarAndOrder}
+        scalarToOriginal={scalarToOriginal}
+        showExpanded={showExpanded}
+      />
+    </table>
+  );
+}
+
 export default function MatrixViewTable({
   idx,
   handleToggleXY,
@@ -22,7 +62,6 @@ export default function MatrixViewTable({
     : CommonIcons.ExpandExpand;
 
   const nRows = Object.keys(idx).length;
-
   const nCols = Object.keys(Object.values(idx)[0]).length;
 
   const needsExpand =
@@ -35,30 +74,15 @@ export default function MatrixViewTable({
 
   return (
     <Box>
-      <table>
-        <MatrixViewHeader
-          idx={idx}
-          handleToggleXY={handleToggleXY}
-          setSortXScalar={setSortXScalarAndOrder}
-          scalarToOriginal={scalarToOriginal}
-          showExpanded={showExpanded}
-        />
-
-        <MatrixViewBody
-          idx={idx}
-          setSortYScalarAndOrder={setSortYScalarAndOrder}
-          scalarToOriginal={scalarToOriginal}
-          showExpanded={showExpanded}
-        />
-      </table>
-      {needsExpand ? (
-        <Box>
-          <IconButton onClick={onClickExpand}>
-            <Icon />
-          </IconButton>
-          <Typography variant="caption">{label}</Typography>
-        </Box>
-      ) : null}
+      {renderTable({
+        idx,
+        handleToggleXY,
+        setSortXScalarAndOrder,
+        setSortYScalarAndOrder,
+        scalarToOriginal,
+        showExpanded,
+      })}
+      {renderExpand({ needsExpand, onClickExpand, Icon, label })}
     </Box>
   );
 }

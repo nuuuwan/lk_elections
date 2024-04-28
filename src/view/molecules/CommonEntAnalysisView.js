@@ -11,18 +11,17 @@ import {
 } from "../molecules";
 
 export default class CommonEntAnalysisView {
-  static get({
+  static getIntro({
     ent,
     entsSimilar,
-    entsAll,
-    entsAllAll,
+
     elections,
-    partyGroupList,
+
     demographicsIdx,
     demographicsViewFocusSmallest,
   }) {
     const demographicsList = entsSimilar.map((ent) => demographicsIdx[ent.id]);
-    const noSeats = ent.entType === EntType.PD || ent.entType === EntType.ED;
+
     return [
       <DemographicsView
         demographicsList={demographicsList}
@@ -31,7 +30,19 @@ export default class CommonEntAnalysisView {
       />,
 
       <ElectoralSummaryView ent={ent} elections={elections} />,
+    ];
+  }
+  static getAnalysis(
+    ent,
+    entsSimilar,
+    entsAll,
+    entsAllAll,
+    elections,
+    partyGroupList,
 
+    demographicsViewFocusSmallest
+  ) {
+    return [
       <SeatsHistoryView
         ents={entsAllAll}
         elections={elections}
@@ -56,12 +67,55 @@ export default class CommonEntAnalysisView {
         elections={elections}
         ent={ent}
       />,
-    ].concat(
-      ElectionListView.get({
+    ];
+  }
+
+  static getElectionHistory({
+    ent,
+    entsSimilar,
+    elections,
+    demographicsViewFocusSmallest,
+  }) {
+    const noSeats = ent.entType === EntType.PD || ent.entType === EntType.ED;
+    return ElectionListView.get({
+      elections,
+      ents: entsSimilar,
+      focusSmallest: demographicsViewFocusSmallest,
+      noSeats,
+    });
+  }
+  static get({
+    ent,
+    entsSimilar,
+    entsAll,
+    entsAllAll,
+    elections,
+    partyGroupList,
+    demographicsIdx,
+    demographicsViewFocusSmallest,
+  }) {
+    return [].concat(
+      this.getIntro({
+        ent,
+        entsSimilar,
         elections,
-        ents: entsSimilar,
-        focusSmallest: demographicsViewFocusSmallest,
-        noSeats,
+        demographicsIdx,
+        demographicsViewFocusSmallest,
+      }),
+      this.getAnalysis(
+        ent,
+        entsSimilar,
+        entsAll,
+        entsAllAll,
+        elections,
+        partyGroupList,
+        demographicsViewFocusSmallest
+      ),
+      this.getElectionHistory({
+        ent,
+        entsSimilar,
+        elections,
+        demographicsViewFocusSmallest,
       })
     );
   }

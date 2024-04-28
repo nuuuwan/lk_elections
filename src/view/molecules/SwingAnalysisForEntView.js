@@ -18,10 +18,12 @@ function getSparseMatrix(partyGroupList, elections, ent) {
     elections,
     partyGroupList
   );
+
   return new SparseMatrix(
     swingTuples
       .map(function ({ partyGroup, ent, election, swing }) {
         const color = swing > 0 ? partyGroup.color : null;
+
         return {
           PartyGroup: partyGroup,
           Election: election,
@@ -33,9 +35,11 @@ function getSparseMatrix(partyGroupList, elections, ent) {
 }
 
 function getTitleAndDescription(partyGroupList, elections, ent, sparseMatrix) {
-  const sortedDataList = sparseMatrix.dataList.sort(function (a, b) {
-    return b.Swing.value - a.Swing.value;
-  });
+  const sortedDataList = sparseMatrix.dataList
+    .map((x) => x)
+    .sort(function (a, b) {
+      return b.Swing.value - a.Swing.value;
+    });
   const title = (
     <Box>
       <EntLink ent={ent} /> #VoteSwing History
@@ -69,12 +73,14 @@ export default function SwingAnalysisForEntView({
   ent,
 }) {
   const sparseMatrix = getSparseMatrix(partyGroupList, elections, ent);
+
   const { title, description } = getTitleAndDescription(
     partyGroupList,
     elections,
     ent,
     sparseMatrix
   );
+
   return (
     <SectionBox title={title} description={description}>
       <MatrixView

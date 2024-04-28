@@ -74,4 +74,11 @@ export default class ElectionBase {
       this.year + "_Sri_Lankan_" + this.electionType.toLowerCase() + "_election"
     );
   }
+
+  get yearsSince() {
+    const utNow = Time.now().ut;
+    const ut = Time.fromString(this.date).ut;
+    const dut = utNow - ut;
+    return dut / (1000 * 365.25 * 86400);
+  }
 }

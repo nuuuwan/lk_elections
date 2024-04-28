@@ -2,6 +2,8 @@ import { Time, MathX } from "../base";
 import Election from "./Election";
 
 export default class AnalysisFloatingVote {
+  static WINDOW_YEARS = 10;
+  static P_VOTES_LIMIT = 0.01;
   static getVoteInfo(election, ent, partyGroup) {
     const results = election.getResults(ent.id);
     if (!results) {
@@ -17,27 +19,24 @@ export default class AnalysisFloatingVote {
         (partyID) => partyToVotes.partyToVotes[partyID] || 0
       )
     );
-    const pVotes = votes / partyToVotes.totalVotes;
-    const nParties = partyListWithVotes.length;
 
-    return { election, votes, pVotes, nParties };
+    return {
+      election,
+      votes,
+      pVotes: votes / partyToVotes.totalVotes,
+      nParties: partyListWithVotes.length,
+    };
   }
 
-  static getPVotesListInWindow(infoList, windowYears) {
-    const utNow = Time.now().ut;
+  static getPVotesListInWindow(infoList) {
     return infoList.reduce(
       function ({ pVotesList, pVotesListInWindow }, info) {
         const { election, pVotes } = info;
-        if (pVotes < 0.01) {
-          return { pVotesList, pVotesListInWindow };
-        }
-        pVotesList.push(pVotes);
-
-        const ut = Time.fromString(election.date).ut;
-        const dut = utNow - ut;
-        const dyears = dut / (1000 * 365.25 * 86400);
-        if (dyears < windowYears) {
-          pVotesListInWindow.push(pVotes);
+        if (pVotes >= AnalysisFloatingVote.P_VOTES_LIMIT) {
+          pVotesList.push(pVotes);
+          if (election.yearsSince <= AnalysisFloatingVote.WINDOW_YEARS) {
+            pVotesListInWindow.push(pVotes);
+          }
         }
         return { pVotesList, pVotesListInWindow };
       },
@@ -57,9 +56,8 @@ export default class AnalysisFloatingVote {
       )
       .filter((info) => !!info);
 
-    const windowYears = 10;
     const { pVotesList, pVotesListInWindow } =
-      AnalysisFloatingVote.getPVotesListInWindow(infoList, windowYears);
+      AnalysisFloatingVote.getPVotesListInWindow(infoList);
 
     const n = pVotesList.length;
     const nWindow = pVotesListInWindow.length;
@@ -97,14 +95,12 @@ export default class AnalysisFloatingVote {
 
       // Base Vote
       idx = partyGroupList.reduce(function (idx, partyGroup, iPartyGroup) {
-        const { windowBase, baseVoters, electors } =
+        idx[ent.id][partyGroup.id] =
           AnalysisFloatingVote.getBaseAnalysisInfoForPartyGroup(
             elections,
             ent,
             partyGroup
           );
-
-        idx[ent.id][partyGroup.id] = { windowBase, electors, baseVoters };
         return idx;
       }, idx);
 

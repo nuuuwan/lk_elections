@@ -1,49 +1,8 @@
-import { Time, MathX } from "../base";
-import Election from "./Election";
+import { MathX } from "../../base";
+import Election from "../Election";
+import AnalysisFloatingVoteHelpers from "./AnalysisFloatingVoteHelpers";
 
-export default class AnalysisFloatingVote {
-  static WINDOW_YEARS = 10;
-  static P_VOTES_LIMIT = 0.01;
-  static getVoteInfo(election, ent, partyGroup) {
-    const results = election.getResults(ent.id);
-    if (!results) {
-      return null;
-    }
-    const partyToVotes = results.partyToVotes;
-    const partyListWithVotes = Object.keys(partyToVotes.partyToVotes).filter(
-      (partyID) => partyGroup.partyIDList.includes(partyID)
-    );
-
-    const votes = MathX.sum(
-      partyListWithVotes.map(
-        (partyID) => partyToVotes.partyToVotes[partyID] || 0
-      )
-    );
-
-    return {
-      election,
-      votes,
-      pVotes: votes / partyToVotes.totalVotes,
-      nParties: partyListWithVotes.length,
-    };
-  }
-
-  static getPVotesListInWindow(infoList) {
-    return infoList.reduce(
-      function ({ pVotesList, pVotesListInWindow }, info) {
-        const { election, pVotes } = info;
-        if (pVotes >= AnalysisFloatingVote.P_VOTES_LIMIT) {
-          pVotesList.push(pVotes);
-          if (election.yearsSince <= AnalysisFloatingVote.WINDOW_YEARS) {
-            pVotesListInWindow.push(pVotes);
-          }
-        }
-        return { pVotesList, pVotesListInWindow };
-      },
-      { pVotesList: [], pVotesListInWindow: [] }
-    );
-  }
-
+class AnalysisFloatingVote {
   static getBaseAnalysisInfoForPartyGroup(elections, ent, partyGroup) {
     const completedElections = Election.filterCompleted(elections);
     const lastElection = completedElections[0];
@@ -119,3 +78,6 @@ export default class AnalysisFloatingVote {
     }, {});
   }
 }
+
+Object.assign(AnalysisFloatingVote, AnalysisFloatingVoteHelpers);
+export default AnalysisFloatingVote;

@@ -1,6 +1,6 @@
 import { Fraction, MathX, SparseMatrix } from "../../../nonview/base";
 import { Election } from "../../../nonview/core";
-import AnalysisFloatingVote from "../../../nonview/core/AnalysisFloatingVote";
+import AnalysisFloatingVote from "../../../nonview/core/AnalysisFloatingVote/AnalysisFloatingVote";
 
 import { EntLink, SectionBox } from "../../atoms";
 

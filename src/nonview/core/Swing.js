@@ -1,4 +1,4 @@
-import AnalysisFloatingVote from "./AnalysisFloatingVote";
+import AnalysisFloatingVote from "./AnalysisFloatingVote/AnalysisFloatingVote";
 import Election from "./Election";
 
 export default class Swing {

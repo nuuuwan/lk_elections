@@ -73,20 +73,18 @@ export default function DemographicsView({
   if (!demographicsList) {
     return null;
   }
-
   const { title, description } = getTitleAndDescription(
     demographicsList,
     demographicType
   );
-  const sparseMatrix = getSparseMatrix(demographicsList, demographicType);
   return (
     <SectionBox
       title={title}
       description={description}
-      source="2012 census (statistics.gov.lk)"
+      source="statistics.gov.lk"
     >
       <MatrixView
-        sparseMatrix={sparseMatrix}
+        sparseMatrix={getSparseMatrix(demographicsList, demographicType)}
         zKey={"Fraction"}
         xKey={"Region"}
         yKey={"DemographicGroup"}

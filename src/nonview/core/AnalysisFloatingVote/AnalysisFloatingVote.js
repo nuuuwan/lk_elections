@@ -4,9 +4,7 @@ import AnalysisFloatingVoteHelpers from "./AnalysisFloatingVoteHelpers";
 
 class AnalysisFloatingVote {
   static getBaseAnalysisInfoForPartyGroup(elections, ent, partyGroup) {
-    const completedElections = Election.filterCompleted(elections);
-    const lastElection = completedElections[0];
-
+    const lastElection = Election.getLastElection(elections);
     const electors = lastElection.getResults(ent.id).summary.electors;
 
     const infoList = elections
@@ -15,18 +13,14 @@ class AnalysisFloatingVote {
       )
       .filter((info) => !!info);
 
-    const { pVotesList, pVotesListInWindow } =
+    const { pVotesListInWindow } =
       AnalysisFloatingVote.getPVotesListInWindow(infoList);
 
-    const n = pVotesList.length;
     const nWindow = pVotesListInWindow.length;
-    const minBase = n > 0 ? MathX.min(pVotesList) : null;
     const windowBase = nWindow > 0 ? MathX.min(pVotesListInWindow) : null;
     const baseVoters = Math.round(windowBase * electors);
     return {
       partyGroup,
-      n,
-      minBase,
       nWindow,
       windowBase,
       electors,

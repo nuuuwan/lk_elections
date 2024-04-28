@@ -2,6 +2,7 @@ import { MathX } from "../../base";
 
 const WINDOW_YEARS = 10;
 const P_VOTES_LIMIT = 0.01;
+
 const AnalysisFloatingVoteHelpers = {
   getVoteInfo: function (election, ent, partyGroup) {
     const results = election.getResults(ent.id);

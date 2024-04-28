@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/lk_elections/static/css/main.bc7e8a6f.css",
-    "main.js": "/lk_elections/static/js/main.9fbe82c0.js",
+    "main.js": "/lk_elections/static/js/main.32467cf5.js",
     "static/js/31.a20d4395.chunk.js": "/lk_elections/static/js/31.a20d4395.chunk.js",
     "static/js/79.baa802ec.chunk.js": "/lk_elections/static/js/79.baa802ec.chunk.js",
     "static/js/453.6c44682f.chunk.js": "/lk_elections/static/js/453.6c44682f.chunk.js",
     "index.html": "/lk_elections/index.html",
     "main.bc7e8a6f.css.map": "/lk_elections/static/css/main.bc7e8a6f.css.map",
-    "main.9fbe82c0.js.map": "/lk_elections/static/js/main.9fbe82c0.js.map",
+    "main.32467cf5.js.map": "/lk_elections/static/js/main.32467cf5.js.map",
     "31.a20d4395.chunk.js.map": "/lk_elections/static/js/31.a20d4395.chunk.js.map",
     "79.baa802ec.chunk.js.map": "/lk_elections/static/js/79.baa802ec.chunk.js.map",
     "453.6c44682f.chunk.js.map": "/lk_elections/static/js/453.6c44682f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.bc7e8a6f.css",
-    "static/js/main.9fbe82c0.js"
+    "static/js/main.32467cf5.js"
   ]
 }

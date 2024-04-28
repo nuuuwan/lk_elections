@@ -8,13 +8,11 @@ export default function PartyGroupLink({ partyGroup }) {
     partyGroupID,
   };
 
-  const color = partyGroup.color;
-
   return (
     <LinkContext context={context}>
       <Box
         sx={{
-          color,
+          color: partyGroup.color,
         }}
         component="span"
       >

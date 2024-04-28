@@ -3,7 +3,6 @@ import { LinkContext } from "../atoms";
 
 export default function PartyLink({ party, longName }) {
   const partyID = party.id;
-  const foreColor = party.color;
   const partyLabel = longName ? party.name : party.handle;
 
   const context = {
@@ -16,7 +15,7 @@ export default function PartyLink({ party, longName }) {
       <Box
         alignItems="center"
         sx={{
-          color: foreColor,
+          color: party.color,
         }}
         component="span"
       >

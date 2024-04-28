@@ -65,7 +65,16 @@ export default class AnalysisFloatingVote {
     const nWindow = pVotesListInWindow.length;
     const minBase = n > 0 ? MathX.min(pVotesList) : null;
     const windowBase = nWindow > 0 ? MathX.min(pVotesListInWindow) : null;
-    return { partyGroup, n, minBase, nWindow, windowBase, electors };
+    const baseVoters = Math.round(windowBase * electors);
+    return {
+      partyGroup,
+      n,
+      minBase,
+      nWindow,
+      windowBase,
+      electors,
+      baseVoters,
+    };
   }
 
   static getBaseAnalysisInfoForPartyGroupList(elections, ent, partyGroupList) {
@@ -85,27 +94,30 @@ export default class AnalysisFloatingVote {
   static getRegionToPartyGroupToBaseInfo(elections, ents, partyGroupList) {
     return ents.reduce(function (idx, ent, iEnt) {
       idx[ent.id] = {};
+
+      // Base Vote
       idx = partyGroupList.reduce(function (idx, partyGroup, iPartyGroup) {
-        const { windowBase, electors } =
+        const { windowBase, baseVoters, electors } =
           AnalysisFloatingVote.getBaseAnalysisInfoForPartyGroup(
             elections,
             ent,
             partyGroup
           );
-        const baseVoters = Math.round(windowBase * electors);
+
         idx[ent.id][partyGroup.id] = { windowBase, electors, baseVoters };
         return idx;
       }, idx);
 
-      const totalBaseVote = MathX.sum(
-        Object.values(idx[ent.id]).map((x) => x.windowBase)
-      );
+      // Floating Vote
       const electors = Object.values(idx[ent.id])[0].electors;
-      const baseVoters = Math.round((1 - totalBaseVote) * electors);
+      const floatingVoters =
+        electors -
+        MathX.sum(Object.values(idx[ent.id]).map((x) => x.baseVoters));
+
       idx[ent.id].floating = {
-        windowBase: 1 - totalBaseVote,
+        windowBase: floatingVoters / electors,
         electors,
-        baseVoters,
+        baseVoters: floatingVoters,
       };
       return idx;
     }, {});

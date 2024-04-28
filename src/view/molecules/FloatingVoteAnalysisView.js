@@ -12,6 +12,7 @@ import {
 } from "../atoms";
 
 import MatrixView from "./MatrixView";
+import LeanType from "../../nonview/core/LeanType";
 
 function getSparseMatrix(partyGroupList, elections, ents) {
   const entToPartyGroupToBaseInfo =
@@ -67,7 +68,7 @@ function getTitleAndDescription(
   const displayInfoList = infoList.filter((a) => a.windowBase > 0.05);
   const pFloating = 1 - MathX.sum(infoList.map((x) => x.windowBase));
   const maxInfo = displayInfoList[0];
-  const leanType = AnalysisFloatingVote.getLeanType(maxInfo.windowBase);
+  const leanType = LeanType.getLeanType(maxInfo.windowBase);
 
   const title = (
     <>
@@ -81,11 +82,10 @@ function getTitleAndDescription(
         In <EntLink ent={firstEnt} />, party bases were{" "}
         <CommaListView>
           {displayInfoList.map(function ({ partyGroup, windowBase }, i) {
-            const leanTypeForPartyGroup =
-              AnalysisFloatingVote.getLeanTypeForPartyGroup(
-                windowBase,
-                pFloating
-              );
+            const leanTypeForPartyGroup = LeanType.getLeanTypeForPartyGroup(
+              windowBase,
+              pFloating
+            );
             return (
               <Box key={"party-group" + i} component="span">
                 {Format.percent(windowBase)}

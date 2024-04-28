@@ -8,22 +8,18 @@ export default class AnalysisFloatingVote {
       return null;
     }
     const partyToVotes = results.partyToVotes;
+    const partyListWithVotes = Object.keys(partyToVotes.partyToVotes).filter(
+      (partyID) => partyGroup.partyIDList.includes(partyID)
+    );
 
     const votes = MathX.sum(
-      Object.entries(partyToVotes.partyToVotes)
-        .filter(([partyID, votes]) => partyGroup.partyIDList.includes(partyID))
-        .map(([partyID, votes]) => votes)
+      partyListWithVotes.map(
+        (partyID) => partyToVotes.partyToVotes[partyID] || 0
+      )
     );
-    const pVotes = MathX.sum(
-      Object.entries(partyToVotes.partyToPVotes)
-        .filter(([partyID, pVotes]) => partyGroup.partyIDList.includes(partyID))
-        .map(([partyID, pVotes]) => pVotes)
-    );
-    const nParties = MathX.sum(
-      Object.entries(partyToVotes.partyToPVotes)
-        .filter(([partyID, pVotes]) => partyGroup.partyIDList.includes(partyID))
-        .map(([partyID, pVotes]) => (pVotes ? 1 : 0))
-    );
+    const pVotes = votes / partyToVotes.totalVotes;
+    const nParties = partyListWithVotes.length;
+
     return { election, votes, pVotes, nParties };
   }
 
@@ -81,7 +77,6 @@ export default class AnalysisFloatingVote {
           partyGroup
         );
       })
-
       .sort(function (a, b) {
         return b.windowBase - a.windowBase;
       });

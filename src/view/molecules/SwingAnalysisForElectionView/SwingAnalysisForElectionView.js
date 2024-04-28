@@ -1,16 +1,11 @@
 import { Box } from "@mui/material";
-import { Ent, Format, PercentagePoint, SparseMatrix } from "../../nonview/base";
-import Swing from "../../nonview/core/Swing";
+import { PercentagePoint, SparseMatrix } from "../../../nonview/base";
+import Swing from "../../../nonview/core/Swing";
 
-import {
-  CommaListView,
-  ElectionLink,
-  Essay,
-  PartyGroupLink,
-  SectionBox,
-} from "../atoms";
+import { ElectionLink, SectionBox } from "../../atoms";
 
-import { MatrixView } from "../molecules";
+import { MatrixView } from "..";
+import SwingAnalysisForElectionViewDescription from "./SwingAnalysisForElectionViewDescription";
 
 function getSparseMatrix(partyGroupList, election, prevElection, ents) {
   if (!prevElection) {
@@ -38,19 +33,6 @@ function getSparseMatrix(partyGroupList, election, prevElection, ents) {
 }
 
 function getTitleAndDescription(partyGroupList, election, prevElection, ents) {
-  const swingTuples = Swing.getSwingTuplesForElection(
-    election,
-    prevElection,
-    partyGroupList,
-    [Ent.LK]
-  )
-    .filter(function (a) {
-      return Math.abs(a.swing) > 0.01;
-    })
-    .sort(function (a, b) {
-      return b.swing - a.swing;
-    });
-
   const title = (
     <Box>
       How did voting swing between <ElectionLink election={prevElection} /> and{" "}
@@ -58,22 +40,11 @@ function getTitleAndDescription(partyGroupList, election, prevElection, ents) {
     </Box>
   );
   const description = (
-    <Essay>
-      <>
-        Nationwide, there was{" "}
-        <CommaListView>
-          {swingTuples.map(function ({ partyGroup, swing }) {
-            return (
-              <Box key={partyGroup.id} component="span">
-                a <strong>{Format.percentagePoint(swing)}</strong> swing for the{" "}
-                {<PartyGroupLink partyGroupID={partyGroup.id} />}
-              </Box>
-            );
-          })}
-        </CommaListView>
-        .
-      </>
-    </Essay>
+    <SwingAnalysisForElectionViewDescription
+      election={election}
+      prevElection={prevElection}
+      partyGroupList={partyGroupList}
+    />
   );
   return { title, description };
 }

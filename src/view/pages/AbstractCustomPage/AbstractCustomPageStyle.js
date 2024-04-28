@@ -19,5 +19,6 @@ export default class AbstractCustomPageStyle {
   static WIDGET = {
     padding: SmallWindow.WIDGET_PADDING,
     background: "#fcfcfc",
+    maxWidth: SmallWindow.WIDGET_WIDTH,
   };
 }

@@ -9,16 +9,6 @@ export default class PartyGroup {
     this.color = color;
   }
 
-  static combine(id, color, partyGroupList) {
-    return new PartyGroup(
-      id,
-      partyGroupList.reduce(function (partyGroupList, partyGroup) {
-        return partyGroupList.concat(partyGroup.partyIDList);
-      }, []),
-      color
-    );
-  }
-
   static listAll() {
     return PARTY_GROUP_LIST_TUPLES.map(
       ([id, partyIDList, color]) => new PartyGroup(id, partyIDList, color)
@@ -38,6 +28,4 @@ export default class PartyGroup {
     const partyGroupIDs = partyGroupList.map((pg) => pg.id);
     return partyGroupIDs.includes(partyID);
   }
-
-  // Vote Info
 }

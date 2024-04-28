@@ -7,13 +7,9 @@ import { Box } from "@mui/material";
 function getSparseMatrix(ents, elections, partyGroupList) {
   return elections.reduce(function (sparseMatrix, election) {
     const seats = new Seats(election);
-
     const partyGroupToSeats = seats.getPartyGroupToSeats(ents, partyGroupList);
-    const totalSeats = MathX.sum(
-      Object.values(seats.getAggregatePartyToSeats(ents))
-    );
+    const totalSeats = MathX.sumValues(seats.getAggregatePartyToSeats(ents));
 
-    const totalSeatsDisplayed = MathX.sum(Object.values(partyGroupToSeats));
     sparseMatrix.push({
       Election: election,
       PartyGroup: "Total",
@@ -24,21 +20,20 @@ function getSparseMatrix(ents, elections, partyGroupList) {
       sparseMatrix,
       [partyGroupID, seatsForPartyGroup]
     ) {
-      sparseMatrix.push({
+      return sparseMatrix.concat({
         Election: election,
         PartyGroup: PartyGroup.fromID(partyGroupID),
         Seats: seatsForPartyGroup || 0,
       });
-      return sparseMatrix;
     },
     sparseMatrix);
 
+    const totalSeatsDisplayed = MathX.sumValues(partyGroupToSeats);
     sparseMatrix.push({
       Election: election,
       PartyGroup: "Other",
       Seats: totalSeats - totalSeatsDisplayed,
     });
-
     return sparseMatrix;
   }, new SparseMatrix());
 }

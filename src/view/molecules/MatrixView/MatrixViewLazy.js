@@ -23,13 +23,11 @@ function BuildKeyState(xKey, yKey) {
     setXKeyInner(yKeyInner);
     setYKeyInner(xKeyInner);
   };
-  const [hasAutoToggled, setHasAutoToggled] = useState(false);
+
   return {
     xKeyInner,
     yKeyInner,
     handleToggleXY,
-    hasAutoToggled,
-    setHasAutoToggled,
   };
 }
 
@@ -64,13 +62,7 @@ export default function MatrixViewLazy({
   yKey,
   showExpanded,
 }) {
-  const {
-    xKeyInner,
-    yKeyInner,
-    handleToggleXY,
-    hasAutoToggled,
-    setHasAutoToggled,
-  } = BuildKeyState(xKey, yKey);
+  const { xKeyInner, yKeyInner, handleToggleXY } = BuildKeyState(xKey, yKey);
   const {
     sortXScalar,
     sortXReverse,
@@ -86,16 +78,8 @@ export default function MatrixViewLazy({
     [sortYScalar, sortYReverse]
   );
 
-  const nRows = Object.keys(idx).length;
-  if (nRows === 0) {
+  if (Object.keys(idx).length === 0) {
     return null;
-  }
-  if (!hasAutoToggled) {
-    const nCols = Object.keys(Object.values(idx)[0]).length;
-    if (nCols > nRows * 1.333) {
-      handleToggleXY();
-      setHasAutoToggled(true);
-    }
   }
 
   return (

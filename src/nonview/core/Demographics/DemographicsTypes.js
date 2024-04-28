@@ -1,4 +1,24 @@
 const DemographicsTypes = {
+  getGroupToNAll: function () {
+    return {
+      // Ethnicity
+      sinhala: this.nSinhala,
+      tamil: this.nTamil,
+      muslim: this.nMuslim,
+      // Religion
+      buddhist: this.nBuddhist,
+      hindu: this.nHindu,
+      islam: this.nIslam,
+      christian: this.nChristian,
+      // Combinations
+      "sinhala-buddhist": this.nBuddhist,
+      "tamil-hindu": this.nHindu,
+      "sinhala-christian": this.nSinhala - this.nBuddhist,
+      "tamil-christian": this.nTamil - this.nHindu,
+      "muslim-islam": Math.min(this.nMuslim, this.nIslam),
+    };
+  },
+
   getGroupListForDemographicType: function (demographicType) {
     return {
       religion: ["buddhist", "hindu", "islam", "christian"],
@@ -17,7 +37,7 @@ const DemographicsTypes = {
     const groupList = this.getGroupListForDemographicType(demographicType);
     return Object.fromEntries(
       groupList
-        .map((group) => [group, this.groupToNAll[group]])
+        .map((group) => [group, this.getGroupToNAll()[group]])
         .sort((a, b) => b[1] - a[1])
     );
   },

@@ -55,25 +55,6 @@ class Demographics {
     return parseInt(this.dEthnicity["total_population"]);
   }
 
-  get groupToNAll() {
-    return {
-      // Ethnicity
-      sinhala: this.nSinhala,
-      tamil: this.nTamil,
-      muslim: this.nMuslim,
-      // Religion
-      buddhist: this.nBuddhist,
-      hindu: this.nHindu,
-      islam: this.nIslam,
-      christian: this.nChristian,
-      // Combinations
-      "sinhala-buddhist": this.nBuddhist,
-      "tamil-hindu": this.nHindu,
-      "sinhala-christian": this.nSinhala - this.nBuddhist,
-      "tamil-christian": this.nTamil - this.nHindu,
-      "muslim-islam": Math.min(this.nMuslim, this.nIslam),
-    };
-  }
   load(religionIdx, ethnicityIdx) {
     if (this.isLoaded) {
       return;

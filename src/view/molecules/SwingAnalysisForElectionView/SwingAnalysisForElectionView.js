@@ -49,6 +49,24 @@ function getTitleAndDescription(partyGroupList, election, prevElection, ents) {
   return { title, description };
 }
 
+function renderMatrixView({ partyGroupList, election, prevElection, ents }) {
+  const sparseMatrix = getSparseMatrix(
+    partyGroupList,
+    election,
+    prevElection,
+    ents
+  );
+
+  return (
+    <MatrixView
+      sparseMatrix={sparseMatrix}
+      zKey="Swing"
+      xKey="PartyGroup"
+      yKey="Region"
+    />
+  );
+}
+
 export default function SwingAnalysisForElectionView({
   partyGroupList,
   election,
@@ -58,12 +76,7 @@ export default function SwingAnalysisForElectionView({
   if (!prevElection) {
     return null;
   }
-  const sparseMatrix = getSparseMatrix(
-    partyGroupList,
-    election,
-    prevElection,
-    ents
-  );
+
   const { title, description } = getTitleAndDescription(
     partyGroupList,
     election,
@@ -72,12 +85,7 @@ export default function SwingAnalysisForElectionView({
   );
   return (
     <SectionBox title={title} description={description}>
-      <MatrixView
-        sparseMatrix={sparseMatrix}
-        zKey="Swing"
-        xKey="PartyGroup"
-        yKey="Region"
-      />
+      {renderMatrixView({ partyGroupList, election, prevElection, ents })}
     </SectionBox>
   );
 }

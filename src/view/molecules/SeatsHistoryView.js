@@ -20,7 +20,7 @@ function getSparseMatrix(ents, elections, partyGroupList) {
       sparseMatrix,
       [partyGroupID, seatsForPartyGroup]
     ) {
-      return sparseMatrix.concat({
+      return sparseMatrix.push({
         Election: election,
         PartyGroup: PartyGroup.fromID(partyGroupID),
         Seats: seatsForPartyGroup || 0,

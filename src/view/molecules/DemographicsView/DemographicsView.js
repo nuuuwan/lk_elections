@@ -1,10 +1,12 @@
 import { Box } from "@mui/material";
-import { Format, Fraction, SparseMatrix } from "../../nonview/base";
+import { Fraction, SparseMatrix } from "../../../nonview/base";
 
-import MatrixView from "./MatrixView";
-import { CommaListView, EntLink, SectionBox } from "../atoms";
-import { DemographicGroup, Demographics } from "../../nonview/core";
-import { Renderer } from "../molecules";
+import MatrixView from "../MatrixView";
+import { EntLink, SectionBox } from "../../atoms";
+import { DemographicGroup, Demographics } from "../../../nonview/core";
+
+import DemographicsViewMajorityDescription from "./DemographicsViewMajorityDescription";
+import DemographicsViewMinorityDescription from "./DemographicsViewMinorityDescription";
 
 function getSparseMatrix(demographicsList, demographicType) {
   return new SparseMatrix(
@@ -33,78 +35,19 @@ function getSparseMatrix(demographicsList, demographicType) {
   );
 }
 
-function getMajorityDescription({ largestGroup, largestGroupP }) {
-  if (largestGroupP <= 0.5) {
-    return <Box component="span"> No group with a clear majority</Box>;
-  }
-
-  return (
-    <Box component="span">
-      {Demographics.getMajorityLabel(largestGroupP)}{" "}
-      {Renderer.formatCellValueObject(largestGroup)} (
-      {Format.percent(largestGroupP)})
-    </Box>
-  );
-}
-
-function getMinorityDescription({
-  groupToN,
-  total,
-  largestGroupID,
-  largestGroupP,
-}) {
-  const sigMinorityGroupIDs = Demographics.getSignificantMinorityGroupIDs(
-    groupToN,
-    total,
-    largestGroupID,
-    largestGroupP
-  );
-  if (!sigMinorityGroupIDs) {
-    return null;
-  }
-
-  return (
-    <Box component="span">
-      , with sizable{" "}
-      <CommaListView>
-        {sigMinorityGroupIDs.map(function (groupID) {
-          const group = new DemographicGroup(groupID);
-          const groupP = groupToN[groupID] / total;
-
-          return (
-            <Box component="span" key={groupID}>
-              {Renderer.formatCellValueObject(group)} ({Format.percent(groupP)})
-            </Box>
-          );
-        })}
-      </CommaListView>{" "}
-      populations
-    </Box>
-  );
-}
-
 function getTitleAndDescription(demographicsList, demographicType) {
   const demographics = demographicsList[0];
 
-  const largestGroupID = demographics.getLargestGroup(demographicType);
-  const largestGroup = new DemographicGroup(largestGroupID);
-  const groupToN = demographics.getGroupToN(demographicType);
-  const total = demographics.n;
-  const largestGroupP = groupToN[largestGroupID] / total;
-
   const description = (
     <Box component="span">
-      {getMajorityDescription({
-        largestGroup,
-        largestGroupP,
-      })}
-      {getMinorityDescription({
-        groupToN,
-        total,
-        largestGroupID,
-        largestGroupP,
-      })}
-      .
+      <DemographicsViewMajorityDescription
+        demographics={demographics}
+        demographicType={demographicType}
+      />
+      <DemographicsViewMinorityDescription
+        demographics={demographics}
+        demographicType={demographicType}
+      />
     </Box>
   );
 

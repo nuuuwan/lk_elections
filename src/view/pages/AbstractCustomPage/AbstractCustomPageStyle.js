@@ -1,4 +1,3 @@
-import { BorderBottom } from "@mui/icons-material";
 import { SmallWindow } from "../../../nonview/base";
 
 export default class AbstractCustomPageStyle {

@@ -9,6 +9,7 @@ import LatLng from "./LatLng";
 import MathX from "./MathX";
 import PercentagePoint from "./PercentagePoint";
 import Random from "./Random";
+import SmallWindow from "./SmallWindow";
 import SparseMatrix from "./SparseMatrix";
 import Time from "./Time";
 import URLContext from "./URLContext";
@@ -26,6 +27,7 @@ export {
   MathX,
   PercentagePoint,
   Random,
+  SmallWindow,
   SparseMatrix,
   Time,
   URLContext,

@@ -5,9 +5,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./App.css";
 
 import { BasePage } from "./view/pages";
-
-const screenWidth = window.innerWidth;
-const fontSize = screenWidth < 600 ? 11 : 14;
+import { SmallWindow } from "./nonview/base";
 
 const THEME = createTheme({
   palette: {
@@ -29,7 +27,7 @@ const THEME = createTheme({
   },
   typography: {
     fontFamily: "Afacad",
-    fontSize: fontSize,
+    fontSize: SmallWindow.FONT_SIZE,
   },
 });
 

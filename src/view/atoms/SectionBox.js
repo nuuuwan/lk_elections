@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import Header from "./Header";
+import { SmallWindow } from "../../nonview/base";
 
 export default function SectionBox({
   children,
@@ -10,15 +11,12 @@ export default function SectionBox({
 }) {
   description = description || "Description TODO";
   source = source || "elections.gov.lk";
-
-  const isSmallWindow = window.innerWidth < 600;
-  const width = noMaxWidth ? null : isSmallWindow ? "320px" : "720px";
+  const width = SmallWindow.WIDGET_WIDTH;
 
   return (
     <Box
       sx={{
-        width,
-        overflow: "scroll",
+        minWidth: width,
       }}
     >
       <Header level={2} id="lk-elections-widget-text-title">

@@ -3,11 +3,12 @@ import { Box, Breadcrumbs, Drawer, Grid, IconButton } from "@mui/material";
 
 import { Header } from "../atoms";
 import { MainMenu } from "../organisms";
-import { URLContext } from "../../nonview/base";
+import { URLContext, SmallWindow } from "../../nonview/base";
 import GenericStore from "../../nonview/core/GenericStore";
 import MenuIcon from "@mui/icons-material/Menu";
 import VersionView from "../atoms/VersionView";
 import CloseIcon from "@mui/icons-material/Close";
+
 export default class AbstractCustomPage extends Component {
   constructor(props) {
     super(props);
@@ -104,8 +105,7 @@ export default class AbstractCustomPage extends Component {
   }
 
   renderWidgets() {
-    const isSmallWindow = window.innerWidth < 600;
-    const padding = isSmallWindow ? 1 : 5;
+    const padding = SmallWindow.WIDGET_PADDING;
     return this.widgets.map(function (widget, index) {
       return (
         <Grid item key={index}>

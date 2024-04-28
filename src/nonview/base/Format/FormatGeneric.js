@@ -1,4 +1,5 @@
 import { MathX } from "..";
+import SmallWindow from "../SmallWindow";
 
 let FormatGeneric = {
   getFontSize(x, valueRange, fontSizeRange) {
@@ -41,8 +42,8 @@ let FormatGeneric = {
     );
   },
 };
-
-FormatGeneric.DEFAULT_FONT_SIZE = window.innerWidth < 600 ? 11 : 14;
+console.debug(SmallWindow);
+FormatGeneric.DEFAULT_FONT_SIZE = SmallWindow.FONT_SIZE;
 FormatGeneric.DEFAULT_FONT_SIZE_RANGE = [
   FormatGeneric.DEFAULT_FONT_SIZE,
   FormatGeneric.DEFAULT_FONT_SIZE * 2,

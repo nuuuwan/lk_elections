@@ -1,18 +1,12 @@
-import { Box } from "@mui/material";
-import { Format, Fraction, MathX, SparseMatrix } from "../../nonview/base";
-import { Election } from "../../nonview/core";
-import AnalysisFloatingVote from "../../nonview/core/AnalysisFloatingVote";
+import { Fraction, MathX, SparseMatrix } from "../../../nonview/base";
+import { Election } from "../../../nonview/core";
+import AnalysisFloatingVote from "../../../nonview/core/AnalysisFloatingVote";
 
-import {
-  CommaListView,
-  EntLink,
-  Essay,
-  PartyGroupLink,
-  SectionBox,
-} from "../atoms";
+import { EntLink, SectionBox } from "../../atoms";
 
-import MatrixView from "./MatrixView";
-import LeanType from "../../nonview/core/LeanType";
+import MatrixView from "../MatrixView";
+import LeanType from "../../../nonview/core/LeanType";
+import FloatingVoteAnalysisViewDescription from "./FloatingVoteAnalysisViewDescription";
 
 function getSparseMatrix(partyGroupList, elections, ents) {
   const entToPartyGroupToBaseInfo =
@@ -77,30 +71,15 @@ function getTitleAndDescription(
   );
 
   const description = (
-    <Essay>
-      <>
-        In <EntLink ent={firstEnt} />, party bases were{" "}
-        <CommaListView>
-          {displayInfoList.map(function ({ partyGroup, windowBase }, i) {
-            const leanTypeForPartyGroup = LeanType.getLeanTypeForPartyGroup(
-              windowBase,
-              pFloating
-            );
-            return (
-              <Box key={"party-group" + i} component="span">
-                {Format.percent(windowBase)}
-                {" for "} <PartyGroupLink partyGroupID={partyGroup.id} />
-                {leanTypeForPartyGroup}
-              </Box>
-            );
-          })}
-        </CommaListView>
-        , making it a "{leanType + " "}
-        <PartyGroupLink partyGroupID={maxInfo.partyGroup.id} />" region.
-      </>
-      <>The #FloatingVote is {Format.percent(pFloating)}.</>
-    </Essay>
+    <FloatingVoteAnalysisViewDescription
+      firstEnt={firstEnt}
+      displayInfoList={displayInfoList}
+      leanType={leanType}
+      maxInfo={maxInfo}
+      pFloating={pFloating}
+    />
   );
+
   return { title, description };
 }
 

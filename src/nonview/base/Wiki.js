@@ -9,11 +9,7 @@ export default class Wiki {
     return "https://en.wikipedia.org/wiki/" + this.pageName;
   }
   get summary() {
-    const summary = WIKIPEDIA_SUMMARY_IDX[this.pageName];
-    if (summary) {
-      return summary;
-    }
-    return "";
+    return WIKIPEDIA_SUMMARY_IDX[this.pageName] || "";
   }
 
   get summaryLines() {

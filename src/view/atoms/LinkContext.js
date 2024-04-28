@@ -13,8 +13,6 @@ export default function LinkContext({ context, children }) {
     <Box
       sx={{
         cursor: "pointer",
-        background: "#00000008",
-        borderRadius: 2,
         padding: 0.5,
       }}
       onClick={onClick}

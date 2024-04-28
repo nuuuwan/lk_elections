@@ -1,3 +1,4 @@
+import { BorderBottom } from "@mui/icons-material";
 import { SmallWindow } from "../../../nonview/base";
 
 export default class AbstractCustomPageStyle {
@@ -18,7 +19,9 @@ export default class AbstractCustomPageStyle {
 
   static WIDGET = {
     padding: SmallWindow.WIDGET_PADDING,
-    background: "#fcfcfc",
-    maxWidth: SmallWindow.WIDGET_WIDTH,
+    background: "#fff",
+    maxWidth: "80%",
+
+    overflowX: "scroll",
   };
 }

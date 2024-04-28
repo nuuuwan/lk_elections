@@ -9,9 +9,6 @@ import { Renderer } from "../molecules";
 function getSparseMatrix(demographicsList, demographicType) {
   return new SparseMatrix(
     demographicsList.reduce(function (dataList, demographics) {
-      if (demographics.noData) {
-        return dataList;
-      }
       const largestGroupID = demographics.getLargestGroup(demographicType);
       return Object.entries(demographics.getGroupToN(demographicType)).reduce(
         function (dataList, [demographicGroupID, nDemographicGroup]) {

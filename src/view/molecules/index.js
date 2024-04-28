@@ -15,6 +15,7 @@ import MatrixView from "./MatrixView";
 import ParliView from "./ParliView";
 import PartyElectoralSummaryView from "./PartyElectoralSummaryView";
 import PartyGroupElectoralSummaryView from "./PartyGroupElectoralSummaryView";
+import RegionResultsTableView from "./RegionResultsTableView";
 import Renderer from "./Renderer";
 import ResultsSeatsTableView from "./ResultsSeatsTableView";
 import ResultsTableView from "./ResultsTableView";
@@ -40,6 +41,7 @@ export {
   ParliView,
   PartyElectoralSummaryView,
   PartyGroupElectoralSummaryView,
+  RegionResultsTableView,
   Renderer,
   ResultsSeatsTableView,
   ResultsTableView,

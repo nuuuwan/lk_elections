@@ -7,6 +7,43 @@ import { Box, IconButton, Typography } from "@mui/material";
 import { DataTable } from "../../../nonview/core";
 import CommonIcons from "../CommonIcons";
 
+function renderExpand({ needsExpand, onClickExpand, Icon, label }) {
+  if (!needsExpand) {
+    return null;
+  }
+  return (
+    <Box>
+      <IconButton onClick={onClickExpand}>
+        <Icon />
+      </IconButton>
+      <Typography variant="caption">{label}</Typography>
+    </Box>
+  );
+}
+
+function renderTable({
+  sortedDataList,
+  headerKeys,
+  footerData,
+  setSortKeyInner,
+  showExpanded,
+}) {
+  return (
+    <table>
+      <DataTableViewHead
+        headerKeys={headerKeys}
+        setSortKeyInner={setSortKeyInner}
+      />
+      <DataTableViewBody
+        sortedDataList={sortedDataList}
+        headerKeys={headerKeys}
+        showExpanded={showExpanded}
+      />
+      <DataTableViewFoot headerKeys={headerKeys} footerData={footerData} />
+    </table>
+  );
+}
+
 export default function DataTableViewTable({
   sortedDataList,
   headerKeys,
@@ -20,34 +57,20 @@ export default function DataTableViewTable({
   const Icon = showExpanded
     ? CommonIcons.ExpandCollapse
     : CommonIcons.ExpandExpand;
-
   const nRows = sortedDataList.length;
   const label = showExpanded ? "Collapse" : `Expand ${nRows} rows`;
-
   const needsExpand = nRows > DataTable.DEFAULT_DISPLAY_MAX_ROWS;
 
   return (
     <Box>
-      <table>
-        <DataTableViewHead
-          headerKeys={headerKeys}
-          setSortKeyInner={setSortKeyInner}
-        />
-        <DataTableViewBody
-          sortedDataList={sortedDataList}
-          headerKeys={headerKeys}
-          showExpanded={showExpanded}
-        />
-        <DataTableViewFoot headerKeys={headerKeys} footerData={footerData} />
-      </table>
-      {needsExpand ? (
-        <Box>
-          <IconButton onClick={onClickExpand}>
-            <Icon />
-          </IconButton>
-          <Typography variant="caption">{label}</Typography>
-        </Box>
-      ) : null}
+      {renderTable({
+        sortedDataList,
+        headerKeys,
+        footerData,
+        setSortKeyInner,
+        showExpanded,
+      })}
+      {renderExpand({ needsExpand, onClickExpand, Icon, label })}
     </Box>
   );
 }

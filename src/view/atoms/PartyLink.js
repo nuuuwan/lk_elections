@@ -1,22 +1,9 @@
 import { Box, Typography } from "@mui/material";
 import { LinkContext } from "../atoms";
-import { Party } from "../../nonview/core";
 
-function getStyle(party, noColor) {
-  let foreColor = party.color;
-
-  if (noColor) {
-    foreColor = "#888";
-  }
-
-  return { foreColor };
-}
-
-export default function PartyLink({ partyID, noColor, longName }) {
-  const party = Party.fromID(partyID);
-
-  const { foreColor } = getStyle(party, noColor);
-
+export default function PartyLink({ party, longName }) {
+  const partyID = party.id;
+  const foreColor = party.color;
   const partyLabel = longName ? party.name : party.handle;
 
   const context = {

@@ -38,12 +38,15 @@ export default class PartyPage extends AbstractCustomPage {
           />
         );
       }),
-      <PartyLink partyID={party.id} />,
+      <PartyLink party={party} />,
     ];
   }
   get title() {
-    const { partyID } = this.state;
-    return <PartyLink partyID={partyID} longName />;
+    const { partyID, party } = this.state;
+    if (!party) {
+      return partyID;
+    }
+    return <PartyLink party={party} longName />;
   }
 
   get browserTitle() {

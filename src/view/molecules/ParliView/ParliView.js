@@ -18,7 +18,7 @@ function ParliBlocksView({ partyGroupToPartyToSeats }) {
       if (seats > limitBreakSeats) {
         inner.push(
           <Box key={"party-" + partyID}>
-            <PartyLink partyID={party.id} /> ({seats})
+            <PartyLink party={party} /> ({seats})
           </Box>
         );
       }
@@ -49,6 +49,7 @@ function getTitleAndDescription({ election, ents }) {
   const nWithSeats = Object.keys(aggregatePartyToSeats).length;
 
   const winningPartyID = Object.keys(aggregatePartyToSeats)[0];
+  const winningParty = Party.fromID(winningPartyID);
   const winningPartySeats = aggregatePartyToSeats[winningPartyID];
   const totalSeats = MathX.sum(Object.values(aggregatePartyToSeats));
 
@@ -67,7 +68,7 @@ function getTitleAndDescription({ election, ents }) {
   const description = (
     <Box>
       {nWithSeats} parties won at least one seat. Most seats were won by the{" "}
-      <PartyLink partyID={winningPartyID} /> ({winningPartySeats}/{totalSeats}),
+      <PartyLink party={winningParty} /> ({winningPartySeats}/{totalSeats}),
       giving it a {winDescription} in parliament.
     </Box>
   );

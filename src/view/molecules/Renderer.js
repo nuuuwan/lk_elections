@@ -24,7 +24,7 @@ export default class Renderer {
       return <EntLink ent={value} />;
     }
     if (value instanceof Party) {
-      return <PartyLink partyID={value.id} />;
+      return <PartyLink party={value} />;
     }
 
     if (value instanceof PartyGroup) {

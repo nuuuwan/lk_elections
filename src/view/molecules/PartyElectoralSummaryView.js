@@ -39,15 +39,15 @@ function getTitleAndDescription(party, elections, dataList) {
   const best = dataList.sort((a, b) => b.Votes.p - a.Votes.p)[0];
   const title = (
     <Box>
-      <PartyLink partyID={party.id} />
+      <PartyLink party={party} />
       's History
     </Box>
   );
   const description = (
     <Essay>
       <>
-        The <PartyLink partyID={party.id} longName={true} /> has run in {n} of
-        the last {nAll} elections.
+        The <PartyLink party={party} longName={true} /> has run in {n} of the
+        last {nAll} elections.
       </>
       <>
         Best showing (% wise) was in <ElectionLink election={best.Election} /> ,

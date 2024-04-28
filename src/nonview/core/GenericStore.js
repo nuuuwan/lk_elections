@@ -43,7 +43,6 @@ export default class GenericStore {
         partyGroupList,
       }
     );
-    console.debug(newState);
     return newState;
   }
 }

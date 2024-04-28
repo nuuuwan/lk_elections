@@ -42,7 +42,7 @@ let FormatGeneric = {
     );
   },
 };
-console.debug(SmallWindow);
+
 FormatGeneric.DEFAULT_FONT_SIZE = SmallWindow.FONT_SIZE;
 FormatGeneric.DEFAULT_FONT_SIZE_RANGE = [
   FormatGeneric.DEFAULT_FONT_SIZE,

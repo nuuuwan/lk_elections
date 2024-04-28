@@ -59,6 +59,14 @@ export default class PartyToVotes {
     return Object.keys(this.getSortedMajor(0.001))[0];
   }
 
+  get partyToVotesSorted() {
+    return Object.fromEntries(
+      Object.entries(this.partyToVotes).sort(function (a, b) {
+        return b[1] - a[1];
+      })
+    );
+  }
+
   get partyToPVotes() {
     const totalVotes = this.totalVotes;
     return Object.fromEntries(

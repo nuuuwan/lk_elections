@@ -1,5 +1,5 @@
 import { Comparator } from "../core";
-import Fraction from "./Fraction";
+import Scalar from "./Scalar";
 
 export default class SparseMatrix {
   constructor(dataList = []) {
@@ -11,27 +11,8 @@ export default class SparseMatrix {
     this.dataList.push(data);
   }
 
-  static toScalarInner(x) {
-    if (!x) {
-      return null;
-    }
-    if (typeof x === "string") {
-      return x;
-    }
-    if (typeof x === "number") {
-      return x.toFixed(3);
-    }
-    if (x instanceof Fraction) {
-      return x.p;
-    }
-    if (typeof x === "object") {
-      return x.id;
-    }
-    throw new Error("SparseMatrix: invalid scalar: " + x);
-  }
-
   toScalar(x) {
-    const scalar = SparseMatrix.toScalarInner(x);
+    const scalar = Scalar.get(x);
     this.scalarToOriginal[scalar] = x;
     return scalar;
   }

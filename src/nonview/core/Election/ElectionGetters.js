@@ -35,6 +35,25 @@ const ElectionStats = {
         }.bind(this)
       );
   },
+
+  getEntToPartyToVoteInfo(ents) {
+    return this.sortEntsByValid(ents).reduce(
+      function (idx, ent) {
+        const partyToVotes = this.getResults(ent.id).partyToVotes;
+        const totalVotes = partyToVotes.totalVotes;
+        idx[ent.id] = Object.fromEntries(
+          Object.entries(partyToVotes.partyToVotesSorted).map(function (
+            [partyID, vote],
+            i
+          ) {
+            return [partyID, { vote, totalVotes, isWinner: i === 0 }];
+          })
+        );
+        return idx;
+      }.bind(this),
+      {}
+    );
+  },
 };
 
 export default ElectionStats;

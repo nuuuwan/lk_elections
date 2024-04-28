@@ -33,15 +33,26 @@ function getSparseMatrix(demographicsList, demographicType) {
   );
 }
 
-function getTitleAndDescription(demographicsList, demographicType) {
-  const demographics = demographicsList[0];
+function getMajorityDescription({ largestGroup, largestGroupP }) {
+  if (largestGroupP <= 0.5) {
+    return <Box component="span"> No group with a clear majority</Box>;
+  }
 
-  const largestGroupID = demographics.getLargestGroup(demographicType);
-  const largestGroup = new DemographicGroup(largestGroupID);
-  const groupToN = demographics.getGroupToN(demographicType);
-  const total = demographics.n;
-  const largestGroupP = groupToN[largestGroupID] / total;
+  return (
+    <Box component="span">
+      {Demographics.getMajorityLabel(largestGroupP)}{" "}
+      {Renderer.formatCellValueObject(largestGroup)} (
+      {Format.percent(largestGroupP)})
+    </Box>
+  );
+}
 
+function getMinorityDescription({
+  groupToN,
+  total,
+  largestGroupID,
+  largestGroupP,
+}) {
   const sigMinorityGroupIDs = Object.entries(groupToN)
     .filter(function ([groupID, n]) {
       return (
@@ -52,53 +63,52 @@ function getTitleAndDescription(demographicsList, demographicType) {
       return groupID;
     });
 
-  let majorityDescription;
-  if (largestGroupP > 0.5) {
-    let majorityLabel = "Majority";
-    if (largestGroupP > 0.98) {
-      majorityLabel = " Almost entirely ";
-    } else if (largestGroupP > 0.75) {
-      majorityLabel = "Predominently ";
-    }
-
-    majorityDescription = (
-      <Box component="span">
-        {majorityLabel} {Renderer.formatCellValueObject(largestGroup)} (
-        {Format.percent(largestGroupP)})
-      </Box>
-    );
-  } else {
-    majorityDescription = (
-      <Box component="span"> No group with a clear majority</Box>
-    );
+  if (sigMinorityGroupIDs.length === 0) {
+    return null;
   }
 
-  let minorityDescription;
-  if (sigMinorityGroupIDs.length > 0) {
-    minorityDescription = (
-      <Box component="span">
-        , with sizable{" "}
-        <CommaListView>
-          {sigMinorityGroupIDs.map(function (groupID) {
-            const group = new DemographicGroup(groupID);
-            const groupP = groupToN[groupID] / total;
+  return (
+    <Box component="span">
+      , with sizable{" "}
+      <CommaListView>
+        {sigMinorityGroupIDs.map(function (groupID) {
+          const group = new DemographicGroup(groupID);
+          const groupP = groupToN[groupID] / total;
 
-            return (
-              <Box component="span" key={groupID}>
-                {Renderer.formatCellValueObject(group)} (
-                {Format.percent(groupP)})
-              </Box>
-            );
-          })}
-        </CommaListView>{" "}
-        populations
-      </Box>
-    );
-  }
+          return (
+            <Box component="span" key={groupID}>
+              {Renderer.formatCellValueObject(group)} ({Format.percent(groupP)})
+            </Box>
+          );
+        })}
+      </CommaListView>{" "}
+      populations
+    </Box>
+  );
+}
+
+function getTitleAndDescription(demographicsList, demographicType) {
+  const demographics = demographicsList[0];
+
+  const largestGroupID = demographics.getLargestGroup(demographicType);
+  const largestGroup = new DemographicGroup(largestGroupID);
+  const groupToN = demographics.getGroupToN(demographicType);
+  const total = demographics.n;
+  const largestGroupP = groupToN[largestGroupID] / total;
 
   const description = (
     <Box component="span">
-      {majorityDescription} {minorityDescription}.
+      {getMajorityDescription({
+        largestGroup,
+        largestGroupP,
+      })}
+      {getMinorityDescription({
+        groupToN,
+        total,
+        largestGroupID,
+        largestGroupP,
+      })}
+      .
     </Box>
   );
 

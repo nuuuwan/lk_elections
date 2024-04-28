@@ -148,4 +148,14 @@ export default class Demographics {
         return focusSmallest ? a.n - b.n : b.n - a.n;
       });
   }
+
+  static getMajorityLabel(p) {
+    if (p > 0.98) {
+      return " Almost entirely ";
+    }
+    if (p > 0.75) {
+      return "Predominently ";
+    }
+    return "Majority";
+  }
 }

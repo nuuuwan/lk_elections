@@ -5,12 +5,8 @@ import { CommaListView, EntLink, Essay, PartyGroupLink } from "../../atoms";
 
 import LeanType from "../../../nonview/core/LeanType";
 import { AnalysisFloatingVote, Election } from "../../../nonview/core";
-export default function FloatingVoteAnalysisViewDescription({
-  partyGroupList,
-  elections,
-  ents,
-  focusSmallest,
-}) {
+
+function getData(elections, ents, partyGroupList, focusSmallest) {
   const lastElection = Election.filterCompleted(elections).sort()[0];
   let sortedEnts = lastElection.sortEntsByValid(ents);
   if (focusSmallest) {
@@ -27,6 +23,28 @@ export default function FloatingVoteAnalysisViewDescription({
   const pFloating = 1 - MathX.sum(infoList.map((x) => x.windowBase));
   const maxInfo = displayInfoList[0];
   const leanType = LeanType.getLeanType(maxInfo.windowBase);
+
+  return {
+    firstEnt,
+    displayInfoList,
+    pFloating,
+    maxInfo,
+    leanType,
+  };
+}
+
+export default function FloatingVoteAnalysisViewDescription({
+  partyGroupList,
+  elections,
+  ents,
+  focusSmallest,
+}) {
+  const { firstEnt, displayInfoList, pFloating, maxInfo, leanType } = getData(
+    elections,
+    ents,
+    partyGroupList,
+    focusSmallest
+  );
 
   return (
     <Essay>

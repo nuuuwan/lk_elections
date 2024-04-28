@@ -14,13 +14,7 @@ export default function SwingAnalysisForElectionViewDescription({
     prevElection,
     partyGroupList,
     [Ent.LK]
-  )
-    .filter(function (a) {
-      return Math.abs(a.swing) > 0.01;
-    })
-    .sort(function (a, b) {
-      return b.swing - a.swing;
-    });
+  );
 
   return (
     <Essay>

@@ -81,6 +81,10 @@ class Election extends ElectionBase {
       return !election.isFuture;
     });
   }
+
+  static getLastElection(elections) {
+    return Election.filterCompleted(elections).sort()[0];
+  }
 }
 
 Object.assign(Election.prototype, ElectionGetters);

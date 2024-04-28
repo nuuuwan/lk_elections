@@ -20,8 +20,8 @@ const ElectionStats = {
       });
   },
 
-  sortEntsByValid(ents) {
-    return ents
+  sortEntsByValid(ents, reverse = false) {
+    let sortedEnts = ents
       .filter(
         function (a) {
           return this.getResults(a.id);
@@ -34,6 +34,10 @@ const ElectionStats = {
           return vB - vA;
         }.bind(this)
       );
+    if (reverse) {
+      sortedEnts.reverse();
+    }
+    return sortedEnts;
   },
 
   getEntToPartyToVoteInfo(ents) {

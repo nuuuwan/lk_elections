@@ -5,7 +5,7 @@ import AnalysisFloatingVote from "../../../nonview/core/AnalysisFloatingVote/Ana
 import { EntLink, SectionBox } from "../../atoms";
 
 import MatrixView from "../MatrixView";
-import LeanType from "../../../nonview/core/LeanType";
+
 import FloatingVoteAnalysisViewDescription from "./FloatingVoteAnalysisViewDescription";
 
 function getSparseMatrix(partyGroupList, elections, ents) {
@@ -47,22 +47,10 @@ function getTitleAndDescription(
   ents,
   focusSmallest
 ) {
-  const lastElection = Election.filterCompleted(elections).sort()[0];
-  let sortedEnts = lastElection.sortEntsByValid(ents);
-  if (focusSmallest) {
-    sortedEnts.reverse();
-  }
+  const lastElection = Election.getLastElection(elections);
 
+  let sortedEnts = lastElection.sortEntsByValid(ents, focusSmallest);
   const firstEnt = sortedEnts[0];
-  const infoList = AnalysisFloatingVote.getBaseAnalysisInfoForPartyGroupList(
-    elections,
-    firstEnt,
-    partyGroupList
-  );
-  const displayInfoList = infoList.filter((a) => a.windowBase > 0.05);
-  const pFloating = 1 - MathX.sum(infoList.map((x) => x.windowBase));
-  const maxInfo = displayInfoList[0];
-  const leanType = LeanType.getLeanType(maxInfo.windowBase);
 
   const title = (
     <>
@@ -72,11 +60,10 @@ function getTitleAndDescription(
 
   const description = (
     <FloatingVoteAnalysisViewDescription
-      firstEnt={firstEnt}
-      displayInfoList={displayInfoList}
-      leanType={leanType}
-      maxInfo={maxInfo}
-      pFloating={pFloating}
+      partyGroupList={partyGroupList}
+      elections={elections}
+      ents={ents}
+      focusSmallest={focusSmallest}
     />
   );
 

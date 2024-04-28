@@ -158,4 +158,21 @@ export default class Demographics {
     }
     return "Majority";
   }
+
+  static getSignificantMinorityGroupIDs(
+    groupToN,
+    total,
+    largestGroupID,
+    largestGroupP
+  ) {
+    return Object.entries(groupToN)
+      .filter(function ([groupID, n]) {
+        return (
+          (largestGroupP < 0.5 || groupID !== largestGroupID) && n > 0.1 * total
+        );
+      })
+      .map(function ([groupID, n]) {
+        return groupID;
+      });
+  }
 }

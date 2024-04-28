@@ -1,4 +1,4 @@
-import { WIKIPEDIA_SUMMRY_IDX } from "../constants";
+import { WIKIPEDIA_SUMMARY_IDX } from "../constants";
 
 export default class Wiki {
   constructor(pageName) {
@@ -9,7 +9,7 @@ export default class Wiki {
     return "https://en.wikipedia.org/wiki/" + this.pageName;
   }
   get summary() {
-    const summary = WIKIPEDIA_SUMMRY_IDX[this.pageName];
+    const summary = WIKIPEDIA_SUMMARY_IDX[this.pageName];
     if (summary) {
       return summary;
     }

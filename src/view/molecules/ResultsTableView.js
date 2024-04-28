@@ -35,7 +35,7 @@ function getTitleAndDescription(election, ents, focusSmallest) {
   const partyToVotes = result.partyToVotes;
   const winningPartyID = partyToVotes.winningParty;
   const winningParty = Party.fromID(winningPartyID);
-  
+
   const title = (
     <Box>
       <ElectionLink election={election} /> - <EntLink ent={ent} />

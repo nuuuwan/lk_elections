@@ -15,7 +15,7 @@ td {
   font-weight: 300;
   border-bottom: 1px solid #eee;
 
-  padding: 6px;
+  padding: 2px;
 }
 
 th {
@@ -24,8 +24,8 @@ th {
   text-align: center;
 
   border: none;
-  padding: 3px;
-  padding-left: 6px;
+  padding: 2px;
+
 
 
 }

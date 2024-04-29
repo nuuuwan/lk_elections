@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Ent, Format, Fraction, PercentagePoint } from "../../nonview/base";
 import {
   DemographicGroup,

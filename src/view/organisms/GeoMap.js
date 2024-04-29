@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Polygon } from "react-leaflet";
 import { LatLng, Geo } from "../../nonview/base";
 
 import "./GeoMap.css";
-import { Box, CircularProgress } from "@mui/material";
+import { Box } from "@mui/material";
 
 const URL_FORMAT = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 

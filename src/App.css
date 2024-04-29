@@ -16,6 +16,8 @@ td {
   border-bottom: 1px solid #eee;
 
   padding: 2px;
+  padding-left: 6px;
+  padding-right: 6px;
 }
 
 th {
@@ -25,7 +27,8 @@ th {
 
   border: none;
   padding: 2px;
-
+  padding-left: 6px;
+  padding-right: 6px;
 
 
 }

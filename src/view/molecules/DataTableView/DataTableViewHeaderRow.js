@@ -15,10 +15,10 @@ export default function DataTableViewHeaderRow({ headerKeys, setSortKey }) {
         return (
           <th key={"header-" + iCol}>
             <Box alignItems="center">
-              {Renderer.formatCellValue(headerKey, false)}
               <IconButton onClick={onClickSort}>
                 <CommonIcons.SortVertical sx={CommonIcons.Style.Sort} />
               </IconButton>
+              {Renderer.formatCellValue(headerKey, false)}
             </Box>
           </th>
         );

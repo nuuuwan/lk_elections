@@ -16,10 +16,10 @@ export default function MatrixViewHeaderCell({
   return (
     <th>
       <Box alignItems="center">
-        {Renderer.formatCellValue(x, false)}{" "}
         <IconButton onClick={setSortXScalarInner}>
           <CommonIcons.SortVertical sx={CommonIcons.Style.Sort} />
         </IconButton>
+        {Renderer.formatCellValue(x, false)}
       </Box>
     </th>
   );

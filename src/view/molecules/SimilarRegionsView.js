@@ -2,20 +2,19 @@ import { Box } from "@mui/material";
 import { AnalysisBellwether } from "../../nonview/core";
 import { CommaListView, EntLink, Essay, SectionBox } from "../atoms";
 
-import DataTableView from "./DataTableView";
+import { SparseMatrix } from "../../nonview/base";
+import MatrixView from "./MatrixView";
 
-function getDataList(elections, ent, otherEnts) {
-  return otherEnts
-    .map((pdEnt) => {
-      const l1Error = AnalysisBellwether.getMeanL1Error(ent, pdEnt, elections);
-      return { Region: pdEnt, Diff: l1Error };
-    })
-    .sort((a, b) => a.Diff - b.Diff)
-    .filter((a) => a.Region.id !== ent.id);
+function getSparseMatrix(elections, ent, otherEnts) {
+  return otherEnts.reduce(function (sparseMatrix, pdEnt) {
+    const l1Error = AnalysisBellwether.getMeanL1Error(ent, pdEnt, elections);
+    return sparseMatrix.push({ Region: pdEnt, Key: "Diff", Value: l1Error });
+  }, new SparseMatrix());
 }
 
-function getTitleAndDescription(ent, dataList) {
+function getTitleAndDescription(ent, sparseMatrix) {
   const N_DISPLAY = 5;
+  const dataList = sparseMatrix.dataList;
   const closestEnts = dataList.slice(0, N_DISPLAY).map((d) => d.Region);
   const title = (
     <Box component="span">
@@ -43,11 +42,16 @@ function getTitleAndDescription(ent, dataList) {
 }
 
 export default function SimilarRegionsView({ elections, ent, otherEnts }) {
-  const dataList = getDataList(elections, ent, otherEnts);
-  const { title, description } = getTitleAndDescription(ent, dataList);
+  const sparseMatrix = getSparseMatrix(elections, ent, otherEnts);
+  const { title, description } = getTitleAndDescription(ent, sparseMatrix);
   return (
     <SectionBox title={title} description={description}>
-      <DataTableView dataList={dataList} />
+      <MatrixView
+        sparseMatrix={sparseMatrix}
+        xKey="Region"
+        yKey="Key"
+        zKey="Value"
+      />
     </SectionBox>
   );
 }

@@ -29,7 +29,7 @@ function getTitleAndDescription(partyGroup, elections, dataList) {
     .filter((x) => x)
     .sort((a, b) => b.Votes.p - a.Votes.p)[0];
   const title = (
-    <Box>
+    <Box component="span">
       <PartyGroupLink partyGroup={partyGroup} />
       's History
     </Box>

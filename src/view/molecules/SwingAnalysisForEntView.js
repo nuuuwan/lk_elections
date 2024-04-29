@@ -41,7 +41,7 @@ function getTitleAndDescription(partyGroupList, elections, ent, sparseMatrix) {
       return b.Swing.value - a.Swing.value;
     });
   const title = (
-    <Box>
+    <Box component="span">
       <EntLink ent={ent} /> #VoteSwing History
     </Box>
   );

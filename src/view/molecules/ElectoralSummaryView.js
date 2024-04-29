@@ -44,7 +44,7 @@ function getTitleAndDescription(ent, elections) {
     elections.length === 1 ? <ElectionLink election={lastElection} /> : null;
 
   const title = (
-    <Box>
+    <Box component="span">
       <EntLink ent={ent} /> {innerTitle} Summary
     </Box>
   );

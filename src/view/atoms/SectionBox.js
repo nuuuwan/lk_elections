@@ -1,20 +1,13 @@
-import { Box, Typography } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 import Header from "./Header";
 import { SmallWindow } from "../../nonview/base";
+import { useState } from "react";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import CloseIcon from "@mui/icons-material/Close";
 
-export default function SectionBox({ children, title, description, source }) {
-  description = description || "Description TODO";
-  source = source || "elections.gov.lk";
-
+function renderBody({ description, source, children }) {
   return (
-    <Box
-      sx={{
-        minWidth: SmallWindow.WIDGET_WIDTH,
-      }}
-    >
-      <Header level={2} id="lk-elections-widget-text-title">
-        {title}
-      </Header>
+    <Box>
       <Box
         sx={{ paddingBottom: 3, paddingTop: 3 }}
         id="lk-elections-widget-text-body"
@@ -27,6 +20,36 @@ export default function SectionBox({ children, title, description, source }) {
           data source: {source}
         </Typography>
       </Box>
+    </Box>
+  );
+}
+
+function renderToggleButton({ setIsOpen, isOpen }) {
+  const Icon = isOpen ? CloseIcon : MoreHorizIcon;
+  return (
+    <IconButton onClick={() => setIsOpen(!isOpen)}>
+      <Icon sx={{ opacity: 0.25 }} />
+    </IconButton>
+  );
+}
+
+export default function SectionBox({ children, title, description, source }) {
+  description = description || "Description TODO";
+  source = source || "elections.gov.lk";
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <Box
+      sx={{
+        minWidth: SmallWindow.WIDGET_WIDTH,
+      }}
+    >
+      <Header level={2} id="lk-elections-widget-text-title">
+        {title}
+        {renderToggleButton({ setIsOpen, isOpen })}
+      </Header>
+      {isOpen ? renderBody({ description, source, children }) : null}
     </Box>
   );
 }

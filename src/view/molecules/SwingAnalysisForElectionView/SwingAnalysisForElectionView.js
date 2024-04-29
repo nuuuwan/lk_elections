@@ -34,7 +34,7 @@ function getSparseMatrix(partyGroupList, election, prevElection, ents) {
 
 function getTitleAndDescription(partyGroupList, election, prevElection, ents) {
   const title = (
-    <Box>
+    <Box component="span">
       How did voting swing between <ElectionLink election={prevElection} /> and{" "}
       <ElectionLink election={election} />
     </Box>

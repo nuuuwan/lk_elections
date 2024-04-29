@@ -38,7 +38,7 @@ function getTitleAndDescription(party, elections, dataList) {
   const n = dataList.length;
   const best = dataList.sort((a, b) => b.Votes.p - a.Votes.p)[0];
   const title = (
-    <Box>
+    <Box component="span">
       <PartyLink party={party} />
       's History
     </Box>

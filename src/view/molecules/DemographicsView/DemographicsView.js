@@ -52,7 +52,7 @@ function getTitleAndDescription(demographicsList, demographicType) {
   );
 
   const title = (
-    <Box>
+    <Box component="span">
       What is the ethnic & religious makeup of{" "}
       <EntLink ent={demographics.ent} />
       {"?"}

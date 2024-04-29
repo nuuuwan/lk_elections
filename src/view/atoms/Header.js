@@ -30,7 +30,7 @@ const Style = {
 export default function Header({ level, children, id }) {
   const sx = Object.assign({}, Style[level], {});
   return (
-    <Box id={id} sx={sx}>
+    <Box id={id} sx={sx} component="span">
       {children}
     </Box>
   );

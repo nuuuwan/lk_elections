@@ -71,8 +71,8 @@ export default function PartyElectoralSummaryView({ party, elections }) {
     <SectionBox title={title} description={description}>
       <MatrixView
         sparseMatrix={sparseMatrix}
-        xKey="Election"
-        yKey="Key"
+        xKey="Key"
+        yKey="Election"
         zKey="Value"
       />
     </SectionBox>

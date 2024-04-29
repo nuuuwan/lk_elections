@@ -48,8 +48,8 @@ export default function SimilarRegionsView({ elections, ent, otherEnts }) {
     <SectionBox title={title} description={description}>
       <MatrixView
         sparseMatrix={sparseMatrix}
-        xKey="Region"
-        yKey="Key"
+        xKey="Key"
+        yKey="Region"
         zKey="Value"
       />
     </SectionBox>

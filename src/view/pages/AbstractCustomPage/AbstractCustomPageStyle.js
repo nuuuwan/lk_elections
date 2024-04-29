@@ -18,9 +18,9 @@ export default class AbstractCustomPageStyle {
 
   static WIDGET = {
     padding: SmallWindow.WIDGET_PADDING,
+    marginLeft: 1,
     background: "#fff",
     maxWidth: "80%",
-
     overflowX: "scroll",
   };
 }

@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Box, Breadcrumbs, Grid } from "@mui/material";
+import { Box, Breadcrumbs } from "@mui/material";
 
 import { Header } from "../../atoms";
 
@@ -61,11 +61,11 @@ export default class AbstractCustomPage extends Component {
   renderWidgets() {
     return this.widgets.map(function (widget, index) {
       return (
-        <Grid item key={index}>
+        <Box item key={index}>
           <Box id="lk-elections-widget" sx={AbstractCustomPageStyle.WIDGET}>
             {widget}
           </Box>
-        </Grid>
+        </Box>
       );
     });
   }
@@ -78,10 +78,10 @@ export default class AbstractCustomPage extends Component {
           drawerOpen={this.state.drawerOpen}
           setDrawerOpen={this.setDrawerOpen.bind(this)}
         />
-        <Grid container spacing={1} sx={AbstractCustomPageStyle.WIDGET_GRID}>
-          <Grid item>{this.renderTitleWidget()}</Grid>
+        <Box sx={AbstractCustomPageStyle.WIDGET_GRID}>
+          <Box>{this.renderTitleWidget()}</Box>
           {this.renderWidgets()}
-        </Grid>
+        </Box>
       </Box>
     );
   }

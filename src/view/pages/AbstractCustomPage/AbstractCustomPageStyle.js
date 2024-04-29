@@ -18,5 +18,6 @@ export default class AbstractCustomPageStyle {
 
   static WIDGET = {
     marginTop: 4,
+    width: "fit-content",
   };
 }

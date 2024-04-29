@@ -1,4 +1,3 @@
-import { CircularProgress } from "@mui/material";
 import { Ent, Random, URLContext } from "../../nonview/base";
 
 import { EntLink } from "../atoms";
@@ -47,18 +46,7 @@ export default class PollingDivisionPage extends AbstractCustomPage {
 
   get title() {
     const { pdEnt, pdID } = this.state;
-    if (!pdEnt) {
-      return pdID;
-    }
-    return <EntLink ent={pdEnt} short={false} />;
-  }
-
-  get browserTitle() {
-    const { pdEnt, pdID } = this.state;
-    if (!pdEnt) {
-      return pdID;
-    }
-    return pdEnt.name;
+    return pdEnt?.name || pdID || "Polling Division";
   }
 
   get widgets() {

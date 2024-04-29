@@ -4,7 +4,7 @@ import { Header } from "../atoms";
 
 export default function GenericListViewLazy({ title, items, renderItem }) {
   return (
-    <Box sx={{ m: 2 }}>
+    <Box>
       <Header level={2}>{title}</Header>
       {items.map(function (item, iItem) {
         return <Box key={"item-" + iItem}>{renderItem(item)}</Box>;

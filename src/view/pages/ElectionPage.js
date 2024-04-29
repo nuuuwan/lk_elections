@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import { Election } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
 import {
@@ -40,28 +39,15 @@ export default class ElectionPage extends AbstractCustomPage {
 
   get title() {
     const { election } = this.state;
-    if (!election) {
-      return null;
-    }
-    return <ElectionLink election={election} />;
-  }
-
-  get browserTitle() {
-    const { election } = this.state;
     return election?.titleShort || "Election";
   }
 
   get breadcrumbs() {
-    const { elections, prevElection, nextElection, countryEnt } = this.state;
-    if (!elections) {
+    const { election, countryEnt } = this.state;
+    if (!election) {
       return null;
     }
-    return [
-      <EntLink ent={countryEnt} />,
-      ...[prevElection, nextElection]
-        .filter((x) => !!x)
-        .map((e) => <ElectionLink key={e.date} election={e} />),
-    ];
+    return [<EntLink ent={countryEnt} />, <ElectionLink election={election} />];
   }
 
   get widgets() {

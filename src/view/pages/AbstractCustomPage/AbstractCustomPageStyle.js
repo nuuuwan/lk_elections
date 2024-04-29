@@ -1,26 +1,22 @@
-import { SmallWindow } from "../../../nonview/base";
-
 export default class AbstractCustomPageStyle {
-  static HOME = { marginTop: 15, zIndex: 1000 };
+  static HOME = { marginTop: 12, zIndex: 1000 };
 
-  static TITLE_WIDGET = {
+  static HEAD = {
     position: "fixed",
     top: 0,
-    height: 60,
+    height: 24,
     left: 0,
     right: 0,
-    padding: 3,
+    padding: 2,
     background: "#eee",
     zIndex: 2000,
   };
 
-  static WIDGET_GRID = { m: 0.5 };
+  static BODY = {
+    margin: 2,
+  };
 
   static WIDGET = {
-    padding: SmallWindow.WIDGET_PADDING,
-    marginLeft: 1,
-    background: "#fff",
-    maxWidth: "80%",
-    overflowX: "scroll",
+    marginTop: 4,
   };
 }

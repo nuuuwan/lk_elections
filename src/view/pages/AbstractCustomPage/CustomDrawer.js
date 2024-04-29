@@ -24,7 +24,7 @@ export default function CustomDrawer({ drawerOpen, setDrawerOpen }) {
           <MainMenu />
         </Box>
       </Drawer>
-      <Box sx={{ position: "fixed", top: 32, right: 48, zIndex: 4000 }}>
+      <Box sx={{ position: "fixed", top: 8, right: 12, zIndex: 4000 }}>
         <IconButton onClick={onClick}>
           <Icon />
         </IconButton>

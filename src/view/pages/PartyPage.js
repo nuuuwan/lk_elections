@@ -1,7 +1,7 @@
 import { Party, PartyGroup } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
 import { WikiSummaryView, PartyLink, PartyGroupLink, EntLink } from "../atoms";
-import { Box } from "@mui/material";
+
 import { GenericListView, PartyElectoralSummaryView } from "../molecules";
 import { Random, URLContext } from "../../nonview/base";
 
@@ -41,15 +41,8 @@ export default class PartyPage extends AbstractCustomPage {
       <PartyLink party={party} />,
     ];
   }
-  get title() {
-    const { partyID, party } = this.state;
-    if (!party) {
-      return partyID;
-    }
-    return <PartyLink party={party} longName />;
-  }
 
-  get browserTitle() {
+  get title() {
     return this.state.partyID;
   }
   renderPartyGroups() {

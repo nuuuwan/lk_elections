@@ -16,10 +16,6 @@ export default class AbstractCustomPage extends Component {
     this.state = { ...context, drawerOpen: false };
   }
 
-  get browserTitle() {
-    return this.title;
-  }
-
   async componentDidMount() {
     const newState = await GenericStore.get();
     this.setState(newState);
@@ -37,44 +33,49 @@ export default class AbstractCustomPage extends Component {
     return (
       <Breadcrumbs>
         {this.breadcrumbs.map(function (breadcrumb, index) {
-          return <Box key={index}>{breadcrumb}</Box>;
+          return (
+            <Header level={3} key={"breadcrumb-" + index}>
+              {breadcrumb}
+            </Header>
+          );
         })}
       </Breadcrumbs>
     );
   }
 
-  renderHeader() {
+  renderHead() {
     return (
-      <Box sx={AbstractCustomPageStyle.TITLE_WIDGET}>
-        <Header level={3}>{this.renderBreadcrumbs()}</Header>
-        <Header level={1}>{this.title}</Header>
+      <Box sx={AbstractCustomPageStyle.HEAD}>
+        <Header level={1}>{this.renderBreadcrumbs()}</Header>
       </Box>
     );
+  }
+
+  renderBody() {
+    return <Box sx={AbstractCustomPageStyle.BODY}>{this.renderWidgets()}</Box>;
   }
 
   renderWidgets() {
     return this.widgets.map(function (widget, index) {
       return (
-        <Box item key={index}>
-          <Box id="lk-elections-widget" sx={AbstractCustomPageStyle.WIDGET}>
-            {widget}
-          </Box>
+        <Box key={index} sx={AbstractCustomPageStyle.WIDGET}>
+          <Box id="lk-elections-widget">{widget}</Box>
         </Box>
       );
     });
   }
 
   render() {
-    window.document.title = this.browserTitle;
+    window.document.title = this.title;
     return (
       <Box sx={AbstractCustomPageStyle.HOME}>
         <CustomDrawer
           drawerOpen={this.state.drawerOpen}
           setDrawerOpen={this.setDrawerOpen.bind(this)}
         />
-        <Box sx={AbstractCustomPageStyle.WIDGET_GRID}>
-          <Box>{this.renderHeader()}</Box>
-          {this.renderWidgets()}
+        <Box>
+          {this.renderHead()}
+          {this.renderBody()}
         </Box>
       </Box>
     );

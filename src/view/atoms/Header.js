@@ -1,36 +1,37 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
+import { SmallWindow } from "../../nonview/base";
+
+const baseFontSize = SmallWindow.FONT_SIZE;
+const fontScaleFactor = 1.414;
 
 const Style = {
   1: {
-    variant: "h4",
-    color: "#444",
+    fontSize: baseFontSize * Math.pow(fontScaleFactor, 3),
+
     marginBottom: 1,
   },
   2: {
-    variant: "h5",
-    color: "#666",
+    fontSize: baseFontSize * Math.pow(fontScaleFactor, 2),
+
     marginBottom: 1,
   },
   3: {
-    variant: "h6",
-    color: "#888",
+    fontSize: baseFontSize * fontScaleFactor,
+
     marginBottom: 1,
   },
   4: {
-    variant: "body1",
-    color: "#ccc",
+    fontSize: baseFontSize,
+
     marginBottom: 0,
   },
 };
 
 export default function Header({ level, children, id }) {
-  const { variant, color, marginBottom } = Style[level];
-
+  const sx = Object.assign({}, Style[level], {});
   return (
-    <Box id={id}>
-      <Typography variant={variant} sx={{ color, marginBottom }}>
-        {children}
-      </Typography>
+    <Box id={id} sx={sx}>
+      {children}
     </Box>
   );
 }

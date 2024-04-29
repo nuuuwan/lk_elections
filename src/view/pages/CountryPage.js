@@ -9,7 +9,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
   }
 
   get breadcrumbs() {
-    return [];
+    return ["#SriLanka"];
   }
 
   get title() {

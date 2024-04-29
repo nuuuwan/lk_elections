@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import { Ent, Random, URLContext } from "../../nonview/base";
 
 import { WikiSummaryView, EntLink } from "../atoms";
@@ -35,20 +34,10 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     }
     return [<EntLink ent={countryEnt} />, <EntLink ent={edEnt} />];
   }
+
   get title() {
     const { edEnt, edID } = this.state;
-    if (!edEnt) {
-      return edID;
-    }
-    return <EntLink ent={edEnt} short={false} />;
-  }
-
-  get browserTitle() {
-    const { edEnt, edID } = this.state;
-    if (!edEnt) {
-      return edID;
-    }
-    return edEnt.name;
+    return edEnt?.name || edID || "Electoral District";
   }
 
   get widgets() {

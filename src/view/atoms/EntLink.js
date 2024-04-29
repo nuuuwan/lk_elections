@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { EntType } from "../../nonview/base";
 import { LinkContext } from "../atoms";
 
@@ -15,9 +15,7 @@ export default function EntLink({ ent, short = true }) {
   return (
     <LinkContext context={context}>
       <Box sx={{ whiteSpace: "nowrap" }} component="span">
-        <Typography variant="inherit" component="span">
-          #{label.replaceAll(" ", "")}
-        </Typography>
+        #{label.replaceAll(" ", "")}
       </Box>
     </LinkContext>
   );

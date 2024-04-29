@@ -23,7 +23,7 @@ export default function SectionBox({ children, title, description, source }) {
       </Box>
       <Box>{children}</Box>
       <Box>
-        <Typography variant="caption" sx={{ color: "#888" }}>
+        <Typography variant="caption" sx={{ margin: 2, color: "#888" }}>
           data source: {source}
         </Typography>
       </Box>

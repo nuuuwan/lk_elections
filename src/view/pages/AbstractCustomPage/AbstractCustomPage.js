@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Box, Breadcrumbs } from "@mui/material";
+import { Box, Breadcrumbs, IconButton } from "@mui/material";
 
 import { Header } from "../../atoms";
 
@@ -7,7 +7,7 @@ import { URLContext } from "../../../nonview/base";
 import GenericStore from "../../../nonview/core/GenericStore";
 
 import CustomDrawer from "./CustomDrawer";
-
+import CasinoIcon from "@mui/icons-material/Casino";
 import AbstractCustomPageStyle from "./AbstractCustomPageStyle";
 export default class AbstractCustomPage extends Component {
   constructor(props) {
@@ -51,6 +51,20 @@ export default class AbstractCustomPage extends Component {
     );
   }
 
+  renderRandomButton() {
+    const onClick = function () {
+      URLContext.set({ pageID: "random" });
+      URLContext.refresh();
+    };
+    return (
+      <Box sx={{ position: "fixed", top: 8, right: 60, zIndex: 4000 }}>
+        <IconButton onClick={onClick}>
+          <CasinoIcon />
+        </IconButton>
+      </Box>
+    );
+  }
+
   renderHead() {
     const sx = Object.assign(
       {},
@@ -60,6 +74,7 @@ export default class AbstractCustomPage extends Component {
     return (
       <Box sx={sx}>
         <Header level={1}>{this.renderBreadcrumbs()}</Header>
+        {this.renderRandomButton()}
       </Box>
     );
   }

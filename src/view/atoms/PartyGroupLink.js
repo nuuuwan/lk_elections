@@ -10,7 +10,7 @@ export default function PartyGroupLink({ partyGroup, labelType }) {
 
   return (
     <Box component="span">
-      {labelType === "handle" ? partyGroup.colorEmoji : partyGroupID}
+      {labelType === "handle" ? partyGroup.colorEmoji : ""}
       <LinkContext context={context}>
         <Box
           sx={{

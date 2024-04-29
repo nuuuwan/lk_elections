@@ -57,6 +57,7 @@ function getTitleAndDescription(ent, elections) {
       <>📜 {Format.int(electors)} #RegistereVoters (#Electors) </>
       <>🗳️ {Format.percent(pTurnout)} #Turnout (Mean) </>
       <>❌ {Format.percent(pRejected)} #RejectedVotes (Mean)</>
+      <>✅ {Format.percent((1 - pRejected) * pTurnout)} #VotesCounted (Mean)</>
       <>
         (As of <ElectionLink election={lastElection} />)
       </>

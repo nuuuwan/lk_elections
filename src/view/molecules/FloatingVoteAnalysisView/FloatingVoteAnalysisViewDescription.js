@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { Format, MathX } from "../../../nonview/base";
 
-import { CommaListView, EntLink, Essay, PartyGroupLink } from "../../atoms";
+import { Essay, PartyGroupLink } from "../../atoms";
 
 import LeanType from "../../../nonview/core/LeanType";
 import { AnalysisFloatingVote, Election } from "../../../nonview/core";
@@ -39,7 +39,7 @@ export default function FloatingVoteAnalysisViewDescription({
   ents,
   focusSmallest,
 }) {
-  const { firstEnt, displayInfoList, pFloating, maxInfo, leanType } = getData(
+  const { displayInfoList, pFloating } = getData(
     elections,
     ents,
     partyGroupList,
@@ -48,27 +48,25 @@ export default function FloatingVoteAnalysisViewDescription({
 
   return (
     <Essay>
+      <>{Format.percent(pFloating)} #FloatingVote</>
+      <>Party group base votes are:</>
       <>
-        In <EntLink ent={firstEnt} />, party bases were{" "}
-        <CommaListView>
+        <Box>
           {displayInfoList.map(function ({ partyGroup, windowBase }, i) {
             const leanTypeForPartyGroup = LeanType.getLeanTypeForPartyGroup(
               windowBase,
               pFloating
             );
             return (
-              <Box key={"party-group" + i} component="span">
-                {Format.percent(windowBase)}
-                {" for "} <PartyGroupLink partyGroup={partyGroup} />
+              <Box key={"party-group" + i}>
+                {Format.percent(windowBase)}{" "}
+                <PartyGroupLink partyGroup={partyGroup} />{" "}
                 {leanTypeForPartyGroup}
               </Box>
             );
           })}
-        </CommaListView>
-        , making it a "{leanType + " "}
-        <PartyGroupLink partyGroup={maxInfo.partyGroup} />" region.
+        </Box>
       </>
-      <>The #FloatingVote is {Format.percent(pFloating)}.</>
     </Essay>
   );
 }

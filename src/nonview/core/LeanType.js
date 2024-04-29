@@ -14,10 +14,10 @@ export default class LeanType {
 
   static getLeanTypeForPartyGroup(pBase, pFloating) {
     if (pBase > 0.5) {
-      return " (Safe)";
+      return "✔️#Safe";
     }
     if (pBase + pFloating > 0.5) {
-      return " (In Play)";
+      return "▶️#InPlay";
     }
     return "";
   }

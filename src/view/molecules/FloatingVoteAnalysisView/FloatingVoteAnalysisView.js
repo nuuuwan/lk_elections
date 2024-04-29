@@ -27,7 +27,7 @@ function getSparseMatrix(partyGroupList, elections, ents) {
       sparseMatrix.push({
         Region: ent,
         PartyGroup: partyGroup,
-        Base: new Fraction(baseVoters, electors, color),
+        Base: new Fraction(baseVoters, electors, { color }),
       });
       return sparseMatrix;
     }, sparseMatrix);
@@ -35,7 +35,7 @@ function getSparseMatrix(partyGroupList, elections, ents) {
     sparseMatrix.push({
       Region: ent,
       PartyGroup: "Floating",
-      Base: new Fraction(baseVoters, electors, 1),
+      Base: new Fraction(baseVoters, electors),
     });
     return sparseMatrix;
   }, new SparseMatrix());

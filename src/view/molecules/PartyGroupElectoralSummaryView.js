@@ -14,7 +14,7 @@ function getSparseMatrix(partyGroup, elections, ent) {
 
     return Object.entries({
       Parties: nParties,
-      Votes: new Fraction(votes, Math.round(votes / pVotes, 0)),
+      Votes: new Fraction(votes, Math.round(votes / pVotes)),
     }).reduce(function (sparseMatrix, [key, value]) {
       return sparseMatrix.push({
         Election: election,

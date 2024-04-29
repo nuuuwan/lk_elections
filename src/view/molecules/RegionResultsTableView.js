@@ -20,7 +20,7 @@ function getSparseMatrix(ent, elections) {
       return sparseMatrix.push({
         Election: election,
         Party: party,
-        VoteInfo: new Fraction(votes, totalVotes, color),
+        VoteInfo: new Fraction(votes, totalVotes, { color }),
       });
     },
     sparseMatrix);

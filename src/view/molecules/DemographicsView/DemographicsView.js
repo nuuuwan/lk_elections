@@ -19,13 +19,12 @@ function getSparseMatrix(demographicsList, demographicType) {
           dataList.push({
             Region: demographics.ent,
             DemographicGroup: demographicGroup,
-            Fraction: new Fraction(
-              nDemographicGroup,
-              demographics.n,
-              demographicGroupID === largestGroupID
-                ? demographicGroup.color
-                : null
-            ),
+            Fraction: new Fraction(nDemographicGroup, demographics.n, {
+              color:
+                demographicGroupID === largestGroupID
+                  ? demographicGroup.color
+                  : null,
+            }),
           });
           return dataList;
         },

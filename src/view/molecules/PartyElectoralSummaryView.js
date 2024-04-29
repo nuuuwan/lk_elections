@@ -16,7 +16,7 @@ function getSparseMatrix(party, elections) {
     }
     const pVotes = partyToVotes.partyToPVotes[party.id];
     let position = Object.keys(partyToVotes.partyToVotes).indexOf(party.id) + 1;
-    const fraction = new Fraction(votes, Math.round(votes / pVotes, 0));
+    const fraction = new Fraction(votes, Math.round(votes / pVotes));
 
     return Object.entries({
       Position: position,

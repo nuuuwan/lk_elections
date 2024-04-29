@@ -9,6 +9,9 @@ function getSparseMatrix(election, ents) {
 
   return ents.reduce(function (sparseMatrix, ent) {
     const partyToVoteInfo = entToPartyToVoteInfo[ent.id];
+    if (!partyToVoteInfo) {
+      return sparseMatrix;
+    }
     return Object.entries(partyToVoteInfo).reduce(function (
       sparseMatrix,
       [partyID, { vote, totalVotes, isWinner }]

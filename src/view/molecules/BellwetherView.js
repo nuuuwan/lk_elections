@@ -38,10 +38,12 @@ function getTitleAndDescription(elections, ent) {
   const description = (
     <Essay>
       <>
-        In the last {n} elections, <EntLink ent={ent} />
+        In {nMatch}/{n} of the last elections, <EntLink ent={ent} />
         {"'s "}
-        result matched the nationwide result, in <strong>{nMatch}</strong>{" "}
-        elections, making it a <strong>{bellwetherType}</strong> Bellwether.
+        result matched #SriLanka.
+      </>
+      <>
+        <strong>{bellwetherType}</strong>
       </>
     </Essay>
   );

@@ -1,15 +1,15 @@
 export default class AnalysisBellwether {
   static getBellwetherType(n, nMatch) {
     if (n === nMatch) {
-      return "Perfect";
+      return "#PerfectBellwether 🌟";
     }
     if (nMatch > n * 0.75) {
-      return "Strong";
+      return "#StrongBellwether 💪";
     }
     if (nMatch > n * 0.5) {
-      return "Weak";
+      return "#WeakBellwether 👶";
     }
-    return "Negative";
+    return "#NegativeBellwether ➖";
   }
   static statsForElectionAndEnt(election, ent) {
     const resultsForEnt = election.getResults(ent.id);

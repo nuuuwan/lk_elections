@@ -53,11 +53,11 @@ function getTitleAndDescription(election, ents) {
   const winningPartySeats = aggregatePartyToSeats[winningPartyID];
   const totalSeats = MathX.sum(Object.values(aggregatePartyToSeats));
 
-  let winDescription = "Plurality, but no Majority";
+  let winDescription = "#Plurality, but #NoMajority";
   if (winningPartySeats >= 150) {
-    winDescription = "⅔ Majority";
+    winDescription = "#⅔0Majority";
   } else if (winningPartySeats >= 112) {
-    winDescription = "Majority";
+    winDescription = "#Majority";
   }
 
   const winningParty = Party.fromID(winningPartyID);
@@ -99,12 +99,22 @@ function getTitleAndDescription(election, ents) {
                 <CommaListView>
                   {partyIDList.map(function (partyID) {
                     const party = Party.fromID(partyID);
+                    const majority = seats - 112;
+                    let majoritStr = "";
+                    if (majority > 0) {
+                      majoritStr = ` (+${majority} #Majority)`;
+                    } else if (majority > -10) {
+                      majoritStr = ` (${majority - 1} #Majority)`;
+                    }
                     return (
-                      <PartyLink
-                        party={party}
-                        labelType="handle"
-                        key={"party-" + partyID}
-                      />
+                      <Box component={"span"}>
+                        <PartyLink
+                          party={party}
+                          labelType="handle"
+                          key={"party-" + partyID}
+                        />
+                        {majoritStr}
+                      </Box>
                     );
                   })}
                 </CommaListView>

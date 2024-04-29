@@ -53,11 +53,11 @@ function getTitleAndDescription({ election, ents }) {
   const winningPartySeats = aggregatePartyToSeats[winningPartyID];
   const totalSeats = MathX.sum(Object.values(aggregatePartyToSeats));
 
-  let winDescription = "Plurality, but no Majority";
+  let winDescription = "#Plurality, but #NoMajority";
   if (winningPartySeats >= 150) {
-    winDescription = "⅔ Majority";
+    winDescription = "#⅔Majority";
   } else if (winningPartySeats >= 112) {
-    winDescription = "Majority";
+    winDescription = "#Majority";
   }
 
   const title = (

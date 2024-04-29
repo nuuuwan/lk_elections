@@ -23,6 +23,8 @@ export default function FractionView({ fraction }) {
     background = getColor(fraction.p, [0.6, 0.8], [0, 210], [70, 70]);
   } else if (application === "diff") {
     background = getColor(fraction.p, [0, 0.1], [210, 0], [70, 70]);
+  } else if (application === "vote") {
+    background = color + "1";
   }
 
   return (

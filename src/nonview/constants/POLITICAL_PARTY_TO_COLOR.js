@@ -1,12 +1,12 @@
 const COLOR_TO_POLITICAL_PARTIES = {
-  blue: ["SLFP", "PA", "UPFA"],
+  "#008": ["SLFP", "PA", "UPFA"],
   "#080": ["UNP", "NDF"],
   "#8c0": ["SJB"],
-  maroon: ["SLPP"],
-  orange: ["ACTC"],
-  "#f80": ["JHU", "SU", "OPPP"],
-  pink: ["NPP"],
-  red: [
+  "#800": ["SLPP"],
+  "#f80": ["ACTC"],
+  "#f90": ["JHU", "SU", "OPPP"],
+  "#f0f": ["NPP"],
+  "#f00": [
     "JVP",
     "LSSP",
     "EPDP",
@@ -20,9 +20,9 @@ const COLOR_TO_POLITICAL_PARTIES = {
     "USA",
   ],
   "#fc0": ["ITAK", "AITC", "AITM"],
-  darkgreen: ["MNA", "SLMC", "NUA", "ACMC", "NC"],
-  purple: ["SLMP"],
-  lightgray: ["Other"],
+  "#060": ["MNA", "SLMC", "NUA", "ACMC", "NC"],
+  "#808": ["SLMP"],
+  "#888": ["Other"],
   "#042": ["DUNF"],
   "#888": ["INDI", "IND1", "IND2"],
 };

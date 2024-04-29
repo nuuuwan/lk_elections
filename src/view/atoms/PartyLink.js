@@ -11,18 +11,21 @@ export default function PartyLink({ party, labelType }) {
   };
 
   return (
-    <LinkContext context={context}>
-      <Box
-        alignItems="center"
-        sx={{
-          color: party.color,
-        }}
-        component="span"
-      >
-        <Typography variant="inherit" component="span">
-          {partyLabel}
-        </Typography>
-      </Box>
-    </LinkContext>
+    <Box component="span">
+      {labelType === "handle" ? party.colorEmoji : null}
+      <LinkContext context={context}>
+        <Box
+          alignItems="center"
+          sx={{
+            color: party.color,
+          }}
+          component="span"
+        >
+          <Typography variant="inherit" component="span">
+            {partyLabel}
+          </Typography>
+        </Box>
+      </LinkContext>
+    </Box>
   );
 }

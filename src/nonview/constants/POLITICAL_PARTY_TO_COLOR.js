@@ -17,6 +17,7 @@ const COLOR_TO_POLITICAL_PARTIES = {
     "DPLF",
     "MEP",
     "DNA",
+    "USA",
   ],
   "#fc0": ["ITAK", "AITC", "AITM"],
   darkgreen: ["MNA", "SLMC", "NUA", "ACMC", "NC"],

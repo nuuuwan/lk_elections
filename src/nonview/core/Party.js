@@ -27,6 +27,27 @@ export default class Party {
     return this.id.localeCompare(other.id);
   }
 
+  get colorEmoji() {
+    return (
+      {
+        blue: "🔵",
+        "#080": "🟢",
+        "#8c0": "🟢",
+        maroon: "🔴",
+        orange: "🟠",
+        "#f80": "🟠",
+        pink: "🟣",
+        red: "🔴",
+        "#fc0": "🟡",
+        darkgreen: "🟢",
+        purple: "🟣",
+        lightgray: "⚪",
+        "#042": "🟢",
+        "#888": "⚪",
+      }[this.color] || ""
+    );
+  }
+
   get handle() {
     return (
       {
@@ -37,7 +58,7 @@ export default class Party {
         ITAK: "@TNAmediaoffice",
         SJB: "@SJBSriLanka",
         UPFA: "@UPFASriLanka",
-      }[this.id] || "#" + this.id
+      }[this.id] || "#" + " " + this.id
     );
   }
 

@@ -2,7 +2,13 @@ import { Box } from "@mui/material";
 import { EntType, MathX, SparseMatrix } from "../../nonview/base";
 import { Party, Seats } from "../../nonview/core";
 
-import { ElectionLink, PartyLink, SectionBox } from "../atoms";
+import {
+  CommaListView,
+  ElectionLink,
+  Essay,
+  PartyLink,
+  SectionBox,
+} from "../atoms";
 import { MatrixView } from "../molecules";
 
 function getSparseMatrix(election, ents) {
@@ -56,17 +62,57 @@ function getTitleAndDescription(election, ents) {
 
   const winningParty = Party.fromID(winningPartyID);
 
+  const seatsToPartyIDList = Object.entries(aggregatePartyToSeats).reduce(
+    function (idx, [partyID, seats]) {
+      if (!idx[seats]) {
+        idx[seats] = [];
+      }
+      idx[seats].push(partyID);
+      return idx;
+    },
+    {}
+  );
+
   const title = (
     <Box component="span">
       Who won seats in <ElectionLink election={election} />?
     </Box>
   );
   const description = (
-    <Box>
-      {nWithSeats} parties won at least one seat. Most seats were won by the{" "}
-      <PartyLink party={winningParty} labelType="handle" /> ({winningPartySeats}
-      /{totalSeats}), giving it a {winDescription} in parliament.
-    </Box>
+    <Essay>
+      <>
+        {nWithSeats} parties won at least one seat. Most seats were won by the{" "}
+        <PartyLink party={winningParty} labelType="handle" /> (
+        {winningPartySeats}/{totalSeats}), giving it a {winDescription} in
+        parliament.
+      </>
+      <>
+        {Object.keys(seatsToPartyIDList)
+          .sort(function (a, b) {
+            return parseInt(b) - parseInt(a);
+          })
+          .map(function (seats) {
+            const partyIDList = seatsToPartyIDList[seats];
+            return (
+              <Box key={"party-list-with-" + seats}>
+                {seats}
+                <CommaListView>
+                  {partyIDList.map(function (partyID) {
+                    const party = Party.fromID(partyID);
+                    return (
+                      <PartyLink
+                        party={party}
+                        labelType="handle"
+                        key={"party-" + partyID}
+                      />
+                    );
+                  })}
+                </CommaListView>
+              </Box>
+            );
+          })}
+      </>
+    </Essay>
   );
   return { title, description };
 }

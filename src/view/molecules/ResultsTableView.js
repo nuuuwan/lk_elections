@@ -37,7 +37,6 @@ function getTitleAndDescription(election, ents, focusSmallest) {
   const result = election.getResults(ent.id);
   const partyToVotes = result.partyToVotes;
   const winningPartyID = partyToVotes.winningParty;
-  const winningParty = Party.fromID(winningPartyID);
 
   const title = (
     <Box component="span">

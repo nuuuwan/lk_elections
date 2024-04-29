@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 
 function getSuffix(iChild, nChildren) {
   if (iChild === nChildren - 2) {
-    return " and ";
+    return " & ";
   } else if (iChild === nChildren - 1) {
     return "";
   }

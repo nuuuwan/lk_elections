@@ -3,9 +3,9 @@ import { Format, PercentagePoint, SparseMatrix } from "../../nonview/base";
 
 import Swing from "../../nonview/core/Swing";
 import {
-  CommaListView,
   ElectionLink,
   EntLink,
+  Essay,
   PartyGroupLink,
   SectionBox,
 } from "../atoms";
@@ -45,25 +45,29 @@ function getTitleAndDescription(partyGroupList, elections, ent, sparseMatrix) {
       How does voting in <EntLink ent={ent} /> #Swing?
     </Box>
   );
+
+  const N_DISPLAY = 5;
   const description = (
-    <Box>
-      The biggest historical swings in <EntLink ent={ent} />, were in
-      <CommaListView>
-        {sortedDataList
-          .splice(0, 3)
-          .map(function ({ PartyGroup, Election, Swing }, i) {
-            return (
-              <Box key={"item-" + i} component="span">
-                {" "}
-                {Format.percentagePoint(Swing.value)} for the{" "}
-                <PartyGroupLink partyGroup={PartyGroup} /> in{" "}
-                <ElectionLink election={Election} />.
-              </Box>
-            );
-          })}
-      </CommaListView>
-      #VoteSwing
-    </Box>
+    <Essay>
+      <>
+        The biggest historical #VoteSwings in <EntLink ent={ent} />, were:
+      </>
+      <>
+        <Box>
+          {sortedDataList
+            .splice(0, N_DISPLAY)
+            .map(function ({ PartyGroup, Election, Swing }, i) {
+              return (
+                <Box key={"item-" + i}>
+                  {Format.percentagePoint(Swing.value)}{" "}
+                  <PartyGroupLink partyGroup={PartyGroup} />{" "}
+                  <ElectionLink election={Election} />
+                </Box>
+              );
+            })}
+        </Box>
+      </>
+    </Essay>
   );
   return { title, description };
 }

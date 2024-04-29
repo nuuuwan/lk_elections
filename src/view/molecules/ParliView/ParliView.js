@@ -62,7 +62,7 @@ function getTitleAndDescription({ election, ents }) {
 
   const title = (
     <Box component="span">
-      <ElectionLink election={election} /> Seats in Parliament
+      What did parliament look like after <ElectionLink election={election} /> ?
     </Box>
   );
   const description = (

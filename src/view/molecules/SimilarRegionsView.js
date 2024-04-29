@@ -18,7 +18,7 @@ function getTitleAndDescription(ent, dataList) {
   const closestEnts = dataList.slice(0, 3).map((d) => d.Region);
   const title = (
     <Box component="span">
-      Who else votes like <EntLink ent={ent} />?
+      Where else are voter like those in <EntLink ent={ent} />?
     </Box>
   );
   const description = (

@@ -42,7 +42,7 @@ function getTitleAndDescription(partyGroupList, elections, ent, sparseMatrix) {
     });
   const title = (
     <Box component="span">
-      <EntLink ent={ent} /> #VoteSwing History
+      How does voting in <EntLink ent={ent} /> #Swing?
     </Box>
   );
   const description = (
@@ -62,6 +62,7 @@ function getTitleAndDescription(partyGroupList, elections, ent, sparseMatrix) {
             );
           })}
       </CommaListView>
+      #VoteSwing
     </Box>
   );
   return { title, description };

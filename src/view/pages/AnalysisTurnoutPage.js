@@ -53,7 +53,9 @@ export default class AnalysisTurnoutPage extends AbstractCustomPage {
         sparseMatrix.push({
           Election: election,
           Region: ent,
-          Turnout: new Fraction(summary.polled, summary.electors),
+          Turnout: new Fraction(summary.polled, summary.electors, {
+            application: "turnout",
+          }),
         });
         return sparseMatrix;
       }, sparseMatrix);

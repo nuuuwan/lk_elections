@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import { AnalysisBellwether } from "../../nonview/core";
 import { CommaListView, EntLink, Essay, SectionBox } from "../atoms";
 
-import { SparseMatrix } from "../../nonview/base";
+import { Fraction, SparseMatrix } from "../../nonview/base";
 import MatrixView from "./MatrixView";
 
 function getSparseMatrix(elections, ent, otherEnts) {
@@ -11,10 +11,14 @@ function getSparseMatrix(elections, ent, otherEnts) {
       return sparseMatrix;
     }
     const l1Error = AnalysisBellwether.getMeanL1Error(ent, pdEnt, elections);
-    return sparseMatrix.push({ Region: pdEnt, Key: "Diff", Value: l1Error });
+    return sparseMatrix.push({
+      Region: pdEnt,
+      Key: "Diff",
+      Value: new Fraction(l1Error, 1, { application: "diff" }),
+    });
   }, new SparseMatrix());
 
-  sparseMatrix.dataList.sort((a, b) => a.Value - b.Value);
+  sparseMatrix.dataList.sort((a, b) => a.Value.p - b.Value.p);
   return sparseMatrix;
 }
 

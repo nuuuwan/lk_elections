@@ -1,4 +1,4 @@
-import { Ent, SparseMatrix } from "../../nonview/base";
+import { Ent, Fraction, SparseMatrix } from "../../nonview/base";
 import { Party, AnalysisBellwether } from "../../nonview/core";
 
 import { EntLink, SectionBox, Essay } from "../atoms";
@@ -16,7 +16,7 @@ function getSparseMatrix(elections, ent) {
       [ent.name]: Party.fromID(winningPartyEnt),
       SriLanka: Party.fromID(winningPartyLK),
       Match: isMatch,
-      Error: l1Error,
+      Error: new Fraction(l1Error, 1, { application: "diff" }),
     }).reduce(function (sparseMatrix, [key, value]) {
       return sparseMatrix.push({
         Election: election,

@@ -4,7 +4,7 @@ import { SectionBox, WikiSummaryView, EntLink, Essay } from "../atoms";
 
 import { MatrixView } from "../molecules";
 
-import { SparseMatrix } from "../../nonview/base";
+import { Fraction, SparseMatrix } from "../../nonview/base";
 
 export default class AnalysisBellwetherPage extends AbstractCustomPage {
   static getPageID() {
@@ -54,7 +54,7 @@ export default class AnalysisBellwetherPage extends AbstractCustomPage {
 
       return Object.entries({
         Matches: nMatch,
-        Diff: meanError,
+        Diff: new Fraction(meanError, 1, { application: "diff" }),
       }).reduce(function (sparseMatrix, [key, value]) {
         return sparseMatrix.push({
           Region: ent,

@@ -50,7 +50,9 @@ export default class AnalysisRejectedPage extends AbstractCustomPage {
         sparseMatrix.push({
           Election: election,
           Region: ent,
-          Rejected: new Fraction(summary.rejected, summary.polled),
+          Rejected: new Fraction(summary.rejected, summary.polled, {
+            application: "rejected",
+          }),
         });
         return sparseMatrix;
       }

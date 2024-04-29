@@ -9,7 +9,6 @@ export default class PartyPage extends AbstractCustomPage {
   static getPageID() {
     return "Party";
   }
-
   async componentDidMount() {
     const { partyList } = await super.componentDidMount();
     let { partyID } = this.state;

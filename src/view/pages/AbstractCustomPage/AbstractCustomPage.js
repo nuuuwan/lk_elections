@@ -20,6 +20,10 @@ export default class AbstractCustomPage extends Component {
     return true;
   }
 
+  get customStyle() {
+    return {};
+  }
+
   async componentDidMount() {
     const newState = await GenericStore.get();
     this.setState(newState);
@@ -48,8 +52,13 @@ export default class AbstractCustomPage extends Component {
   }
 
   renderHead() {
+    const sx = Object.assign(
+      {},
+      AbstractCustomPageStyle.HEAD,
+      this.customStyle
+    );
     return (
-      <Box sx={AbstractCustomPageStyle.HEAD}>
+      <Box sx={sx}>
         <Header level={1}>{this.renderBreadcrumbs()}</Header>
       </Box>
     );

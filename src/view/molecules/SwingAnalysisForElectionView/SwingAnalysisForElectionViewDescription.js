@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import { Ent, Format, Sort } from "../../../nonview/base";
 import Swing from "../../../nonview/core/Swing";
 
-import { CommaListView, Essay, PartyGroupLink } from "../../atoms";
+import { Essay, PartyGroupLink } from "../../atoms";
 
 export default function SwingAnalysisForElectionViewDescription({
   election,

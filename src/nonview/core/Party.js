@@ -58,7 +58,7 @@ export default class Party {
         ITAK: "@TNAmediaoffice",
         SJB: "@SJBSriLanka",
         UPFA: "@UPFASriLanka",
-      }[this.id] || "#" + " " + this.id
+      }[this.id] || "# " + this.id
     );
   }
 

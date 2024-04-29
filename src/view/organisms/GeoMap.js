@@ -1,9 +1,9 @@
 import { Component } from "react";
-import { MapContainer, TileLayer, Polygon } from "react-leaflet";
+import { MapContainer, TileLayer, Polygon, useMap } from "react-leaflet";
 import { LatLng, Geo } from "../../nonview/base";
 
 import "./GeoMap.css";
-import { CircularProgress } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 
 const URL_FORMAT = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 
@@ -14,7 +14,8 @@ export default class GeoMap extends Component {
   }
 
   async componentDidMount() {
-    const { geoID } = this.props;
+    const { ent } = this.props;
+    const geoID = ent.id;
     if (geoID.endsWith("P")) {
       return null;
     }
@@ -22,27 +23,46 @@ export default class GeoMap extends Component {
     this.setState({ geo });
   }
 
-  render() {
-    const { geoID } = this.props;
-    if (geoID.endsWith("P")) {
-      return null;
-    }
+  renderMapWithPolygons() {
     const { geo } = this.state;
-    if (!geo) {
-      return <CircularProgress />;
-    }
 
     const pathOptions = { fillColor: "#888", color: "#000" };
-
     const positions = LatLng.positions(geo);
-
     const bounds = LatLng.bounds(geo);
 
     return (
-      <MapContainer bounds={bounds} zoomControl={false}>
+      <MapContainer bounds={bounds} key="2">
         <TileLayer url={URL_FORMAT} />
         <Polygon positions={positions} pathOptions={pathOptions} />
       </MapContainer>
     );
+  }
+
+  renderEmptyMap() {
+    const { ent } = this.props;
+    const bounds = LatLng.getBoundsFromCentroid(ent.centroid);
+    console.debug(ent.id, ent.centroid, bounds);
+    return (
+      <Box>
+        <MapContainer bounds={bounds} key="1">
+          <TileLayer url={URL_FORMAT} />
+        </MapContainer>
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  render() {
+    const { ent } = this.props;
+    const geoID = ent.id;
+    if (geoID.endsWith("P")) {
+      return null;
+    }
+    const { geo } = this.state;
+
+    if (!geo) {
+      return this.renderEmptyMap();
+    }
+    return this.renderMapWithPolygons();
   }
 }

@@ -1,4 +1,9 @@
 export default class LatLng {
+  static BOUNDS_LK = [
+    [5.919, 79.521],
+    [9.835, 81.879],
+  ];
+
   static positions(multiPolygon) {
     return multiPolygon.map(function (polygon) {
       return polygon.map(function (latLng) {
@@ -34,5 +39,14 @@ export default class LatLng {
         [-180, -90],
       ]
     );
+  }
+
+  static getBoundsFromCentroid(centroid) {
+    const [lat, lng] = centroid;
+    const DIM = 0.1;
+    return [
+      [lat - DIM, lng - DIM],
+      [lat + DIM, lng + DIM],
+    ];
   }
 }

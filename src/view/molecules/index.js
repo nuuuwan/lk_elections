@@ -2,6 +2,7 @@
 import BellwetherView from "./BellwetherView";
 import CommonEntAnalysisView from "./CommonEntAnalysisView";
 import CommonIcons from "./CommonIcons";
+import DataTableView from "./DataTableView";
 import DemographicsView from "./DemographicsView";
 import ElectionListView from "./ElectionListView";
 import ElectionListViewSmall from "./ElectionListViewSmall";
@@ -27,6 +28,7 @@ export {
   BellwetherView,
   CommonEntAnalysisView,
   CommonIcons,
+  DataTableView,
   DemographicsView,
   ElectionListView,
   ElectionListViewSmall,

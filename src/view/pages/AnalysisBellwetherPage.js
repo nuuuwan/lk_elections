@@ -46,10 +46,6 @@ export default class AnalysisBellwetherPage extends AbstractCustomPage {
       .sort((a, b) => a.Diff - b.Diff);
   }
 
-  get titleWidget() {
-    return <WikiSummaryView wikiPageName={"Bellwether"} />;
-  }
-
   getTitleAndDescription(dataList) {
     const best = dataList[0];
     const title = "What are the Best #Bellwethers?";
@@ -75,6 +71,7 @@ export default class AnalysisBellwetherPage extends AbstractCustomPage {
     const dataList = this.getDataList();
     const { title, description } = this.getTitleAndDescription(dataList);
     return [
+      <WikiSummaryView wikiPageName={"Bellwether"} />,
       <SectionBox title={title} description={description}>
         <DataTableView dataList={dataList} />
       </SectionBox>,

@@ -43,17 +43,11 @@ export default class AbstractCustomPage extends Component {
     );
   }
 
-  get titleWidget() {
-    return null;
-  }
-  renderTitleWidget() {
+  renderHeader() {
     return (
-      <Box>
-        <Box sx={AbstractCustomPageStyle.TITLE_WIDGET}>
-          <Header level={3}>{this.renderBreadcrumbs()}</Header>
-          <Header level={1}>{this.title}</Header>
-        </Box>
-        <Box>{this.titleWidget}</Box>
+      <Box sx={AbstractCustomPageStyle.TITLE_WIDGET}>
+        <Header level={3}>{this.renderBreadcrumbs()}</Header>
+        <Header level={1}>{this.title}</Header>
       </Box>
     );
   }
@@ -79,7 +73,7 @@ export default class AbstractCustomPage extends Component {
           setDrawerOpen={this.setDrawerOpen.bind(this)}
         />
         <Box sx={AbstractCustomPageStyle.WIDGET_GRID}>
-          <Box>{this.renderTitleWidget()}</Box>
+          <Box>{this.renderHeader()}</Box>
           {this.renderWidgets()}
         </Box>
       </Box>

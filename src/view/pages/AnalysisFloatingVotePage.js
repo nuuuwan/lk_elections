@@ -20,10 +20,6 @@ export default class AnalysisFloatingVotePage extends AbstractCustomPage {
     return "Floating Votes";
   }
 
-  get titleWidget() {
-    return <WikiSummaryView wikiPageName={"Swing_vote"} />;
-  }
-
   get widgets() {
     const { elections, edEnts, pdEnts, countryEnt, partyGroupList } =
       this.state;
@@ -32,6 +28,7 @@ export default class AnalysisFloatingVotePage extends AbstractCustomPage {
     }
     const ents = [countryEnt, ...edEnts, ...pdEnts];
     return [
+      <WikiSummaryView wikiPageName={"Swing_vote"} />,
       <FloatingVoteAnalysisView
         elections={elections}
         ents={ents}

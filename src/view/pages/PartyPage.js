@@ -67,24 +67,15 @@ export default class PartyPage extends AbstractCustomPage {
     );
   }
 
-  get titleWidget() {
-    const { party } = this.state;
-    if (!party) {
-      return null;
-    }
-    return (
-      <Box>
-        <WikiSummaryView wikiPageName={party.wikiPageName} />
-        {this.renderPartyGroups()}
-      </Box>
-    );
-  }
-
   get widgets() {
     const { party, elections } = this.state;
     if (!party) {
       return [];
     }
-    return [<PartyElectoralSummaryView party={party} elections={elections} />];
+    return [
+      <WikiSummaryView wikiPageName={party.wikiPageName} />,
+      this.renderPartyGroups(),
+      <PartyElectoralSummaryView party={party} elections={elections} />,
+    ];
   }
 }

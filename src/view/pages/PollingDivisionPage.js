@@ -61,14 +61,6 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     return pdEnt.name;
   }
 
-  get titleWidget() {
-    const { pdEnt } = this.state;
-    if (!pdEnt) {
-      return <CircularProgress />;
-    }
-    return <GeoMap geoID={pdEnt.id} />;
-  }
-
   get widgets() {
     const {
       pdEnt,
@@ -83,15 +75,18 @@ export default class PollingDivisionPage extends AbstractCustomPage {
       return [];
     }
 
-    return CommonEntAnalysisView.get({
-      ent: pdEnt,
-      entsSimilar: [pdEnt, edEnt, countryEnt],
-      entsAll: pdEnts,
-      entsAllAll: [pdEnt],
-      elections,
-      partyGroupList,
-      demographicsIdx,
-      demographicsViewFocusSmallest: true,
-    });
+    return [
+      <GeoMap geoID={pdEnt.id} />,
+      ...CommonEntAnalysisView.get({
+        ent: pdEnt,
+        entsSimilar: [pdEnt, edEnt, countryEnt],
+        entsAll: pdEnts,
+        entsAllAll: [pdEnt],
+        elections,
+        partyGroupList,
+        demographicsIdx,
+        demographicsViewFocusSmallest: true,
+      }),
+    ];
   }
 }

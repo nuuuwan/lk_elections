@@ -20,17 +20,16 @@ export default class AnalysisRejectedPage extends AbstractCustomPage {
     return "Rejected Votes";
   }
 
-  get titleWidget() {
-    return <WikiSummaryView wikiPageName={"Spoilt_vote"} />;
-  }
-
   get widgets() {
     const { elections } = this.state;
     if (!elections) {
       return [];
     }
 
-    return [this.renderRejectedTable()];
+    return [
+      <WikiSummaryView wikiPageName={"Spoilt_vote"} />,
+      this.renderRejectedTable(),
+    ];
   }
 
   getRejectedTableSparseMatrix() {

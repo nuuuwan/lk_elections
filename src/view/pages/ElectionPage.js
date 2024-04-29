@@ -64,19 +64,6 @@ export default class ElectionPage extends AbstractCustomPage {
     ];
   }
 
-  get titleWidget() {
-    const { election } = this.state;
-    if (!election) {
-      return null;
-    }
-    return (
-      <Box>
-        {election.dateFormatted}
-        <WikiSummaryView wikiPageName={election.wikiPageName} />
-      </Box>
-    );
-  }
-
   get widgets() {
     const { partyGroupList, countryEnt, election, prevElectionOfType, edEnts } =
       this.state;
@@ -85,6 +72,7 @@ export default class ElectionPage extends AbstractCustomPage {
     }
     const ents = [countryEnt, ...edEnts];
     return [
+      <WikiSummaryView wikiPageName={election.wikiPageName} />,
       <ElectoralSummaryView ent={countryEnt} elections={[election]} />,
       <SwingAnalysisForElectionView
         partyGroupList={partyGroupList}

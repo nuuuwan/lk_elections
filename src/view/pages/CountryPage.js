@@ -16,10 +16,6 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     return "Sri Lanka";
   }
 
-  get titleWidget() {
-    return <WikiSummaryView wikiPageName={"Elections_in_Sri_Lanka"} />;
-  }
-
   get widgets() {
     const { countryEnt, elections, edEnts, partyGroupList, demographicsIdx } =
       this.state;
@@ -28,6 +24,7 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     }
 
     let widgets = [];
+    widgets.push(<WikiSummaryView wikiPageName={"Elections_in_Sri_Lanka"} />);
     widgets.push(<EntListView ents={edEnts} />);
 
     const entsAll = [...edEnts, countryEnt];

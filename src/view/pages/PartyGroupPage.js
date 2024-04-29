@@ -67,14 +67,6 @@ export default class PartyGroupPage extends AbstractCustomPage {
     );
   }
 
-  get titleWidget() {
-    const { partyGroup } = this.state;
-    if (!partyGroup) {
-      return null;
-    }
-    return this.renderPartyList();
-  }
-
   get widgets() {
     const { partyGroup, elections, countryEnt, partyGroupList, edEnts } =
       this.state;
@@ -82,6 +74,7 @@ export default class PartyGroupPage extends AbstractCustomPage {
       return [];
     }
     return [
+      this.renderPartyList(),
       <PartyGroupElectoralSummaryView
         partyGroup={partyGroup}
         elections={elections}

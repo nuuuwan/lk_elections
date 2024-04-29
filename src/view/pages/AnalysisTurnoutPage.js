@@ -20,17 +20,16 @@ export default class AnalysisTurnoutPage extends AbstractCustomPage {
     return "Turnout";
   }
 
-  get titleWidget() {
-    return <WikiSummaryView wikiPageName={"Voter_turnout"} />;
-  }
-
   get widgets() {
     const { elections } = this.state;
     if (!elections) {
       return [];
     }
 
-    return [this.renderTurnoutTable()];
+    return [
+      <WikiSummaryView wikiPageName={"Voter_turnout"} />,
+      this.renderTurnoutTable(),
+    ];
   }
 
   getTurnoutTableSparseMatrix() {

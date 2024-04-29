@@ -51,19 +51,6 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     return edEnt.name;
   }
 
-  get titleWidget() {
-    const { edEnt } = this.state;
-    if (!edEnt) {
-      return null;
-    }
-    return (
-      <Box>
-        <GeoMap geoID={edEnt.id} />
-        <WikiSummaryView wikiPageName={edEnt.wikiPageName} />
-      </Box>
-    );
-  }
-
   get widgets() {
     const {
       edEnt,
@@ -81,7 +68,11 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     const entsAll = [...edEnts, countryEnt];
     const entsAllAll = [edEnt];
 
-    return [<EntListView ents={pdEntsChildren} />].concat(
+    return [
+      <GeoMap geoID={edEnt.id} />,
+      <WikiSummaryView wikiPageName={edEnt.wikiPageName} />,
+      <EntListView ents={pdEntsChildren} />,
+    ].concat(
       CommonEntAnalysisView.get({
         ent: edEnt,
         entsSimilar,

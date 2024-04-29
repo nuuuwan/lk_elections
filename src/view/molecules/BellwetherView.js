@@ -1,4 +1,4 @@
-import { SparseMatrix } from "../../nonview/base";
+import { Ent, SparseMatrix } from "../../nonview/base";
 import { Party, AnalysisBellwether } from "../../nonview/core";
 
 import { EntLink, SectionBox, Essay } from "../atoms";
@@ -40,7 +40,7 @@ function getTitleAndDescription(elections, ent) {
       <>
         In {nMatch}/{n} of the last elections, <EntLink ent={ent} />
         {"'s "}
-        result matched #SriLanka.
+        result matched <EntLink ent={Ent.LK} />.
       </>
       <>
         <strong>{bellwetherType}</strong>

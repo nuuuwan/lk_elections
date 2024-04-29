@@ -11,4 +11,8 @@ export default class Random {
     const index = Random.randomInt(0, choices.length);
     return choices[index];
   }
+
+  static coinFlipWin(winRate) {
+    return Math.random() < winRate;
+  }
 }

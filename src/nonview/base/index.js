@@ -5,6 +5,7 @@ import EntType from "./EntType";
 import Format from "./Format";
 import Fraction from "./Fraction";
 import Geo from "./Geo";
+import Integer from "./Integer";
 import LatLng from "./LatLng";
 import MathX from "./MathX";
 import PercentagePoint from "./PercentagePoint";
@@ -26,6 +27,7 @@ export {
   Format,
   Fraction,
   Geo,
+  Integer,
   LatLng,
   MathX,
   PercentagePoint,

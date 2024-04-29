@@ -1,5 +1,11 @@
 import { Typography } from "@mui/material";
-import { Ent, Format, Fraction, PercentagePoint } from "../../nonview/base";
+import {
+  Ent,
+  Format,
+  Fraction,
+  Integer,
+  PercentagePoint,
+} from "../../nonview/base";
 import {
   DemographicGroup,
   Election,
@@ -11,6 +17,7 @@ import {
   ElectionLink,
   EntLink,
   FractionView,
+  IntegerView,
   PartyGroupLink,
   PartyLink,
 } from "../atoms";
@@ -45,6 +52,10 @@ export default class Renderer {
   static formatCellValueNumberObject(value) {
     if (value instanceof Fraction) {
       return <FractionView fraction={value} />;
+    }
+
+    if (value instanceof Integer) {
+      return <IntegerView integer={value} />;
     }
 
     if (value instanceof PercentagePoint) {

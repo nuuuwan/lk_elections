@@ -5,6 +5,7 @@ import EntLink from "./EntLink";
 import Essay from "./Essay";
 import FractionView from "./FractionView";
 import Header from "./Header";
+import IntegerView from "./IntegerView";
 import Link from "./Link";
 import LinkContext from "./LinkContext";
 import PartyGroupLink from "./PartyGroupLink";
@@ -20,6 +21,7 @@ export {
   Essay,
   FractionView,
   Header,
+  IntegerView,
   Link,
   LinkContext,
   PartyGroupLink,

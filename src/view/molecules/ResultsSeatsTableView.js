@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { EntType, MathX, SparseMatrix } from "../../nonview/base";
+import { EntType, Integer, MathX, SparseMatrix } from "../../nonview/base";
 import { Party, Seats } from "../../nonview/core";
 
 import {
@@ -20,11 +20,16 @@ function getSparseMatrix(election, ents) {
     if (!partyToSeats) {
       return null;
     }
+    const winningPartyID = Object.keys(partyToSeats)[0];
     for (let [partyID, seats] of Object.entries(partyToSeats)) {
+      const party = Party.fromID(partyID);
       dataListParts.push({
         Region: ent,
-        Party: Party.fromID(partyID),
-        Seats: seats,
+        Party: party,
+        Seats: new Integer(seats, {
+          application: "seats",
+          color: winningPartyID === partyID ? party.color : null,
+        }),
       });
     }
   });
@@ -32,11 +37,16 @@ function getSparseMatrix(election, ents) {
   let dataListSum = [];
 
   if (ents.length > 1) {
+    const winningPartyID = Object.keys(aggregatePartyToSeats)[0];
     for (let [partyID, seats] of Object.entries(aggregatePartyToSeats)) {
+      const party = Party.fromID(partyID);
       dataListSum.push({
         Region: "Aggregate",
-        Party: Party.fromID(partyID),
-        Seats: seats,
+        Party: party,
+        Seats: new Integer(seats, {
+          application: "seats",
+          color: winningPartyID === partyID ? party.color : null,
+        }),
       });
     }
   }

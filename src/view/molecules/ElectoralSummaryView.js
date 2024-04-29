@@ -1,35 +1,38 @@
 import { Box } from "@mui/material";
-import { Format, Fraction } from "../../nonview/base";
+import { Format, Fraction, SparseMatrix } from "../../nonview/base";
 import { Election, Party } from "../../nonview/core";
 import { ElectionLink, EntLink, Essay, SectionBox } from "../atoms";
-import { DataTableView } from "../molecules";
+import { MatrixView } from "../molecules";
 
-function getDataList(ent, elections) {
-  return elections
-    .sort()
-    .reverse()
-    .map(function (election) {
-      const resultsForEnt = election.getResults(ent.id);
-      if (!resultsForEnt) {
-        return null;
-      }
-      const summary = resultsForEnt.summary;
-      const partyToVotes = resultsForEnt.partyToVotes;
-      const winningPartyID = partyToVotes.winningParty;
-      const winningParty = Party.fromID(winningPartyID);
-      return {
+function getSparseMatrix(ent, elections) {
+  return elections.reduce(function (sparseMatrix, election) {
+    const resultsForEnt = election.getResults(ent.id);
+    if (!resultsForEnt) {
+      return sparseMatrix;
+    }
+    const summary = resultsForEnt.summary;
+    const partyToVotes = resultsForEnt.partyToVotes;
+    const winningPartyID = partyToVotes.winningParty;
+    const winningParty = Party.fromID(winningPartyID);
+
+    return Object.entries({
+      Electors: summary.electors,
+      Turnout: new Fraction(summary.polled, summary.electors),
+      Rejected: new Fraction(summary.rejected, summary.polled),
+      Winner: Party.fromID(winningPartyID),
+      Votes: new Fraction(
+        partyToVotes.partyToVotes[winningPartyID],
+        partyToVotes.totalVotes,
+        winningParty.color
+      ),
+    }).reduce(function (sparseMatrix, [key, value]) {
+      return sparseMatrix.push({
         Election: election,
-        Electors: summary.electors,
-        Turnout: new Fraction(summary.polled, summary.electors),
-        Rejected: new Fraction(summary.rejected, summary.polled),
-        Winner: Party.fromID(winningPartyID),
-        Votes: new Fraction(
-          partyToVotes.partyToVotes[winningPartyID],
-          partyToVotes.totalVotes,
-          winningParty.color
-        ),
-      };
-    });
+        Key: key,
+        Value: value,
+      });
+    }, sparseMatrix);
+  }, new SparseMatrix());
 }
 
 function getTitleAndDescription(ent, elections) {
@@ -62,10 +65,16 @@ function getTitleAndDescription(ent, elections) {
 }
 
 export default function ElectoralSummaryView({ ent, elections }) {
+  const sparseMatrix = getSparseMatrix(ent, elections);
   const { title, description } = getTitleAndDescription(ent, elections);
   return (
     <SectionBox title={title} description={description}>
-      <DataTableView dataList={getDataList(ent, elections)} />
+      <MatrixView
+        sparseMatrix={sparseMatrix}
+        xKey="Election"
+        yKey="Key"
+        zKey="Value"
+      />
     </SectionBox>
   );
 }

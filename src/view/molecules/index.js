@@ -2,7 +2,6 @@
 import BellwetherView from "./BellwetherView";
 import CommonEntAnalysisView from "./CommonEntAnalysisView";
 import CommonIcons from "./CommonIcons";
-
 import DemographicsView from "./DemographicsView";
 import ElectionListView from "./ElectionListView";
 import ElectionListViewSmall from "./ElectionListViewSmall";

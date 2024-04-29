@@ -1,33 +1,36 @@
 import { ElectionLink, Essay, PartyGroupLink, SectionBox } from "../atoms";
-import { DataTableView } from ".";
-import { Format, Fraction } from "../../nonview/base";
+import { MatrixView } from ".";
+import { Format, Fraction, SparseMatrix } from "../../nonview/base";
 import { AnalysisFloatingVote } from "../../nonview/core";
 import { Box } from "@mui/material";
 
-function getDataList(partyGroup, elections, ent) {
-  return elections
-    .sort()
-    .reverse()
-    .map(function (election) {
-      const info = AnalysisFloatingVote.getVoteInfo(election, ent, partyGroup);
-      if (!info) {
-        return null;
-      }
-      const { votes, pVotes, nParties } = info;
-      return {
+function getSparseMatrix(partyGroup, elections, ent) {
+  return elections.reverse().reduce(function (sparseMatrix, election) {
+    const info = AnalysisFloatingVote.getVoteInfo(election, ent, partyGroup);
+    if (!info) {
+      return sparseMatrix;
+    }
+    const { votes, pVotes, nParties } = info;
+
+    return Object.entries({
+      Parties: nParties,
+      Votes: new Fraction(votes, Math.round(votes / pVotes, 0)),
+    }).reduce(function (sparseMatrix, [key, value]) {
+      return sparseMatrix.push({
         Election: election,
-        Parties: nParties,
-        Votes: new Fraction(votes, Math.round(votes / pVotes, 0)),
-      };
-    });
+        Key: key,
+        Value: value,
+      });
+    }, sparseMatrix);
+  }, new SparseMatrix());
 }
 
-function getTitleAndDescription(partyGroup, elections, dataList) {
+function getTitleAndDescription(partyGroup, elections, sparseMatrix) {
   const nAll = elections.length;
-  const n = dataList.length;
-  const best = dataList
-    .filter((x) => x)
-    .sort((a, b) => b.Votes.p - a.Votes.p)[0];
+  const n = sparseMatrix.dataList.length / 2;
+  const best = sparseMatrix.dataList
+    .filter((x) => x.Key === "Votes")
+    .sort((a, b) => b.Value.p - a.Value.p)[0];
   const title = (
     <Box component="span">
       What is <PartyGroupLink partyGroup={partyGroup} />
@@ -42,7 +45,7 @@ function getTitleAndDescription(partyGroup, elections, dataList) {
       </>
       <>
         Best showing (% wise) was in <ElectionLink election={best.Election} /> ,
-        when it got {Format.percent(best.Votes.p)} of the vote.
+        when it got {Format.percent(best.Value.p)} of the vote.
       </>
     </Essay>
   );
@@ -54,15 +57,20 @@ export default function PartyGroupElectoralSummaryView({
   elections,
   ent,
 }) {
-  const dataList = getDataList(partyGroup, elections, ent);
+  const sparseMatrix = getSparseMatrix(partyGroup, elections, ent);
   const { title, description } = getTitleAndDescription(
     partyGroup,
     elections,
-    dataList
+    sparseMatrix
   );
   return (
     <SectionBox title={title} description={description}>
-      <DataTableView dataList={dataList} />
+      <MatrixView
+        sparseMatrix={sparseMatrix}
+        xKey="Election"
+        yKey="Key"
+        zKey="Value"
+      />
     </SectionBox>
   );
 }

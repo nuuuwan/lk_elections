@@ -43,7 +43,7 @@ function getTitleAndDescription(election, ents, focusSmallest) {
   );
   const description = (
     <Box>
-      <PartyLink party={winningParty} /> got the most votes (
+      <PartyLink party={winningParty} labelType="handle" /> got the most votes (
       {Format.percent(partyToVotes.partyToPVotes[winningPartyID])}).
     </Box>
   );

@@ -1,9 +1,9 @@
 import { Box, Typography } from "@mui/material";
 import { LinkContext } from "../atoms";
 
-export default function PartyLink({ party, longName }) {
+export default function PartyLink({ party, labelType }) {
   const partyID = party.id;
-  const partyLabel = longName ? party.name : party.handle;
+  const partyLabel = party.getCustomLabel(labelType);
 
   const context = {
     pageID: "Party",

@@ -46,7 +46,7 @@ function getTitleAndDescription(party, elections, dataList) {
   const description = (
     <Essay>
       <>
-        The <PartyLink party={party} longName={true} /> has run in {n} of the
+        The <PartyLink party={party} labelType="name" /> has run in {n} of the
         last {nAll} elections.
       </>
       <>

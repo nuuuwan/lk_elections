@@ -41,6 +41,16 @@ export default class Party {
     );
   }
 
+  getCustomLabel(labelType) {
+    if (labelType === "handle") {
+      return this.handle;
+    }
+    if (labelType === "name") {
+      return this.name;
+    }
+    return this.id;
+  }
+
   // static getters
   static listAll() {
     return PARTY_LIST_TUPLES.map(function ([id, name]) {

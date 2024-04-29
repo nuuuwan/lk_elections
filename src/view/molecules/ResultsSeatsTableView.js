@@ -65,8 +65,8 @@ function getTitleAndDescription(election, ents) {
   const description = (
     <Box>
       {nWithSeats} parties won at least one seat. Most seats were won by the{" "}
-      <PartyLink party={winningParty} /> ({winningPartySeats}/{totalSeats}),
-      giving it a {winDescription} in parliament.
+      <PartyLink party={winningParty} labelType="handle" /> ({winningPartySeats}
+      /{totalSeats}), giving it a {winDescription} in parliament.
     </Box>
   );
   return { title, description };

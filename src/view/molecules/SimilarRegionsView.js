@@ -6,10 +6,16 @@ import { SparseMatrix } from "../../nonview/base";
 import MatrixView from "./MatrixView";
 
 function getSparseMatrix(elections, ent, otherEnts) {
-  return otherEnts.reduce(function (sparseMatrix, pdEnt) {
+  const sparseMatrix = otherEnts.reduce(function (sparseMatrix, pdEnt) {
+    if (ent.id === pdEnt.id) {
+      return sparseMatrix;
+    }
     const l1Error = AnalysisBellwether.getMeanL1Error(ent, pdEnt, elections);
     return sparseMatrix.push({ Region: pdEnt, Key: "Diff", Value: l1Error });
   }, new SparseMatrix());
+
+  sparseMatrix.dataList.sort((a, b) => a.Value - b.Value);
+  return sparseMatrix;
 }
 
 function getTitleAndDescription(ent, sparseMatrix) {

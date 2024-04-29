@@ -17,7 +17,7 @@ function renderBody({ description, source, children }) {
       <Box>{children}</Box>
       <Box>
         <Typography variant="caption" sx={{ margin: 2, color: "#888" }}>
-          data source: {source}
+          data: {source}
         </Typography>
       </Box>
     </Box>

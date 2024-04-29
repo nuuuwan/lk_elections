@@ -53,9 +53,14 @@ export default class ElectionPage extends AbstractCustomPage {
   get widgets() {
     const { partyGroupList, countryEnt, election, prevElectionOfType, edEnts } =
       this.state;
-    if (!election || election.isFuture) {
+    if (!election) {
       return [];
     }
+
+    if (election.isFuture) {
+      return [<WikiSummaryView wikiPageName={election.wikiPageName} />];
+    }
+
     const ents = [countryEnt, ...edEnts];
     return [
       <WikiSummaryView wikiPageName={election.wikiPageName} />,

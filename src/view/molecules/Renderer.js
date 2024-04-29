@@ -68,18 +68,7 @@ export default class Renderer {
     return value;
   }
 
-  static formatCellValueNumber(value, align = true) {
-    const sx = align ? { textAlign: "right" } : {};
-
-    return (
-      <Box sx={sx}>
-        {Renderer.formatCellValueNumberObject(value) ||
-          Renderer.formatCellValueNumberInner(value)}
-      </Box>
-    );
-  }
-
-  static formatCellValue(value, align = true) {
+  static formatCellValue(value) {
     if (!value) {
       return "-";
     }
@@ -89,7 +78,8 @@ export default class Renderer {
 
     return (
       Renderer.formatCellValueObject(value) ||
-      Renderer.formatCellValueNumber(value, align)
+      Renderer.formatCellValueNumberObject(value) ||
+      Renderer.formatCellValueNumberInner(value)
     );
   }
 }

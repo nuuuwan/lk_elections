@@ -60,7 +60,7 @@ export default function FloatingVoteAnalysisViewDescription({
             return (
               <Box key={"party-group" + i}>
                 {Format.percent(windowBase)}{" "}
-                <PartyGroupLink partyGroup={partyGroup} />{" "}
+                <PartyGroupLink partyGroup={partyGroup} labelType="handle" />{" "}
                 {leanTypeForPartyGroup}
               </Box>
             );

@@ -33,15 +33,15 @@ function getTitleAndDescription(partyGroup, elections, sparseMatrix) {
     .sort((a, b) => b.Value.p - a.Value.p)[0];
   const title = (
     <Box component="span">
-      What is <PartyGroupLink partyGroup={partyGroup} />
+      What is <PartyGroupLink partyGroup={partyGroup} labelType="handle" />
       's Election History?
     </Box>
   );
   const description = (
     <Essay>
       <>
-        The <PartyGroupLink partyGroup={partyGroup} longName={true} /> parties
-        have run in {n} of the last {nAll} elections.
+        The <PartyGroupLink partyGroup={partyGroup} labelType="handle" />{" "}
+        parties have run in {n} of the last {nAll} elections.
       </>
       <>
         Best showing (% wise) was in <ElectionLink election={best.Election} /> ,

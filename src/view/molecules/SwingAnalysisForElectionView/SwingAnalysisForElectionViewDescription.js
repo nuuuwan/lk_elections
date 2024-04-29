@@ -30,7 +30,7 @@ export default function SwingAnalysisForElectionViewDescription({
               return (
                 <Box key={partyGroup.id}>
                   {Format.percentagePoint(swing)}{" "}
-                  <PartyGroupLink partyGroup={partyGroup} />
+                  <PartyGroupLink partyGroup={partyGroup} labelType="handle" />
                 </Box>
               );
             })}

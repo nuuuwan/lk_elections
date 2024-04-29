@@ -9,6 +9,18 @@ export default class PartyGroup {
     this.color = color;
   }
 
+  get colorEmoji() {
+    return (
+      {
+        green: "🟢",
+        blue: "🔵",
+        red: "🔴",
+        orange: "🟠",
+        teal: "🟢",
+      }[this.color] || ""
+    );
+  }
+
   static listAll() {
     return PARTY_GROUP_LIST_TUPLES.map(
       ([id, partyIDList, color]) => new PartyGroup(id, partyIDList, color)

@@ -6,7 +6,7 @@
   bottom: 0;
   z-index: 1000;
   max-height: 320px;
-  }
+}
 
 .leaflet-tile-pane {
   filter: grayscale(100%);

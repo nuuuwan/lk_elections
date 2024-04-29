@@ -53,7 +53,6 @@ export default class GeoMap extends Component {
         <MapContainer bounds={bounds} key="1" zoomControl={false}>
           <TileLayer url={URL_FORMAT} />
         </MapContainer>
-        <CircularProgress />
       </Box>
     );
   }

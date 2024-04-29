@@ -42,9 +42,7 @@ function getTitleAndDescription(elections, ent) {
         {"'s "}
         result matched <EntLink ent={Ent.LK} />.
       </>
-      <>
-        <strong>{bellwetherType}</strong>
-      </>
+      <>{bellwetherType}</>
     </Essay>
   );
   return { title, description };

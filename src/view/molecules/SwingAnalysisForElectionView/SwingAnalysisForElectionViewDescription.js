@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { Ent, Format } from "../../../nonview/base";
+import { Ent, Format, Sort } from "../../../nonview/base";
 import Swing from "../../../nonview/core/Swing";
 
 import { CommaListView, Essay, PartyGroupLink } from "../../atoms";
@@ -18,18 +18,24 @@ export default function SwingAnalysisForElectionViewDescription({
 
   return (
     <Essay>
-      Nationwide, there was{" "}
-      <CommaListView>
-        {swingTuples.map(function ({ partyGroup, swing }) {
-          return (
-            <Box key={partyGroup.id} component="span">
-              a <strong>{Format.percentagePoint(swing)}</strong> swing for the{" "}
-              {<PartyGroupLink partyGroup={partyGroup} />}
-            </Box>
-          );
-        })}
-      </CommaListView>
-      .
+      <>Nationwide, the #Swing was:</>
+      <>
+        <Box>
+          {swingTuples
+            .sort(Sort.cmpDim((a) => -a.swing))
+            .map(function ({ partyGroup, swing }) {
+              if (Math.abs(swing) < 0.01) {
+                return null;
+              }
+              return (
+                <Box key={partyGroup.id}>
+                  {Format.percentagePoint(swing)}{" "}
+                  <PartyGroupLink partyGroup={partyGroup} />
+                </Box>
+              );
+            })}
+        </Box>
+      </>
     </Essay>
   );
 }

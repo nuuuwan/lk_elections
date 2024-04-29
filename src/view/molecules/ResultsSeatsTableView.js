@@ -95,7 +95,7 @@ function getTitleAndDescription(election, ents) {
             const partyIDList = seatsToPartyIDList[seats];
             return (
               <Box key={"party-list-with-" + seats}>
-                {seats}
+                {seats}{" "}
                 <CommaListView>
                   {partyIDList.map(function (partyID) {
                     const party = Party.fromID(partyID);

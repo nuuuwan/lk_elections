@@ -57,7 +57,7 @@ function getTitleAndDescription(election, ents, focusSmallest) {
 
           return (
             <Box key={partyID}>
-              {Format.percent(pVotes)}
+              {Format.percent(pVotes)}{" "}
               <PartyLink party={party} labelType="handle" />
               {emoji}
             </Box>

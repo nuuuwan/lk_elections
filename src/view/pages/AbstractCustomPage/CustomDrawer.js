@@ -19,7 +19,7 @@ export default function CustomDrawer({ drawerOpen, setDrawerOpen }) {
         onClose={() => setDrawerOpen(false)}
         sx={{ zIndex: 3000, position: "fixed", top: 0, right: 0 }}
       >
-        <Box sx={{ m: 2, p: 2 }}>
+        <Box sx={{ m: 2, p: 2, minWidth: 320 }}>
           <VersionView />
           <MainMenu />
         </Box>

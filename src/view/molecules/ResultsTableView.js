@@ -47,8 +47,23 @@ function getTitleAndDescription(election, ents, focusSmallest) {
   );
   const description = (
     <Box>
-      <PartyLink party={winningParty} labelType="handle" /> got the most votes (
-      {Format.percent(partyToVotes.partyToPVotes[winningPartyID])}).
+      {Object.entries(partyToVotes.partyToPVotes)
+        .filter(function ([partyID, pVotes]) {
+          return pVotes > 0.025;
+        })
+        .map(function ([partyID, pVotes]) {
+          const party = Party.fromID(partyID);
+          const isWinner = partyID === winningPartyID;
+          const emoji = isWinner ? "✔️" : "";
+
+          return (
+            <Box key={partyID}>
+              {Format.percent(pVotes)}
+              <PartyLink party={party} labelType="handle" />
+              {emoji}
+            </Box>
+          );
+        })}
     </Box>
   );
   return { title, description };

@@ -15,10 +15,11 @@ function getDataList(elections, ent, otherEnts) {
 }
 
 function getTitleAndDescription(ent, dataList) {
-  const closestEnts = dataList.slice(0, 3).map((d) => d.Region);
+  const N_DISPLAY = 5;
+  const closestEnts = dataList.slice(0, N_DISPLAY).map((d) => d.Region);
   const title = (
     <Box component="span">
-      Where else are voter like those in <EntLink ent={ent} />?
+      Where else are voters like voters in <EntLink ent={ent} />?
     </Box>
   );
   const description = (

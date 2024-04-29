@@ -2,7 +2,6 @@ import AbstractCustomPage from "./AbstractCustomPage";
 import { EntLink, WikiSummaryView } from "../atoms";
 
 import { FloatingVoteAnalysisView } from "../molecules";
-import { Box } from "@mui/material";
 
 export default class AnalysisFloatingVotePage extends AbstractCustomPage {
   static getPageID() {

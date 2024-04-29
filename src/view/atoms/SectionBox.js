@@ -7,7 +7,7 @@ import CloseIcon from "@mui/icons-material/Close";
 
 function renderBody({ description, source, children }) {
   return (
-    <Box>
+    <Box sx={{ marginLeft: 2 }}>
       <Box
         sx={{ paddingBottom: 3, paddingTop: 3 }}
         id="lk-elections-widget-text-body"
@@ -37,7 +37,7 @@ export default function SectionBox({ children, title, description, source }) {
   description = description || "Description TODO";
   source = source || "elections.gov.lk";
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   return (
     <Box

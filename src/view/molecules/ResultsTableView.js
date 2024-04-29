@@ -12,6 +12,7 @@ function getSparseMatrix(election, ents) {
     if (!partyToVoteInfo) {
       return sparseMatrix;
     }
+
     return Object.entries(partyToVoteInfo).reduce(function (
       sparseMatrix,
       [partyID, { vote, totalVotes, isWinner }]

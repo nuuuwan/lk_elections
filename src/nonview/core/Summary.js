@@ -10,7 +10,7 @@ export default class Summary {
     let summary = {};
     for (const key in d) {
       if (Summary.KEYS.includes(key)) {
-        summary[key] = parseInt(d[key]);
+        summary[key] = parseInt(d[key].replaceAll("'", "").replaceAll('"', ""));
       }
     }
     return new Summary(

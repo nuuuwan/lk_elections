@@ -25,7 +25,9 @@ class Election extends ElectionBase {
       return;
     }
     this.resultsList = await this.getResultsList();
+
     this.resultsIdx = Election.buildResultsIdx(this.resultsList);
+
     this.isLoaded = this.resultsList.length > Election.MIN_RESULTS;
   }
 
@@ -35,6 +37,7 @@ class Election extends ElectionBase {
 
   async getResultsList() {
     const rawData = await this.getRawDataList();
+
     const filteredRawData = rawData.filter(function (d) {
       return d.entity_id.startsWith("EC-") || d.entity_id === "LK";
     });

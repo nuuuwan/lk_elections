@@ -1,8 +1,12 @@
 .leaflet-container {
-  z-index: 0;
-  width: 480px;
-  aspect-ratio: 1.78;
-}
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  max-height: 320px;
+  }
 
 .leaflet-tile-pane {
   filter: grayscale(100%);

@@ -14,6 +14,7 @@ export default class AbstractCustomPageStyle {
 
   static BODY = {
     margin: 2,
+    marginTop: 40,
   };
 
   static WIDGET = {

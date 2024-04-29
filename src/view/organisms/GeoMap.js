@@ -30,8 +30,10 @@ export default class GeoMap extends Component {
     const positions = LatLng.positions(geo);
     const bounds = LatLng.bounds(geo);
 
+    const style = { width: window.innerWidth };
+
     return (
-      <MapContainer bounds={bounds} key="2">
+      <MapContainer bounds={bounds} key="2" style={style} zoomControl={false}>
         <TileLayer url={URL_FORMAT} />
         <Polygon positions={positions} pathOptions={pathOptions} />
       </MapContainer>
@@ -44,7 +46,7 @@ export default class GeoMap extends Component {
 
     return (
       <Box>
-        <MapContainer bounds={bounds} key="1">
+        <MapContainer bounds={bounds} key="1" zoomControl={false}>
           <TileLayer url={URL_FORMAT} />
         </MapContainer>
         <CircularProgress />

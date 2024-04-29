@@ -8,7 +8,7 @@ export default function WikiSummaryView({ wikiPageName }) {
   return (
     <Box
       sx={{
-        maxWidth: 600,
+        maxWidth: 1000,
       }}
     >
       {wiki.summaryLines.map(function (paragraph, i) {

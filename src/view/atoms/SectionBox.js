@@ -1,6 +1,6 @@
 import { Box, IconButton, Typography } from "@mui/material";
 import Header from "./Header";
-import { SmallWindow } from "../../nonview/base";
+
 import { useState } from "react";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import CloseIcon from "@mui/icons-material/Close";
@@ -9,7 +9,7 @@ function renderBody({ description, source, children }) {
   return (
     <Box sx={{ marginLeft: 2 }}>
       <Box
-        sx={{ paddingBottom: 3, paddingTop: 3 }}
+        sx={{ paddingBottom: 3, paddingTop: 3, maxWidth: 640 }}
         id="lk-elections-widget-text-body"
       >
         {description}
@@ -42,7 +42,8 @@ export default function SectionBox({ children, title, description, source }) {
   return (
     <Box
       sx={{
-        minWidth: SmallWindow.WIDGET_WIDTH,
+        width: "fit-content",
+        p: 2,
       }}
     >
       <Header level={2} id="lk-elections-widget-text-title">

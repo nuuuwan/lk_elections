@@ -6,7 +6,7 @@ const DataTableViewLazy = React.lazy(() => import("./DataTableViewLazy"));
 export default function DataTableView({ dataList, footerData, sortKey }) {
   return (
     <Suspense
-      fallback={<Skeleton variant="rectangular" width={480} height={270} />}
+      fallback={<Skeleton variant="rectangular" width={320} height={320} />}
     >
       <DataTableViewLazy
         dataList={dataList}

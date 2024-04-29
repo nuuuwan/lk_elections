@@ -6,7 +6,7 @@ const GenericListViewLazy = React.lazy(() => import("./GenericListViewLazy"));
 export default function GenericListView({ title, items, renderItem }) {
   return (
     <Suspense
-      fallback={<Skeleton variant="rectangular" width={480} height={270} />}
+      fallback={<Skeleton variant="rectangular" width={320} height={320} />}
     >
       <GenericListViewLazy
         title={title}

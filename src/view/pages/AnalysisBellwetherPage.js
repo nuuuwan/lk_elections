@@ -2,9 +2,9 @@ import { AnalysisBellwether } from "../../nonview/core";
 import AbstractCustomPage from "./AbstractCustomPage";
 import { SectionBox, WikiSummaryView, EntLink, Essay } from "../atoms";
 
-import { DataTableView } from "../molecules";
+import { MatrixView } from "../molecules";
 
-import { Format } from "../../nonview/base";
+import { SparseMatrix } from "../../nonview/base";
 
 export default class AnalysisBellwetherPage extends AbstractCustomPage {
   static getPageID() {
@@ -27,35 +27,59 @@ export default class AnalysisBellwetherPage extends AbstractCustomPage {
     return <WikiSummaryView wikiPageName={"Bellwether"} />;
   }
 
-  getDataList() {
+  getSparseMatrix() {
     const { pdEnts, edEnts, elections } = this.state;
     const ents = [...edEnts, ...pdEnts];
 
-    return ents
-      .map((ent) => {
+    const entsAndStats = ents
+      .map(function (ent) {
         const stats = AnalysisBellwether.statsForElectionsAndEnt(
           elections,
           ent
         );
-        if (!stats) {
-          return null;
-        }
-        const { nMatch, meanError } = stats;
-        return { Region: ent, Matches: nMatch, Diff: meanError };
+        return { ent, stats };
       })
-      .sort((a, b) => a.Diff - b.Diff);
+      .sort(function (a, b) {
+        return a.stats.meanError - b.stats.meanError;
+      });
+
+    const sparseMatrix = entsAndStats.reduce(function (
+      sparseMatrix,
+      { ent, stats }
+    ) {
+      if (!stats) {
+        return sparseMatrix;
+      }
+      const { nMatch, meanError } = stats;
+
+      return Object.entries({
+        Matches: nMatch,
+        Diff: meanError,
+      }).reduce(function (sparseMatrix, [key, value]) {
+        return sparseMatrix.push({
+          Region: ent,
+          Key: key,
+          Value: value,
+        });
+      }, sparseMatrix);
+    },
+    new SparseMatrix());
+
+    return sparseMatrix;
   }
 
-  getTitleAndDescription(dataList) {
-    const best = dataList[0];
+  getTitleAndDescription(sparseMatrix) {
+    const dataListForMatches = sparseMatrix.dataList.filter(
+      (x) => x.Key === "Matches"
+    );
+    const best = dataListForMatches[0];
     const title = "What are the Best #Bellwethers?";
     const description = (
       <Essay>
         <>
           The <EntLink ent={best.Region} /> is the best #Bellwether Polling
-          Division in Sri Lanka, both in terms of how its results match (
-          {best.Matches}) and their difference from ({Format.percent(best.Diff)}
-          ) the nationwide result.
+          Division in Sri Lanka, how its results match ({best.Value}) the
+          nationwide result.
         </>
       </Essay>
     );
@@ -68,12 +92,17 @@ export default class AnalysisBellwetherPage extends AbstractCustomPage {
       return [];
     }
 
-    const dataList = this.getDataList();
-    const { title, description } = this.getTitleAndDescription(dataList);
+    const sparseMatrix = this.getSparseMatrix();
+    const { title, description } = this.getTitleAndDescription(sparseMatrix);
     return [
       <WikiSummaryView wikiPageName={"Bellwether"} />,
       <SectionBox title={title} description={description}>
-        <DataTableView dataList={dataList} />
+        <MatrixView
+          sparseMatrix={sparseMatrix}
+          xKey="Key"
+          yKey="Region"
+          zKey="Value"
+        />
       </SectionBox>,
     ];
   }

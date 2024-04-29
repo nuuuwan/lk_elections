@@ -74,6 +74,7 @@ export default function ElectoralSummaryView({ ent, elections }) {
         xKey="Key"
         yKey="Election"
         zKey="Value"
+        toggleXY={elections.length === 1}
       />
     </SectionBox>
   );

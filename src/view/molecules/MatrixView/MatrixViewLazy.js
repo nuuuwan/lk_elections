@@ -61,7 +61,12 @@ export default function MatrixViewLazy({
   xKey,
   yKey,
   showExpanded,
+  toggleXY = false,
 }) {
+  if (toggleXY) {
+    [xKey, yKey] = [yKey, xKey];
+  }
+
   const { xKeyInner, yKeyInner, handleToggleXY } = BuildKeyState(xKey, yKey);
   const {
     sortXScalar,

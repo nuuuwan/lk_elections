@@ -7,6 +7,9 @@ import { DataTable } from "../../../nonview/core";
 import CommonIcons from "../CommonIcons";
 
 function renderExpand({ needsExpand, onClickExpand, Icon, label }) {
+  if (!needsExpand) {
+    return null;
+  }
   return (
     <Box>
       <IconButton onClick={onClickExpand}>

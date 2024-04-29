@@ -10,6 +10,7 @@ export default function MatrixView({
   xKey,
   yKey,
   showExpanded,
+  toggleXY,
 }) {
   return (
     <Suspense
@@ -21,6 +22,7 @@ export default function MatrixView({
         xKey={xKey}
         yKey={yKey}
         showExpanded={showExpanded}
+        toggleXY={toggleXY}
       />
     </Suspense>
   );

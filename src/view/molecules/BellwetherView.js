@@ -1,40 +1,30 @@
-import { MathX } from "../../nonview/base";
+import { SparseMatrix } from "../../nonview/base";
 import { Party, AnalysisBellwether } from "../../nonview/core";
 
 import { EntLink, SectionBox, Essay } from "../atoms";
-import { DataTableView } from "../molecules";
+import { MatrixView } from "../molecules";
 
-function getDataList(elections, ent) {
-  return elections
-    .map(function (election) {
-      const stats = AnalysisBellwether.statsForElectionAndEnt(election, ent);
-      if (!stats) {
-        return null;
-      }
-      const { winningPartyEnt, winningPartyLK, l1Error, isMatch } = stats;
+function getSparseMatrix(elections, ent) {
+  return elections.reduce(function (sparseMatrix, election) {
+    const stats = AnalysisBellwether.statsForElectionAndEnt(election, ent);
+    if (!stats) {
+      return sparseMatrix;
+    }
+    const { winningPartyEnt, winningPartyLK, l1Error, isMatch } = stats;
 
-      return {
+    return Object.entries({
+      [ent.name]: Party.fromID(winningPartyEnt),
+      SriLanka: Party.fromID(winningPartyLK),
+      Match: isMatch,
+      Error: l1Error,
+    }).reduce(function (sparseMatrix, [key, value]) {
+      return sparseMatrix.push({
         Election: election,
-        [ent.name]: Party.fromID(winningPartyEnt),
-        SriLanka: Party.fromID(winningPartyLK),
-        Match: isMatch,
-        Error: l1Error,
-      };
-    })
-    .filter((d) => d !== null);
-}
-
-function getFooterData(dataList) {
-  const nMatchSum = MathX.sum(dataList.map((d) => (d.Match ? 1 : 0)));
-  const meanErrorSum = MathX.mean(dataList.map((d) => d.Error));
-
-  return {
-    Election: "",
-    Region: "",
-    "Sri Lanka": "",
-    Match: nMatchSum,
-    Error: meanErrorSum,
-  };
+        Key: key,
+        Value: value,
+      });
+    }, sparseMatrix);
+  }, new SparseMatrix());
 }
 
 function getTitleAndDescription(elections, ent) {
@@ -59,12 +49,17 @@ function getTitleAndDescription(elections, ent) {
 }
 
 export default function BellwetherView({ elections, ent }) {
-  const dataList = getDataList(elections, ent);
-  const footerData = getFooterData(dataList);
+  const sparseMatrix = getSparseMatrix(elections, ent);
+
   const { title, description } = getTitleAndDescription(elections, ent);
   return (
     <SectionBox title={title} description={description}>
-      <DataTableView dataList={dataList} footerData={footerData} />
+      <MatrixView
+        sparseMatrix={sparseMatrix}
+        xKey="Election"
+        yKey="Key"
+        zKey="Value"
+      />
     </SectionBox>
   );
 }

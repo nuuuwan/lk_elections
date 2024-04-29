@@ -27,6 +27,23 @@ export default class Party {
     return this.id.localeCompare(other.id);
   }
 
+  get partyEmoji() {
+    return (
+      {
+        UNP: "🐘",
+        SLPP: "🌷",
+        SLFP: "🤚🏻",
+        PA: "🪑",
+        JVP: "🔔",
+        ITAK: "🏚️",
+        SJB: "☎️",
+        MNA: "⚖️",
+        OPPP: "🏴",
+        JJB: "🧭",
+      }[this.id] || ""
+    );
+  }
+
   get colorEmoji() {
     return (
       {

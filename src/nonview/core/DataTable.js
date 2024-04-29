@@ -1,4 +1,4 @@
 export default class DataTable {
-  static MAX_ROWS = 7;
-  static MAX_COLS = 7;
+  static MAX_ROWS = 6;
+  static MAX_COLS = 6;
 }

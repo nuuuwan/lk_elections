@@ -5,23 +5,17 @@ import { ElectionLink, PartyLink, SectionBox } from "../../atoms";
 import ParliViewStyle from "./ParliViewStyle";
 
 function ParliBlocksView({ partyGroupToPartyToSeats }) {
-  const limitBreakSeats = 0;
+  const limitBreakSeats = 1;
   const inner = Object.entries(partyGroupToPartyToSeats).reduce(function (
     inner,
     [partyGroup, partyToSeats]
   ) {
-    return Object.entries(partyToSeats).reduce(function (
+    const partyGroupSeats = MathX.sumValues(partyToSeats);
+    inner = Object.entries(partyToSeats).reduce(function (
       inner,
       [partyID, seats]
     ) {
       const party = Party.fromID(partyID);
-      if (seats > limitBreakSeats) {
-        inner.push(
-          <Box key={"party-" + partyID}>
-            <PartyLink party={party} /> ({seats})
-          </Box>
-        );
-      }
       inner = MathX.range(0, seats).reduce(function (inner, iSeat) {
         inner.push(
           <Box
@@ -32,11 +26,26 @@ function ParliBlocksView({ partyGroupToPartyToSeats }) {
             component="span"
           ></Box>
         );
+
         return inner;
       }, inner);
+      inner.push(
+        <Box
+          key={"party-" + partyID}
+          component="span"
+          sx={{ fontSize: "0.5em" }}
+        >
+          <PartyLink party={party} />
+        </Box>
+      );
+
       return inner;
     },
     inner);
+    if (partyGroupSeats > limitBreakSeats) {
+      inner.push(<Box key={"party-group-" + partyGroup + "-break"}></Box>);
+    }
+    return inner;
   },
   []);
 

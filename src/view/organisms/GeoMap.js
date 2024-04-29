@@ -41,7 +41,7 @@ export default class GeoMap extends Component {
   renderEmptyMap() {
     const { ent } = this.props;
     const bounds = LatLng.getBoundsFromCentroid(ent.centroid);
-    console.debug(ent.id, ent.centroid, bounds);
+
     return (
       <Box>
         <MapContainer bounds={bounds} key="1">

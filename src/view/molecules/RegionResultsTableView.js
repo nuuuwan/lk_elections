@@ -41,7 +41,7 @@ function getDescription(ent, elections) {
 
 export default function RegionResultsTableView({ ent, elections }) {
   const sparseMatrix = getSparseMatrix(ent, elections);
-  console.debug(sparseMatrix);
+
   const title = getTitle(ent, elections);
   const description = getDescription(ent, elections);
 

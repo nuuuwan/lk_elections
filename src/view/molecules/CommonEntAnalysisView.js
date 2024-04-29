@@ -26,7 +26,7 @@ export default class CommonEntAnalysisView {
     const geoEnt = ent.id.endsWith("P") ? entsSimilar[1] : ent;
 
     return [
-      <GeoMap ent={geoEnt} />,
+      ent.id === "LK" ? null : <GeoMap ent={geoEnt} />,
 
       <DemographicsView
         demographicsList={demographicsList}

@@ -9,6 +9,9 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
   static getPageID() {
     return "ElectoralDistrict";
   }
+  get hasNoMap() {
+    return false;
+  }
 
   async componentDidMount() {
     const { pdEnts, edEnts } = await super.componentDidMount();

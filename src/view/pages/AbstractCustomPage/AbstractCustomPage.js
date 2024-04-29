@@ -16,6 +16,10 @@ export default class AbstractCustomPage extends Component {
     this.state = { ...context, drawerOpen: false };
   }
 
+  get hasNoMap() {
+    return true;
+  }
+
   async componentDidMount() {
     const newState = await GenericStore.get();
     this.setState(newState);
@@ -52,7 +56,10 @@ export default class AbstractCustomPage extends Component {
   }
 
   renderBody() {
-    return <Box sx={AbstractCustomPageStyle.BODY}>{this.renderWidgets()}</Box>;
+    const sx = this.hasNoMap
+      ? AbstractCustomPageStyle.BODY_NO_MAP
+      : AbstractCustomPageStyle.BODY;
+    return <Box sx={sx}>{this.renderWidgets()}</Box>;
   }
 
   renderWidgets() {

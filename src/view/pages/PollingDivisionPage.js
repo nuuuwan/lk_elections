@@ -9,6 +9,9 @@ export default class PollingDivisionPage extends AbstractCustomPage {
   static getPageID() {
     return "PollingDivision";
   }
+  get hasNoMap() {
+    return false;
+  }
 
   async componentDidMount() {
     const { pdEnts } = await super.componentDidMount();

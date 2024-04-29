@@ -21,4 +21,9 @@ export default class AbstractCustomPageStyle {
     marginTop: 4,
     width: "fit-content",
   };
+
+  static BODY_NO_MAP = {
+    margin: 2,
+    marginTop: 12,
+  };
 }

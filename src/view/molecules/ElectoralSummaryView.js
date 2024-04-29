@@ -19,6 +19,7 @@ function getSparseMatrix(ent, elections) {
       Electors: summary.electors,
       Turnout: new Fraction(summary.polled, summary.electors),
       Rejected: new Fraction(summary.rejected, summary.polled),
+      VoteCounted: new Fraction(summary.valid, summary.electors),
       Winner: Party.fromID(winningPartyID),
       Votes: new Fraction(
         partyToVotes.partyToVotes[winningPartyID],

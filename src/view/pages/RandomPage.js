@@ -15,12 +15,12 @@ export default class RandomPage {
     return [
       [ElectionPage, 20],
       [ElectoralDistrictPage, 20],
-      [PollingDivisionPage, 40],
-      [CountryPage, 10],
+      [PollingDivisionPage, 20],
+      [CountryPage, 20],
       [AnalysisBellwetherPage, 1],
       [AnalysisFloatingVotePage, 1],
-      [PartyPage, 0], // Hack Hide for Now
-      [PartyGroupPage, 0],
+      [PartyPage, 1],
+      [PartyGroupPage, 1],
     ].reduce(function (contextList, [Page, n]) {
       for (let i = 0; i < n; i++) {
         contextList.push({ pageID: Page.getPageID() });

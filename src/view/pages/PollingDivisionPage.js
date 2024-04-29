@@ -2,7 +2,7 @@ import { Ent, Random, URLContext } from "../../nonview/base";
 
 import { EntLink } from "../atoms";
 import { CommonEntAnalysisView } from "../molecules";
-import { GeoMap } from "../organisms";
+
 import AbstractCustomPage from "./AbstractCustomPage";
 
 export default class PollingDivisionPage extends AbstractCustomPage {
@@ -62,8 +62,6 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     if (!pdEnt) {
       return [];
     }
-
-    const geoEnt = pdEnt.id.endsWith("P") ? edEnt : pdEnt;
 
     return [
       ...CommonEntAnalysisView.get({

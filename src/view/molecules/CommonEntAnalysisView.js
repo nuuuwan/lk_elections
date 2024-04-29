@@ -27,7 +27,7 @@ export default class CommonEntAnalysisView {
 
     return [
       <GeoMap ent={geoEnt} />,
-      ,
+
       <DemographicsView
         demographicsList={demographicsList}
         demographicType="ethnicity-and-religion"

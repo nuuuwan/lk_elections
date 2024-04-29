@@ -2,7 +2,7 @@ import { Ent, Random, URLContext } from "../../nonview/base";
 
 import { WikiSummaryView, EntLink } from "../atoms";
 import { EntListView, CommonEntAnalysisView } from "../molecules";
-import { GeoMap } from "../organisms";
+
 import AbstractCustomPage from "./AbstractCustomPage";
 
 export default class ElectoralDistrictPage extends AbstractCustomPage {

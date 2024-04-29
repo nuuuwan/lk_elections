@@ -15,7 +15,7 @@ export default function LinkContext({ context, children }) {
         cursor: "pointer",
         padding: 0.5,
         textDecoration: "underline",
-        textDecorationColor: "#ddd",
+        textDecorationColor: "#eee",
       }}
       onClick={onClick}
       component={"span"}

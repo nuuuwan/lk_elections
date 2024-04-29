@@ -58,7 +58,6 @@ export default class ElectoralDistrictPage extends AbstractCustomPage {
     const entsAllAll = [edEnt];
 
     return [
-      <GeoMap ent={edEnt} />,
       <WikiSummaryView wikiPageName={edEnt.wikiPageName} />,
       <EntListView ents={pdEntsChildren} />,
     ].concat(

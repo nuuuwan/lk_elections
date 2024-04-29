@@ -34,7 +34,7 @@ export default class PartyPage extends AbstractCustomPage {
         return (
           <PartyGroupLink
             key={"partyGroup" + iPartyGroup}
-            partyGroupID={partyGroup.id}
+            partyGroup={partyGroup}
           />
         );
       }),

@@ -9,6 +9,7 @@ import {
   DemographicsView,
   SeatsHistoryView,
 } from "../molecules";
+import { GeoMap } from "../organisms";
 
 export default class CommonEntAnalysisView {
   static getIntro({
@@ -22,7 +23,11 @@ export default class CommonEntAnalysisView {
   }) {
     const demographicsList = entsSimilar.map((ent) => demographicsIdx[ent.id]);
 
+    const geoEnt = ent.id.endsWith("P") ? entsSimilar[1] : ent;
+
     return [
+      <GeoMap ent={geoEnt} />,
+      ,
       <DemographicsView
         demographicsList={demographicsList}
         demographicType="ethnicity-and-religion"

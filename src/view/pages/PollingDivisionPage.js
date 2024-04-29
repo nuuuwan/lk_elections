@@ -66,7 +66,6 @@ export default class PollingDivisionPage extends AbstractCustomPage {
     const geoEnt = pdEnt.id.endsWith("P") ? edEnt : pdEnt;
 
     return [
-      <GeoMap ent={geoEnt} />,
       ...CommonEntAnalysisView.get({
         ent: pdEnt,
         entsSimilar: [pdEnt, edEnt, countryEnt],

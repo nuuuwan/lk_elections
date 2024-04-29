@@ -15,10 +15,11 @@ export default class GeoMap extends Component {
 
   async componentDidMount() {
     const { ent } = this.props;
-    const geoID = ent.id;
-    if (geoID.endsWith("P")) {
-      return null;
+    if (ent.id === "LK") {
+      return;
     }
+    const geoID = ent.id;
+
     const geo = await new Geo(geoID).load();
     this.setState({ geo });
   }
@@ -42,7 +43,10 @@ export default class GeoMap extends Component {
 
   renderEmptyMap() {
     const { ent } = this.props;
-    const bounds = LatLng.getBoundsFromCentroid(ent.centroid);
+    const bounds =
+      ent.id === "LK"
+        ? LatLng.BOUNDS_LK
+        : LatLng.getBoundsFromCentroid(ent.centroid);
 
     return (
       <Box>
@@ -55,11 +59,6 @@ export default class GeoMap extends Component {
   }
 
   render() {
-    const { ent } = this.props;
-    const geoID = ent.id;
-    if (geoID.endsWith("P")) {
-      return null;
-    }
     const { geo } = this.state;
 
     if (!geo) {

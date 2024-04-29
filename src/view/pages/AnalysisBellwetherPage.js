@@ -102,6 +102,7 @@ export default class AnalysisBellwetherPage extends AbstractCustomPage {
           xKey="Key"
           yKey="Region"
           zKey="Value"
+          showExpanded={true}
         />
       </SectionBox>,
     ];

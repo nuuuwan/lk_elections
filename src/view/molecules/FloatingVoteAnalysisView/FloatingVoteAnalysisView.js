@@ -75,6 +75,7 @@ export default function FloatingVoteAnalysisView({
   elections,
   ents,
   focusSmallest,
+  showExpanded = false,
 }) {
   ents = Election.filterCompleted(elections)[0].sortEntsByValid(ents);
   const sparseMatrix = getSparseMatrix(partyGroupList, elections, ents);
@@ -91,6 +92,7 @@ export default function FloatingVoteAnalysisView({
         xKey="PartyGroup"
         yKey="Region"
         zKey="Base"
+        showExpanded={showExpanded}
       />
     </SectionBox>
   );

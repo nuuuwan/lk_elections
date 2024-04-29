@@ -2,6 +2,7 @@ import AbstractCustomPage from "./AbstractCustomPage";
 import { EntLink, WikiSummaryView } from "../atoms";
 
 import { FloatingVoteAnalysisView } from "../molecules";
+import { Box } from "@mui/material";
 
 export default class AnalysisFloatingVotePage extends AbstractCustomPage {
   static getPageID() {
@@ -29,11 +30,14 @@ export default class AnalysisFloatingVotePage extends AbstractCustomPage {
     const ents = [countryEnt, ...edEnts, ...pdEnts];
     return [
       <WikiSummaryView wikiPageName={"Swing_vote"} />,
-      <FloatingVoteAnalysisView
-        elections={elections}
-        ents={ents}
-        partyGroupList={partyGroupList}
-      />,
+      <div style={{ columnCount: 2 }}>
+        <FloatingVoteAnalysisView
+          elections={elections}
+          ents={ents}
+          partyGroupList={partyGroupList}
+          showExpanded={true}
+        />
+      </div>,
     ];
   }
 }

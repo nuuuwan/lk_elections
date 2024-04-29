@@ -19,7 +19,7 @@ let FormatInt = {
 
   intHumanizeWithStyle(
     x,
-    valueRange = [1, 10],
+    valueRange = [10, 100],
     fontSizeRange = FormatGeneric.DEFAULT_FONT_SIZE_RANGE
   ) {
     return FormatGeneric.formatWithStyle(

@@ -44,8 +44,7 @@ function getTitleAndDescription(election, ents, focusSmallest) {
 
   const title = (
     <Box component="span">
-      Who won <EntLink ent={ent} /> in
-      <ElectionLink election={election} />?
+      Who won <EntLink ent={ent} /> in <ElectionLink election={election} />?
     </Box>
   );
   const description = (

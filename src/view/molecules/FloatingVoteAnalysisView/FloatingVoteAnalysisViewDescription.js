@@ -49,6 +49,7 @@ export default function FloatingVoteAnalysisViewDescription({
   return (
     <Essay>
       <>{Format.percent(pFloating)} #FloatingVote</>
+      <></>
       <>Party group base votes are:</>
       <>
         <Box>

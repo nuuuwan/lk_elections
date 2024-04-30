@@ -16,9 +16,6 @@ export default class LeanType {
     if (pBase > 0.5) {
       return "✔️#Safe";
     }
-    if (pBase + pFloating > 0.5) {
-      return "▶️#InPlay";
-    }
     return "";
   }
 }

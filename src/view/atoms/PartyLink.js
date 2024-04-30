@@ -26,7 +26,6 @@ export default function PartyLink({ party, labelType }) {
           </Typography>
         </Box>
       </LinkContext>
-      {labelType === "handle" ? party.partyEmoji : null}
     </Box>
   );
 }

@@ -88,6 +88,12 @@ class Election extends ElectionBase {
   static getLastElection(elections) {
     return Election.filterCompleted(elections).sort()[0];
   }
+
+  get pdResultsList() {
+    return this.resultsList.filter(function (result) {
+      return result.entityID.length === 6;
+    });
+  }
 }
 
 Object.assign(Election.prototype, ElectionGetters);

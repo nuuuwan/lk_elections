@@ -7,6 +7,7 @@ import Fraction from "./Fraction";
 import Geo from "./Geo";
 import Integer from "./Integer";
 import LatLng from "./LatLng";
+import MLModel from "./MLModel";
 import MathX from "./MathX";
 import PercentagePoint from "./PercentagePoint";
 import Random from "./Random";
@@ -29,6 +30,7 @@ export {
   Geo,
   Integer,
   LatLng,
+  MLModel,
   MathX,
   PercentagePoint,
   Random,

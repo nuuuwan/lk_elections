@@ -72,6 +72,7 @@ function getTitleAndDescription(election, ents, focusSmallest) {
 }
 
 export default function ResultsTableView({ election, ents, focusSmallest }) {
+  console.debug({ election, ents, focusSmallest });
   const matrix = getSparseMatrix(election, ents);
 
   const { title, description } = getTitleAndDescription(

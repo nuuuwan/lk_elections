@@ -71,14 +71,20 @@ function getTitleAndDescription(election, ents, focusSmallest) {
   return { title, description };
 }
 
-export default function ResultsTableView({ election, ents, focusSmallest }) {
+export default function ResultsTableView({
+  election,
+  ents,
+  focusSmallest,
+  title,
+  description,
+}) {
   const matrix = getSparseMatrix(election, ents);
 
-  const { title, description } = getTitleAndDescription(
-    election,
-    ents,
-    focusSmallest
-  );
+  const { title: titleInner, description: descriptionInner } =
+    getTitleAndDescription(election, ents, focusSmallest);
+
+  title = title || titleInner;
+  description = description || descriptionInner;
 
   return (
     <SectionBox title={title} description={description}>

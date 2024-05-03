@@ -11,7 +11,8 @@ export default class RealTimeResultsPage extends AbstractCustomPage {
     return "RealTimeResults";
   }
   async componentDidMount() {
-    let { elections, pdEnts } = await super.componentDidMount();
+    let { elections, pdEnts, edEnts, countryEnt } =
+      await super.componentDidMount();
     let { date, nResultsReleased } = this.state;
     const election =
       Election.findFromDate(elections, date) || Random.choice(elections);
@@ -49,10 +50,7 @@ export default class RealTimeResultsPage extends AbstractCustomPage {
 
     const electionNotReleasedPrediction =
       electionModel.getElectionNotReleasedPrediction();
-    const entsNotReleased = notReleasePDIDList
-      .map((x) => x)
-      .map((pdID) => pdIdx[pdID])
-      .filter((x) => x);
+    const entsNotReleased = [...edEnts, countryEnt];
 
     this.setState({
       election,

@@ -6,8 +6,8 @@ import { Box } from "@mui/material";
 
 function getSparseMatrix(election, ents) {
   const entToPartyToVoteInfo = election.getEntToPartyToVoteInfo(ents);
-
-  return ents.reduce(function (sparseMatrix, ent) {
+  let sortedEnts = election.sortEntsByValid(ents);
+  return sortedEnts.reduce(function (sparseMatrix, ent) {
     const partyToVoteInfo = entToPartyToVoteInfo[ent.id];
     if (!partyToVoteInfo) {
       return sparseMatrix;

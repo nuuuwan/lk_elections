@@ -1,5 +1,6 @@
 import { MLModel, MathX } from "../base";
 import Election from "./Election/Election";
+import PartyToVotes from "./PartyToVotes";
 import Result from "./Result";
 
 export default class ElectionModel {
@@ -102,14 +103,10 @@ export default class ElectionModel {
 
   train() {
     // Train
-    console.debug(this.releasedPDIDList);
-    const previousElections = this.getPreviousElections();
-    console.debug(previousElections.map((election) => election.date));
+
     const XTrain = this.getXTrain();
     const YTrain = this.getYTrain();
 
-    console.debug(XTrain);
-    console.debug(YTrain);
     const model = new MLModel(XTrain, YTrain);
 
     const XEvaluate = this.getXEvaluate();
@@ -119,7 +116,6 @@ export default class ElectionModel {
       this.currentElection,
       this.releasedPDIDList
     );
-    console.debug(partyIDList);
 
     const pdToPartyToVoteInfo = YHat.reduce(
       function (pdToPartyToPVotes, Yi, i) {
@@ -151,7 +147,7 @@ export default class ElectionModel {
         return [pdID, ElectionModel.normalize(partyToVoteInfo)];
       })
     );
-    console.debug(normPDToPartyTOPVotes);
+
     return normPDToPartyTOPVotes;
   }
 
@@ -163,26 +159,45 @@ export default class ElectionModel {
     election.resultsList = this.releasedPDIDList
       .map((pdID) => this.currentElection.getResults(pdID))
       .filter((result) => result);
-    election.resultsIdx = Object.fromEntries(
-      election.resultsList.map((result) => [result.entityID, result])
-    );
+    election.resultsIdx = Election.buildResultsIdx(election.resultsList);
     election.isLoaded = true;
     return election;
   }
 
   getElectionNotReleasedPrediction() {
-    const lastElection = this.getPreviousElections()[0];
+    const normPDToPartyTOPVotes = this.train();
+    const lastElection = this.getPreviousElections().slice(-1)[0];
+
     let election = new Election(
       this.currentElection.electionType,
       this.currentElection.date
     );
-    election.resultsList = this.nonReleasedPDIDList
-      .map((pdID) => lastElection.getResults(pdID))
-      .filter((result) => result);
 
-    election.resultsIdx = Object.fromEntries(
-      election.resultsList.map((result) => [result.entityID, result])
+    const releasedResultsList = this.releasedPDIDList.map((pdID) =>
+      this.currentElection.getResults(pdID)
     );
+    const notReleasedResultsList = this.nonReleasedPDIDList.map(function (
+      pdID
+    ) {
+      let result = lastElection.getResults(pdID);
+      const valid = result.summary.valid;
+      const partyToPVotes = normPDToPartyTOPVotes[pdID];
+      const partyToVotes = Object.fromEntries(
+        Object.entries(partyToPVotes).map(function ([partyID, voteInfo]) {
+          return [partyID, Math.round(voteInfo.pVotesPredicted * valid)];
+        })
+      );
+      result.partyToVotes = new PartyToVotes(partyToVotes);
+      return result;
+    });
+
+    election.resultsList = [
+      ...releasedResultsList,
+      ...notReleasedResultsList,
+    ].filter((result) => result);
+    election.resultsList = Election.expand(election.resultsList);
+
+    election.resultsIdx = Election.buildResultsIdx(election.resultsList);
     election.isLoaded = true;
     return election;
   }

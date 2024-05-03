@@ -1,7 +1,7 @@
 import { Alert, Box } from "@mui/material";
 import { Random, URLContext } from "../../nonview/base";
 import { Election } from "../../nonview/core";
-import { ElectionLink, EntLink } from "../atoms";
+import { ElectionLink, EntLink, LinkContext } from "../atoms";
 import AbstractCustomPage from "./AbstractCustomPage";
 import ElectionModel from "../../nonview/core/ElectionModel";
 import { ElectionListView, ResultsTableView } from "../molecules";
@@ -65,11 +65,36 @@ export default class RealTimeResultsPage extends AbstractCustomPage {
     });
   }
   get breadcrumbs() {
-    const { countryEnt } = this.state;
+    const { countryEnt, election, nResultsReleased } = this.state;
     if (!countryEnt) {
       return null;
     }
-    return [<EntLink ent={countryEnt} />, "Real-Time Results"];
+
+    const nResultsReleasedInt = parseInt(nResultsReleased);
+
+    return [
+      <EntLink ent={countryEnt} />,
+      "Real-Time Results",
+      <ElectionLink election={election} />,
+      <LinkContext
+        context={{
+          pageID: RealTimeResultsPage.getPageID(),
+          date: election.date,
+          nResultsReleased: nResultsReleasedInt - 1,
+        }}
+      >
+        Previous
+      </LinkContext>,
+      <LinkContext
+        context={{
+          pageID: RealTimeResultsPage.getPageID(),
+          date: election.date,
+          nResultsReleased: nResultsReleasedInt + 1,
+        }}
+      >
+        Next
+      </LinkContext>,
+    ];
   }
 
   get title() {

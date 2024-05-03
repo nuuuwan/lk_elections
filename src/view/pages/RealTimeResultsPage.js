@@ -1,10 +1,10 @@
-import { Box } from "@mui/material";
+import { Alert, Box } from "@mui/material";
 import { Random, URLContext } from "../../nonview/base";
 import { Election } from "../../nonview/core";
-import { EntLink } from "../atoms";
+import { ElectionLink, EntLink } from "../atoms";
 import AbstractCustomPage from "./AbstractCustomPage";
 import ElectionModel from "../../nonview/core/ElectionModel";
-import { ResultsTableView } from "../molecules";
+import { ElectionListView, ResultsTableView } from "../molecules";
 
 export default class RealTimeResultsPage extends AbstractCustomPage {
   static getPageID() {
@@ -80,10 +80,49 @@ export default class RealTimeResultsPage extends AbstractCustomPage {
     return null;
   }
 
-  renderReleaseInfo() {
+  renderReleased() {
     const {
       electionReleased,
       entsReleased,
+      releasedPDIDList,
+      notReleasePDIDList,
+    } = this.state;
+
+    if (!electionReleased) {
+      return null;
+    }
+
+    const title = (
+      <Box component="span">
+        <ElectionLink election={electionReleased} /> - Latest Results
+      </Box>
+    );
+
+    const nReleased = releasedPDIDList.length;
+    const nNotReleased = notReleasePDIDList.length;
+    const n = nReleased + nNotReleased;
+
+    const description = (
+      <Box>
+        {nReleased}/{n} Results Released.
+      </Box>
+    );
+
+    return (
+      <Box>
+        <ResultsTableView
+          election={electionReleased}
+          ents={entsReleased}
+          title={title}
+          description={description}
+        />
+      </Box>
+    );
+  }
+  renderNotReleased() {
+    const {
+      electionReleased,
+
       electionNotReleasedPrediction,
       entsNotReleased,
     } = this.state;
@@ -91,18 +130,31 @@ export default class RealTimeResultsPage extends AbstractCustomPage {
     if (!electionReleased) {
       return null;
     }
+
+    const n = electionReleased.pdResultsList.length;
+
+    if (n < ElectionModel.MIN_RESULTS_FOR_PREDICTION) {
+      return <Alert severity="error">Not enough results for prediction.</Alert>;
+    }
+
+    const title = (
+      <Box component="span">
+        <ElectionLink election={electionReleased} /> - Predicted Final Results
+      </Box>
+    );
+
     return (
       <Box>
-        <ResultsTableView election={electionReleased} ents={entsReleased} />
-        <ResultsTableView
-          election={electionNotReleasedPrediction}
-          ents={entsNotReleased}
-        />
+        {ElectionListView.get({
+          elections: [electionNotReleasedPrediction],
+          ents: entsNotReleased,
+          title: title,
+        })}
       </Box>
     );
   }
 
   get widgets() {
-    return [this.renderReleaseInfo()];
+    return [this.renderReleased(), this.renderNotReleased()];
   }
 }

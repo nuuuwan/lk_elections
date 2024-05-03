@@ -84,13 +84,16 @@ function getTitleAndDescription({ election, ents }) {
   return { title, description };
 }
 
-export default function ParliView({ election, ents }) {
+export default function ParliView({ election, ents, title }) {
   const seats = new Seats(election);
   const partyGroupToPartyToSeats =
     seats.getAggregatePartyGroupToPartyToSeats(ents);
 
-  const { title, description } = getTitleAndDescription({ election, ents });
-
+  const { title: titleInner, description } = getTitleAndDescription({
+    election,
+    ents,
+  });
+  title = title || titleInner;
   return (
     <SectionBox title={title} description={description}>
       <Box sx={{ width: 640 }}>

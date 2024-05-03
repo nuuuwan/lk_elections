@@ -137,7 +137,7 @@ function getTitleAndDescription(election, ents) {
   return { title, description };
 }
 
-export default function ResultsSeatsTableView({ election, ents }) {
+export default function ResultsSeatsTableView({ election, ents, title }) {
   const sortedValidEnts = election
     .sortEntsByValid(ents)
     .filter((ent) => ent.entType !== EntType.PD);
@@ -145,10 +145,11 @@ export default function ResultsSeatsTableView({ election, ents }) {
     return null;
   }
   const sparseMatrix = getSparseMatrix(election, sortedValidEnts);
-  const { title, description } = getTitleAndDescription(
+  const { title: titleInner, description } = getTitleAndDescription(
     election,
     sortedValidEnts
   );
+  title = title || titleInner;
 
   return (
     <SectionBox title={title} description={description}>

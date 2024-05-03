@@ -5,6 +5,7 @@ import ElectionBase from "./ElectionBase.js";
 
 import ElectionGetters from "./ElectionGetters.js";
 import ElectionGettersStatic from "./ElectionGettersStatic.js";
+import ElectionExpand from "./ElectionExpand.js";
 
 class Election extends ElectionBase {
   static MIN_RESULTS = 10;
@@ -39,14 +40,17 @@ class Election extends ElectionBase {
     const rawData = await this.getRawDataList();
 
     const filteredRawData = rawData.filter(function (d) {
-      return d.entity_id.startsWith("EC-") || d.entity_id === "LK";
+      return d.entity_id.startsWith("EC-") && d.entity_id.length >= 6;
     });
 
     const resultsList = filteredRawData.map(function (d) {
       return Result.fromDict(d);
     });
 
-    const sortedResultsList = resultsList.sort(function (a, b) {
+    console.debug(this.year);
+    const expandedResultsList = Election.expand(resultsList);
+
+    const sortedResultsList = expandedResultsList.sort(function (a, b) {
       return a.summary.valid - b.summary.valid;
     });
 
@@ -98,4 +102,5 @@ class Election extends ElectionBase {
 
 Object.assign(Election.prototype, ElectionGetters);
 Object.assign(Election, ElectionGettersStatic);
+Object.assign(Election, ElectionExpand);
 export default Election;

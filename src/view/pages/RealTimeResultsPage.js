@@ -19,7 +19,7 @@ export default class RealTimeResultsPage extends AbstractCustomPage {
 
     const pdResultsList = election.pdResultsList;
     const nResults = pdResultsList.length;
-    nResultsReleased = nResultsReleased || Random.randomInt(1, nResults);
+    nResultsReleased = nResultsReleased || Random.randomInt(30, nResults - 30);
     const releasedPDIDList = pdResultsList
       .slice(0, nResultsReleased)
       .map((pdResult) => pdResult.entityID);
@@ -80,19 +80,19 @@ export default class RealTimeResultsPage extends AbstractCustomPage {
         context={{
           pageID: RealTimeResultsPage.getPageID(),
           date: election.date,
-          nResultsReleased: nResultsReleasedInt - 1,
+          nResultsReleased: nResultsReleasedInt - 5,
         }}
       >
-        Previous
+        -5
       </LinkContext>,
       <LinkContext
         context={{
           pageID: RealTimeResultsPage.getPageID(),
           date: election.date,
-          nResultsReleased: nResultsReleasedInt + 1,
+          nResultsReleased: nResultsReleasedInt + 5,
         }}
       >
-        Next
+        +5
       </LinkContext>,
     ];
   }

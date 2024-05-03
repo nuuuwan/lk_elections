@@ -27,9 +27,6 @@ const ElectionExpand = {
     // LK
     const lkResults = Result.fromList("LK", edResultsList);
 
-    console.debug("pdResultsList", pdResultsList);
-    console.debug("edResultsList", edResultsList);
-    console.debug("lkResults", lkResults);
     return [...pdResultsList, ...edResultsList, lkResults];
   },
 };

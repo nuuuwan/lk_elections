@@ -47,7 +47,6 @@ class Election extends ElectionBase {
       return Result.fromDict(d);
     });
 
-    console.debug(this.year);
     const expandedResultsList = Election.expand(resultsList);
 
     const sortedResultsList = expandedResultsList.sort(function (a, b) {

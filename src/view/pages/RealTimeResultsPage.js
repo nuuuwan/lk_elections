@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { Random, URLContext } from "../../nonview/base";
 import { Election } from "../../nonview/core";
 import { EntLink } from "../atoms";

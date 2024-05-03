@@ -6,6 +6,7 @@ import DataTable from "./DataTable";
 import DemographicGroup from "./DemographicGroup";
 import Demographics from "./Demographics";
 import Election from "./Election";
+import ElectionModel from "./ElectionModel";
 import GenericStore from "./GenericStore";
 import LeanType from "./LeanType";
 import Note from "./Note";
@@ -26,6 +27,7 @@ export {
   DemographicGroup,
   Demographics,
   Election,
+  ElectionModel,
   GenericStore,
   LeanType,
   Note,

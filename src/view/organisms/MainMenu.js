@@ -27,6 +27,20 @@ export default class MainMenu extends Component {
     this.setState({ elections, edEnts, pdEnts });
   }
 
+  renderResultsMenu() {
+    const renderItem = function (item) {
+      const { pageID, title } = item;
+      return <LinkContext context={{ pageID }}>{title}</LinkContext>;
+    };
+    return (
+      <GenericListView
+        title="Election Results"
+        items={[{ pageID: "RealTimeResults", title: "Real-Time Results" }]}
+        renderItem={renderItem}
+      />
+    );
+  }
+
   renderAnalysisMenu() {
     const renderItem = function (item) {
       const { pageID, title } = item;
@@ -71,6 +85,8 @@ export default class MainMenu extends Component {
         <LinkContext context={{ pageID: "Country" }}>
           Elections in Sri Lanka
         </LinkContext>
+
+        {this.renderResultsMenu()}
 
         {this.renderAnalysisMenu()}
 

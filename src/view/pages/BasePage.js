@@ -13,6 +13,7 @@ import {
   PartyPage,
   PartyGroupPage,
   RandomPage,
+  RealTimeResultsPage,
 } from "../pages";
 
 export default class BasePage extends Component {
@@ -35,6 +36,7 @@ export default class BasePage extends Component {
       AnalysisRejectedPage,
       PartyPage,
       PartyGroupPage,
+      RealTimeResultsPage,
     ];
   }
   render() {

@@ -12,6 +12,7 @@ import PartyGroupPage from "./PartyGroupPage";
 import PartyPage from "./PartyPage";
 import PollingDivisionPage from "./PollingDivisionPage";
 import RandomPage from "./RandomPage";
+import RealTimeResultsPage from "./RealTimeResultsPage";
 
 export {
   AbstractCustomPage,
@@ -27,4 +28,5 @@ export {
   PartyPage,
   PollingDivisionPage,
   RandomPage,
+  RealTimeResultsPage,
 };

@@ -87,10 +87,11 @@ export default class RealTimeResultsPage extends AbstractCustomPage {
     const nResultsReleasedInt = parseInt(nResultsReleased);
 
     return [
-      <EntLink ent={countryEnt} />,
+      <EntLink key="0" ent={countryEnt} />,
       "Real-Time Results",
-      <ElectionLink election={election} />,
+      <ElectionLink key="1" election={election} />,
       <LinkContext
+        key="2"
         context={{
           pageID: RealTimeResultsPage.getPageID(),
           date: election.date,
@@ -100,6 +101,7 @@ export default class RealTimeResultsPage extends AbstractCustomPage {
         -5
       </LinkContext>,
       <LinkContext
+        key="3"
         context={{
           pageID: RealTimeResultsPage.getPageID(),
           date: election.date,

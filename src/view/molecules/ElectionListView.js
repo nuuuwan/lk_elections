@@ -14,6 +14,7 @@ export default class ElectionListView {
 
         widgets.push(
           <ResultsTableView
+            key={"election-" + iElection + "-results"}
             election={election}
             ents={ents}
             title={title}
@@ -23,13 +24,19 @@ export default class ElectionListView {
         if (election.electionType === "Parliamentary" && !noSeats) {
           widgets.push(
             <ResultsSeatsTableView
+              key={"election-" + iElection + "-seats"}
               election={election}
               ents={ents}
               title={title}
             />
           );
           widgets.push(
-            <ParliView election={election} ents={ents} title={title} />
+            <ParliView
+              key={"election-" + iElection + "-parli"}
+              election={election}
+              ents={ents}
+              title={title}
+            />
           );
         }
         return widgets;

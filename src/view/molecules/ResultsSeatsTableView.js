@@ -101,13 +101,14 @@ function getTitleAndDescription(election, ents) {
           .sort(function (a, b) {
             return parseInt(b) - parseInt(a);
           })
-          .map(function (seats) {
+          .map(function (seats, iSeats) {
             const partyIDList = seatsToPartyIDList[seats];
+
             return (
-              <Box key={"party-list-with-" + seats}>
+              <Box key={"party-list-with-" + iSeats}>
                 {seats}{" "}
                 <CommaListView>
-                  {partyIDList.map(function (partyID) {
+                  {partyIDList.map(function (partyID, iParty) {
                     const party = Party.fromID(partyID);
                     const majority = seats - 112;
                     let majoritStr = "";
@@ -117,12 +118,8 @@ function getTitleAndDescription(election, ents) {
                       majoritStr = ` (${majority - 1} #Majority)`;
                     }
                     return (
-                      <Box component={"span"}>
-                        <PartyLink
-                          party={party}
-                          labelType="handle"
-                          key={"party-" + partyID}
-                        />
+                      <Box component={"span"} key={"party-" + partyID}>
+                        <PartyLink party={party} labelType="handle" />
                         {majoritStr}
                       </Box>
                     );

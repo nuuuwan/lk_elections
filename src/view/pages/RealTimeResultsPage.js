@@ -1,7 +1,12 @@
 import { Alert, Box } from "@mui/material";
 import { Random, URLContext } from "../../nonview/base";
 import { Election } from "../../nonview/core";
-import { ElectionLink, EntLink, LinkContext } from "../atoms";
+import {
+  ElectionLink,
+  EntLink,
+  LinkContext,
+  ResultsCountSlider,
+} from "../atoms";
 import AbstractCustomPage from "./AbstractCustomPage";
 import ElectionModel from "../../nonview/core/ElectionModel";
 import { ElectionListView, ResultsTableView } from "../molecules";
@@ -9,6 +14,15 @@ import { ElectionListView, ResultsTableView } from "../molecules";
 export default class RealTimeResultsPage extends AbstractCustomPage {
   static getPageID() {
     return "RealTimeResults";
+  }
+
+  onChangeNResultsReleased(nResultsReleased) {
+    URLContext.set({
+      pageID: RealTimeResultsPage.getPageID(),
+      date: this.state.election.date,
+      nResultsReleased,
+    });
+    URLContext.refresh();
   }
   async componentDidMount() {
     let { elections, pdEnts, edEnts, countryEnt } =
@@ -109,6 +123,7 @@ export default class RealTimeResultsPage extends AbstractCustomPage {
     const {
       electionReleased,
       entsReleased,
+      nResultsReleased,
       releasedPDIDList,
       notReleasePDIDList,
     } = this.state;
@@ -135,6 +150,10 @@ export default class RealTimeResultsPage extends AbstractCustomPage {
 
     return (
       <Box>
+        <ResultsCountSlider
+          nResultsReleased={nResultsReleased}
+          onChangeNResultsReleased={this.onChangeNResultsReleased.bind(this)}
+        />
         <ResultsTableView
           election={electionReleased}
           ents={entsReleased}

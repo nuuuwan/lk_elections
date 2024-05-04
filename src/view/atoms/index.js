@@ -10,6 +10,7 @@ import Link from "./Link";
 import LinkContext from "./LinkContext";
 import PartyGroupLink from "./PartyGroupLink";
 import PartyLink from "./PartyLink";
+import ResultsCountSlider from "./ResultsCountSlider";
 import SectionBox from "./SectionBox";
 import VersionView from "./VersionView";
 import WikiSummaryView from "./WikiSummaryView";
@@ -26,6 +27,7 @@ export {
   LinkContext,
   PartyGroupLink,
   PartyLink,
+  ResultsCountSlider,
   SectionBox,
   VersionView,
   WikiSummaryView,

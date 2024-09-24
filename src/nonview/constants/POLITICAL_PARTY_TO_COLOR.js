@@ -5,7 +5,7 @@ const COLOR_TO_POLITICAL_PARTIES = {
   "#800": ["SLPP"],
   "#f80": ["ACTC"],
   "#f90": ["JHU", "SU", "OPPP"],
-  "#f0f": ["NPP"],
+  "#f22": ["NPP"],
   "#f00": [
     "JVP",
     "LSSP",

@@ -1,14 +1,21 @@
-import { Component } from "react";
-import { Box, Breadcrumbs, IconButton } from "@mui/material";
+import { Component } from 'react';
+import {
+  Alert,
+  Box,
+  Breadcrumbs,
+  IconButton,
+  Stack,
+  Typography,
+} from '@mui/material';
 
-import { Header } from "../../atoms";
+import { Header, Link } from '../../atoms';
 
-import { URLContext } from "../../../nonview/base";
-import GenericStore from "../../../nonview/core/GenericStore";
+import { URLContext } from '../../../nonview/base';
+import GenericStore from '../../../nonview/core/GenericStore';
 
-import CustomDrawer from "./CustomDrawer";
-import CasinoIcon from "@mui/icons-material/Casino";
-import AbstractCustomPageStyle from "./AbstractCustomPageStyle";
+import CustomDrawer from './CustomDrawer';
+import CasinoIcon from '@mui/icons-material/Casino';
+import AbstractCustomPageStyle from './AbstractCustomPageStyle';
 export default class AbstractCustomPage extends Component {
   constructor(props) {
     super(props);
@@ -42,7 +49,7 @@ export default class AbstractCustomPage extends Component {
       <Breadcrumbs>
         {this.breadcrumbs.map(function (breadcrumb, index) {
           return (
-            <Header level={3} key={"breadcrumb-" + index}>
+            <Header level={3} key={'breadcrumb-' + index}>
               {breadcrumb}
             </Header>
           );
@@ -53,11 +60,11 @@ export default class AbstractCustomPage extends Component {
 
   renderRandomButton() {
     const onClick = function () {
-      URLContext.set({ pageID: "random" });
+      URLContext.set({ pageID: 'random' });
       URLContext.refresh();
     };
     return (
-      <Box sx={{ position: "fixed", top: 8, right: 60, zIndex: 4000 }}>
+      <Box sx={{ position: 'fixed', top: 8, right: 60, zIndex: 4000 }}>
         <IconButton onClick={onClick}>
           <CasinoIcon />
         </IconButton>
@@ -69,11 +76,13 @@ export default class AbstractCustomPage extends Component {
     const sx = Object.assign(
       {},
       AbstractCustomPageStyle.HEAD,
-      this.customStyle
+      this.customStyle,
     );
     return (
       <Box sx={sx}>
-        <Header level={1}>{this.renderBreadcrumbs()}</Header>
+        <Header level={1}>
+          <Box>{this.renderBreadcrumbs()}</Box>
+        </Header>
         {this.renderRandomButton()}
       </Box>
     );
@@ -98,6 +107,7 @@ export default class AbstractCustomPage extends Component {
 
   render() {
     window.document.title = this.title;
+    const APP_URL = 'https://nuuuwan.github.io/election';
     return (
       <Box sx={AbstractCustomPageStyle.HOME}>
         <CustomDrawer
@@ -106,6 +116,17 @@ export default class AbstractCustomPage extends Component {
         />
         <Box>
           {this.renderHead()}
+          <Box>
+            <Alert severity="info">
+              <Typography variant="h5">
+                2024 Sri Lankan Parliamentary Elections
+              </Typography>
+              <Typography variant="h4">Live Results</Typography>
+              <Link href={APP_URL}>
+                <Typography variant="h5">{APP_URL}</Typography>
+              </Link>
+            </Alert>
+          </Box>
           {this.renderBody()}
         </Box>
       </Box>

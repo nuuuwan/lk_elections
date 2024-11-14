@@ -1,12 +1,5 @@
 import { Component } from 'react';
-import {
-  Alert,
-  Box,
-  Breadcrumbs,
-  IconButton,
-  Stack,
-  Typography,
-} from '@mui/material';
+import { Alert, Box, Breadcrumbs, IconButton, Typography } from '@mui/material';
 
 import { Header, Link } from '../../atoms';
 

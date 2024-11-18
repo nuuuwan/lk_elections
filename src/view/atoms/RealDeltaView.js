@@ -5,7 +5,7 @@ export default function RealDeltaView({ real }) {
   let color = real.context?.color || 'inherit';
 
   let background = 'inherit';
-  const EPSILON = 0.5;
+  const EPSILON = 0.05;
   if (real.context?.application === 'seats') {
     if (real.x > EPSILON) {
       background = '#f002';

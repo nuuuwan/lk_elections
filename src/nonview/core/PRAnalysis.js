@@ -169,12 +169,14 @@ export default class PRAnalysis {
       }
 
       const edFactor = (seatsForEd - 1) / electors / (174 / lkElectors);
-      return weightedPartyVotesAlloc + partyVotes * edFactor;
+      const validFactor = electors / valid / (lkElectors / lkValid);
+      return weightedPartyVotesAlloc + partyVotes * edFactor * validFactor;
     },
     0);
     const dSeatsAllocation =
       174 * (weightedPartyVotesAlloc / lkRelevantVotes) - eSeats5pct;
 
+    // Rounding
     const dSeatsRounding = dSeatsED - dSeats5pct - dSeatsAllocation;
 
     return {

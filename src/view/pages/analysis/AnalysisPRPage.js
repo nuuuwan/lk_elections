@@ -51,6 +51,9 @@ export default class AnalysisPRPage extends AbstractCustomPage {
     return (
       <Box>
         {parliamentaryElections.reverse().map(function (election) {
+          if (election.year === '2000') {
+            return null;
+          }
           const prAnalysis = new PRAnalysis(election, countryEnt, edEnts);
           return (
             <SectionBox

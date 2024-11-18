@@ -126,7 +126,23 @@ function getSparseMatrix(election, countryEnt, edEnts) {
     dataListSum.push({
       Party: party,
       Key: 'Bonus(22)',
-      Value: new RealDelta(wins, { application: 'seats' }),
+      Value: new Real(wins, { application: 'seats' }),
+    });
+
+    const eSeatsBonus = 22 * (partyLKVotes / lkValid);
+
+    dataListSum.push({
+      Party: party,
+      Key: 'E(Bonus)',
+      Value: new Real(eSeatsBonus, {}),
+    });
+
+    dataListSum.push({
+      Party: party,
+      Key: 'δ(Bonus)',
+      Value: new RealDelta(wins - eSeatsBonus, {
+        application: 'seats',
+      }),
     });
 
     // ----|----|----|----|----|----|----|----|
@@ -141,7 +157,6 @@ function getSparseMatrix(election, countryEnt, edEnts) {
       Value: new Integer(seatsForPartyNonBonus, { application: 'seats' }),
     });
 
-    // Seats-Deserved
     const eSeatsForPartyNonBonus = (203 * lkPartyToVotes[partyID]) / lkValid;
     dataListSum.push({
       Party: party,
@@ -364,7 +379,7 @@ export default class AnalysisPRPage extends AbstractCustomPage {
 
     return (
       <Box>
-        {parliamentaryElections.map(function (election) {
+        {parliamentaryElections.reverse().map(function (election) {
           return (
             <SectionBox
               key={election.year}

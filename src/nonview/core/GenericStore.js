@@ -1,19 +1,19 @@
-import { Ent, EntType } from "../base";
-import { Election, Party, PartyGroup } from "../core";
-import Demographics from "./Demographics/Demographics";
+import { Ent, EntType } from '../base';
+import { Election, Party, PartyGroup } from '../core';
+import Demographics from './Demographics/Demographics';
 
 export default class GenericStore {
   static async getElections() {
     const elections = await Election.listAll();
     const completedElections = Election.filterCompleted(elections);
-    const parliamentaryELections = elections.filter(
-      (election) => election.electionType === "parliamentary"
+    const parliamentaryElections = elections.filter(
+      (election) => election.electionType === 'parliamentary',
     );
-    return { elections, completedElections, parliamentaryELections };
+    return { elections, completedElections, parliamentaryElections };
   }
 
   static async getEnts() {
-    const countryEnt = await Ent.fromID("LK");
+    const countryEnt = await Ent.fromID('LK');
     const edEnts = await Ent.listFromType(EntType.ED);
     const pdEnts = await Ent.listFromType(EntType.PD);
 
@@ -41,7 +41,7 @@ export default class GenericStore {
       {
         partyList,
         partyGroupList,
-      }
+      },
     );
     return newState;
   }

@@ -35,12 +35,12 @@ export default class AnalysisPRPage extends AbstractCustomPage {
   }
 
   renderAnalysis() {
-    const { completedElections } = this.state;
-    if (!completedElections) {
+    const { parliamentaryElections } = this.state;
+    if (!parliamentaryElections) {
       return null;
     }
     return JSON.stringify({
-      n: completedElections.length,
+      n: parliamentaryElections.length,
     });
   }
 }

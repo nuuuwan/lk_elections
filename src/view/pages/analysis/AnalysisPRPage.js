@@ -364,7 +364,7 @@ export default class AnalysisPRPage extends AbstractCustomPage {
 
     return (
       <Box>
-        {parliamentaryElections.slice(-1).map(function (election) {
+        {parliamentaryElections.map(function (election) {
           return (
             <SectionBox
               key={election.year}
@@ -376,7 +376,7 @@ export default class AnalysisPRPage extends AbstractCustomPage {
                 xKey="Key"
                 yKey="Party"
                 zKey="Value"
-                showExpanded={true}
+                showExpanded={false}
               />
             </SectionBox>
           );

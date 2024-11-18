@@ -1,8 +1,8 @@
-import { Time } from "../../base/index.js";
+import { Time } from '../../base/index.js';
 
 export default class ElectionBase {
-  static URL_BASE =
-    "https://raw.githubusercontent.com/nuuuwan/gig-data/master/gig2_custom_ec_only";
+  static URL_BASE = // eslint-disable-next-line no-undef
+    window.location.origin + process.env.PUBLIC_URL + '/data/elections';
   constructor(electionType, date) {
     this.electionType = electionType;
     this.date = date;
@@ -13,17 +13,17 @@ export default class ElectionBase {
   }
 
   get electionTypeTitle() {
-    if (this.electionType === "Presidential") {
-      return "Presidential";
+    if (this.electionType === 'Presidential') {
+      return 'Presidential';
     }
-    return "General";
+    return 'General';
   }
 
   get electionTypeHashtag() {
-    if (this.electionType === "Presidential") {
-      return "#PresPollSL";
+    if (this.electionType === 'Presidential') {
+      return '#PresPollSL';
     }
-    return "#GenElecSL";
+    return '#GenElecSL';
   }
 
   get titleShort() {
@@ -35,21 +35,21 @@ export default class ElectionBase {
   }
 
   get dateFormatted() {
-    return Time.fromString(this.date).getDate().toLocaleDateString("en-LK", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
+    return Time.fromString(this.date).getDate().toLocaleDateString('en-LK', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
     });
   }
 
   get urlData() {
     return (
       ElectionBase.URL_BASE +
-      "/government-elections-" +
+      '/government-elections-' +
       this.electionType.toLowerCase() +
-      ".regions-ec." +
+      '.regions-ec.' +
       this.year +
-      ".tsv"
+      '.tsv'
     );
   }
 
@@ -71,7 +71,7 @@ export default class ElectionBase {
 
   get wikiPageName() {
     return (
-      this.year + "_Sri_Lankan_" + this.electionType.toLowerCase() + "_election"
+      this.year + '_Sri_Lankan_' + this.electionType.toLowerCase() + '_election'
     );
   }
 

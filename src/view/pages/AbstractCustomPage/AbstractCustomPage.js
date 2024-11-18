@@ -1,7 +1,7 @@
 import { Component } from 'react';
-import { Alert, Box, Breadcrumbs, IconButton, Typography } from '@mui/material';
+import { Box, Breadcrumbs, IconButton } from '@mui/material';
 
-import { Header, Link } from '../../atoms';
+import { Header } from '../../atoms';
 
 import { URLContext } from '../../../nonview/base';
 import GenericStore from '../../../nonview/core/GenericStore';
@@ -100,7 +100,7 @@ export default class AbstractCustomPage extends Component {
 
   render() {
     window.document.title = this.title;
-    const APP_URL = 'https://nuuuwan.github.io/election';
+
     return (
       <Box sx={AbstractCustomPageStyle.HOME}>
         <CustomDrawer
@@ -109,17 +109,7 @@ export default class AbstractCustomPage extends Component {
         />
         <Box>
           {this.renderHead()}
-          <Box>
-            <Alert severity="info">
-              <Typography variant="h5">
-                2024 Sri Lankan Parliamentary Elections
-              </Typography>
-              <Typography variant="h4">Live Results</Typography>
-              <Link href={APP_URL}>
-                <Typography variant="h5">{APP_URL}</Typography>
-              </Link>
-            </Alert>
-          </Box>
+
           {this.renderBody()}
         </Box>
       </Box>

@@ -202,7 +202,7 @@ export default class PRAnalysis {
   }
 
   getItemsForParty(partyID) {
-    const { lkValid, lkRelevantVotes } = this;
+    const { lkValid } = this;
 
     const party = Party.fromID(partyID);
     let dataListSum = [];
@@ -222,7 +222,7 @@ export default class PRAnalysis {
       eSeatsED,
       dSeatsED,
       relevantVotes,
-      eSeats5pct,
+
       dSeats5pct,
       dSeatsAllocation,
       dSeatsRounding,

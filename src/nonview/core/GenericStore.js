@@ -6,8 +6,9 @@ export default class GenericStore {
   static async getElections() {
     const elections = await Election.listAll();
     const completedElections = Election.filterCompleted(elections);
+
     const parliamentaryElections = elections.filter(
-      (election) => election.electionType === 'parliamentary',
+      (election) => election.electionType === 'Parliamentary',
     );
     return { elections, completedElections, parliamentaryElections };
   }

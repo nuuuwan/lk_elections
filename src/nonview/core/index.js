@@ -11,6 +11,7 @@ import GenericStore from "./GenericStore";
 import LeanType from "./LeanType";
 import Note from "./Note";
 import PARTY_LIST_TUPLES from "./PARTY_LIST_TUPLES";
+import PRAnalysis from "./PRAnalysis";
 import Party from "./Party";
 import PartyGroup from "./PartyGroup";
 import PartyToVotes from "./PartyToVotes";
@@ -32,6 +33,7 @@ export {
   LeanType,
   Note,
   PARTY_LIST_TUPLES,
+  PRAnalysis,
   Party,
   PartyGroup,
   PartyToVotes,

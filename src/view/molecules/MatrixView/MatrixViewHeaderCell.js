@@ -1,7 +1,7 @@
-import { Box, IconButton } from "@mui/material";
+import { Box, IconButton } from '@mui/material';
 
-import { Renderer } from "..";
-import CommonIcons from "../CommonIcons";
+import { Renderer } from '..';
+import CommonIcons from '../CommonIcons';
 
 export default function MatrixViewHeaderCell({
   xScalar,
@@ -15,11 +15,11 @@ export default function MatrixViewHeaderCell({
   const x = scalarToOriginal[xScalar];
   return (
     <th>
-      <Box alignItems="center">
+      <Box>
+        {Renderer.formatCellValue(x, false)}
         <IconButton onClick={setSortXScalarInner}>
           <CommonIcons.SortVertical sx={CommonIcons.Style.Sort} />
         </IconButton>
-        {Renderer.formatCellValue(x, false)}
       </Box>
     </th>
   );

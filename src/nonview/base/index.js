@@ -6,13 +6,13 @@ import Format from './Format';
 import Fraction from './Fraction';
 import Geo from './Geo';
 import Integer from './Integer';
-import Real from './Real';
-import RealDelta from './RealDelta';
 import LatLng from './LatLng';
 import MLModel from './MLModel';
 import MathX from './MathX';
 import PercentagePoint from './PercentagePoint';
 import Random from './Random';
+import Real from './Real';
+import RealDelta from './RealDelta';
 import Reduce from './Reduce';
 import Scalar from './Scalar';
 import SmallWindow from './SmallWindow';
@@ -31,13 +31,13 @@ export {
   Fraction,
   Geo,
   Integer,
-  Real,
-  RealDelta,
   LatLng,
   MLModel,
   MathX,
   PercentagePoint,
   Random,
+  Real,
+  RealDelta,
   Reduce,
   Scalar,
   SmallWindow,

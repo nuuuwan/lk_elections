@@ -1,6 +1,6 @@
-import { Component } from "react";
+import { Component } from 'react';
 
-import { URLContext } from "../../nonview/base";
+import { URLContext } from '../../nonview/base';
 import {
   ElectionPage,
   ElectoralDistrictPage,
@@ -9,12 +9,13 @@ import {
   AnalysisBellwetherPage,
   AnalysisFloatingVotePage,
   AnalysisTurnoutPage,
+  AnalysisPRPage,
   AnalysisRejectedPage,
   PartyPage,
   PartyGroupPage,
   RandomPage,
   RealTimeResultsPage,
-} from "../pages";
+} from '../pages';
 
 export default class BasePage extends Component {
   constructor(props) {
@@ -34,6 +35,7 @@ export default class BasePage extends Component {
       AnalysisFloatingVotePage,
       AnalysisTurnoutPage,
       AnalysisRejectedPage,
+      AnalysisPRPage,
       PartyPage,
       PartyGroupPage,
       RealTimeResultsPage,
@@ -42,7 +44,7 @@ export default class BasePage extends Component {
   render() {
     let { pageID } = this.state;
 
-    if (pageID === "random") {
+    if (pageID === 'random') {
       pageID = RandomPage.open();
     }
     if (!pageID) {

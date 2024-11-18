@@ -4,6 +4,7 @@ import AnalysisBellwetherPage from './analysis/AnalysisBellwetherPage';
 import AnalysisFloatingVotePage from './analysis/AnalysisFloatingVotePage';
 import AnalysisRejectedPage from './analysis/AnalysisRejectedPage';
 import AnalysisTurnoutPage from './analysis/AnalysisTurnoutPage';
+import AnalysisPRPage from './analysis/AnalysisPRPage';
 import BasePage from './BasePage';
 import CountryPage from './CountryPage';
 import ElectionPage from './ElectionPage';
@@ -18,6 +19,7 @@ export {
   AbstractCustomPage,
   AnalysisBellwetherPage,
   AnalysisFloatingVotePage,
+  AnalysisPRPage,
   AnalysisRejectedPage,
   AnalysisTurnoutPage,
   BasePage,

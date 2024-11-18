@@ -36,6 +36,7 @@ export default class MainMenu extends Component {
       <GenericListView
         title="Analysis"
         items={[
+          { pageID: 'AnalysisPR', title: 'Proportional Representation' },
           { pageID: 'AnalysisBellwether', title: 'Bellwethers' },
           { pageID: 'AnalysisFloatingVote', title: 'Floating Votes' },
           { pageID: 'AnalysisTurnout', title: 'Turnout' },

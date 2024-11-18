@@ -259,28 +259,6 @@ export default class PRAnalysis {
       }),
     });
 
-    // Bonus
-
-    dataListSum.push({
-      Party: party,
-      Key: 'Bonus(22)',
-      Value: new Real(aSeatsBonus, { application: 'seats' }),
-    });
-
-    dataListSum.push({
-      Party: party,
-      Key: 'E(Bonus)',
-      Value: new Real(eSeatsBonus, {}),
-    });
-
-    dataListSum.push({
-      Party: party,
-      Key: 'δ(Bonus)',
-      Value: new RealDelta(dSeatsBonus, {
-        application: 'seats',
-      }),
-    });
-
     // National List
 
     // Seats
@@ -304,6 +282,28 @@ export default class PRAnalysis {
       Party: party,
       Key: 'δ(NL)',
       Value: new RealDelta(dSeatsNL, {
+        application: 'seats',
+      }),
+    });
+
+    // Bonus
+
+    dataListSum.push({
+      Party: party,
+      Key: 'Bonus(22)',
+      Value: new Real(aSeatsBonus, { application: 'seats' }),
+    });
+
+    dataListSum.push({
+      Party: party,
+      Key: 'E(Bonus)',
+      Value: new Real(eSeatsBonus, {}),
+    });
+
+    dataListSum.push({
+      Party: party,
+      Key: 'δ(Bonus)',
+      Value: new RealDelta(dSeatsBonus, {
         application: 'seats',
       }),
     });

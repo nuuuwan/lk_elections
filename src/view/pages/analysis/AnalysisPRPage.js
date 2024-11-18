@@ -31,6 +31,16 @@ export default class AnalysisPRPage extends AbstractCustomPage {
   }
 
   get widgets() {
-    return [];
+    return [this.renderAnalysis()];
+  }
+
+  renderAnalysis() {
+    const { completedElections } = this.state;
+    if (!completedElections) {
+      return null;
+    }
+    return JSON.stringify({
+      n: completedElections.length,
+    });
   }
 }

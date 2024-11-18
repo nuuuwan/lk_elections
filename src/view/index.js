@@ -76,6 +76,7 @@ import AnalysisFloatingVotePage from './pages/analysis/AnalysisFloatingVotePage.
 import AnalysisPRPage from './pages/analysis/AnalysisPRPage.js';
 import AnalysisRejectedPage from './pages/analysis/AnalysisRejectedPage.js';
 import AnalysisTurnoutPage from './pages/analysis/AnalysisTurnoutPage.js';
+import RealView from './atoms/RealView.js';
 
 export {
   CommaListView,
@@ -85,6 +86,7 @@ export {
   FractionView,
   Header,
   IntegerView,
+  RealView,
   Link,
   LinkContext,
   PartyGroupLink,

@@ -1,7 +1,7 @@
-import { YEAR_TO_REGION_TO_SEATS } from "../../constants";
+import { YEAR_TO_REGION_TO_SEATS } from '../../constants';
 
-import SeatsAggregate from "./SeatsAggregate";
-import SeatsBase from "./SeatsBase";
+import SeatsAggregate from './SeatsAggregate';
+import SeatsBase from './SeatsBase';
 
 class Seats {
   constructor(election) {
@@ -9,11 +9,11 @@ class Seats {
   }
 
   static getBonusSeats(entID) {
-    return entID === "LK" ? 0 : 1;
+    return entID === 'LK' ? 0 : 1;
   }
 
   static getPVotesLimit(entID) {
-    return entID === "LK" ? 0 : 0.05;
+    return entID === 'LK' ? 0 : 0.05;
   }
 
   getEligiblePartyToVotes(results, entID) {
@@ -22,18 +22,14 @@ class Seats {
     const pVotesLimit = Seats.getPVotesLimit(entID);
     const eligPartyToVotes = Object.fromEntries(
       Object.entries(partyToPVotes).filter(
-        ([party, pVotes]) => pVotes >= pVotesLimit
-      )
+        ([party, pVotes]) => pVotes >= pVotesLimit,
+      ),
     );
 
     return eligPartyToVotes;
   }
   isEntValid(entID) {
-    const forYear = YEAR_TO_REGION_TO_SEATS[this.election.year];
-    if (!forYear) {
-      return null;
-    }
-    const totalSeats = forYear[entID];
+    const totalSeats = this.getSeats(entID);
     if (!totalSeats) {
       return null;
     }
@@ -43,6 +39,18 @@ class Seats {
       return null;
     }
     return { results, totalSeats };
+  }
+
+  getSeats(entID) {
+    const forYear = YEAR_TO_REGION_TO_SEATS[this.election.year];
+    if (!forYear) {
+      return null;
+    }
+    const totalSeats = forYear[entID];
+    if (!totalSeats) {
+      return null;
+    }
+    return totalSeats;
   }
 
   getPartyToSeats(entID) {
@@ -57,13 +65,13 @@ class Seats {
     return SeatsBase.__getPartyToSeats(
       totalSeats,
       bonusSeats,
-      eligPartyToVotes
+      eligPartyToVotes,
     );
   }
 
   getEntToPartyToSeats(ents) {
     return Object.fromEntries(
-      ents.map((ent) => [ent.id, this.getPartyToSeats(ent.id)])
+      ents.map((ent) => [ent.id, this.getPartyToSeats(ent.id)]),
     );
   }
 }

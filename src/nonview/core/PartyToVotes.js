@@ -1,8 +1,8 @@
-import Summary from "./Summary.js";
-import { MathX } from "../base";
+import Summary from './Summary.js';
+import { MathX } from '../base';
 
 export default class PartyToVotes {
-  static NON_PARTY_KEYS = [...Summary.KEYS, "entity_id"];
+  static NON_PARTY_KEYS = [...Summary.KEYS, 'entity_id', 'timestamp'];
   constructor(partyToVotes) {
     this.partyToVotes = partyToVotes;
   }
@@ -37,20 +37,20 @@ export default class PartyToVotes {
 
   getSortedMajor(pPartyLimit) {
     const sortedEntries = Object.entries(this.partyToVotes).sort(
-      (a, b) => b[1] - a[1]
+      (a, b) => b[1] - a[1],
     );
     const totalVotes = this.totalVotes;
     let sortedMajorEntries = sortedEntries.filter(
-      (entry) => entry[1] > pPartyLimit * totalVotes
+      (entry) => entry[1] > pPartyLimit * totalVotes,
     );
 
     const totalMajorVotes = MathX.sum(
-      sortedMajorEntries.map((entry) => entry[1])
+      sortedMajorEntries.map((entry) => entry[1]),
     );
 
     const otherVotes = totalVotes - totalMajorVotes;
 
-    sortedMajorEntries.push(["Other", otherVotes]);
+    sortedMajorEntries.push(['Other', otherVotes]);
 
     return Object.fromEntries(sortedMajorEntries);
   }
@@ -63,7 +63,7 @@ export default class PartyToVotes {
     return Object.fromEntries(
       Object.entries(this.partyToVotes).sort(function (a, b) {
         return b[1] - a[1];
-      })
+      }),
     );
   }
 
@@ -74,7 +74,7 @@ export default class PartyToVotes {
         .map(([party, votes]) => [party, votes / totalVotes])
         .sort(function (a, b) {
           return b[1] - a[1];
-        })
+        }),
     );
   }
 
@@ -83,7 +83,7 @@ export default class PartyToVotes {
     const partyToPVotesOther = otherPartyToVotes.partyToPVotes;
     return Object.entries(partyToPVotesThis).reduce(function (
       error,
-      [party, pVote]
+      [party, pVote],
     ) {
       const pVoteOther = partyToPVotesOther[party] || 0;
       return error + Math.abs(pVote - pVoteOther) * pVote;

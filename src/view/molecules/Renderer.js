@@ -1,26 +1,30 @@
-import { Typography } from "@mui/material";
+import { Typography } from '@mui/material';
 import {
   Ent,
   Format,
   Fraction,
   Integer,
+  Real,
+  RealDelta,
   PercentagePoint,
-} from "../../nonview/base";
+} from '../../nonview/base';
 import {
   DemographicGroup,
   Election,
   Party,
   PartyGroup,
-} from "../../nonview/core";
+} from '../../nonview/core';
 
 import {
   ElectionLink,
   EntLink,
   FractionView,
   IntegerView,
+  RealView,
+  RealDeltaView,
   PartyGroupLink,
   PartyLink,
-} from "../atoms";
+} from '../atoms';
 
 export default class Renderer {
   static formatCellValueObject(value) {
@@ -58,6 +62,14 @@ export default class Renderer {
       return <IntegerView integer={value} />;
     }
 
+    if (value instanceof RealDelta) {
+      return <RealDeltaView real={value} />;
+    }
+
+    if (value instanceof Real) {
+      return <RealView real={value} />;
+    }
+
     if (value instanceof PercentagePoint) {
       return Format.percentagePointWithStyle(value.value, value.color);
     }
@@ -65,15 +77,15 @@ export default class Renderer {
   }
 
   static formatCellValueNumberInner(value) {
-    if (typeof value === "number") {
+    if (typeof value === 'number') {
       if (Number.isInteger(value)) {
         return Format.intHumanizeWithStyle(value);
       }
       return Format.percentWithStyle(value);
     }
 
-    if (typeof value === "boolean") {
-      return value ? "✔️" : "";
+    if (typeof value === 'boolean') {
+      return value ? '✔️' : '';
     }
 
     return value;
@@ -81,10 +93,10 @@ export default class Renderer {
 
   static formatCellValue(value) {
     if (!value) {
-      return "-";
+      return '-';
     }
-    if (value === "Other") {
-      return "Other";
+    if (value === 'Other') {
+      return 'Other';
     }
 
     return (

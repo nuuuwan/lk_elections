@@ -1,14 +1,14 @@
-import { Component } from "react";
-import { Box } from "@mui/material";
-import { Ent, EntType } from "../../nonview/base";
-import { Election, PartyGroup } from "../../nonview/core";
-import { LinkContext, PartyGroupLink } from "../atoms";
+import { Component } from 'react';
+import { Box } from '@mui/material';
+import { Ent, EntType } from '../../nonview/base';
+import { Election, PartyGroup } from '../../nonview/core';
+import { LinkContext, PartyGroupLink } from '../atoms';
 
 import {
   EntListView,
   ElectionListViewSmall,
   GenericListView,
-} from "../molecules";
+} from '../molecules';
 
 export default class MainMenu extends Component {
   constructor(props) {
@@ -27,20 +27,6 @@ export default class MainMenu extends Component {
     this.setState({ elections, edEnts, pdEnts });
   }
 
-  renderResultsMenu() {
-    const renderItem = function (item) {
-      const { pageID, title } = item;
-      return <LinkContext context={{ pageID }}>{title}</LinkContext>;
-    };
-    return (
-      <GenericListView
-        title="Election Results"
-        items={[{ pageID: "RealTimeResults", title: "Real-Time Results" }]}
-        renderItem={renderItem}
-      />
-    );
-  }
-
   renderAnalysisMenu() {
     const renderItem = function (item) {
       const { pageID, title } = item;
@@ -50,10 +36,10 @@ export default class MainMenu extends Component {
       <GenericListView
         title="Analysis"
         items={[
-          { pageID: "AnalysisBellwether", title: "Bellwethers" },
-          { pageID: "AnalysisFloatingVote", title: "Floating Votes" },
-          { pageID: "AnalysisTurnout", title: "Turnout" },
-          { pageID: "AnalysisRejected", title: "Rejected Votes" },
+          { pageID: 'AnalysisBellwether', title: 'Bellwethers' },
+          { pageID: 'AnalysisFloatingVote', title: 'Floating Votes' },
+          { pageID: 'AnalysisTurnout', title: 'Turnout' },
+          { pageID: 'AnalysisRejected', title: 'Rejected Votes' },
         ]}
         renderItem={renderItem}
       />
@@ -82,11 +68,9 @@ export default class MainMenu extends Component {
     }
     return (
       <Box>
-        <LinkContext context={{ pageID: "Country" }}>
+        <LinkContext context={{ pageID: 'Country' }}>
           Elections in Sri Lanka
         </LinkContext>
-
-        {this.renderResultsMenu()}
 
         {this.renderAnalysisMenu()}
 

@@ -99,191 +99,47 @@ export default class PRAnalysis {
       });
   }
 
-  getItemsForParty(partyID) {
+  getDataForParty(partyID) {
     const {
-      election,
-      edEnts,
-      seats,
-      aggregatePartyToSeats,
       lkPartyToVotes,
+      aggregatePartyToSeats,
       lkValid,
-      lkElectors,
       lkPartyToSeats,
+      edEnts,
+      election,
+      seats,
       lkRelevantVotes,
-      lkEffectiveVotes,
+      lkElectors,
     } = this;
-    const seatsForParty = aggregatePartyToSeats[partyID] | 0;
+
+    // Overall
     const partyLKVotes = lkPartyToVotes[partyID];
-    const party = Party.fromID(partyID);
-    let dataListSum = [];
-
-    // ----|----|----|----|----|----|----|----|
-    // ALL
-    // ----|----|----|----|----|----|----|----|
-
-    // Votes
-    dataListSum.push({
-      Party: party,
-
-      Key: 'Votes',
-      Value: new Fraction(partyLKVotes, lkValid, {
-        application: 'votes',
-      }),
-    });
-
-    dataListSum.push({
-      Party: party,
-      Key: 'Seats',
-      Value: new Integer(seatsForParty, {
-        application: 'seats',
-      }),
-    });
-
-    const seatsDeserved = (225 * lkPartyToVotes[partyID]) / lkValid;
-    dataListSum.push({
-      Party: party,
-      Key: 'E(Seats)',
-      Value: new Real(seatsDeserved, {}),
-    });
-
-    dataListSum.push({
-      Party: party,
-      Key: 'δ(Seats)',
-      Value: new RealDelta(seatsForParty - seatsDeserved, {
-        application: 'seats',
-      }),
-    });
-
-    // ----|----|----|----|----|----|----|----|
-    // ED SEATS - Bonus
-    // ----|----|----|----|----|----|----|----|
+    const aSeats = aggregatePartyToSeats[partyID] || 0;
+    const eSeats = (225 * lkPartyToVotes[partyID]) / lkValid;
+    const dSeats = aSeats - eSeats;
 
     // Bonus
-
-    const wins = edEnts.reduce(function (wins, edEnt) {
+    const aSeatsBonus = edEnts.reduce(function (wins, edEnt) {
       const result = election.getResults(edEnt.id);
       if (result.partyToVotes.winningParty === partyID) {
         return wins + 1;
       }
       return wins;
     }, 0);
-
-    dataListSum.push({
-      Party: party,
-      Key: 'Bonus(22)',
-      Value: new Real(wins, { application: 'seats' }),
-    });
-
     const eSeatsBonus = 22 * (partyLKVotes / lkValid);
+    const dSeatsBonus = aSeatsBonus - eSeatsBonus;
 
-    dataListSum.push({
-      Party: party,
-      Key: 'E(Bonus)',
-      Value: new Real(eSeatsBonus, {}),
-    });
+    // National List
+    const aSeatsNL = lkPartyToSeats[partyID] || 0;
+    const eSeatsNL = 29 * (partyLKVotes / lkValid);
+    const dSeatsNL = aSeatsNL - eSeatsNL;
 
-    dataListSum.push({
-      Party: party,
-      Key: 'δ(Bonus)',
-      Value: new RealDelta(wins - eSeatsBonus, {
-        application: 'seats',
-      }),
-    });
+    // ED
+    const aSeatsED = aSeats - aSeatsBonus - aSeatsNL;
+    const eSeatsED = 174 * (partyLKVotes / lkValid);
+    const dSeatsED = aSeatsED - eSeatsED;
 
-    // ----|----|----|----|----|----|----|----|
-    // ALL - NON BONUS
-    // ----|----|----|----|----|----|----|----|
-
-    const seatsForPartyNonBonus = seatsForParty - wins;
-
-    dataListSum.push({
-      Party: party,
-      Key: 'Non-Bonus(203)',
-      Value: new Integer(seatsForPartyNonBonus, { application: 'seats' }),
-    });
-
-    const eSeatsForPartyNonBonus = (203 * lkPartyToVotes[partyID]) / lkValid;
-    dataListSum.push({
-      Party: party,
-      Key: 'E(Non-Bonus)',
-      Value: new Real(eSeatsForPartyNonBonus, {}),
-    });
-
-    dataListSum.push({
-      Party: party,
-      Key: 'δ(Non-Bonus)',
-      Value: new RealDelta(seatsForPartyNonBonus - eSeatsForPartyNonBonus, {
-        application: 'seats',
-      }),
-    });
-
-    // ----|----|----|----|----|----|----|----|
-    // LK/NL SEATS
-    // ----|----|----|----|----|----|----|----|
-
-    const nlSeatsForParty = lkPartyToSeats[partyID] || 0;
-
-    // Seats
-    dataListSum.push({
-      Party: party,
-      Key: 'NL(29)',
-      Value: new Integer(nlSeatsForParty, {
-        application: 'seats',
-      }),
-    });
-
-    const eNLSeatsForParty = 29 * (partyLKVotes / lkValid);
-
-    dataListSum.push({
-      Party: party,
-      Key: 'E(NL)',
-      Value: new Real(eNLSeatsForParty, {
-        application: 'seats',
-      }),
-    });
-
-    dataListSum.push({
-      Party: party,
-      Key: 'δ(NL)',
-      Value: new RealDelta(nlSeatsForParty - eNLSeatsForParty, {
-        application: 'seats',
-      }),
-    });
-
-    // ----|----|----|----|----|----|----|----|
-    // ED SEATS - ED / Non Bonus
-    // ----|----|----|----|----|----|----|----|
-
-    // Seats
-    const nonBonusSeatsForParty = seatsForParty - nlSeatsForParty - wins;
-
-    dataListSum.push({
-      Party: party,
-      Key: 'ED(174)',
-      Value: new Integer(nonBonusSeatsForParty, {
-        application: 'seats',
-      }),
-    });
-
-    const eNonBonusSeatsForParty = 174 * (partyLKVotes / lkValid);
-
-    dataListSum.push({
-      Party: party,
-      Key: 'E(ED)',
-      Value: new Real(eNonBonusSeatsForParty, {
-        application: 'seats',
-      }),
-    });
-
-    dataListSum.push({
-      Party: party,
-      Key: 'δ(ED)',
-      Value: new RealDelta(nonBonusSeatsForParty - eNonBonusSeatsForParty, {
-        application: 'seats',
-      }),
-    });
-
-    // 5% Rule
+    // 5%
     const relevantVotes = edEnts.reduce(function (relevantVotes, edEnt) {
       const result = election.getResults(edEnt.id);
       const totalVotes = result.summary.valid;
@@ -294,44 +150,10 @@ export default class PRAnalysis {
       return relevantVotes;
     }, 0);
 
-    dataListSum.push({
-      Party: party,
+    const eSeats5pct = 174 * (relevantVotes / this.lkRelevantVotes);
+    const dSeats5pct = eSeats5pct - eSeatsED;
 
-      Key: '% Relevant',
-      Value: new Fraction(relevantVotes, partyLKVotes, {
-        application: 'votes',
-      }),
-    });
-
-    dataListSum.push({
-      Party: party,
-
-      Key: 'Relevant Votes',
-      Value: new Fraction(relevantVotes, lkRelevantVotes, {
-        application: 'votes',
-      }),
-    });
-
-    const eSeats5pct = (225 - 29 - 22) * (relevantVotes / lkRelevantVotes);
-
-    dataListSum.push({
-      Party: party,
-
-      Key: 'E(Seats+5%)',
-      Value: new Real(eSeats5pct, {
-        application: 'seats',
-      }),
-    });
-    dataListSum.push({
-      Party: party,
-      Key: 'δ(Seats+5%)',
-      Value: new RealDelta(eSeats5pct - eNonBonusSeatsForParty, {
-        application: 'seats',
-      }),
-    });
-
-    // Allocation (A)
-
+    // Allocation
     const weightedPartyVotesAlloc = edEnts.reduce(function (
       weightedPartyVotesAlloc,
       edEnt,
@@ -350,44 +172,203 @@ export default class PRAnalysis {
       return weightedPartyVotesAlloc + partyVotes * edFactor;
     },
     0);
+    const dSeatsAllocation =
+      174 * (weightedPartyVotesAlloc / lkRelevantVotes) - eSeats5pct;
 
+    const dSeatsRounding = dSeatsED - dSeats5pct - dSeatsAllocation;
+
+    return {
+      partyLKVotes,
+      aSeats,
+      eSeats,
+      dSeats,
+      aSeatsBonus,
+      eSeatsBonus,
+      dSeatsBonus,
+      aSeatsNL,
+      eSeatsNL,
+      dSeatsNL,
+      aSeatsED,
+      eSeatsED,
+      dSeatsED,
+      relevantVotes,
+      eSeats5pct,
+      dSeats5pct,
+      dSeatsAllocation,
+      dSeatsRounding,
+    };
+  }
+
+  getItemsForParty(partyID) {
+    const { lkValid, lkRelevantVotes } = this;
+
+    const party = Party.fromID(partyID);
+    let dataListSum = [];
+
+    const {
+      partyLKVotes,
+      aSeats,
+      eSeats,
+      dSeats,
+      aSeatsBonus,
+      eSeatsBonus,
+      dSeatsBonus,
+      aSeatsNL,
+      eSeatsNL,
+      dSeatsNL,
+      aSeatsED,
+      eSeatsED,
+      dSeatsED,
+      relevantVotes,
+      eSeats5pct,
+      dSeats5pct,
+      dSeatsAllocation,
+      dSeatsRounding,
+    } = this.getDataForParty(partyID);
+
+    // Overall
     dataListSum.push({
       Party: party,
-      Key: 'Effective Votes',
-      Value: new Fraction(weightedPartyVotesAlloc, lkEffectiveVotes, {
+      Key: 'Votes',
+      Value: new Fraction(partyLKVotes, lkValid, {
         application: 'votes',
       }),
     });
 
-    const eSeatsAllocEffect = 174 * (weightedPartyVotesAlloc / lkRelevantVotes);
     dataListSum.push({
       Party: party,
-
-      Key: 'E(Seats+5%+A)',
-      Value: new Real(eSeatsAllocEffect, {
-        application: 'seats',
-      }),
-    });
-    dataListSum.push({
-      Party: party,
-      Key: 'δ(+A)',
-      Value: new RealDelta(eSeatsAllocEffect - eSeats5pct, {
+      Key: 'Seats',
+      Value: new Integer(aSeats, {
         application: 'seats',
       }),
     });
 
     dataListSum.push({
       Party: party,
-      Key: 'δ(+Rounding)',
-      Value: new RealDelta(
-        nonBonusSeatsForParty -
-          eNonBonusSeatsForParty -
-          (eSeatsAllocEffect - eSeats5pct) -
-          (eSeats5pct - eNonBonusSeatsForParty),
-        {
-          application: 'seats',
-        },
-      ),
+      Key: 'E(Seats)',
+      Value: new Real(eSeats, {}),
+    });
+
+    dataListSum.push({
+      Party: party,
+      Key: 'δ(Seats)',
+      Value: new RealDelta(dSeats, {
+        application: 'seats',
+      }),
+    });
+
+    // Bonus
+
+    dataListSum.push({
+      Party: party,
+      Key: 'Bonus(22)',
+      Value: new Real(aSeatsBonus, { application: 'seats' }),
+    });
+
+    dataListSum.push({
+      Party: party,
+      Key: 'E(Bonus)',
+      Value: new Real(eSeatsBonus, {}),
+    });
+
+    dataListSum.push({
+      Party: party,
+      Key: 'δ(Bonus)',
+      Value: new RealDelta(dSeatsBonus, {
+        application: 'seats',
+      }),
+    });
+
+    // National List
+
+    // Seats
+    dataListSum.push({
+      Party: party,
+      Key: 'NL(29)',
+      Value: new Integer(aSeatsNL, {
+        application: 'seats',
+      }),
+    });
+
+    dataListSum.push({
+      Party: party,
+      Key: 'E(NL)',
+      Value: new Real(eSeatsNL, {
+        application: 'seats',
+      }),
+    });
+
+    dataListSum.push({
+      Party: party,
+      Key: 'δ(NL)',
+      Value: new RealDelta(dSeatsNL, {
+        application: 'seats',
+      }),
+    });
+
+    // ED
+
+    dataListSum.push({
+      Party: party,
+      Key: 'ED(174)',
+      Value: new Integer(aSeatsED, {
+        application: 'seats',
+      }),
+    });
+
+    dataListSum.push({
+      Party: party,
+      Key: 'E(ED)',
+      Value: new Real(eSeatsED, {
+        application: 'seats',
+      }),
+    });
+
+    dataListSum.push({
+      Party: party,
+      Key: 'δ(ED)',
+      Value: new RealDelta(dSeatsED, {
+        application: 'seats',
+      }),
+    });
+
+    // 5% Rule
+
+    dataListSum.push({
+      Party: party,
+
+      Key: '% Relevant',
+      Value: new Fraction(relevantVotes, partyLKVotes, {
+        application: 'votes',
+      }),
+    });
+
+    dataListSum.push({
+      Party: party,
+      Key: 'δ(5% Rule)',
+      Value: new RealDelta(dSeats5pct, {
+        application: 'seats',
+      }),
+    });
+
+    // Allocation
+
+    dataListSum.push({
+      Party: party,
+      Key: 'δ(Allocation)',
+      Value: new RealDelta(dSeatsAllocation, {
+        application: 'seats',
+      }),
+    });
+
+    // Rounding
+
+    dataListSum.push({
+      Party: party,
+      Key: 'δ(Rounding)',
+      Value: new RealDelta(dSeatsRounding, {
+        application: 'seats',
+      }),
     });
 
     return dataListSum;

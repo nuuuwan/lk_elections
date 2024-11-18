@@ -1,11 +1,11 @@
-import AbstractCustomPage from "./AbstractCustomPage";
-import { SectionBox, WikiSummaryView, EntLink } from "../atoms";
-import MatrixView from "../molecules/MatrixView/MatrixView";
-import { Ent, Fraction, SparseMatrix } from "../../nonview/base";
+import AbstractCustomPage from '../AbstractCustomPage';
+import { SectionBox, WikiSummaryView, EntLink } from '../../atoms';
+import MatrixView from '../../molecules/MatrixView/MatrixView';
+import { Ent, Fraction, SparseMatrix } from '../../../nonview/base';
 
 export default class AnalysisTurnoutPage extends AbstractCustomPage {
   static getPageID() {
-    return "AnalysisTurnout";
+    return 'AnalysisTurnout';
   }
 
   get breadcrumbs() {
@@ -13,11 +13,11 @@ export default class AnalysisTurnoutPage extends AbstractCustomPage {
     if (!countryEnt) {
       return null;
     }
-    return [<EntLink ent={countryEnt} />, "Analysis", "Turnout"];
+    return [<EntLink ent={countryEnt} />, 'Analysis', 'Turnout'];
   }
 
   get title() {
-    return "Turnout";
+    return 'Turnout';
   }
 
   get widgets() {
@@ -27,7 +27,7 @@ export default class AnalysisTurnoutPage extends AbstractCustomPage {
     }
 
     return [
-      <WikiSummaryView wikiPageName={"Voter_turnout"} />,
+      <WikiSummaryView wikiPageName={'Voter_turnout'} />,
       this.renderTurnoutTable(),
     ];
   }
@@ -54,7 +54,7 @@ export default class AnalysisTurnoutPage extends AbstractCustomPage {
           Election: election,
           Region: ent,
           Turnout: new Fraction(summary.polled, summary.electors, {
-            application: "turnout",
+            application: 'turnout',
           }),
         });
         return sparseMatrix;
@@ -63,8 +63,8 @@ export default class AnalysisTurnoutPage extends AbstractCustomPage {
   }
 
   renderTurnoutTable() {
-    const title = "Turnout by Election and Region";
-    const description = "";
+    const title = 'Turnout by Election and Region';
+    const description = '';
 
     return (
       <SectionBox title={title} description={description} noMaxWidth={true}>

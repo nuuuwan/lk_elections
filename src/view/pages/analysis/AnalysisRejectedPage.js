@@ -1,11 +1,17 @@
-import AbstractCustomPage from "./AbstractCustomPage";
-import { SectionBox, WikiSummaryView, EntLink } from "../atoms";
-import MatrixView from "../molecules/MatrixView/MatrixView";
-import { Ent, Fraction, SparseMatrix, Sort, Reduce } from "../../nonview/base";
+import AbstractCustomPage from '../AbstractCustomPage';
+import { SectionBox, WikiSummaryView, EntLink } from '../../atoms';
+import MatrixView from '../../molecules/MatrixView/MatrixView';
+import {
+  Ent,
+  Fraction,
+  SparseMatrix,
+  Sort,
+  Reduce,
+} from '../../../nonview/base';
 
 export default class AnalysisRejectedPage extends AbstractCustomPage {
   static getPageID() {
-    return "AnalysisRejected";
+    return 'AnalysisRejected';
   }
 
   get breadcrumbs() {
@@ -13,11 +19,11 @@ export default class AnalysisRejectedPage extends AbstractCustomPage {
     if (!countryEnt) {
       return null;
     }
-    return [<EntLink ent={countryEnt} />, "Analysis", "Rejected Votes"];
+    return [<EntLink ent={countryEnt} />, 'Analysis', 'Rejected Votes'];
   }
 
   get title() {
-    return "Rejected Votes";
+    return 'Rejected Votes';
   }
 
   get widgets() {
@@ -27,7 +33,7 @@ export default class AnalysisRejectedPage extends AbstractCustomPage {
     }
 
     return [
-      <WikiSummaryView wikiPageName={"Spoilt_vote"} />,
+      <WikiSummaryView wikiPageName={'Spoilt_vote'} />,
       this.renderRejectedTable(),
     ];
   }
@@ -37,7 +43,7 @@ export default class AnalysisRejectedPage extends AbstractCustomPage {
     const ents = [countryEnt, ...edEnts];
 
     const sortedValidElections = completedElections.sort(
-      Sort.cmpDim((a) => -a.getResults(Ent.LK.id).summary.pRejected)
+      Sort.cmpDim((a) => -a.getResults(Ent.LK.id).summary.pRejected),
     );
 
     return Reduce.double(
@@ -51,19 +57,19 @@ export default class AnalysisRejectedPage extends AbstractCustomPage {
           Election: election,
           Region: ent,
           Rejected: new Fraction(summary.rejected, summary.polled, {
-            application: "rejected",
+            application: 'rejected',
           }),
         });
         return sparseMatrix;
-      }
+      },
     );
   }
 
   renderRejectedTable() {
     return (
       <SectionBox
-        title={"Rejected Votes by Election and Region"}
-        description={""}
+        title={'Rejected Votes by Election and Region'}
+        description={''}
       >
         <MatrixView
           sparseMatrix={this.getRejectedTableSparseMatrix()}

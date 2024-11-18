@@ -1,11 +1,11 @@
-import AbstractCustomPage from "./AbstractCustomPage";
-import { EntLink, WikiSummaryView } from "../atoms";
+import AbstractCustomPage from '../AbstractCustomPage';
+import { EntLink, WikiSummaryView } from '../../atoms';
 
-import { FloatingVoteAnalysisView } from "../molecules";
+import { FloatingVoteAnalysisView } from '../../molecules';
 
 export default class AnalysisFloatingVotePage extends AbstractCustomPage {
   static getPageID() {
-    return "AnalysisFloatingVote";
+    return 'AnalysisFloatingVote';
   }
 
   get breadcrumbs() {
@@ -13,11 +13,11 @@ export default class AnalysisFloatingVotePage extends AbstractCustomPage {
     if (!countryEnt) {
       return null;
     }
-    return [<EntLink ent={countryEnt} />, "Analysis", "Floating Votes"];
+    return [<EntLink ent={countryEnt} />, 'Analysis', 'Floating Votes'];
   }
 
   get title() {
-    return "Floating Votes";
+    return 'Floating Votes';
   }
 
   get widgets() {
@@ -28,7 +28,7 @@ export default class AnalysisFloatingVotePage extends AbstractCustomPage {
     }
     const ents = [countryEnt, ...edEnts, ...pdEnts];
     return [
-      <WikiSummaryView wikiPageName={"Swing_vote"} />,
+      <WikiSummaryView wikiPageName={'Swing_vote'} />,
       <div style={{ columnCount: 2 }}>
         <FloatingVoteAnalysisView
           elections={elections}

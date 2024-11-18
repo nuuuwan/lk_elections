@@ -1,14 +1,14 @@
-import { AnalysisBellwether } from "../../nonview/core";
-import AbstractCustomPage from "./AbstractCustomPage";
-import { SectionBox, WikiSummaryView, EntLink, Essay } from "../atoms";
+import { AnalysisBellwether } from '../../../nonview/core';
+import AbstractCustomPage from '../AbstractCustomPage';
+import { SectionBox, WikiSummaryView, EntLink, Essay } from '../../atoms';
 
-import { MatrixView } from "../molecules";
+import { MatrixView } from '../../molecules';
 
-import { Fraction, SparseMatrix } from "../../nonview/base";
+import { Fraction, SparseMatrix } from '../../../nonview/base';
 
 export default class AnalysisBellwetherPage extends AbstractCustomPage {
   static getPageID() {
-    return "AnalysisBellwether";
+    return 'AnalysisBellwether';
   }
 
   get breadcrumbs() {
@@ -16,15 +16,15 @@ export default class AnalysisBellwetherPage extends AbstractCustomPage {
     if (!countryEnt) {
       return null;
     }
-    return [<EntLink ent={countryEnt} />, "Analysis", "Bellwether"];
+    return [<EntLink ent={countryEnt} />, 'Analysis', 'Bellwether'];
   }
 
   get title() {
-    return "Bellwethers";
+    return 'Bellwethers';
   }
 
   renderBodyMiddle() {
-    return <WikiSummaryView wikiPageName={"Bellwether"} />;
+    return <WikiSummaryView wikiPageName={'Bellwether'} />;
   }
 
   getSparseMatrix() {
@@ -35,7 +35,7 @@ export default class AnalysisBellwetherPage extends AbstractCustomPage {
       .map(function (ent) {
         const stats = AnalysisBellwether.statsForElectionsAndEnt(
           elections,
-          ent
+          ent,
         );
         return { ent, stats };
       })
@@ -45,7 +45,7 @@ export default class AnalysisBellwetherPage extends AbstractCustomPage {
 
     const sparseMatrix = entsAndStats.reduce(function (
       sparseMatrix,
-      { ent, stats }
+      { ent, stats },
     ) {
       if (!stats) {
         return sparseMatrix;
@@ -54,7 +54,7 @@ export default class AnalysisBellwetherPage extends AbstractCustomPage {
 
       return Object.entries({
         Matches: nMatch,
-        Diff: new Fraction(meanError, 1, { application: "diff" }),
+        Diff: new Fraction(meanError, 1, { application: 'diff' }),
       }).reduce(function (sparseMatrix, [key, value]) {
         return sparseMatrix.push({
           Region: ent,
@@ -70,10 +70,10 @@ export default class AnalysisBellwetherPage extends AbstractCustomPage {
 
   getTitleAndDescription(sparseMatrix) {
     const dataListForMatches = sparseMatrix.dataList.filter(
-      (x) => x.Key === "Matches"
+      (x) => x.Key === 'Matches',
     );
     const best = dataListForMatches[0];
-    const title = "What are the Best #Bellwethers?";
+    const title = 'What are the Best #Bellwethers?';
     const description = (
       <Essay>
         <>
@@ -95,7 +95,7 @@ export default class AnalysisBellwetherPage extends AbstractCustomPage {
     const sparseMatrix = this.getSparseMatrix();
     const { title, description } = this.getTitleAndDescription(sparseMatrix);
     return [
-      <WikiSummaryView wikiPageName={"Bellwether"} />,
+      <WikiSummaryView wikiPageName={'Bellwether'} />,
       <SectionBox title={title} description={description}>
         <MatrixView
           sparseMatrix={sparseMatrix}

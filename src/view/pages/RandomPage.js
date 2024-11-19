@@ -1,4 +1,5 @@
-import { URLContext, Random } from "../../nonview/base";
+import { URLContext, Random } from '../../nonview/base';
+import { AnalysisFloatingVote } from '../../nonview/core';
 import {
   ElectionPage,
   ElectoralDistrictPage,
@@ -8,7 +9,8 @@ import {
   AnalysisFloatingVotePage,
   PartyPage,
   PartyGroupPage,
-} from "../pages";
+} from '../pages';
+import AnalysisDemographicsPage from './analysis/AnalysisDemographicsPage';
 
 export default class RandomPage {
   static getContextList() {
@@ -18,6 +20,8 @@ export default class RandomPage {
       [PollingDivisionPage, 20],
       [CountryPage, 20],
       [AnalysisBellwetherPage, 1],
+      [AnalysisDemographicsPage, 1],
+      [AnalysisFloatingVotePage, 1],
       [AnalysisFloatingVotePage, 1],
       [PartyPage, 1],
       [PartyGroupPage, 1],

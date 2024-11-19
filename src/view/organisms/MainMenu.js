@@ -41,6 +41,10 @@ export default class MainMenu extends Component {
           { pageID: 'AnalysisFloatingVote', title: 'Floating Votes' },
           { pageID: 'AnalysisTurnout', title: 'Turnout' },
           { pageID: 'AnalysisRejected', title: 'Rejected Votes' },
+          {
+            pageID: 'AnalysisDemographics',
+            title: 'Demographics',
+          },
         ]}
         renderItem={renderItem}
       />

@@ -16,6 +16,7 @@ import {
   RandomPage,
   RealTimeResultsPage,
 } from '../pages';
+import AnalysisDemographicsPage from './analysis/AnalysisDemographicsPage';
 
 export default class BasePage extends Component {
   constructor(props) {
@@ -36,6 +37,7 @@ export default class BasePage extends Component {
       AnalysisTurnoutPage,
       AnalysisRejectedPage,
       AnalysisPRPage,
+      AnalysisDemographicsPage,
       PartyPage,
       PartyGroupPage,
       RealTimeResultsPage,

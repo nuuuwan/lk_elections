@@ -43,7 +43,7 @@ export default class PRAnalysis {
     return this.seats.getPartyToSeats('LK');
   }
 
-  get lkRelevantVotes() {
+  getLkRelevantVotes(pLimit) {
     const { election, edEnts } = this;
 
     return edEnts.reduce(function (totalRelevantVotes, edEnt) {
@@ -52,13 +52,17 @@ export default class PRAnalysis {
       const relevantVotesForED = Object.entries(
         result.partyToVotes.partyToVotes,
       ).reduce(function (relevantVotesForED, [partyID, partyVotes]) {
-        if (partyVotes < 0.05 * valid) {
+        if (partyVotes < pLimit * valid) {
           return relevantVotesForED;
         }
         return relevantVotesForED + partyVotes;
       }, 0);
       return totalRelevantVotes + relevantVotesForED;
     }, 0);
+  }
+
+  get lkRelevantVotes() {
+    return this.getLkRelevantVotes(0.05);
   }
 
   get lkEffectiveVotes() {
@@ -97,6 +101,16 @@ export default class PRAnalysis {
       .filter(function (partyID) {
         return lkPartyToVotes[partyID] > 0.002 * lkValid;
       });
+  }
+
+  get mostBonusSeats() {
+    return this.partyIDList.reduce(
+      function (mostBonusSeats, partyID) {
+        const { aSeatsBonus } = this.getDataForParty(partyID);
+        return Math.max(mostBonusSeats, aSeatsBonus);
+      }.bind(this),
+      0,
+    );
   }
 
   getDataForParty(partyID) {
@@ -377,12 +391,61 @@ export default class PRAnalysis {
   }
 
   getSparseMatrix() {
-    let dataListSum = [];
+    let dataList = [];
 
     for (let partyID of this.partyIDList) {
-      dataListSum = [...dataListSum, ...this.getItemsForParty(partyID)];
+      dataList = [...dataList, ...this.getItemsForParty(partyID)];
     }
 
-    return new SparseMatrix([...dataListSum]);
+    return new SparseMatrix(dataList);
+  }
+
+  static getDataListForElection(election, countryEnt, edEnts) {
+    const prAnalysis = new PRAnalysis(election, countryEnt, edEnts);
+    const { mostBonusSeats, lkRelevantVotes, lkValid } = prAnalysis;
+
+    let dataList = [];
+    dataList.push({
+      Election: election,
+      Key: 'Max(Bonus)',
+      Value: new Integer(mostBonusSeats, {
+        application: 'seats',
+      }),
+    });
+    dataList.push({
+      Election: election,
+      Key: '% Relevant',
+      Value: new Fraction(lkRelevantVotes, lkValid, {
+        application: 'votes',
+      }),
+    });
+
+    dataList.push({
+      Election: election,
+      Key: '% Not Relevant',
+      Value: new Fraction(lkValid - lkRelevantVotes, lkValid, {
+        application: 'votes',
+      }),
+    });
+
+    return dataList;
+  }
+
+  static getSparseMatrixForSummary(parliamentaryElections, countryEnt, edEnts) {
+    let dataList = [];
+
+    for (let election of parliamentaryElections) {
+      if (election.year === '2000') {
+        continue;
+      }
+      const dataListForElection = this.getDataListForElection(
+        election,
+        countryEnt,
+        edEnts,
+      );
+      dataList = [...dataList, ...dataListForElection];
+    }
+    console.debug({ dataList });
+    return new SparseMatrix(dataList);
   }
 }

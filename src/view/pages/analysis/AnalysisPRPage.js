@@ -50,6 +50,27 @@ export default class AnalysisPRPage extends AbstractCustomPage {
 
     return (
       <Box>
+        {
+          <SectionBox
+            key={'PRAnalysisSummary'}
+            title={'Summary'}
+            description={
+              'Proportional Representation Disproportionates across Elections.'
+            }
+          >
+            <MatrixView
+              sparseMatrix={PRAnalysis.getSparseMatrixForSummary(
+                parliamentaryElections,
+                countryEnt,
+                edEnts,
+              )}
+              xKey="Key"
+              yKey="Election"
+              zKey="Value"
+              showExpanded={true}
+            />
+          </SectionBox>
+        }
         {parliamentaryElections.reverse().map(function (election) {
           if (election.year === '2000') {
             return null;
